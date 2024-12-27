@@ -27,6 +27,7 @@ public class ForcestartCommand extends XimeCommand {
     public boolean execute(CommandSender sender, String alias, String[] args) {
 
         if (!isPlayer(sender)) return true;
+        if (!hasPermission(sender)) return true;
 
         Profile profile = plugin.getProfileHandler().getProfile((Player) sender);
         ServerHandler serverHandler = plugin.getServerHandler();

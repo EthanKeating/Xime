@@ -107,8 +107,6 @@ public class SGServerable extends Serverable {
     public void setGameState(GameState newState) {
         gameState = newState;
 
-        System.out.println("Set State: " + gameState.getName());
-
         switch(newState) {
             case LOBBY:
                 currentRunnable = new LobbyRunnable(this, plugin); break;

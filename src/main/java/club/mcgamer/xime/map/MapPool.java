@@ -51,8 +51,6 @@ public class MapPool {
             String mapIdentifier = mapIdentifiers.get(loopIndex);
             MapData mapName = allMaps.get(mapIdentifier);
 
-            System.out.println(mapIdentifier + ": "  + mapName.getMapName());
-
             randomMaps.put(mapInt, new VoteableMap(mapIdentifier, mapName, mapInt));
             mapInt++;
         }

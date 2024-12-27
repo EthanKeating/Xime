@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="whitelist">
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/ForcestartCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/ForcestartCommand.java" afterDir="false" />
+    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="permission update">
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/DisguiseCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/DisguiseCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +124,7 @@
       <workItem from="1735178792571" duration="1039000" />
       <workItem from="1735179879095" duration="106000" />
       <workItem from="1735180000050" duration="28631000" />
-      <workItem from="1735265459078" duration="19961000" />
+      <workItem from="1735265459078" duration="20033000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -174,7 +174,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735314583046</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="permission update">
+      <option name="closed" value="true" />
+      <created>1735314794191</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1735314794191</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -195,6 +203,7 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Updates" />
     <MESSAGE value="whitelist" />
-    <option name="LAST_COMMIT_MESSAGE" value="whitelist" />
+    <MESSAGE value="permission update" />
+    <option name="LAST_COMMIT_MESSAGE" value="permission update" />
   </component>
 </project>

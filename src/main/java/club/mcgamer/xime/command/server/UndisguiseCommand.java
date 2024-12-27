@@ -15,6 +15,7 @@ public class UndisguiseCommand extends XimeCommand {
         this.description = "Get a random disguise";
         this.usageMessage = "/disguise";
         this.setAliases(Arrays.asList("ud"));
+        setPermission("xime.donor");
 
         register();
     }

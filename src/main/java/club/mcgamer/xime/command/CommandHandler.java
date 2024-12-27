@@ -14,6 +14,7 @@ public class CommandHandler {
     public CommandHandler(XimePlugin plugin) {
         this.plugin = plugin;
 
+        new WhitelistCommand();
         new MapCommand();
         new JoinCommand();
         new HubCommand();

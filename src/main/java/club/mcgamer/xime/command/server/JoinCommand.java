@@ -1,0 +1,82 @@
+package club.mcgamer.xime.command.server;
+
+import club.mcgamer.xime.command.XimeCommand;
+import club.mcgamer.xime.profile.Profile;
+import club.mcgamer.xime.server.ServerHandler;
+import club.mcgamer.xime.server.Serverable;
+import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.util.TextUtil;
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+public class JoinCommand extends XimeCommand {
+
+    public JoinCommand() {
+        super("join");
+        this.description = "Join a server";
+        this.usageMessage = "/join <game> [id]";
+        this.setAliases(new ArrayList<>());
+
+        register();
+    }
+
+    @Override
+    public boolean execute(CommandSender sender, String alias, String[] args) {
+        if (!isPlayer(sender)) return true;
+        if (!hasArgs(sender, args, 1)) return true;
+        if (!args[0].equalsIgnoreCase("SG")) {
+            sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cUsage: <game> must be a valid game."));
+            return true;
+        }
+
+        Profile profile = plugin.getProfileHandler().getProfile((Player) sender);
+        ServerHandler serverHandler = plugin.getServerHandler();
+
+        if (args.length > 1) {
+
+            if (!StringUtils.isNumeric(args[1])) {
+                sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThis server is offline or does not exist."));
+                return true;
+            }
+
+            int id = Integer.parseInt(args[1]);
+            Optional<Serverable> serverableOptional = serverHandler.getServerList().stream()
+                    .filter(serverable -> serverable instanceof SGServerable)
+                    .filter(serverable -> serverable.getServerId() == id)
+                    .findFirst();
+
+            if (!serverableOptional.isPresent()) {
+                sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThis server is offline or does not exist."));
+                return true;
+            }
+
+            serverableOptional.get().add(profile);
+            return true;
+        }
+
+        // Sort by player count in ascending order
+        Optional<SGServerable> serverableOptional = serverHandler.getServerList().stream()
+                .filter(serverable -> serverable instanceof SGServerable)
+                .map(serverable -> (SGServerable) serverable)
+                .filter(serverable -> serverable.getPlayerList().size() < serverable.getMaxPlayers()).min(Comparator
+                        .comparingInt((SGServerable serverable) -> serverable.getPlayerList().size()) // Sort by player count in ascending order
+                        .reversed()
+                        .thenComparing(SGServerable::getGameState).reversed());
+
+        if (!serverableOptional.isPresent()) {
+            sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThis server is offline or does not exist."));
+            return true;
+        }
+
+        serverableOptional.get().add(profile);
+        return true;
+    }
+
+}

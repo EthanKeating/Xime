@@ -1,0 +1,8 @@
+name: Xime
+main: club.mcgamer.xime.XimePlugin
+description: All-in-one server suite for MCGamer.club
+authors: [Eths]
+version: 5.0
+depend:
+  - packetevents
+  - SlimeWorldManager

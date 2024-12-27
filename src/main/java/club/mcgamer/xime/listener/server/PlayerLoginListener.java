@@ -27,7 +27,7 @@ public class PlayerLoginListener extends IListener {
                 "\n&6https://discord.gg/Twyqpa8tqZ");
 
 
-        if (!player.hasPermission("mcgamer.admin")) {
+        if (plugin.getServerHandler().isWhitelisted() && !player.hasPermission("mcgamer.admin")) {
             event.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, disallowMessage);
         }
     }

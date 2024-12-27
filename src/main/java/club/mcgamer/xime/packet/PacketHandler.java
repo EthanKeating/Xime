@@ -68,7 +68,8 @@ public class PacketHandler extends PacketListenerAbstract {
 
 /*            if (CommandLockdown.LOCKDOWN_ENABLED)
                 object.add("version", versionObject);*/
-            object.add("version", versionObject);
+            if (plugin.getServerHandler().isWhitelisted())
+                object.add("version", versionObject);
             object.add("players", playersObject);
             wrappedPacket.setComponent(object);
 

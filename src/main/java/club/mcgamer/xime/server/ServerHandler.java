@@ -5,6 +5,7 @@ import club.mcgamer.xime.hub.HubServerable;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.util.TextUtil;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ public class ServerHandler {
 
     private final XimePlugin plugin;
     @Getter private final List<Serverable> serverList = new ArrayList<>();
+
+    @Getter @Setter private boolean isWhitelisted = true;
 
     public ServerHandler(XimePlugin plugin) {
         this.plugin = plugin;

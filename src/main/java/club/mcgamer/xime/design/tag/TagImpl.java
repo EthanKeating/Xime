@@ -1,7 +1,6 @@
 package club.mcgamer.xime.design.tag;
 
 import club.mcgamer.xime.util.TextUtil;
-import com.github.retrooper.packetevents.util.ColorUtil;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerTeams;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

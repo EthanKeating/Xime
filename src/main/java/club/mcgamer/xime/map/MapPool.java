@@ -12,7 +12,11 @@ public class MapPool {
 
     //Where maps are fundamentally added to the sg gamemode
     private static final List<String> mapIdentifiers = Arrays.asList(
-            "Par_72"
+            "Par_72",
+            "Green_Grass",
+            "Demons_Breeze",
+            "Icarus_Fallen",
+            "Valleyside_University"
     );
 
     @Getter private static final HashMap<String, MapData> allMaps = new HashMap<>();

@@ -2,7 +2,6 @@ package club.mcgamer.xime.world.impl;
 
 import club.mcgamer.xime.XimePlugin;
 import com.grinderwolf.swm.api.SlimePlugin;
-import com.grinderwolf.swm.api.loaders.SlimeLoader;
 import com.grinderwolf.swm.api.world.SlimeWorld;
 import lombok.Getter;
 import lombok.Setter;

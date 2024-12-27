@@ -6,7 +6,6 @@ import club.mcgamer.xime.server.event.ServerJoinEvent;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.ItemBuilder;
 import club.mcgamer.xime.util.PlayerUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
 
 @RequiredArgsConstructor
 public class ServerAirInteractEvent extends Event {

@@ -1,12 +1,10 @@
 package club.mcgamer.xime.listener.sg;
 
 import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.server.event.ServerBreakBlockEvent;
 import club.mcgamer.xime.server.event.ServerPickupItemEvent;
 import club.mcgamer.xime.server.event.ServerPlaceBlockEvent;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.util.IListener;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 

@@ -4,5 +4,6 @@ description: All-in-one server suite for MCGamer.club
 authors: [Eths]
 version: 5.0
 depend:
+  - Apollo-Bukkit
   - packetevents
   - SlimeWorldManager

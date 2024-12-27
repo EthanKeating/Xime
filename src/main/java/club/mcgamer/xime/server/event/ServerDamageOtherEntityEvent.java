@@ -8,7 +8,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 
 @RequiredArgsConstructor
 public class ServerDamageOtherEntityEvent extends Event {

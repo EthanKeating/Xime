@@ -3,6 +3,7 @@ package club.mcgamer.xime.sg.runnable;
 import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.map.MapData;
 import club.mcgamer.xime.map.MapLocation;
+import club.mcgamer.xime.map.VoteableMap;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
@@ -12,10 +13,8 @@ import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.util.MathUtil;
 import club.mcgamer.xime.util.Pair;
 import club.mcgamer.xime.util.PlayerUtil;
-import org.bukkit.Difficulty;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,11 +34,13 @@ public class PreGameRunnable extends AbstractGameRunnable {
 
         gameTimer.setTime(gameSettings.getPreGameLength());
 
-        String templateName = "Par_72";
+        VoteableMap mapWinner = serverable.getMapPool().complete();
+        MapData mapData = mapWinner.getMapData();
 
-        serverable.setWorld(serverable.toString(), templateName);
+        serverable.setMapWinner(mapWinner);
+        serverable.setMapData(mapData);
 
-        MapData mapData = MapData.load(templateName);
+        serverable.setWorld(serverable.toString(), mapWinner.getMapIdentifier());
         if (mapData.getDmCenterLocation() == null)
             mapData.setDmCenterLocation(mapData.getCenterLocation());
         if (mapData.getDmLocations().isEmpty())
@@ -73,6 +74,13 @@ public class PreGameRunnable extends AbstractGameRunnable {
             PlayerUtil.refresh(profile);
         }
 
+        MapData mapData = serverable.getMapData();
+
+        serverable.announce(String.format("&eMap name&8: &2%s", mapData.getMapName()));
+        serverable.announce(String.format("&eMap author&8: &2%s", mapData.getMapAuthor()));
+        serverable.announce(String.format("&eMap link&8: &2%s", mapData.getMapLink()));
+        serverable.announceTitle("&2" + mapData.getMapName(), "&6by " + mapData.getMapAuthor(), 5, 50, 10);
+
     }
 
     public void run() {
@@ -84,15 +92,18 @@ public class PreGameRunnable extends AbstractGameRunnable {
         }
 
         if (currentTime == gameTimer.getInitialTime()) {
-            Pair<Integer, String> sigUnit = gameTimer.toSignificantUnit();
+
+            Pair<String, String> sigUnit = gameTimer.toSignificantUnit();
             serverable.announce(String.format("&cPlease wait &8[&e%s&8] &c%s before the games begin.",
                     sigUnit.getKey(),
                     sigUnit.getValue()));
         }
 
-        if (currentTime <= 5 || currentTime == 10 || currentTime == 30) {
-            Pair<Integer, String> significantUnit = gameTimer.toSignificantUnit();
+        if (currentTime <= 10)
+            serverable.announceTitle("", "&6" + currentTime , 2, 16, 2);
 
+        if (currentTime <= 5 || currentTime == 10 || currentTime == 30) {
+            Pair<String, String> significantUnit = gameTimer.toSignificantUnit();
             serverable.announce(String.format("&8[&e%s&8] &c%s until the games begin!",
                     significantUnit.getKey(),
                     significantUnit.getValue()));

@@ -4,8 +4,6 @@ import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.profile.ProfileHandler;
 import club.mcgamer.xime.server.ServerHandler;
-import club.mcgamer.xime.server.Serverable;
-import club.mcgamer.xime.server.event.ServerLoadEvent;
 import club.mcgamer.xime.world.generator.EmptyChunkGenerator;
 import club.mcgamer.xime.world.impl.WorldQueue;
 import com.grinderwolf.swm.api.SlimePlugin;
@@ -19,14 +17,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import org.bukkit.entity.Slime;
-import org.bukkit.event.world.WorldInitEvent;
 
 import java.io.File;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class WorldHandler {
     private final XimePlugin plugin;

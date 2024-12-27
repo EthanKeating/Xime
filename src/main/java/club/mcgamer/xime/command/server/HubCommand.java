@@ -7,6 +7,7 @@ import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.util.TextUtil;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -48,11 +49,17 @@ public class HubCommand extends XimeCommand {
                 return true;
             }
 
-            serverableOptional.get().add(profile);
+            Serverable serverable = serverableOptional.get();
+
+            profile.sendMessage(String.format("&8[&3Xime&8] &fConnecting you to &2%s &6(EU)&f..", serverable.toString()));
+            Bukkit.getScheduler().runTaskLater(plugin, () -> serverable.add(profile), 1);
             return true;
         }
 
-        serverHandler.getFallback().add(profile);
+        Serverable serverable = serverHandler.getFallback();
+
+        profile.sendMessage(String.format("&8[&3Xime&8] &fConnecting you to &2%s &6(EU)&f..", serverable.toString()));
+        Bukkit.getScheduler().runTaskLater(plugin, () -> serverable.add(profile), 1);
         return true;
     }
 

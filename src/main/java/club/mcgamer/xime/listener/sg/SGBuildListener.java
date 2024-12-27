@@ -1,11 +1,9 @@
 package club.mcgamer.xime.listener.sg;
 
 import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.server.event.ServerAirInteractEvent;
 import club.mcgamer.xime.server.event.ServerBreakBlockEvent;
 import club.mcgamer.xime.server.event.ServerPlaceBlockEvent;
 import club.mcgamer.xime.sg.SGServerable;
-import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.util.IListener;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -44,8 +42,8 @@ public class SGBuildListener extends IListener {
                         case RED_ROSE:
                             return;
                     }
-                    event.getEvent().setCancelled(true);
             }
+            event.getEvent().setCancelled(true);
         }
     }
 
@@ -79,8 +77,8 @@ public class SGBuildListener extends IListener {
                         case DEAD_BUSH:
                             return;
                     }
-                    event.getEvent().setCancelled(true);
             }
+            event.getEvent().setCancelled(true);
         }
     }
 }

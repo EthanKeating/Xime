@@ -1,26 +1,19 @@
 package club.mcgamer.xime.listener.sg;
 
 import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.server.event.ServerJoinEvent;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.MathUtil;
-import club.mcgamer.xime.util.PlayerUtil;
 import com.github.retrooper.packetevents.protocol.teleport.RelativeFlag;
 import com.github.retrooper.packetevents.util.Vector3d;
-import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerEntityTeleport;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerEntityVelocity;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerPlayerPositionAndLook;
-import net.minecraft.server.v1_8_R3.PacketPlayOutEntityTeleport;
-import net.minecraft.server.v1_8_R3.PacketPlayOutPosition;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
-
-import java.util.Arrays;
 
 public class SGMoveListener extends IListener {
 
@@ -47,11 +40,11 @@ public class SGMoveListener extends IListener {
                     profile.getUser().sendPacket(new WrapperPlayServerEntityVelocity(player.getEntityId(), new Vector3d(0.0, 0.0, 0.0)));
                     profile.getUser().sendPacket(new WrapperPlayServerPlayerPositionAndLook(
                             new Vector3d(pedistalLocation.getX(),
-                                0.0,
+                                pedistalLocation.getY(),
                                 pedistalLocation.getZ()),
                             0f,
                             0f,
-                            (byte) (RelativeFlag.YAW.getMask() | RelativeFlag.PITCH.getMask() | RelativeFlag.Y.getMask()),
+                            (byte) (RelativeFlag.YAW.getMask() | RelativeFlag.PITCH.getMask()),
                             -1));
                     profile.getUser().flushPackets();
                 }

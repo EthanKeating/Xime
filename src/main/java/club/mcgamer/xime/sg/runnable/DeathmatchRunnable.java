@@ -10,7 +10,6 @@ import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.util.Pair;
 import lombok.Getter;
 import org.bukkit.Location;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class DeathmatchRunnable extends AbstractGameRunnable {
 
@@ -45,7 +44,7 @@ public class DeathmatchRunnable extends AbstractGameRunnable {
     public void run() {
         int currentTime = gameTimer.decrement();
 
-        Pair<Integer, String> sigUnit = gameTimer.toSignificantUnit();
+        Pair<String, String> sigUnit = gameTimer.toSignificantUnit();
 
         int seconds = gameTimer.getSeconds();
         int minutes = gameTimer.getMinutes();

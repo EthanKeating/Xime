@@ -5,6 +5,8 @@ import club.mcgamer.xime.profile.ProfileHandler;
 import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.TextUtil;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerPlayerListHeaderAndFooter;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,6 +35,13 @@ public class PlayerJoinListener extends IListener {
         if (profile.getServerable() == null) {
             player.kickPlayer(TextUtil.translate("&cCould not locate a server for you!"));
         }
+
+        WrapperPlayServerPlayerListHeaderAndFooter headerAndFooter = new WrapperPlayServerPlayerListHeaderAndFooter(
+                Component.text(TextUtil.translate("&aYou are playing on the &6MCGamer Network&a! &eeu.mcgamer.net")),
+                Component.text(TextUtil.translate("&aVisit our store at &eshop.mcgamer.club&a!")));
+
+        profile.getUser().sendPacket(headerAndFooter);
+        profile.getUser().flushPackets();
     }
 
 

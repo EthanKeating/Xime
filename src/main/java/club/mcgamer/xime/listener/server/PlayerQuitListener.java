@@ -20,6 +20,8 @@ public class PlayerQuitListener extends IListener {
 
         profile.getServerable().remove(profile);
         profileHandler.removeProfile(player);
+
+        plugin.getDisguiseHandler().getDisguises().remove(player.getUniqueId());
     }
 
 

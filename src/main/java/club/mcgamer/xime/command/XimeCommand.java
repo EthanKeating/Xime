@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
+import org.bukkit.entity.Player;
 
 public abstract class XimeCommand extends BukkitCommand {
 
@@ -46,6 +47,14 @@ public abstract class XimeCommand extends BukkitCommand {
             return false;
         }
         return true;
+    }
+
+    public Player isPlayer(CommandSender commandSender, String argument) {
+        Player argumentPlayer = Bukkit.getPlayer(argument);
+        if (argumentPlayer == null) {
+            commandSender.sendMessage(TextUtil.translate("That player is not online!"));
+        }
+        return argumentPlayer;
     }
 
     public boolean hasArgs(CommandSender commandSender, String[] args, int argumentRequirement) {

@@ -12,7 +12,6 @@ import club.mcgamer.xime.util.MathUtil;
 import club.mcgamer.xime.util.Pair;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +56,7 @@ public class PreDeathmatchRunnable extends AbstractGameRunnable {
 
     public void run() {
         int currentTime = gameTimer.decrement();
-        Pair<Integer, String> sigUnit = gameTimer.toSignificantUnit();
+        Pair<String, String> sigUnit = gameTimer.toSignificantUnit();
 
         if (currentTime == 0) {
             cancel();

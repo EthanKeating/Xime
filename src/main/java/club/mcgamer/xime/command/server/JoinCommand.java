@@ -7,14 +7,13 @@ import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.util.TextUtil;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class JoinCommand extends XimeCommand {
 
@@ -57,7 +56,10 @@ public class JoinCommand extends XimeCommand {
                 return true;
             }
 
-            serverableOptional.get().add(profile);
+            Serverable serverable = serverableOptional.get();
+            profile.sendMessage(String.format("&8[&3Xime&8] &fConnecting you to &2%s &6(EU)&f..", serverable.toString()));
+            Bukkit.getScheduler().runTaskLater(plugin, () -> serverable.add(profile), 1);
+
             return true;
         }
 
@@ -75,7 +77,9 @@ public class JoinCommand extends XimeCommand {
             return true;
         }
 
-        serverableOptional.get().add(profile);
+        Serverable serverable = serverableOptional.get();
+        profile.sendMessage(String.format("&8[&3Xime&8] &fConnecting you to &2%s &6(EU)&f..", serverable.toString()));
+        Bukkit.getScheduler().runTaskLater(plugin, () -> serverable.add(profile), 1);
         return true;
     }
 

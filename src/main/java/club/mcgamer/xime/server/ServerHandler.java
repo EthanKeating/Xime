@@ -46,9 +46,9 @@ public class ServerHandler {
 
     public void announce(String message) {
         String finalMessage = TextUtil.translate("&7[&eServer Handler&7] &f" + message);
-        Bukkit.getOnlinePlayers().stream()
-                .filter(player -> player.hasPermission("admin"))
-                .forEach(player -> player.sendMessage(finalMessage));
+//        Bukkit.getOnlinePlayers().stream()
+//                .filter(player -> player.hasPermission("admin"))
+//                .forEach(player -> player.sendMessage(finalMessage));
 
         Bukkit.getServer().getConsoleSender().sendMessage(finalMessage);
     }

@@ -2,6 +2,7 @@ package club.mcgamer.xime.util;
 
 import club.mcgamer.xime.profile.Profile;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerChangeGameState;
+import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
 import lombok.experimental.UtilityClass;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -9,7 +10,6 @@ import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.util.Vector;
 
 import java.text.DecimalFormat;
 
@@ -24,7 +24,7 @@ public class PlayerUtil {
 
         player.setFlying(false);
         player.setMaximumNoDamageTicks(19);
-        player.setSaturation(20f);
+        player.setSaturation(10f);
         player.setAllowFlight(false);
         player.setFoodLevel(20);
         player.setHealth(20f);

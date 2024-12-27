@@ -4,6 +4,8 @@ package club.mcgamer.xime.sg.timer;
 import club.mcgamer.xime.util.Pair;
 import lombok.Getter;
 
+import java.text.DecimalFormat;
+
 @Getter
 public class GameTimer {
 
@@ -32,12 +34,16 @@ public class GameTimer {
         return String.format("%d:%02d", currentTime / 60, currentTime % 60);
     }
 
-    public Pair<Integer, String> toSignificantUnit() {
+    public Pair<String, String> toSignificantUnit() {
         if (currentTime <= 60)
-            return new Pair<>(currentTime, currentTime == 1 ? "second" : "seconds");
+            return new Pair<>(currentTime + "", currentTime == 1 ? "second" : "seconds");
 
+        DecimalFormat minuteFormat = new DecimalFormat("#.#");
         int minutes = currentTime / 60;
-        return new Pair<>(minutes, minutes == 1 ? "minute" : "minutes");
+        int seconds = currentTime % 60;
+
+        double total = minutes + (seconds / 60.0);
+        return new Pair<>(minuteFormat.format(total), "minutes");
     }
 
     public int getMinutes() {

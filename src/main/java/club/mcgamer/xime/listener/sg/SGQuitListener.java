@@ -1,15 +1,11 @@
 package club.mcgamer.xime.listener.sg;
 
-import club.mcgamer.xime.map.MapData;
 import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.server.event.ServerJoinEvent;
 import club.mcgamer.xime.server.event.ServerQuitEvent;
 import club.mcgamer.xime.sg.SGServerable;
-import club.mcgamer.xime.sg.runnable.LobbyRunnable;
+import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.util.IListener;
-import club.mcgamer.xime.util.PlayerUtil;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 
@@ -23,10 +19,14 @@ public class SGQuitListener extends IListener {
             Player player = profile.getPlayer();
 
             GameState gameState = serverable.getGameState();
-            serverable.announceRaw(String.format("&2%s &6has left", profile.getDisplayName()));
+            GameSettings gameSettings = serverable.getGameSettings();
+
+            if (!gameSettings.isSilentJoinLeave())
+                serverable.announceRaw(String.format("&2%s &6has left&8.", profile.getDisplayName()));
 
             switch (gameState) {
                 case LOBBY:
+                    serverable.getMapPool().removeVote(profile);
                     break;
                 case PREGAME:
                 case LIVEGAME:

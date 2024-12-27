@@ -3,27 +3,28 @@ package club.mcgamer.xime.sg.runnable;
 import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.map.MapData;
 import club.mcgamer.xime.map.MapPool;
+import club.mcgamer.xime.map.VoteableMap;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.util.Pair;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class LobbyRunnable extends AbstractGameRunnable {
 
     private final XimePlugin plugin;
     private final SGServerable serverable;
-    private final GameTimer gameTimer;
+    private final GameTimer gameTimer = new GameTimer();
+    private final GameSettings gameSettings = new GameSettings();
 
-    private final MapPool mapPool;
 
     public LobbyRunnable(SGServerable serverable, XimePlugin plugin) {
         this.plugin = plugin;
         this.serverable = serverable;
-        this.gameTimer = serverable.getGameTimer();
-        this.mapPool = new MapPool();
+        serverable.setGameSettings(this.gameSettings);
+        serverable.setGameTimer(this.gameTimer);
+        serverable.setMapPool(new MapPool());
 
         GameSettings gameSettings = serverable.getGameSettings();
 
@@ -32,11 +33,21 @@ public class LobbyRunnable extends AbstractGameRunnable {
     }
 
     public void run() {
+        int playerCount = serverable.getPlayerList().size();
+
+        if (playerCount == 0) {
+            gameTimer.reset();
+            return;
+        }
+
         int currentTime = gameTimer.decrement();
 
-        GameSettings gameSettings = serverable.getGameSettings();
         if (currentTime == 0) {
-            if (gameSettings.getMinimumPlayers() > serverable.getPlayerList().size()) {
+            if (gameSettings.getMinimumPlayers() > playerCount) {
+                String notEnoughPlayers = "&4Not enough players, timer reset.";
+
+                serverable.announce(notEnoughPlayers);
+                serverable.announceTitle("", notEnoughPlayers, 10, 30, 10);
                 gameTimer.reset();
                 return;
             }
@@ -45,8 +56,8 @@ public class LobbyRunnable extends AbstractGameRunnable {
         }
 
 
-        if (currentTime <= 5 || currentTime == 10 || currentTime == 30 || currentTime % 60 == 0) {
-            Pair<Integer, String> significantUnit = gameTimer.toSignificantUnit();
+        if (currentTime <= 5 || currentTime == 10 || currentTime % 30 == 0) {
+            Pair<String, String> significantUnit = gameTimer.toSignificantUnit();
 
             serverable.announce(String.format("&8[&e%s&8] &c%s until lobby ends!", significantUnit.getKey(), significantUnit.getValue()));
         }
@@ -57,7 +68,7 @@ public class LobbyRunnable extends AbstractGameRunnable {
     }
 
     public void sendVotes(Profile profile) {
-        mapPool.getRandomMaps().forEach((id, voteableMap) -> {
+        serverable.getMapPool().getRandomMaps().forEach((id, voteableMap) -> {
             MapData mapData = voteableMap.getMapData();
 
             profile.sendMessage(String.format(
@@ -71,6 +82,7 @@ public class LobbyRunnable extends AbstractGameRunnable {
 
     public void cancel() {
         super.cancel();
+
         serverable.setGameState(GameState.PREGAME);
 
         //Teleport players once map is loaded

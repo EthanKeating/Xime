@@ -1,13 +1,9 @@
 package club.mcgamer.xime.sg.data;
 
-import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.data.TemporaryData;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Location;
-
-import java.util.UUID;
 
 @Getter @Setter
 public class SGTemporaryData extends TemporaryData {

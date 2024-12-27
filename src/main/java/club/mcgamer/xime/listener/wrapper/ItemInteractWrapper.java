@@ -5,7 +5,6 @@ import club.mcgamer.xime.server.event.ServerAirInteractEvent;
 import club.mcgamer.xime.server.event.ServerItemInteractEvent;
 import club.mcgamer.xime.util.IListener;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;

@@ -11,6 +11,7 @@ import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
+import lombok.Getter;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
@@ -18,7 +19,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Firework;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 
@@ -28,7 +28,7 @@ public class CleanupRunnable extends AbstractGameRunnable {
     private final SGServerable serverable;
     private final GameTimer gameTimer;
 
-    private final Optional<Profile> gameWinner;
+    @Getter private final Optional<Profile> gameWinner;
 
     public CleanupRunnable(SGServerable serverable, XimePlugin plugin) {
         this.plugin = plugin;

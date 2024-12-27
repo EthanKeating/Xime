@@ -1,10 +1,13 @@
 package club.mcgamer.xime.sg;
 
 import club.mcgamer.xime.map.MapData;
+import club.mcgamer.xime.map.MapPool;
+import club.mcgamer.xime.map.VoteableMap;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.server.data.TemporaryData;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
+import club.mcgamer.xime.sg.design.bossbar.SGBossbarAdapter;
 import club.mcgamer.xime.sg.design.sidebar.SGSidebarAdapter;
 import club.mcgamer.xime.sg.runnable.*;
 import club.mcgamer.xime.sg.settings.GameSettings;
@@ -14,18 +17,13 @@ import club.mcgamer.xime.util.PlayerUtil;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
-import net.minecraft.server.v1_8_R3.AxisAlignedBB;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.UUID;
 
 @Getter
 public class SGServerable extends Serverable {
@@ -35,15 +33,17 @@ public class SGServerable extends Serverable {
     @Setter private Location lobbyLocation;
 
     private AbstractGameRunnable currentRunnable;
-    private final GameTimer gameTimer = new GameTimer();
-    private final GameSettings gameSettings = new GameSettings();
+    @Setter private GameTimer gameTimer;
+    @Setter private GameSettings gameSettings;
     private GameState gameState;
 
-    @Getter private final ArrayList<Profile> tributeList = new ArrayList<>();
-    @Getter private final ArrayList<Profile> spectatorList = new ArrayList<>();
-    @Getter private final ArrayList<String> fallenTributes = new ArrayList<>();
+    private final ArrayList<Profile> tributeList = new ArrayList<>();
+    private final ArrayList<Profile> spectatorList = new ArrayList<>();
+    private final ArrayList<String> fallenTributes = new ArrayList<>();
 
+    @Setter private MapPool mapPool;
     @Setter private MapData mapData;
+    @Setter private VoteableMap mapWinner;
 
     public SGServerable() {
         super();
@@ -51,6 +51,7 @@ public class SGServerable extends Serverable {
         setup();
 
         setSidebarAdapter(new SGSidebarAdapter());
+        setBossbarAdapter(new SGBossbarAdapter());
     }
 
     public TemporaryData createTemporaryData() {
@@ -71,10 +72,8 @@ public class SGServerable extends Serverable {
         tributeList.clear();
         spectatorList.clear();
 
-        new ArrayList<>(getPlayerList()).forEach(profile -> {
-            remove(profile);
-            add(profile);
-        });
+        gameSettings.setSilentJoinLeave(true);
+        new ArrayList<>(getPlayerList()).forEach(this::add);
 
         Bukkit.unloadWorld(toString(), false);
     }
@@ -156,6 +155,10 @@ public class SGServerable extends Serverable {
         getPlayerList().stream()
                 .map(Profile::getPlayer)
                 .forEach(player -> player.playSound(player.getLocation(), sound, volume, pitch));
+    }
+
+    public void announceTitle(String title, String subTitle, int fadeIn, int duration, int fadeOut) {
+        getPlayerList().forEach(profile -> profile.sendTitle(title, subTitle, fadeIn, duration, fadeOut));
     }
 
 }

@@ -16,7 +16,6 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Chest;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class LiveGameRunnable extends AbstractGameRunnable {
 
@@ -47,7 +46,7 @@ public class LiveGameRunnable extends AbstractGameRunnable {
         int minutes = gameTimer.getMinutes();
         int seconds = gameTimer.getSeconds();
 
-        Pair<Integer, String> sigUnit = gameTimer.toSignificantUnit();
+        Pair<String, String> sigUnit = gameTimer.toSignificantUnit();
 
         //Switch to predeathmatch
         if (currentTime == 0) {

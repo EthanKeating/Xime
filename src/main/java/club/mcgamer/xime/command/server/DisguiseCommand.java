@@ -24,6 +24,9 @@ public class DisguiseCommand extends XimeCommand {
     @Override
     public boolean execute(CommandSender sender, String alias, String[] args) {
 
+        if (!isPlayer(sender)) return true;
+        if (!hasPermission(sender)) return true;
+
         Profile profile = plugin.getProfileHandler().getProfile((Player) sender);
         Player player = profile.getPlayer();
 

@@ -1,11 +1,15 @@
 package club.mcgamer.xime.profile;
 
+import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.design.bossbar.BossbarImpl;
 import club.mcgamer.xime.design.sidebar.SidebarImpl;
 import club.mcgamer.xime.disguise.DisguiseData;
 import club.mcgamer.xime.profile.impl.CombatTagData;
+import club.mcgamer.xime.profile.impl.GeoLocationData;
+import club.mcgamer.xime.rank.impl.Rank;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.server.data.TemporaryData;
+import club.mcgamer.xime.util.DisguiseUtil;
 import club.mcgamer.xime.util.Skin;
 import club.mcgamer.xime.util.TextUtil;
 import com.github.retrooper.packetevents.PacketEvents;
@@ -39,6 +43,8 @@ public class Profile {
     private final User user;
     private final Skin skin;
 
+    private Rank rank;
+
     @Setter private Serverable serverable;
 
     private final SidebarImpl sidebarImpl;
@@ -46,37 +52,28 @@ public class Profile {
 
     @Setter private TemporaryData temporaryData;
     private final CombatTagData combatTagData;
+    private GeoLocationData geoLocationData;
     @Setter private DisguiseData disguiseData;
+
     private final boolean legacy;
 
     public Profile(final UUID uuid) {
         this.uuid = uuid;
+        this.user = PacketEvents.getAPI()
+                .getProtocolManager()
+                .getUser(SpigotReflectionUtil.getChannel(getPlayer()));
+        this.legacy = user.getClientVersion().getProtocolVersion() == 5;
 
-        this.user = PacketEvents.getAPI().getProtocolManager().getUser(
-                SpigotReflectionUtil.getChannel(getPlayer())
-        );
+        this.sidebarImpl = new SidebarImpl(this);
+        this.bossbarImpl = new BossbarImpl(this);
+        this.combatTagData = new CombatTagData();
 
-        legacy = user
-                .getClientVersion()
-                .getProtocolVersion() == 5;
+        this.skin = DisguiseUtil.getSkin(getPlayer());
 
-        sidebarImpl = new SidebarImpl(this);
-        bossbarImpl = new BossbarImpl(this);
-
-        combatTagData = new CombatTagData();
-
-        EntityPlayer playerNMS = ((CraftPlayer) getPlayer()).getHandle();
-        GameProfile profile = playerNMS.getProfile();
-        if (profile.getProperties().get("textures").iterator().hasNext()) {
-            Property property = profile.getProperties().get("textures").iterator().next();
-
-            this.skin = new Skin(
-                    property.getValue(),
-                    property.getSignature()
-            );
-        } else {
-            this.skin = Skin.DEAD;
-        }
+        //TODO: make this better add the async task in the data population, and auto populate every field with default data
+        Bukkit.getScheduler().runTaskAsynchronously(XimePlugin.getProvidingPlugin(XimePlugin.class), () -> {
+            geoLocationData = new GeoLocationData(getPlayer().getAddress().getAddress());
+        });
     }
 
     public Player getPlayer() {

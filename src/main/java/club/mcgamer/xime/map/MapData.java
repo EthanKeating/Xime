@@ -19,9 +19,9 @@ import java.util.List;
 @Setter
 public class MapData {
 
-    private String mapName = "Default Map Name";
-    private String mapAuthor = "Default Map Author";
-    private String mapLink = "Default Map Link";
+    private String mapName = "N/A";
+    private String mapAuthor = "N/A";
+    private String mapLink = "N/A";
 
     private final List<MapLocation> tier1Locations = new ArrayList<>();
     private final List<MapLocation> tier2Locations = new ArrayList<>();

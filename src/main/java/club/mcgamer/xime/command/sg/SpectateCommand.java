@@ -33,6 +33,10 @@ public class SpectateCommand extends XimeCommand {
         SGServerable serverable = (SGServerable) profile.getServerable();
         SGTemporaryData temporaryData = (SGTemporaryData) profile.getTemporaryData();
 
+        if(!serverable.getSpectatorList().contains(profile)) {
+            profile.sendMessage("&8[&6MCSG&8] &cYou can only use this command as a spectator.");
+            return true;
+        }
         if (temporaryData.getPreviousSpectateIndex() > serverable.getTributeList().size() - 1)
             temporaryData.setPreviousSpectateIndex(0);
 

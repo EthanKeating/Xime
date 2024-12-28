@@ -7,6 +7,7 @@ import club.mcgamer.xime.listener.ListenerHandler;
 import club.mcgamer.xime.menu.MenuHandler;
 import club.mcgamer.xime.packet.PacketHandler;
 import club.mcgamer.xime.profile.ProfileHandler;
+import club.mcgamer.xime.rank.RankHandler;
 import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.world.WorldHandler;
 import com.github.retrooper.packetevents.PacketEvents;
@@ -29,6 +30,7 @@ public class XimePlugin extends JavaPlugin {
     private CommandHandler commandHandler;
     private DisguiseHandler disguiseHandler;
     private MenuHandler menuHandler;
+    private RankHandler rankHandler;
     private SlimePlugin slimePlugin;
 
     public void onLoad() {
@@ -47,6 +49,7 @@ public class XimePlugin extends JavaPlugin {
         worldHandler = new WorldHandler(this);
         commandHandler = new CommandHandler(this);
         disguiseHandler = new DisguiseHandler(this);
+        rankHandler = new RankHandler(this);
         menuHandler = new MenuHandler(this);
 
         new ListenerHandler();

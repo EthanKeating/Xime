@@ -13,8 +13,11 @@ import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import net.kyori.adventure.text.Component;
+import net.minecraft.server.v1_8_R3.EntityPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.entity.Player;
 
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
@@ -46,6 +49,15 @@ public class DisguiseUtil {
         String signature = properties.get("signature").getAsString();
         gameProfile.getProperties().removeAll("textures");
         gameProfile.getProperties().put("textures", new Property("textures", texture, signature));
+    }
+
+    public Skin getSkin(Player player) {
+        GameProfile profile = ((CraftPlayer) player).getHandle().getProfile();
+        if (profile.getProperties().get("textures").iterator().hasNext()) {
+            Property property = profile.getProperties().get("textures").iterator().next();
+            return new Skin(property.getValue(), property.getSignature());
+        }
+        return Skin.DEAD;
     }
 
     @SneakyThrows
@@ -205,11 +217,11 @@ public class DisguiseUtil {
             );
     private static final List<String> randomNumbers = Arrays.asList(
             "1", "7", "9", "10", "11", "22", "33", "44", "55", "69", "77", "88", "99",
-            "101", "123", "321", "420", "666", "777", "888", "999", "1990", "1995",
-            "2000", "2001", "2023", "111", "222", "333", "444", "555", "1234", "4321",
-            "2468", "007", "1337", "808", "909", "1111", "2222", "6969", "9999", "2024",
-            "141", "515", "818", "303", "606", "9090", "3000", "4444", "5555", "313",
-            "12345", "54321", "100", "250", "400", "750", "8888", "99999", "1010"
+            "101", "123", "321", "14", "15", "78", "87", "85", "1990", "1995",
+            "34", "51", "2023", "111", "222", "333", "444", "555", "123", "321",
+            "55", "007", "1337", "808", "909", "5", "7", "1", "9999", "2024",
+            "77", "515", "818", "303", "606", "99", "8", "7", "03", "313",
+            "007", "22", "2003", "250", "400", "750", "88", "99", "10"
     );
 
 }

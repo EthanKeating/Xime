@@ -15,8 +15,6 @@ import java.util.List;
 
 public class HubSidebarAdapter extends SidebarAdapter {
 
-    private final String[] timeFormats = new String[3];
-
     @Getter private final int updateRate = 10;
 
     @Override
@@ -27,6 +25,15 @@ public class HubSidebarAdapter extends SidebarAdapter {
     @Override
     public List<String> getLines(Profile profile) {
         Serverable serverable = profile.getServerable();
+
+        final String[] timeFormats = new String[3];
+        ZonedDateTime dateTimeUser = ZonedDateTime.now(profile.getGeoLocationData() == null
+                ? ZoneId.of("UTC") : profile.getGeoLocationData().getTimeZone());
+        ZonedDateTime dateTimeLocal = ZonedDateTime.now(ZoneId.of("UTC"));
+
+        timeFormats[0] = dateTimeUser.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
+        timeFormats[1] = dateTimeUser.format(DateTimeFormatter.ofPattern("hh:mm a z"));
+        timeFormats[2] = dateTimeLocal.format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm"));
 
         return Arrays.asList(
                 "&6&l» Time",
@@ -45,15 +52,5 @@ public class HubSidebarAdapter extends SidebarAdapter {
 
     @Override
     public void tick() {
-        //create time string[];
-        ZonedDateTime dateTime = LocalDateTime.now().atZone(ZoneId.systemDefault());
-
-        timeFormats[0] = dateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
-        timeFormats[1] = dateTime.format(DateTimeFormatter.ofPattern("hh:mm a z"));
-        timeFormats[2] = dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm"));
-//
-//        timeFormats[0] = "22 Dec 2024";
-//        timeFormats[1] = "07:08 PM EST";
-//        timeFormats[2] = "22/12/24 19:08";
     }
 }

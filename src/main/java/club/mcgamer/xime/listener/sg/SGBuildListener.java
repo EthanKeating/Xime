@@ -73,8 +73,10 @@ public class SGBuildListener extends IListener {
                         case TNT:
                         case WEB:
                         case CAKE_BLOCK:
-                        case FIRE:
                         case DEAD_BUSH:
+                            return;
+                        case FIRE:
+                            //TODO: implement hqCore's flint and steel mechanics
                             return;
                     }
             }

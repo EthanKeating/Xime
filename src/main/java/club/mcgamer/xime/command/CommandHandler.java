@@ -3,9 +3,7 @@ package club.mcgamer.xime.command;
 import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.command.map.MapCommand;
 import club.mcgamer.xime.command.server.*;
-import club.mcgamer.xime.command.sg.ForcestartCommand;
-import club.mcgamer.xime.command.sg.SpectateCommand;
-import club.mcgamer.xime.command.sg.VoteCommand;
+import club.mcgamer.xime.command.sg.*;
 
 public class CommandHandler {
 
@@ -22,6 +20,8 @@ public class CommandHandler {
         new ForcestartCommand();
         new VoteCommand();
         new SpectateCommand();
+        new TimeLeftCommand();
+        new KillCommand();
 
         new PingCommand();
         new DisguiseCommand();

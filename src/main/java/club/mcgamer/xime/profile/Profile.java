@@ -6,6 +6,7 @@ import club.mcgamer.xime.design.sidebar.SidebarImpl;
 import club.mcgamer.xime.disguise.DisguiseData;
 import club.mcgamer.xime.profile.impl.CombatTagData;
 import club.mcgamer.xime.profile.impl.GeoLocationData;
+import club.mcgamer.xime.rank.RankHandler;
 import club.mcgamer.xime.rank.impl.Rank;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.server.data.TemporaryData;
@@ -69,6 +70,7 @@ public class Profile {
         this.combatTagData = new CombatTagData();
 
         this.skin = DisguiseUtil.getSkin(getPlayer());
+        this.rank = RankHandler.DEFAULT_RANK;
 
         //TODO: make this better add the async task in the data population, and auto populate every field with default data
         Bukkit.getScheduler().runTaskAsynchronously(XimePlugin.getProvidingPlugin(XimePlugin.class), () -> {

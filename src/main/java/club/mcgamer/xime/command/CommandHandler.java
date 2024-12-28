@@ -16,6 +16,7 @@ public class CommandHandler {
         new MapCommand();
         new JoinCommand();
         new HubCommand();
+        new RankCommand();
 
         new ForcestartCommand();
         new VoteCommand();

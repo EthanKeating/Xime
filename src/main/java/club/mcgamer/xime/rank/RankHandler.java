@@ -3,19 +3,20 @@ package club.mcgamer.xime.rank;
 import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.rank.impl.Rank;
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class RankHandler {
 
-    private static final String DEFAULT_RANK_NAME = "Regular";
-
     private final XimePlugin plugin;
-    private final List<Rank> rankList;
+    @Getter private final List<Rank> rankList;
+    public static final Rank DEFAULT_RANK = new Rank("Regular", "&2", Collections.emptyList());
 
     public RankHandler(XimePlugin plugin) {
         this.plugin = plugin;
@@ -23,7 +24,17 @@ public class RankHandler {
         //Rank priority is defined by the order added (First = Best, Last = Worst)
         rankList = Arrays.asList(
                 new Rank("Owner", "&4&l", Arrays.asList("xime.admin")),
-                new Rank("Regular", "&2", Arrays.asList("xime.regular"))
+                new Rank("Administrator", "&4&l", Arrays.asList("xime.admin")),
+                new Rank("SeniorModerator", "&2", Arrays.asList("xime.regular")),
+                new Rank("Moderator", "&2", Arrays.asList("xime.regular")),
+                new Rank("SeniorModerator", "&2", Arrays.asList("xime.regular")),
+                new Rank("VIP", "&5", Arrays.asList("xime.regular")),
+                new Rank("MapMaker", "&d", Arrays.asList("xime.regular")),
+                new Rank("Platinum", "&b", Arrays.asList("xime.regular")),
+                new Rank("Diamond", "&3", Arrays.asList("xime.regular")),
+                new Rank("Gold", "&6", Arrays.asList("xime.regular")),
+                new Rank("Iron", "&7", Arrays.asList("xime.regular")),
+                DEFAULT_RANK
         );
     }
 
@@ -41,10 +52,6 @@ public class RankHandler {
         rank.getPermissions().forEach(permission -> {
             player.addAttachment(plugin, permission, true);
         });
-    }
-
-    public Rank getDefault() {
-        return getRank(DEFAULT_RANK_NAME);
     }
 
 }

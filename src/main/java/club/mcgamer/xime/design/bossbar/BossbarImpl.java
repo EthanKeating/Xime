@@ -40,9 +40,8 @@ public class BossbarImpl {
         if (adapter.getHealth(profile) != health) health = adapter.getHealth(profile);
         if (adapter.isHidden(profile) != hidden) {
             hidden = adapter.isHidden(profile);
-            if (hidden) {
+            if (hidden)
                 profile.getUser().sendPacket(new WrapperPlayServerDestroyEntities(ENTITY_IDS));
-            }
         }
 
         if (!hidden) {

@@ -82,6 +82,7 @@ public abstract class Serverable {
             player.showPlayer(loopPlayer);
         });
 
+        playerList.remove(profile);
         playerList.add(profile);
         profile.setServerable(this);
         profile.setTemporaryData(createTemporaryData());

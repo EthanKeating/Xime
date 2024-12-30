@@ -10,7 +10,7 @@ import org.bukkit.event.EventHandler;
 public class SGInteractListener extends IListener {
 
     @EventHandler
-    private void onSGInteract(ServerAirInteractEvent event) {
+    private void onSGInteractItem(ServerAirInteractEvent event) {
         Profile profile = event.getProfile();
         Player player = profile.getPlayer();
 
@@ -24,6 +24,18 @@ public class SGInteractListener extends IListener {
                     case DEATHMATCH:
                         player.performCommand("spectate");
                 }
+        }
+    }
+
+    @EventHandler
+    private void onSGInteract(ServerAirInteractEvent event) {
+        Profile profile = event.getProfile();
+
+        if (profile.getServerable() instanceof SGServerable) {
+            SGServerable serverable = (SGServerable) profile.getServerable();
+
+            if (serverable.getSpectatorList().contains(profile))
+                event.getEvent().setCancelled(true);
         }
     }
 }

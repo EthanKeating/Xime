@@ -2,6 +2,7 @@ package club.mcgamer.xime.listener.wrapper;
 
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerAirInteractEvent;
+import club.mcgamer.xime.server.event.ServerInteractEvent;
 import club.mcgamer.xime.server.event.ServerItemInteractEvent;
 import club.mcgamer.xime.util.IListener;
 import org.bukkit.Bukkit;
@@ -22,6 +23,19 @@ public class ItemInteractWrapper extends IListener {
             return;
 
         Bukkit.getPluginManager().callEvent(new ServerItemInteractEvent(
+                profile,
+                profile.getServerable(),
+                event.getItem(),
+                event));
+    }
+
+    @EventHandler
+    private void onInteract(PlayerInteractEvent event) {
+        Profile profile = plugin.getProfileHandler().getProfile(event.getPlayer());
+
+        if (profile.getServerable() == null) return;
+
+        Bukkit.getPluginManager().callEvent(new ServerInteractEvent(
                 profile,
                 profile.getServerable(),
                 event.getItem(),

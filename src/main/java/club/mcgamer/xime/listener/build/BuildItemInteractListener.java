@@ -6,6 +6,7 @@ import club.mcgamer.xime.map.MapData;
 import club.mcgamer.xime.map.MapLocation;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.profile.ProfileHandler;
+import club.mcgamer.xime.server.event.ServerChatEvent;
 import club.mcgamer.xime.server.event.ServerItemInteractEvent;
 import club.mcgamer.xime.util.IListener;
 import com.github.retrooper.packetevents.util.Vector3i;
@@ -127,13 +128,11 @@ public class BuildItemInteractListener extends IListener {
     }
 
     @EventHandler
-    private void onBuildChat(PlayerChatEvent event) {
-        ProfileHandler profileHandler = plugin.getProfileHandler();
-        Player player = event.getPlayer();
-        Profile profile = profileHandler.getProfile(player);
+    private void onBuildChat(ServerChatEvent event) {
+        Profile profile = event.getProfile();
 
-        if (profile.getServerable() instanceof BuildServerable) {
-            BuildServerable serverable = (BuildServerable) profile.getServerable();
+        if (event.getServerable() instanceof BuildServerable) {
+            BuildServerable serverable = (BuildServerable) event.getServerable();
             MapData mapData = serverable.getMapData();
 
             if (serverable.getEditor() != profile) return;
@@ -152,6 +151,7 @@ public class BuildItemInteractListener extends IListener {
                     profile.sendMessage("&8[&3Xime&8] &bUpdated &fMap Link &bfor " + mapData.getMapName() + " &bto &f" + mapData.getMapLink());
                     break;
             }
+            serverable.setInputType(InputType.NONE);
         }
     }
 

@@ -3,8 +3,10 @@ package club.mcgamer.xime.profile;
 import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.design.bossbar.BossbarImpl;
 import club.mcgamer.xime.design.sidebar.SidebarImpl;
+import club.mcgamer.xime.design.tag.TagImpl;
 import club.mcgamer.xime.disguise.DisguiseData;
 import club.mcgamer.xime.profile.impl.CombatTagData;
+import club.mcgamer.xime.profile.impl.GeneralData;
 import club.mcgamer.xime.profile.impl.GeoLocationData;
 import club.mcgamer.xime.rank.RankHandler;
 import club.mcgamer.xime.rank.impl.Rank;
@@ -44,14 +46,18 @@ public class Profile {
     private final User user;
     private final Skin skin;
 
-    private Rank rank;
+    @Setter private Rank rank;
 
     @Setter private Serverable serverable;
 
+    private final String name;
+
     private final SidebarImpl sidebarImpl;
     private final BossbarImpl bossbarImpl;
+    private final TagImpl tagImpl;
 
     @Setter private TemporaryData temporaryData;
+    private final GeneralData generalData;
     private final CombatTagData combatTagData;
     private GeoLocationData geoLocationData;
     @Setter private DisguiseData disguiseData;
@@ -64,10 +70,13 @@ public class Profile {
                 .getProtocolManager()
                 .getUser(SpigotReflectionUtil.getChannel(getPlayer()));
         this.legacy = user.getClientVersion().getProtocolVersion() == 5;
+        this.name = getPlayer().getName();
 
         this.sidebarImpl = new SidebarImpl(this);
         this.bossbarImpl = new BossbarImpl(this);
+        this.tagImpl = new TagImpl(this);
         this.combatTagData = new CombatTagData();
+        this.generalData = new GeneralData();
 
         this.skin = DisguiseUtil.getSkin(getPlayer());
         this.rank = RankHandler.DEFAULT_RANK;
@@ -86,7 +95,7 @@ public class Profile {
         if (disguiseData != null)
             return disguiseData.getName();
 
-        return getPlayer().getName();
+        return name;
     }
 
     public String getDisplayName() {
@@ -94,11 +103,19 @@ public class Profile {
             return ChatColor.DARK_GREEN + disguiseData.getName();
 
         //replace with Disguise displayname aswell
-        return ChatColor.DARK_GREEN + getPlayer().getDisplayName();
+        return TextUtil.translate(rank.getColor()) + getPlayer().getDisplayName();
     }
 
     public String getChatColor() {
+
         return "&f";
+    }
+
+    public Rank getRank() {
+        if (disguiseData != null)
+            return disguiseData.getRank();
+
+        return rank;
     }
 
     public Profile sendMessage(String message) {
@@ -107,7 +124,6 @@ public class Profile {
     }
 
     public void clearTitle() {
-
         if (isLegacy()) {
             TitleModule titleModule = Apollo.getModuleManager().getModule(TitleModule.class);
             Optional<ApolloPlayer> apolloPlayerOpt = Apollo.getPlayerManager().getPlayer(getUuid());

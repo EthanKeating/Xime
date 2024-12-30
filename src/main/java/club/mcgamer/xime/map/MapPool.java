@@ -16,7 +16,14 @@ public class MapPool {
             "Green_Grass",
             "Demons_Breeze",
             "Icarus_Fallen",
-            "Valleyside_University"
+            "Valleyside_University",
+            "Survival_Games_4",
+            "Alaskan_Village",
+            "Breeze_Island",
+            "Breeze_Island_2", //not cleaned
+            "Chernobyl_(2015)", //not cleaned
+            "Avaricia",
+            "Pompeii"
     );
 
     @Getter private static final HashMap<String, MapData> allMaps = new HashMap<>();

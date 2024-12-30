@@ -84,6 +84,27 @@ public class BlockUtil {
         return blocks;
     }
 
+    public boolean isImportantSphere(Block centerBlock, int radius) {
+
+        int centerX = centerBlock.getX();
+        int centerY = centerBlock.getY();
+        int centerZ = centerBlock.getZ();
+
+        for (int x = -radius; x <= radius; x++) {
+            for (int y = -radius; y <= radius; y++) {
+                for (int z = -radius; z <= radius; z++) {
+                    if (x * x + y * y + z * z <= radius * radius) {
+                        Block block = centerBlock.getWorld().getBlockAt(centerX + x, centerY + y, centerZ + z);
+
+                        if (isImportant(block))
+                            return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public boolean isImportant(Block block) {
         Material type = block.getType();
         switch (type) {

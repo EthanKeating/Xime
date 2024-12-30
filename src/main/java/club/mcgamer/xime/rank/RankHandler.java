@@ -25,9 +25,10 @@ public class RankHandler {
         rankList = Arrays.asList(
                 new Rank("Owner", "&4&l", Arrays.asList("xime.admin")),
                 new Rank("Administrator", "&4&l", Arrays.asList("xime.admin")),
-                new Rank("SeniorModerator", "&2", Arrays.asList("xime.regular")),
-                new Rank("Moderator", "&2", Arrays.asList("xime.regular")),
-                new Rank("SeniorModerator", "&2", Arrays.asList("xime.regular")),
+                new Rank("Devmin", "&9&l", Arrays.asList("xime.admin")),
+                new Rank("Developer", "&e&l", Arrays.asList("xime.admin")),
+                new Rank("SeniorModerator", "&4", Arrays.asList("xime.regular")),
+                new Rank("Moderator", "&4", Arrays.asList("xime.regular")),
                 new Rank("VIP", "&5", Arrays.asList("xime.regular")),
                 new Rank("MapMaker", "&d", Arrays.asList("xime.regular")),
                 new Rank("Platinum", "&b", Arrays.asList("xime.regular")),
@@ -46,12 +47,14 @@ public class RankHandler {
         Player player = profile.getPlayer();
 
         player.getEffectivePermissions().forEach(permissionAttachmentInfo -> {
-            if (permissionAttachmentInfo.getAttachment().getPlugin() == plugin)
+            if (permissionAttachmentInfo != null && permissionAttachmentInfo.getAttachment() != null && permissionAttachmentInfo.getAttachment().getPlugin() == plugin)
                 player.removeAttachment(permissionAttachmentInfo.getAttachment());
         });
         rank.getPermissions().forEach(permission -> {
             player.addAttachment(plugin, permission, true);
         });
+
+        profile.setRank(rank);
     }
 
 }

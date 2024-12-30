@@ -16,7 +16,7 @@ public class MCSGLootTable extends LootTable {
 
     @Override
     public int getAverageItemCount() {
-        return 6;
+        return 5;
     }
     private final List<ItemStack> tier1Items = new ArrayList<ItemStack>(){{
         add(new ItemStack(Material.STONE_SWORD));
@@ -65,10 +65,6 @@ public class MCSGLootTable extends LootTable {
     private final List<ItemStack> tier2Items = new ArrayList<ItemStack>(){{
         add(new ItemStack(Material.STONE_SWORD));
 
-        add(new ItemBuilder(Material.IRON_HELMET).lore(Collections.singletonList(TextUtil.translate("&9+2 Armor"))).build());
-        add(new ItemBuilder(Material.IRON_CHESTPLATE).lore(Collections.singletonList(TextUtil.translate("&9+6 Armor"))).build());
-        add(new ItemBuilder(Material.IRON_LEGGINGS).lore(Collections.singletonList(TextUtil.translate("&9+5 Armor"))).build());
-        add(new ItemBuilder(Material.IRON_BOOTS).lore(Collections.singletonList(TextUtil.translate("&9+2 Armor"))).build());
         add(new ItemBuilder(Material.IRON_HELMET).lore(Collections.singletonList(TextUtil.translate("&9+2 Armor"))).build());
         add(new ItemBuilder(Material.IRON_CHESTPLATE).lore(Collections.singletonList(TextUtil.translate("&9+6 Armor"))).build());
         add(new ItemBuilder(Material.IRON_LEGGINGS).lore(Collections.singletonList(TextUtil.translate("&9+5 Armor"))).build());

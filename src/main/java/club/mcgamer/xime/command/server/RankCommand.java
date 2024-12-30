@@ -36,7 +36,7 @@ public class RankCommand extends XimeCommand {
                 .map(rank -> TextUtil.translate(rank.getColor() + rank.getName()))
                 .collect(Collectors.joining("&8, &f")));
 
-        if (hasArgs(sender, args, 2)) {
+        if (!hasArgs(sender, args, 2)) {
             sender.sendMessage(rankListString);
             return true;
         }
@@ -56,6 +56,9 @@ public class RankCommand extends XimeCommand {
         Rank rank = rankHandler.getRank(args[1]);
 
         rankHandler.setRank(profile, rank);
+
+        sender.sendMessage(TextUtil.translate(String.format("&8[&3Xime&8] &bYou have set &e%s&b's rank to&8: &f%s%s&8.", player.getName(), rank.getColor(), rank.getName())));
+        player.sendMessage(TextUtil.translate(String.format("&8[&3Xime&8] &bYour rank has been set to&8: &f%s%s&8.", rank.getColor(), rank.getName())));
 
         return true;
     }

@@ -51,6 +51,9 @@ public class HubJoinListener extends IListener {
 
             profile.sendMessage("&8[&3Xime&8] &bAccess the shop with the &6Gold Bar&8!")
                     .sendMessage("&8[&3Xime&8] &bYou have &61000 &bMCGamer Hub Credits&8.");
+
+            if(profile.getGeneralData().isCanFly())
+                player.setAllowFlight(true);
         }
     }
 

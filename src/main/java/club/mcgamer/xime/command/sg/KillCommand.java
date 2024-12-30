@@ -2,15 +2,21 @@ package club.mcgamer.xime.command.sg;
 
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
+import club.mcgamer.xime.profile.ProfileHandler;
+import club.mcgamer.xime.profile.impl.CombatTagData;
 import club.mcgamer.xime.server.ServerHandler;
+import club.mcgamer.xime.server.Serverable;
+import club.mcgamer.xime.server.event.ServerDeathEvent;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.util.TextUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 public class KillCommand extends XimeCommand {
     public KillCommand() {
@@ -42,7 +48,26 @@ public class KillCommand extends XimeCommand {
                 case LIVEGAME:
                 case DEATHMATCH:
                 case PREDEATHMATCH:
-                    player.setHealth(0);
+                    CombatTagData combatTagData = profile.getCombatTagData();
+                    Optional<Profile> attackerOptional;
+
+                    ProfileHandler profileHandler = plugin.getProfileHandler();
+
+                    if (!combatTagData.isActive()
+                            || combatTagData.getAttackedBy() == null
+                            || profileHandler.getProfile(combatTagData.getAttackedBy()) == null
+                            || profileHandler.getProfile(combatTagData.getAttackedBy()).getServerable() != serverable) {
+                        attackerOptional = Optional.empty();
+                    } else {
+                        attackerOptional = Optional.of(profileHandler.getProfile(combatTagData.getAttackedBy()));
+                    }
+                    Bukkit.getPluginManager().callEvent(new ServerDeathEvent(
+                            profile,
+                            attackerOptional,
+                            profile.getServerable(),
+                            null
+                    ));
+
                     return true;
             }
         }

@@ -55,7 +55,7 @@ public class VoteCommand extends XimeCommand {
         MapPool mapPool = serverable.getMapPool();
         String pattern = String.format("^[1-%s]", mapPool.getRandomMaps().size());
         if (!args[0].matches(pattern)) {
-            sender.sendMessage(TextUtil.translate(String.format("&8[&6MCSG&8] There is no map with the number &e%s&8.", args[0])));
+            sender.sendMessage(TextUtil.translate(String.format("&8[&6MCSG&8] &cThere is no map with the number &e%s&8.", args[0])));
             return true;
         }
 

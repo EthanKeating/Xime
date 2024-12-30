@@ -36,13 +36,19 @@ public class MapCommand extends XimeCommand {
         if (world == null) {
             BuildServerable buildServerable = new BuildServerable();
             buildServerable.load(map, profile);
-
-            Bukkit.getScheduler().runTaskLater(plugin, () -> buildServerable.add(profile), 100L);
             return true;
         }
 
 
-        profile.getPlayer().teleport(world.getSpawnLocation());
+        BuildServerable buildServerable = plugin.getServerHandler()
+                .getServerList()
+                .stream()
+                .filter(serverable -> serverable instanceof BuildServerable)
+                .map(serverable -> (BuildServerable) serverable)
+                .filter(serverable -> serverable.getWorld() == world).findFirst().orElse(null);
+
+        if (buildServerable != null)
+            buildServerable.add(profile);
 
 
         return true;

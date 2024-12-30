@@ -11,11 +11,14 @@ import club.mcgamer.xime.util.Pair;
 import lombok.Getter;
 import org.bukkit.Location;
 
+import java.util.concurrent.CopyOnWriteArrayList;
+
 public class DeathmatchRunnable extends AbstractGameRunnable {
 
     private final XimePlugin plugin;
     private final SGServerable serverable;
     private final GameTimer gameTimer;
+    private final GameSettings gameSettings;
 
     private final MapLocation centerLocation;
     @Getter private double borderSize;
@@ -25,8 +28,7 @@ public class DeathmatchRunnable extends AbstractGameRunnable {
         this.plugin = plugin;
         this.serverable = serverable;
         this.gameTimer = serverable.getGameTimer();
-
-        GameSettings gameSettings = serverable.getGameSettings();
+        this.gameSettings = serverable.getGameSettings();
 
         gameTimer.setTime(gameSettings.getDeathmatchTime());
 
@@ -37,7 +39,7 @@ public class DeathmatchRunnable extends AbstractGameRunnable {
                 Math.pow(centerLocation.getX() - firstSpawnLocation.getX(), 2) +
                         Math.pow(centerLocation.getZ() - firstSpawnLocation.getZ(), 2)) * 1.5;
 
-        decrement = (borderSize - 5) / gameTimer.getInitialTime();
+        decrement = (borderSize - 5) / gameSettings.getDeathmatchShrinkTime();
         //Initialize all data
     }
 
@@ -55,9 +57,10 @@ public class DeathmatchRunnable extends AbstractGameRunnable {
         }
 
         //&aThe games have ended!
-        borderSize = Math.max(borderSize - decrement, 0);
+        if (currentTime <= gameSettings.getDeathmatchShrinkTime())
+            borderSize = Math.max(borderSize - decrement, 0);
         if (currentTime % 5 == 0) {
-            for (Profile loopProfile : serverable.getTributeList()) {
+            for (Profile loopProfile : new CopyOnWriteArrayList<>(serverable.getTributeList())) {
                 Location playerLocation = loopProfile.getPlayer().getLocation();
                 MapLocation centerLocation = serverable.getMapData().getCenterLocation();
 

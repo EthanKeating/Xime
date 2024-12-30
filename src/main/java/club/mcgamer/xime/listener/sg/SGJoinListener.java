@@ -37,14 +37,16 @@ public class SGJoinListener extends IListener {
                         PlayerUtil.refresh(profile);
                         player.setLevel(serverable.getServerId());
                         player.teleport(serverable.getLobbyLocation());
+
+                        if(profile.getGeneralData().isCanFly())
+                            player.setAllowFlight(true);
                     }
                     break;
                 case PREGAME:
-                    //Set them as living player
-                    break;
                 case LIVEGAME:
                 case PREDEATHMATCH:
                 case DEATHMATCH:
+                case CLEANUP:
                     MapData mapData = serverable.getMapData();
                     if (mapData != null) {
                         Location centerLocation = mapData.getCenterLocation().toBukkit(serverable.getWorld());
@@ -52,7 +54,6 @@ public class SGJoinListener extends IListener {
                     }
                     serverable.setSpectating(profile);
                     break;
-                case CLEANUP:
                 case RESTARTING:
                     //disallow
                     break;

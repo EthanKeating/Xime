@@ -36,7 +36,7 @@ public class PingCommand extends XimeCommand {
 
         if (argumentPlayer == null) return true;
         Profile argumentProfile = plugin.getProfileHandler().getProfile(argumentPlayer);
-        profile.sendMessage(String.format("&8[&3Xime&8] &f%s&f's ping is &6%s &fms.", argumentProfile.getDisplayName(), PacketEvents.getAPI().getPlayerManager().getPing(player)));
+        profile.sendMessage(String.format("&8[&3Xime&8] &f%s&f's ping is &6%s &fms.", argumentProfile.getDisplayName(), PacketEvents.getAPI().getPlayerManager().getPing(argumentPlayer)));
 
         return true;
     }

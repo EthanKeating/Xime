@@ -21,6 +21,8 @@ public class GameSettings {
     private int deathmatchTime = 3 * 60; //3 minutes
     private int cleanupTime = 10;
 
+    private int deathmatchShrinkTime = 2 * 60; //2 minutes
+
     private boolean silentJoinLeave = false;
 
     private LootTable lootTable = new MCSGLootTable();

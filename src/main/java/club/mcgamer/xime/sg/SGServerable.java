@@ -24,6 +24,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 @Getter
 public class SGServerable extends Serverable {

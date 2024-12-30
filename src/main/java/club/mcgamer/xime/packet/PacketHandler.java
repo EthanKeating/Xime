@@ -8,8 +8,10 @@ import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.event.PacketSendEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.protocol.player.User;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerJoinGame;
 import com.github.retrooper.packetevents.wrapper.status.server.WrapperStatusServerResponse;
 import com.google.gson.JsonObject;
+import org.bukkit.Bukkit;
 
 import java.util.UUID;
 
@@ -32,6 +34,15 @@ public class PacketHandler extends PacketListenerAbstract {
     @Override
     public void onPacketSend(PacketSendEvent event) {
         User user = event.getUser();
+
+//        if (event.getPacketType() == PacketType.Play.Server.JOIN_GAME) {
+//            WrapperPlayServerJoinGame joinGame = new WrapperPlayServerJoinGame(event);
+//
+//            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+//                joinGame.setMaxPlayers(24);
+//                user.sendPacket(joinGame);
+//            }, 100);
+//        }
 
         if (event.getPacketType() == PacketType.Status.Server.RESPONSE) {
             WrapperStatusServerResponse wrappedPacket = new WrapperStatusServerResponse(event);

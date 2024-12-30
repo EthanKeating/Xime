@@ -5,6 +5,7 @@ import club.mcgamer.xime.design.bossbar.BossbarAdapter;
 import club.mcgamer.xime.design.bossbar.BossbarImpl;
 import club.mcgamer.xime.design.sidebar.SidebarAdapter;
 import club.mcgamer.xime.design.sidebar.SidebarImpl;
+import club.mcgamer.xime.design.tag.TagImpl;
 import club.mcgamer.xime.profile.ProfileHandler;
 import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.server.Serverable;
@@ -61,6 +62,10 @@ public class DesignThread extends Thread {
                 BossbarAdapter bossbarAdapter = serverable.getBossbarAdapter();
                 if (bossbarImpl != null)
                     bossbarImpl.tick(bossbarAdapter);
+
+                TagImpl tagImpl = profile.getTagImpl();
+                if (tagImpl != null)
+                    tagImpl.tick();
             }
         });
     }

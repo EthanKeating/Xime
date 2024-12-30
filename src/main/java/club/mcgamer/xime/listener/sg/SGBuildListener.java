@@ -6,8 +6,11 @@ import club.mcgamer.xime.server.event.ServerPlaceBlockEvent;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.util.IListener;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class SGBuildListener extends IListener {
 
@@ -81,6 +84,26 @@ public class SGBuildListener extends IListener {
                     }
             }
             event.getEvent().setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    private void onFirePlace(ServerPlaceBlockEvent event) {
+        Profile profile = event.getProfile();
+        Player player = profile.getPlayer();
+
+        if (!(profile.getServerable() instanceof SGServerable)) return;
+        if (event.getEvent().isCancelled()) return;
+        if (event.getBlock().getType() != Material.FIRE) return;
+        if (player.getItemInHand() == null || player.getItemInHand().getType() != Material.FLINT_AND_STEEL) return;
+
+        ItemStack heldItem = player.getItemInHand();
+
+        short nextDurability = (short) Math.min((short) (heldItem.getDurability() + (short) 16), (short)64);
+        heldItem.setDurability(nextDurability);
+        if (nextDurability > 63) {
+            player.setItemInHand(new ItemStack(Material.AIR));
+            player.getWorld().playSound(player.getLocation(), Sound.ITEM_BREAK, 1f, 1f);
         }
     }
 }

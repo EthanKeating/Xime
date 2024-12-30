@@ -13,7 +13,9 @@ import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.util.MathUtil;
 import club.mcgamer.xime.util.Pair;
 import club.mcgamer.xime.util.PlayerUtil;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -52,6 +54,7 @@ public class PreGameRunnable extends AbstractGameRunnable {
 
     //Called when ServerLoadEvent is listened for in SGLoadListener
     public void mapCallback() {
+
         List<Profile> allPlayers = new ArrayList<>(serverable.getPlayerList());
 
         List<Integer> spawnIndexes = MathUtil.distributeObjects(24, allPlayers.size());
@@ -72,6 +75,7 @@ public class PreGameRunnable extends AbstractGameRunnable {
             temporaryData.setDistrictId((i % 12) + 1);
             serverable.getTributeList().add(profile);
             PlayerUtil.refresh(profile);
+            player.setGameMode(GameMode.SURVIVAL);
         }
 
         MapData mapData = serverable.getMapData();

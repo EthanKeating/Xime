@@ -179,11 +179,12 @@ public class BuildServerable extends Serverable {
             @Override
             public void run() {
 
-                for(int i = 0; i < 5; i++) {
+                for(int i = 0; i < 10; i++) {
                     if (chunkCoordinates.isEmpty()) {
                         for (Block block : uselessBlocks)
                             block.setType(Material.AIR);
                         cancel();
+                        editor.sendMessage(String.format("&8[&3Xime&8] &aChunk cleaner removed &6%s &auseless blocks", uselessBlocks.size()));
                         return;
                     }
 
@@ -196,9 +197,7 @@ public class BuildServerable extends Serverable {
                             for (int blockY = 0; blockY < 256; blockY++) {
                                 Block block = chunk.getBlock(chunk.getX() * 16 + blockX, blockY, chunk.getZ() * 16 + blockZ);
 
-                                if (BlockUtil.getBlocksInSphere(block, 2)
-                                        .stream()
-                                        .noneMatch(BlockUtil::isImportant))
+                                if (!BlockUtil.isImportantSphere(block, 2))
                                     uselessBlocks.add(block);
 
                             }

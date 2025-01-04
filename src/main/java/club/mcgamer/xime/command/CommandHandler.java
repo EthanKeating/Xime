@@ -18,6 +18,9 @@ public class CommandHandler {
         new JoinCommand();
         new HubCommand();
         new RankCommand();
+        new SidebarCommand();
+        new XimeInfoCommand();
+        new InfoCommand();
 
         new ForcestartCommand();
         new VoteCommand();

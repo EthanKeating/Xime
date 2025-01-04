@@ -14,6 +14,8 @@ import java.util.Optional;
 
 public class ServerHandler {
 
+    public static final String SERVER_VERSION = "5.0.0";
+
     private final XimePlugin plugin;
     @Getter private final List<Serverable> serverList = new ArrayList<>();
 

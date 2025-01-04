@@ -11,11 +11,6 @@ import club.mcgamer.xime.listener.wrapper.*;
 public class ListenerHandler {
 
     public ListenerHandler() {
-        new PlayerJoinListener();
-        new PlayerQuitListener();
-        new PlayerLoginListener();
-        new WorldCleanListener();
-        new WeatherChangeListener();
 
         //SG listeners
         new SGJoinListener();
@@ -44,6 +39,15 @@ public class ListenerHandler {
         new BuildJoinListener();
         new BuildLoadListener();
         new BuildItemInteractListener();
+
+        //General server listeners
+        new PlayerJoinListener();
+        new PlayerQuitListener();
+        new PlayerLoginListener();
+        new WorldCleanListener();
+        new WeatherChangeListener();
+        new FishingRodListener();
+        new PhysicsListener();
 
         //Wrappers, used to wrap server based events for ease of use
         new BlockModifyWrapper();

@@ -9,6 +9,9 @@ import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.util.IListener;
+import club.mcgamer.xime.util.TextUtil;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 
@@ -83,18 +86,27 @@ public class SGDamageListener extends IListener {
             victimPlayer.getWorld().strikeLightningEffect(victimPlayer.getLocation());
             victim.sendMessage("&8[&6MCSG&8] &aYou have been eliminated from the game.");
 
-            String tributePlural = "tribute" + (serverable.getTributeList().size() == 1 ? "s" : "");
+            String tributePlural = "tribute" + (serverable.getTributeList().size() == 1 ? "" : "s");
             serverable.announce(String.format("&aOnly &8[&6%s&8] &a%s remain!", serverable.getTributeList().size(), tributePlural));
 
-            String spectatorPlural = "spectator" + (serverable.getTributeList().size() == 1 ? "s" : "");
+            String spectatorPlural = "spectator" + (serverable.getTributeList().size() == 1 ? "" : "s");
             serverable.announce(String.format("&aThere is &8[&6%s&8] &a%s watching the game.", serverable.getSpectatorList().size(), spectatorPlural));
 
             victim.sendMessage(String.format("&8[&6MCSG&8] &3You've lost &8[&e%s&8] &3points for dying&8!", lostPoints));
             serverable.announceRaw(String.format("&6A cannon can be heard in the distance in memorial for %s", victim.getDisplayName()));
 
-            victim.sendMessage("")
-                    .sendMessage("&fWant to join &lAnother &6Survival Games &fgame? Click &nHere!")
-                    .sendMessage("");
+            TextComponent message = new TextComponent(TextUtil.translate("&fWant to join &lAnother &6Survival Games &fgame? Click "));
+            TextComponent linkSection = new TextComponent(TextUtil.translate("&6&nhere&f"));
+//                    serverSection.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{
+//                            new TextComponent(ColorUtil.translate(String.format("&e%s &f(%s)", serverable, serverable.getPlayers().size() + " player" + (serverable.getPlayers().size() == 1 ? "" : "s")))),
+//                            new TextComponent(ColorUtil.translate("\n\n&6Click to connect to this server"))
+//                    }));
+            linkSection.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/join sg"));
+            message.addExtra(linkSection);
+
+            victim.sendMessage("");
+            victim.getPlayer().spigot().sendMessage(message);
+            victim.sendMessage("");
 
             if (event.getAttacker().isPresent()) {
                 int gainedPoints = Math.max(5, lostPoints); //5 minimum points gained

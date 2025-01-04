@@ -2,6 +2,8 @@ package club.mcgamer.xime.sg.design.sidebar;
 
 import club.mcgamer.xime.design.sidebar.SidebarAdapter;
 import club.mcgamer.xime.profile.Profile;
+import club.mcgamer.xime.profile.impl.SidebarType;
+import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
@@ -12,10 +14,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class SGSidebarAdapter extends SidebarAdapter {
 
@@ -50,33 +49,89 @@ public class SGSidebarAdapter extends SidebarAdapter {
 
             SGServerable serverable = (SGServerable) profile.getServerable();
             GameState gameState = serverable.getGameState();
+            SidebarType sidebarType = profile.getSidebarType();
+            List<String> lines = new ArrayList<>();
 
-            ArrayList<String> lines = new ArrayList<>(Arrays.asList(
-                    "&6&l» Time",
-                    ChatColor.WHITE + timeFormats[0],
-                    ChatColor.WHITE + timeFormats[1],
-                    ChatColor.GRAY + timeFormats[2],
-                    "",
-                    "&6&l» Server",
-                    String.format("&3EU&8: &f%s", serverable.getServerId()),
-                    "&75.0.0",
-                    "",
-                    "&6&l» Players"
-            ));
-
-            switch (gameState) {
-                case LOBBY:
-                    lines.add(String.format("&fPlaying: %s", serverable.getPlayerList().size()));
+            switch (sidebarType) {
+                case MINIMIZE:
+                    lines = new ArrayList<>(Arrays.asList(
+                            String.format("&7EU%s %s", serverable.getServerId(), ServerHandler.SERVER_VERSION),
+                            ChatColor.GRAY + timeFormats[2],
+                            ""
+                    ));
+                    if (gameState == GameState.LOBBY) {
+                        lines.add(String.format("&fPlaying: %s", serverable.getPlayerList().size()));
+                    } else {
+                        lines.add(String.format("&fPlaying: %s", serverable.getTributeList().size()));
+                        lines.add(String.format("&fWatching: %s", serverable.getSpectatorList().size()));
+                    }
+                    lines.add("&b&lMCGamer.club");
+                    break;
+                case TWENTY_FOURTEEN:
+                    lines = new ArrayList<>(Arrays.asList(
+                            "&6&l» Time",
+                            ChatColor.WHITE + timeFormats[0],
+                            ChatColor.WHITE + timeFormats[1],
+                            "",
+                            "&6&l» Server",
+                            String.format("&3EU&8: &f%s", serverable.getServerId()),
+                            "",
+                            "&6&l» Players"
+                    ));
+                    if (gameState == GameState.LOBBY) {
+                        lines.add(String.format("&fPlaying: %s", serverable.getPlayerList().size()));
+                    } else {
+                        lines.add(String.format("&fPlaying: %s", serverable.getTributeList().size()));
+                        lines.add(String.format("&fWatching: %s", serverable.getSpectatorList().size()));
+                    }
+                    break;
+                case TWENTY_FIFTEEN:
+                    lines = new ArrayList<>(Arrays.asList(
+                            "&7&l» &fYou",
+                            profile.getDisplayName(),
+                            "",
+                            "&7&l» &fTime",
+                            ChatColor.YELLOW + timeFormats[0],
+                            ChatColor.YELLOW + timeFormats[1],
+                            ChatColor.GRAY + timeFormats[2],
+                            "",
+                            "&7&l»&f Server",
+                            String.format("&6EU&8: &e%s", serverable.getServerId()),
+                            "",
+                            "&7&l»&f Players"
+                    ));
+                    if (gameState == GameState.LOBBY) {
+                        lines.add(String.format("&fPlaying: %s", serverable.getPlayerList().size()));
+                    } else {
+                        lines.add(String.format("&fPlaying: %s", serverable.getTributeList().size()));
+                        lines.add(String.format("&fWatching: %s", serverable.getSpectatorList().size()));
+                    }
+                    lines.add("&b&lMCGamer.club");
                     break;
                 default:
-                    lines.add(String.format("&fPlaying: %s", serverable.getTributeList().size()));
-                    lines.add(String.format("&fWatching: %s", serverable.getSpectatorList().size()));
+                    lines = new ArrayList<>(Arrays.asList(
+                            "&6&l» Time",
+                            ChatColor.WHITE + timeFormats[0],
+                            ChatColor.WHITE + timeFormats[1],
+                            ChatColor.GRAY + timeFormats[2],
+                            "",
+                            "&6&l» Server",
+                            String.format("&3EU&8: &f%s", serverable.getServerId()),
+                            "&75.0.0",
+                            "",
+                            "&6&l» Players"
+                    ));
+                    if (gameState == GameState.LOBBY) {
+                        lines.add(String.format("&fPlaying: %s", serverable.getPlayerList().size()));
+                    } else {
+                        lines.add(String.format("&fPlaying: %s", serverable.getTributeList().size()));
+                        lines.add(String.format("&fWatching: %s", serverable.getSpectatorList().size()));
+                    }
+                    lines.add("&b&lMCGamer.club");
                     break;
             }
-
             return lines;
         }
-
         return Collections.emptyList();
     }
 

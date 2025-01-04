@@ -70,7 +70,10 @@ public class DeathmatchRunnable extends AbstractGameRunnable {
 
                 if (distance > borderSize) {
                     playerLocation.getWorld().strikeLightningEffect(playerLocation);
-                    loopProfile.getPlayer().damage(6.0);
+                    if (loopProfile.getPlayer().getHealth() < 6.0)
+                        loopProfile.getPlayer().setHealth(0.0);
+                    else
+                        loopProfile.getPlayer().damage(6.0);
                     loopProfile.sendMessage("&8[&6MCSG&8] &4Please return to spawn!");
                     //loopProfile.sendTitle("", "&cYou must stay in the deathmatch area!", 0, 30, 10);
                 }

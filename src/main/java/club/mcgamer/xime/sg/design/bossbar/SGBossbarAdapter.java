@@ -2,12 +2,12 @@ package club.mcgamer.xime.sg.design.bossbar;
 
 import club.mcgamer.xime.design.bossbar.BossbarAdapter;
 import club.mcgamer.xime.profile.Profile;
+import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.runnable.CleanupRunnable;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
 
-import java.util.concurrent.atomic.AtomicReference;
 
 public class SGBossbarAdapter extends BossbarAdapter {
 
@@ -29,8 +29,7 @@ public class SGBossbarAdapter extends BossbarAdapter {
             return "&8[&6MCSG&8] &aThe games have ended!";
         }
 
-
-        return "";
+        return String.format("&eMCGamer Network &6Beta &7(%s)&8. &aFeatures/gameplay subject to change.", ServerHandler.SERVER_VERSION);
     }
 
     @Override
@@ -46,8 +45,9 @@ public class SGBossbarAdapter extends BossbarAdapter {
 
     @Override
     public boolean isHidden(Profile profile) {
-        SGServerable serverable = (SGServerable) profile.getServerable();
-
-        return serverable.getGameState() != GameState.CLEANUP;
+//        SGServerable serverable = (SGServerable) profile.getServerable();
+//
+//        return serverable.getGameState() != GameState.CLEANUP;
+        return false;
     }
 }

@@ -1,9 +1,12 @@
 package club.mcgamer.xime.map;
 
 import club.mcgamer.xime.profile.Profile;
+import com.google.common.util.concurrent.AtomicDouble;
 import lombok.Getter;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.IntStream;
 
 @Getter
 public class MapPool {
@@ -20,10 +23,16 @@ public class MapPool {
             "Survival_Games_4",
             "Alaskan_Village",
             "Breeze_Island",
-            "Breeze_Island_2", //not cleaned
-            "Chernobyl_(2015)", //not cleaned
+            "Breeze_Island_2",
+            "Chernobyl_(2015)",
             "Avaricia",
-            "Pompeii"
+            "Pompeii",
+            "Zone_85_(Revamped)",
+            "Turbulence",
+            "Solar_Frost",
+            "Inertia",
+            "Survival_Kingdom",
+            "MoonBase9"
     );
 
     @Getter private static final HashMap<String, MapData> allMaps = new HashMap<>();
@@ -33,6 +42,7 @@ public class MapPool {
     }
 
     private final HashMap<Integer, VoteableMap> randomMaps = new HashMap<>();
+    private final boolean mapChances = true;
 
     public MapPool() {
         randomizeMaps();
@@ -78,8 +88,25 @@ public class MapPool {
         return votedMap.map(VoteableMap::getMapIndex).orElse(-1);
     }
 
-
     public VoteableMap complete() {
+        if (isMapChances()) {
+            int totalVotes = randomMaps.values().stream()
+                    .mapToInt(VoteableMap::getVotes)
+                    .sum();
+
+            double rand = random.nextDouble() * 100;
+
+            double cumulativeChance = 0;
+            for(VoteableMap voteableMap : getRandomMaps().values()) {
+                double chancePercentage = (double) voteableMap.getVotes() / totalVotes * 100;
+                cumulativeChance += chancePercentage;
+
+                if (rand < cumulativeChance) {
+                    return voteableMap;
+                }
+            }
+        }
+
         return randomMaps.values().stream().max(Comparator.comparing(VoteableMap::getVotes)).get();
     }
 

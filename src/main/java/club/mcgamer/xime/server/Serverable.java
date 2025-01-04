@@ -3,6 +3,7 @@ package club.mcgamer.xime.server;
 import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.design.bossbar.BossbarAdapter;
 import club.mcgamer.xime.design.sidebar.SidebarAdapter;
+import club.mcgamer.xime.map.MapData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.data.TemporaryData;
 import club.mcgamer.xime.server.event.ServerJoinEvent;
@@ -33,6 +34,8 @@ public abstract class Serverable {
 
     private final List<Profile> playerList = new ArrayList<Profile>();
     @Setter private int maxPlayers = 64;
+
+    @Setter private MapData mapData;
 
     @Setter private String worldName;
     private World world;

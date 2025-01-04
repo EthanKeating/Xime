@@ -9,10 +9,14 @@ import com.github.retrooper.packetevents.event.PacketSendEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.protocol.player.User;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerJoinGame;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerRespawn;
 import com.github.retrooper.packetevents.wrapper.status.server.WrapperStatusServerResponse;
 import com.google.gson.JsonObject;
 import org.bukkit.Bukkit;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 public class PacketHandler extends PacketListenerAbstract {
@@ -35,14 +39,48 @@ public class PacketHandler extends PacketListenerAbstract {
     public void onPacketSend(PacketSendEvent event) {
         User user = event.getUser();
 
-//        if (event.getPacketType() == PacketType.Play.Server.JOIN_GAME) {
+        if (event.getPacketType() == PacketType.Play.Server.JOIN_GAME) {
 //            WrapperPlayServerJoinGame joinGame = new WrapperPlayServerJoinGame(event);
 //
-//            Bukkit.getScheduler().runTaskLater(plugin, () -> {
-//                joinGame.setMaxPlayers(24);
-//                user.sendPacket(joinGame);
-//            }, 100);
-//        }
+//            List<Object> objectList = Arrays.asList(
+//                    joinGame.getEntityId(),
+//                    joinGame.isHardcore(),
+//                    joinGame.getGameMode(),
+//                    joinGame.getPreviousGameMode(),
+//
+//                    joinGame.getWorldNames(),
+//                    joinGame.getDimensionCodec(),
+//                    joinGame.getDimensionTypeRef(),
+//                    joinGame.getDifficulty(),
+//                    joinGame.getHashedSeed(),
+//                    joinGame.getWorldName(),
+//                    joinGame.getMaxPlayers(),
+//                    joinGame.getViewDistance(),
+//                    joinGame.getSimulationDistance(),
+//                    joinGame.isReducedDebugInfo(),
+//                    joinGame.isRespawnScreenEnabled(),
+//                    joinGame.isLimitedCrafting(),
+//                    joinGame.isDebug(),
+//                    joinGame.isFlat(),
+//                    joinGame.getLastDeathPosition(),
+//                    joinGame.getPortalCooldown(),
+//                    joinGame.getSeaLevel(),
+//                    joinGame.isEnforcesSecureChat()
+//            );
+//
+//            objectList.forEach(object -> {
+//                if (object instanceof List) {
+//                    ((ArrayList) object).forEach(object2 -> user.sendMessage("   " + object2.toString()));
+//                } else {
+//                    user.sendMessage(object.toString());
+//                }
+//            });
+        }
+
+        if (event.getPacketType() == PacketType.Play.Server.RESPAWN) {
+//            WrapperPlayServerRespawn respawn = new WrapperPlayServerRespawn(event);
+//            WrapperPlayServerJoinGame join = new WrapperPlayServerJoinGame(
+        }
 
         if (event.getPacketType() == PacketType.Status.Server.RESPONSE) {
             WrapperStatusServerResponse wrappedPacket = new WrapperStatusServerResponse(event);

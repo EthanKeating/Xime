@@ -37,16 +37,16 @@ public class MCSGLootTable extends LootTable {
 
         add(new ItemStack(Material.BOW));
         add(new ItemStack(Material.FISHING_ROD));
-        add(new ItemStack(Material.ARROW, 5));
+        add(new ItemStack(Material.ARROW, 2));
 
         add(new ItemStack(Material.IRON_INGOT));
         add(new ItemStack(Material.GOLD_INGOT));
         add(new ItemStack(Material.STICK));
         add(new ItemStack(Material.STICK));
-        add(new ItemStack(Material.FEATHER, 5));
+        //add(new ItemStack(Material.FEATHER, 5));
         add(new ItemStack(Material.FEATHER, 5));
         add(new ItemStack(Material.FLINT, 1));
-        add(new ItemStack(Material.FLINT, 1));
+//        add(new ItemStack(Material.FLINT, 1));
 
         add(new ItemStack(Material.BOWL));
         add(new ItemStack(Material.PUMPKIN_PIE));

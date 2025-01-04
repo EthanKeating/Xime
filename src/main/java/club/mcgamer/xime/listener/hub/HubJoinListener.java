@@ -6,6 +6,8 @@ import club.mcgamer.xime.server.event.ServerJoinEvent;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.ItemBuilder;
 import club.mcgamer.xime.util.PlayerUtil;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -54,6 +56,8 @@ public class HubJoinListener extends IListener {
 
             if(profile.getGeneralData().isCanFly())
                 player.setAllowFlight(true);
+
+            Bukkit.getScheduler().runTaskLater(plugin, () -> profile.sendTitle("&6Hello " + profile.getName(), "&2Welcome to the &6MCGamer Club&2!", 10, 80, 10), 5);
         }
     }
 

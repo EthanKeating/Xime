@@ -49,8 +49,6 @@ public class PreDeathmatchRunnable extends AbstractGameRunnable {
 
             player.teleport(worldLocation);
             temporaryData.setPedistalLocation(worldLocation);
-            temporaryData.setDistrictId((i % 12) + 1);
-            serverable.getTributeList().add(profile);
         }
     }
 

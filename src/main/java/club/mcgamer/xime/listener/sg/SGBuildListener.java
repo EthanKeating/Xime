@@ -105,5 +105,6 @@ public class SGBuildListener extends IListener {
             player.setItemInHand(new ItemStack(Material.AIR));
             player.getWorld().playSound(player.getLocation(), Sound.ITEM_BREAK, 1f, 1f);
         }
+        player.updateInventory();
     }
 }

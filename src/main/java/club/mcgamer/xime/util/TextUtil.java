@@ -27,6 +27,23 @@ public class TextUtil {
         return new Pair<>(translate(prefix), translate(suffix));
     }
 
+    public static String toRainbow(String input) {
+        StringBuilder rainbowString = new StringBuilder();
+
+        ChatColor[] rainbowColors = {
+                ChatColor.DARK_RED, ChatColor.RED, ChatColor.GOLD, ChatColor.YELLOW,
+                ChatColor.GREEN, ChatColor.DARK_GREEN, ChatColor.AQUA, ChatColor.DARK_AQUA,
+                ChatColor.BLUE, ChatColor.DARK_BLUE, ChatColor.LIGHT_PURPLE, ChatColor.DARK_PURPLE
+        };
+
+        for (int i = 0; i < input.length(); i++) {
+            ChatColor color = rainbowColors[i % rainbowColors.length];
+            rainbowString.append(color).append(ChatColor.BOLD).append(input.charAt(i));
+        }
+
+        return rainbowString.toString();
+    }
+
     public String toPascalCase(String string) {
         String replaced = string.replace('_', ' ');
 

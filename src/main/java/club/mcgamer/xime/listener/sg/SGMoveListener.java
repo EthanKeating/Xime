@@ -37,6 +37,15 @@ public class SGMoveListener extends IListener {
                 double distance = MathUtil.calculateXZDistance(pedistalLocation, playerLocation);
 
                 if (distance > 0.03) {
+                    Location newLocation = new Location(
+                            pedistalLocation.getWorld(),
+                            pedistalLocation.getX(), pedistalLocation.getY(),
+                            pedistalLocation.getZ(),
+                            event.getTo().getYaw(),
+                            event.getTo().getPitch()
+                    );
+
+                    player.teleport(newLocation);
                     profile.getUser().sendPacket(new WrapperPlayServerEntityVelocity(player.getEntityId(), new Vector3d(0.0, 0.0, 0.0)));
                     profile.getUser().sendPacket(new WrapperPlayServerPlayerPositionAndLook(
                             new Vector3d(pedistalLocation.getX(),
@@ -45,7 +54,7 @@ public class SGMoveListener extends IListener {
                             0f,
                             0f,
                             (byte) (RelativeFlag.YAW.getMask() | RelativeFlag.PITCH.getMask()),
-                            -1));
+                           -1));
                     profile.getUser().flushPackets();
                 }
             }

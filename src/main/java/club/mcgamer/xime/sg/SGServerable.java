@@ -21,6 +21,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
@@ -43,7 +45,6 @@ public class SGServerable extends Serverable {
     private final ArrayList<String> fallenTributes = new ArrayList<>();
 
     @Setter private MapPool mapPool;
-    @Setter private MapData mapData;
     @Setter private VoteableMap mapWinner;
 
     public SGServerable() {
@@ -62,6 +63,7 @@ public class SGServerable extends Serverable {
     public void setup() {
         setMaxPlayers(24);
         setWorld(toString() + "-" + LOBBY_NAME, LOBBY_NAME);
+        setMapData(MapData.load(LOBBY_NAME));
         setGameState(GameState.LOBBY);
     }
 
@@ -103,6 +105,7 @@ public class SGServerable extends Serverable {
         player.setVelocity(new Vector(0, 0.5, 0.0));
         player.setAllowFlight(true);
         player.setFlying(true);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Short.MAX_VALUE, 255, false, false));
     }
 
     public void setGameState(GameState newState) {

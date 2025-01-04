@@ -7,6 +7,7 @@ import club.mcgamer.xime.rank.RankHandler;
 import club.mcgamer.xime.rank.impl.Rank;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.util.Pair;
 import club.mcgamer.xime.util.TextUtil;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerDisplayScoreboard;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerScoreboardObjective;
@@ -31,6 +32,9 @@ public class TagImpl {
     // Have a add(otherPlayer) and remove(otherPlayer) method that gets called whenever a player becomes visible/hidden from a player
     private final HashMap<String, String> nameToImplName = new HashMap<>();
     private final HashMap<String, List<String>> teamToPlayerList = new HashMap<>();
+    private final HashMap<String, HashMap<String, Integer>> objectiveValues = new HashMap<>();
+
+
 
     private Serverable currentServerable;
 
@@ -56,10 +60,10 @@ public class TagImpl {
         profileHandler.getProfiles().forEach(profile -> {
             newPlayerNameToRankName.put(profile.getName(), profile.getRank().getName());
         });
-//
-//        playerNameToTeamName.forEach((player, team) -> {
-//            addPlayer(team, player);
-//        });
+////
+////        playerNameToTeamName.forEach((player, team) -> {
+////            addPlayer(team, player);
+////        });
 
         playerNameToTeamName.forEach((currentPlayerName, oldTeamName) -> {
             if (!newPlayerNameToRankName.containsKey(currentPlayerName)) {
@@ -87,17 +91,17 @@ public class TagImpl {
                 case LOBBY:
                 case CLEANUP:
                 case RESTARTING:
-                    hideObjective("BOUNTY");
+                    removeObjective("BOUNTY");
                     break;
                 default:
                     serverable.getPlayerList().forEach(loopProfile -> {
-                        updateObjective(loopProfile.getName(), "BOUNTY", "&3Bounty", 10);
+                        createOrUpdateObjective(loopProfile.getName(), "BOUNTY", "&3Bounty", 10);
                     });
             }
         }
 
         if (!(profile.getServerable() instanceof SGServerable)) {
-            hideObjective("BOUNTY");
+            removeObjective("BOUNTY");
         }
 
         currentServerable = profile.getServerable();
@@ -175,7 +179,23 @@ public class TagImpl {
                 Collections.emptyList()));
     }
 
-    public void updateObjective(String playerName, String objectiveName, String objectiveDisplay, int objectiveValue) {
+    public void createOrUpdateObjective(String playerName, String objectiveName, String objectiveDisplay, int objectiveValue) {
+        if (!objectiveValues.containsKey(objectiveName)) {
+            objectiveValues.put(objectiveName, new HashMap<>());
+            objectiveValues.get(objectiveName).put(playerName, objectiveValue);
+            //Update
+        } else {
+            if (!objectiveValues.get(objectiveName).containsKey(playerName)) {
+                objectiveValues.get(objectiveName).put(playerName, objectiveValue);
+                //Update
+            } else {
+                if (objectiveValues.get(objectiveName).get(playerName) == objectiveValue) {
+                    return;
+                } else {
+                    objectiveValues.get(objectiveName).put(playerName, objectiveValue);
+                }
+            }
+        }
 
         profile.getUser().sendPacket(new WrapperPlayServerScoreboardObjective(
                 objectiveName,
@@ -191,7 +211,9 @@ public class TagImpl {
         ));
     }
 
-    public void hideObjective(String objectiveName) {
+    public void removeObjective(String objectiveName) {
+        objectiveValues.remove(objectiveName);
+
         profile.getUser().sendPacket(new WrapperPlayServerScoreboardObjective(
                 objectiveName,
                 WrapperPlayServerScoreboardObjective.ObjectiveMode.REMOVE, Component.text(""), //Title

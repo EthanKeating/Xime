@@ -34,7 +34,7 @@ public class LiveGameRunnable extends AbstractGameRunnable {
 
         fillChests(true);
         serverable.announce("&3The games have begun!");
-        serverable.getWorld().setDifficulty(Difficulty.NORMAL);
+        serverable.getWorld().setDifficulty(Difficulty.EASY);
         serverable.getPlayerList().forEach(PlayerUtil::refresh);
 
     }

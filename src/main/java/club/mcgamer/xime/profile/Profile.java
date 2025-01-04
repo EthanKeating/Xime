@@ -8,6 +8,7 @@ import club.mcgamer.xime.disguise.DisguiseData;
 import club.mcgamer.xime.profile.impl.CombatTagData;
 import club.mcgamer.xime.profile.impl.GeneralData;
 import club.mcgamer.xime.profile.impl.GeoLocationData;
+import club.mcgamer.xime.profile.impl.SidebarType;
 import club.mcgamer.xime.rank.RankHandler;
 import club.mcgamer.xime.rank.impl.Rank;
 import club.mcgamer.xime.server.Serverable;
@@ -56,6 +57,7 @@ public class Profile {
     private final BossbarImpl bossbarImpl;
     private final TagImpl tagImpl;
 
+    @Setter private SidebarType sidebarType;
     @Setter private TemporaryData temporaryData;
     private final GeneralData generalData;
     private final CombatTagData combatTagData;
@@ -77,6 +79,7 @@ public class Profile {
         this.tagImpl = new TagImpl(this);
         this.combatTagData = new CombatTagData();
         this.generalData = new GeneralData();
+        this.sidebarType = SidebarType.DEFAULT;
 
         this.skin = DisguiseUtil.getSkin(getPlayer());
         this.rank = RankHandler.DEFAULT_RANK;
@@ -99,8 +102,12 @@ public class Profile {
     }
 
     public String getDisplayName() {
+
         if (disguiseData != null)
-            return ChatColor.DARK_GREEN + disguiseData.getName();
+            return disguiseData.getRank().getColor() + disguiseData.getName();
+
+        if (rank.getName().equalsIgnoreCase("Developer"))
+            return TextUtil.toRainbow(getPlayer().getName());
 
         //replace with Disguise displayname aswell
         return TextUtil.translate(rank.getColor()) + getPlayer().getDisplayName();

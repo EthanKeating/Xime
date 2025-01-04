@@ -12,17 +12,16 @@ import club.mcgamer.xime.world.WorldHandler;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Chest;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 
 @Getter
 public class BuildServerable extends Serverable {
@@ -31,6 +30,7 @@ public class BuildServerable extends Serverable {
     private Profile editor;
 
     @Setter private InputType inputType = InputType.NONE;
+    private List<Block> uselessBlocks = new ArrayList<>();
 
     public BuildServerable() {
         super();
@@ -62,6 +62,9 @@ public class BuildServerable extends Serverable {
     }
 
     public void updateChests() {
+        mapData.getTier1Locations().clear();
+        mapData.getTier2Locations().clear();
+
         World world = getWorld();
         Location centerLocation = mapData.getCenterLocation().toBukkit(world);
         final long startTime = System.currentTimeMillis();
@@ -154,9 +157,9 @@ public class BuildServerable extends Serverable {
 
     @SneakyThrows
     public void optimize() {
+        uselessBlocks = new ArrayList<>();
         World world = getWorld();
         Location centerLocation = mapData.getCenterLocation().toBukkit(world);
-        HashSet<Block> uselessBlocks = new HashSet<>();
 
         int centerChunkX = centerLocation.getChunk().getX();
         int centerChunkZ = centerLocation.getChunk().getZ();
@@ -209,6 +212,6 @@ public class BuildServerable extends Serverable {
                 }
 
             }
-        }.runTaskTimer(plugin, 1L, 1L);
+        }.runTaskTimer(plugin, 20L, 1L);
     }
 }

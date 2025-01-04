@@ -54,6 +54,7 @@ public class BuildItemInteractListener extends IListener {
                     profile.sendMessage("&8[&3Xime&8] &bAdded &fSpawn #" + mapData.getSpawnLocations().size() + " &bfor map &f" + mapData.getMapName());
                     return;
                 }
+
             } else {
                 if (item.getType() == Material.SKULL_ITEM && item.getDurability() == 0) {
                     mapData.setCenterLocation(new MapLocation(0, 64, 0));

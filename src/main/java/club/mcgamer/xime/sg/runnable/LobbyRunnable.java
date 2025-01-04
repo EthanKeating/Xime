@@ -11,6 +11,9 @@ import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.util.Pair;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class LobbyRunnable extends AbstractGameRunnable {
 
     private final XimePlugin plugin;
@@ -68,15 +71,32 @@ public class LobbyRunnable extends AbstractGameRunnable {
     }
 
     public void sendVotes(Profile profile) {
+        int totalVotes = serverable.getMapPool().getRandomMaps().values().stream()
+                .mapToInt(VoteableMap::getVotes)
+                .sum();
+
         serverable.getMapPool().getRandomMaps().forEach((id, voteableMap) -> {
             MapData mapData = voteableMap.getMapData();
 
-            profile.sendMessage(String.format(
-                    "&8[&6MCSG&8] &a%s &8> | &e%s &7%s &8| &2%s",
-                    id,
-                    voteableMap.getVotes(),
-                    voteableMap.getVotes() == 1 ? "Vote" : "Votes",
-                    mapData.getMapName()));
+            double chancePercentage = (double) voteableMap.getVotes() / totalVotes * 100;
+
+            NumberFormat nf = new DecimalFormat("##.##");
+
+            if (serverable.getMapPool().isMapChances())
+                profile.sendMessage(String.format(
+                        "&8[&6MCSG&8] &a%s &8> | &e%s &7%s &8| &e%s%% &7Chance &8| &2%s",
+                        id,
+                        voteableMap.getVotes(),
+                        voteableMap.getVotes() == 1 ? "Vote" : "Votes",
+                        nf.format(Double.isNaN(chancePercentage) ? 0 : chancePercentage),
+                        mapData.getMapName()));
+            else
+                profile.sendMessage(String.format(
+                        "&8[&6MCSG&8] &a%s &8> | &e%s &7%s &8| &2%s",
+                        id,
+                        voteableMap.getVotes(),
+                        voteableMap.getVotes() == 1 ? "Vote" : "Votes",
+                        mapData.getMapName()));
         });
     }
 

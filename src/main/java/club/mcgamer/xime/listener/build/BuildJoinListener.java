@@ -4,7 +4,7 @@ import club.mcgamer.xime.build.BuildServerable;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerJoinEvent;
 import club.mcgamer.xime.util.IListener;
-import club.mcgamer.xime.util.ItemBuilder;
+import club.mcgamer.xime.fastinv.ItemBuilder;
 import club.mcgamer.xime.util.PlayerUtil;
 import org.bukkit.GameMode;
 import org.bukkit.Material;

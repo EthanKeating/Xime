@@ -4,7 +4,7 @@ import club.mcgamer.xime.fastinv.FastInv;
 import club.mcgamer.xime.hub.HubServerable;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.Serverable;
-import club.mcgamer.xime.util.ItemBuilder;
+import club.mcgamer.xime.fastinv.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

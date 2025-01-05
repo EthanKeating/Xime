@@ -31,6 +31,7 @@ public class RankHandler {
                 new Rank("Moderator", "&4", Arrays.asList("xime.regular")),
                 new Rank("VIP", "&5", Arrays.asList("xime.regular")),
                 new Rank("MapMaker", "&d", Arrays.asList("xime.regular")),
+                new Rank("Quantum", "&a", Arrays.asList("xime.regular")),
                 new Rank("Platinum", "&b", Arrays.asList("xime.regular")),
                 new Rank("Diamond", "&3", Arrays.asList("xime.regular")),
                 new Rank("Gold", "&6", Arrays.asList("xime.regular")),

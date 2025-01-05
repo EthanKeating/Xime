@@ -83,10 +83,7 @@ public class HubServerable extends Serverable {
             @Override
             public void run() {
                 for (Profile p : getPlayerList()) {
-                    for (int i = 0; i < 125; i++) {
-
-                        sendParticle(EnumParticle.FIREWORKS_SPARK, p.getPlayer(), 0.0f, 150);
-                    }
+                    sendParticle(EnumParticle.FIREWORKS_SPARK, p.getPlayer(), 0.0f, 150);
                 }
             }
         }.runTaskTimer(plugin, 10, 10);

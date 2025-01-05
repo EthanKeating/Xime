@@ -1,6 +1,7 @@
 package club.mcgamer.xime.command.sg;
 
 import club.mcgamer.xime.command.XimeCommand;
+import club.mcgamer.xime.menu.sg.SponsorMenu;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.state.GameState;
@@ -40,7 +41,7 @@ public class SponsorCommand extends XimeCommand {
             return true;
         }
 
-        if (hasArgs(sender, args, 1, "&8[&6MCSG&8] &c")) return true;
+        if (!hasArgs(sender, args, 1, "&8[&6MCSG&8] &c")) return true;
         Player argumentPlayer = isPlayer(sender, args[0]);
         if (argumentPlayer == null) return true;
         Profile argumentProfile = plugin.getProfileHandler().getProfile(argumentPlayer);
@@ -55,6 +56,7 @@ public class SponsorCommand extends XimeCommand {
             return true;
         }
 
+        new SponsorMenu(profile, argumentProfile, serverable).open(player);
         //TODO: Check if player has enough points
         //&8[&6MCSG&8] &4You do not have enough points&8.
 

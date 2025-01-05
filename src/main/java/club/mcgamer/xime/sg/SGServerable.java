@@ -1,5 +1,6 @@
 package club.mcgamer.xime.sg;
 
+import club.mcgamer.xime.fastinv.ItemBuilder;
 import club.mcgamer.xime.map.MapData;
 import club.mcgamer.xime.map.MapPool;
 import club.mcgamer.xime.map.VoteableMap;
@@ -13,19 +14,23 @@ import club.mcgamer.xime.sg.runnable.*;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
+import club.mcgamer.xime.util.Pair;
 import club.mcgamer.xime.util.PlayerUtil;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 @Getter
@@ -43,6 +48,8 @@ public class SGServerable extends Serverable {
     private final ArrayList<Profile> tributeList = new ArrayList<>();
     private final ArrayList<Profile> spectatorList = new ArrayList<>();
     private final ArrayList<String> fallenTributes = new ArrayList<>();
+
+    private final ArrayList<Pair<ItemStack, Integer>> sponsorItems = new ArrayList<>();
 
     @Setter private MapPool mapPool;
     @Setter private VoteableMap mapWinner;
@@ -65,12 +72,17 @@ public class SGServerable extends Serverable {
         setWorld(toString() + "-" + LOBBY_NAME, LOBBY_NAME);
         setMapData(MapData.load(LOBBY_NAME));
         setGameState(GameState.LOBBY);
+
+        populateSponsor();
     }
 
     public void reset() {
         setMaxPlayers(24);
         setGameState(GameState.LOBBY);
         overrideWorld(Bukkit.getWorld(toString() + "-" + LOBBY_NAME));
+        setMapData(MapData.load(LOBBY_NAME));
+
+        populateSponsor();
 
         tributeList.clear();
         spectatorList.clear();
@@ -82,6 +94,22 @@ public class SGServerable extends Serverable {
             Bukkit.getWorld(toString()).getPlayers().forEach(loopPlayer -> loopPlayer.teleport(Bukkit.getWorlds().get(0).getSpawnLocation()));
             Bukkit.unloadWorld(toString(), false);
         }
+    }
+
+    private void populateSponsor() {
+
+        sponsorItems.clear();
+        sponsorItems.addAll(Arrays.asList(
+                new Pair<>(new ItemBuilder(Material.ENDER_PEARL).build(), 150),
+                new Pair<>(new ItemBuilder(Material.IRON_INGOT).build(), 125),
+                new Pair<>(new ItemBuilder(Material.ARROW).amount(5).build(), 75),
+                new Pair<>(new ItemBuilder(Material.EXP_BOTTLE).amount(2).build(), 125),
+                new Pair<>(new ItemBuilder(Material.PORK).build(), 50),
+                new Pair<>(new ItemBuilder(Material.BOW).build(), 100),
+                new Pair<>(new ItemBuilder(Material.FLINT_AND_STEEL).build(), 125),
+                new Pair<>(new ItemBuilder(Material.MUSHROOM_SOUP).build(), 60),
+                new Pair<>(new ItemBuilder(Material.CAKE).build(), 75)
+        ));
     }
 
     public void setSpectating(Profile profile) {

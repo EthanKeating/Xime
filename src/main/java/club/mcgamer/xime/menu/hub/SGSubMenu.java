@@ -3,7 +3,7 @@ package club.mcgamer.xime.menu.hub;
 import club.mcgamer.xime.fastinv.FastInv;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.state.GameState;
-import club.mcgamer.xime.util.ItemBuilder;
+import club.mcgamer.xime.fastinv.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

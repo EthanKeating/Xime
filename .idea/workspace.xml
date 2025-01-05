@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="bounty change">
+    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="made bounty command handle integer overflow">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGDamageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGDamageListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/CleanupRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/CleanupRunnable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +132,7 @@
       <workItem from="1735265459078" duration="20603000" />
       <workItem from="1735363319174" duration="15662000" />
       <workItem from="1735580632538" duration="22101000" />
-      <workItem from="1736057174962" duration="1430000" />
+      <workItem from="1736057174962" duration="1890000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -293,7 +292,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736057915563</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="updated bounty logic">
+      <option name="closed" value="true" />
+      <created>1736058756659</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1736058756659</updated>
+    </task>
+    <task id="LOCAL-00022" summary="made bounty command handle integer overflow">
+      <option name="closed" value="true" />
+      <created>1736058778642</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1736058778642</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -324,6 +339,8 @@
     <MESSAGE value="Fixed bounty &amp; sponsor bug" />
     <MESSAGE value="quick fix for pregame" />
     <MESSAGE value="bounty change" />
-    <option name="LAST_COMMIT_MESSAGE" value="bounty change" />
+    <MESSAGE value="updated bounty logic" />
+    <MESSAGE value="made bounty command handle integer overflow" />
+    <option name="LAST_COMMIT_MESSAGE" value="made bounty command handle integer overflow" />
   </component>
 </project>

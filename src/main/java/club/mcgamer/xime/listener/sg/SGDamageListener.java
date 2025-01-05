@@ -97,6 +97,7 @@ public class SGDamageListener extends IListener {
                 if (temporaryData.getBounty() > 0) {
                     if (event.getAttacker().isPresent()) {
                         //TODO: Add points to this player's balance
+                        event.getAttacker().get().sendMessage(String.format("&8[&6MCSG&8] &3You've gained &8[&e%s&8] &3extra points from bounties set on &f%s&8!", temporaryData.getBounty(), event.getVictim().getDisplayName()));
                     }
                     serverable.announceRaw(String.format("&6A bounty of &8[&a%s&8] &6points has been claimed upon &f%s&6's death&8.",temporaryData.getBounty(), event.getVictim().getDisplayName()));
                 }

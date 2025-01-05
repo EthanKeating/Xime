@@ -61,12 +61,15 @@ public class BountyCommand extends XimeCommand {
 
         SGTemporaryData temporaryData = (SGTemporaryData) argumentProfile.getTemporaryData();
 
-        if (!args[1].matches("-?\\d+")) {
+
+        int points;
+
+        try {
+            points = Integer.parseInt(args[1]);
+        } catch (Exception exception) {
             hasArgs(sender, args, Short.MAX_VALUE, "&8[&6MCSG&8] &c");
             return true;
         }
-
-        int points = Integer.parseInt(args[1]);
 
         //TODO: Check if player has enough points
         //&8[&6MCSG&8] &4You do not have enough points&8.

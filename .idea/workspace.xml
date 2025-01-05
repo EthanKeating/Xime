@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="bounty change">
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/BountyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/BountyCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGDamageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGDamageListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/CleanupRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/CleanupRunnable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +133,7 @@
       <workItem from="1735265459078" duration="20603000" />
       <workItem from="1735363319174" duration="15662000" />
       <workItem from="1735580632538" duration="22101000" />
-      <workItem from="1736057174962" duration="694000" />
+      <workItem from="1736057174962" duration="1430000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -275,7 +277,23 @@
       <option name="project" value="LOCAL" />
       <updated>1736057751850</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="bounty change">
+      <option name="closed" value="true" />
+      <created>1736057889771</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1736057889771</updated>
+    </task>
+    <task id="LOCAL-00020" summary="bounty change">
+      <option name="closed" value="true" />
+      <created>1736057915563</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1736057915563</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

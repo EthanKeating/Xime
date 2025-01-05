@@ -44,6 +44,18 @@ public class CleanupRunnable extends AbstractGameRunnable {
                 .max(Comparator.comparingInt(profile -> ((SGTemporaryData) profile.getTemporaryData()).getKillCount()));
 
         serverable.announce("&aThe games have ended!");
+        if (gameWinner.isPresent()) {
+            Profile gameWinnerProfile = gameWinner.get();
+
+            if (gameWinnerProfile.getTemporaryData() instanceof SGTemporaryData) {
+                SGTemporaryData temporaryData = (SGTemporaryData) gameWinnerProfile.getTemporaryData();
+
+                if (temporaryData.getBounty() > 0) {
+                    //TODO: Give player extra points
+                    gameWinnerProfile.sendMessage(String.format("&8[&6MCSG&8] &aYou've gained &8[&e%s&8] &aextra points from your bounty!", temporaryData.getBounty()));
+                }
+            }
+        }
         gameWinner.ifPresent(profile -> serverable.announce(String.format("&a%s &ahas won the Survival Games!", profile.getDisplayName())));
         serverable.getWorld().setTime(18000);
 

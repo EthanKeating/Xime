@@ -5,6 +5,7 @@ import club.mcgamer.xime.server.event.ServerDamageEvent;
 import club.mcgamer.xime.server.event.ServerDamageOtherEntityEvent;
 import club.mcgamer.xime.server.event.ServerDeathEvent;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
@@ -90,6 +91,17 @@ public class SGDamageListener extends IListener {
             victim.sendMessage(String.format("&8[&6MCSG&8] &3You've lost &8[&e%s&8] &3points for dying&8!", lostPoints));
             serverable.announceRaw(String.format("&6A cannon can be heard in the distance in memorial for %s", victim.getDisplayName()));
 
+            if (event.getVictim().getTemporaryData() instanceof SGTemporaryData) {
+                SGTemporaryData temporaryData = (SGTemporaryData) event.getVictim().getTemporaryData();
+
+                if (temporaryData.getBounty() > 0) {
+                    if (event.getAttacker().isPresent()) {
+                        //TODO: Add points to this player's balance
+                    }
+                    serverable.announceRaw(String.format("&6A bounty of &8[&a%s&8] &6points has been claimed upon &f%s&6's death&8.",temporaryData.getBounty(), event.getVictim().getDisplayName()));
+                }
+            }
+
             TextComponent message = new TextComponent(TextUtil.translate("&fWant to join &lAnother &6Survival Games &fgame? Click "));
             TextComponent linkSection = new TextComponent(TextUtil.translate("&6&nhere&f"));
 //                    serverSection.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{
@@ -107,6 +119,7 @@ public class SGDamageListener extends IListener {
                 int gainedPoints = Math.max(5, lostPoints); //5 minimum points gained
                 Profile attacker = event.getAttacker().get();
 
+                //TODO: Add points to this player's balance
                 attacker.sendMessage(String.format("&8[&6MCSG&8] &3You've gained &8[&e%s&8] &3points for killing %s&8!",
                         gainedPoints,
                         victim.getDisplayName()));

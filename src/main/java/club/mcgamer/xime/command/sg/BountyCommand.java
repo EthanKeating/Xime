@@ -76,7 +76,7 @@ public class BountyCommand extends XimeCommand {
             return true;
         }
 
-        serverable.announce(String.format("&3Bounty has been set on &f%s &3by &f%s for &8[&e%s&8] &3points.", profile.getDisplayName(), argumentProfile.getDisplayName(), points));
+        serverable.announce(String.format("&3Bounty has been set on &f%s &3by &f%s&3 for &8[&e%s&8] &3points.", profile.getDisplayName(), argumentProfile.getDisplayName(), points));
         temporaryData.setBounty(temporaryData.getBounty() + points);
         return true;
     }

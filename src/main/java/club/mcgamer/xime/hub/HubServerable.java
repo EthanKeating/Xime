@@ -15,9 +15,13 @@ import com.github.retrooper.packetevents.util.Vector3d;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerParticle;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.server.v1_8_R3.EnumParticle;
+import net.minecraft.server.v1_8_R3.Packet;
+import net.minecraft.server.v1_8_R3.PacketPlayOutWorldParticles;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -80,15 +84,22 @@ public class HubServerable extends Serverable {
             public void run() {
                 for (Profile p : getPlayerList()) {
                     for (int i = 0; i < 125; i++) {
-                        Location loc = p.getPlayer().getLocation().add(
-                                ThreadLocalRandom.current().nextDouble(-35, 35),
-                                ThreadLocalRandom.current().nextDouble(0.0, 35),
-                                ThreadLocalRandom.current().nextDouble(-35, 35));
-                        p.getPlayer().playEffect(loc, Effect.FIREWORKS_SPARK, 0);
+
+                        sendParticle(EnumParticle.FIREWORKS_SPARK, p.getPlayer(), 0.0f, 150);
                     }
                 }
             }
         }.runTaskTimer(plugin, 10, 10);
+    }
+
+    public void sendParticle(EnumParticle particle, Player p, float speed, Integer amount) {
+        float x = p.getLocation().getBlockX();
+        float y = p.getLocation().getBlockY();
+        float z = p.getLocation().getBlockZ();
+
+        int range = 7;
+        PacketPlayOutWorldParticles packet = new PacketPlayOutWorldParticles(particle, true, x, y, z, range, range, range, speed, amount.intValue(), (int[])null);
+        (((CraftPlayer)p).getHandle()).playerConnection.sendPacket(packet);
     }
 
 }

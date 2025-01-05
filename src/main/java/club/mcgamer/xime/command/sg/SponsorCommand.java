@@ -31,7 +31,7 @@ public class SponsorCommand extends XimeCommand {
 
         SGServerable serverable = (SGServerable) profile.getServerable();
 
-        if(serverable.getGameState() == GameState.LOBBY
+        if(serverable.getTributeList().contains(profile) || serverable.getGameState() == GameState.LOBBY
                 || serverable.getGameState() == GameState.LOADING
                 || serverable.getGameState() == GameState.PREGAME
                 || serverable.getGameState() == GameState.CLEANUP

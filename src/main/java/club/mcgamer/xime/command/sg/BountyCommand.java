@@ -34,7 +34,7 @@ public class BountyCommand extends XimeCommand {
 
         SGServerable serverable = (SGServerable) profile.getServerable();
 
-        if(serverable.getGameState() == GameState.LOBBY
+        if(serverable.getTributeList().contains(profile) || serverable.getGameState() == GameState.LOBBY
                 || serverable.getGameState() == GameState.LOADING
                 || serverable.getGameState() == GameState.PREGAME
                 || serverable.getGameState() == GameState.CLEANUP
@@ -43,7 +43,7 @@ public class BountyCommand extends XimeCommand {
             return true;
         }
 
-        if (hasArgs(sender, args, 2, "&8[&6MCSG&8] &c")) return true;
+        if (!hasArgs(sender, args, 2, "&8[&6MCSG&8] &c")) return true;
         Player argumentPlayer = isPlayer(sender, args[0]);
         if (argumentPlayer == null) return true;
         Profile argumentProfile = plugin.getProfileHandler().getProfile(argumentPlayer);

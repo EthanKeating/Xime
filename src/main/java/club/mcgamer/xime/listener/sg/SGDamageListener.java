@@ -13,6 +13,7 @@ import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.TextUtil;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 
@@ -31,14 +32,19 @@ public class SGDamageListener extends IListener {
                 case RESTARTING:
                 case CLEANUP:
                     event.getEvent().setCancelled(true);
-                    break;
+                    return;
                 case LIVEGAME:
                 case DEATHMATCH:
                     if (serverable.getSpectatorList().contains(event.getVictim())
                         || (event.getAttacker().isPresent() && serverable.getSpectatorList().contains(event.getAttacker().get()))) {
                         event.getEvent().setCancelled(true);
-                        break;
+                        return;
                     }
+            }
+            if (event.getAttacker().isPresent()) {
+                if (event.getAttacker().get().getPlayer().getInventory().getItemInHand().getType() == Material.AIR) {
+                    event.getEvent().setDamage(Math.max(0.5, event.getEvent().getDamage()));
+                }
             }
         }
     }
@@ -57,7 +63,7 @@ public class SGDamageListener extends IListener {
                 case RESTARTING:
                 case CLEANUP:
                     event.getEvent().setCancelled(true);
-                    break;
+                    return;
             }
         }
     }

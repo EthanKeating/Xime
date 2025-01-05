@@ -43,7 +43,7 @@ public class SGDamageListener extends IListener {
             }
             if (event.getAttacker().isPresent()) {
                 if (event.getAttacker().get().getPlayer().getInventory().getItemInHand().getType() == Material.AIR) {
-                    event.getEvent().setDamage(Math.max(0.5, event.getEvent().getDamage()));
+                    event.getEvent().setDamage(Math.min(0.5, event.getEvent().getDamage()));
                 }
             }
         }

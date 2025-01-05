@@ -36,7 +36,7 @@ public class LiveGameRunnable extends AbstractGameRunnable {
         serverable.announce("&3The games have begun!");
         serverable.announceTitle("", "" , 0, 30, 0);
         serverable.getWorld().setDifficulty(Difficulty.EASY);
-        serverable.getPlayerList().forEach(PlayerUtil::refresh);
+        serverable.getTributeList().forEach(PlayerUtil::refresh);
     }
 
     public void run() {

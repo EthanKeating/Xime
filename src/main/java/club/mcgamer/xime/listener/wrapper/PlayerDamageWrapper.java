@@ -45,6 +45,8 @@ public class PlayerDamageWrapper extends IListener {
                 victim.getServerable(),
                 event
         ));
+
+        //Bukkit.broadcastMessage("Damage by Anthing (event caller)");
     }
 
     @EventHandler
@@ -64,6 +66,8 @@ public class PlayerDamageWrapper extends IListener {
 
         combatTagData.setAttackedAt(System.currentTimeMillis());
         combatTagData.setAttackedBy(attacker.getUuid());
+
+        //Bukkit.broadcastMessage("Damage by Player (non event caller) - attacker=" + attacker.getUuid());
     }
 
     @EventHandler

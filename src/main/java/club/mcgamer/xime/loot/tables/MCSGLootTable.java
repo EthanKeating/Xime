@@ -64,6 +64,7 @@ public class MCSGLootTable extends LootTable {
 
     private final List<ItemStack> tier2Items = new ArrayList<ItemStack>(){{
         add(new ItemStack(Material.STONE_SWORD));
+        add(new ItemStack(Material.STONE_SWORD));
 
         add(new ItemBuilder(Material.IRON_HELMET).lore(Collections.singletonList(TextUtil.translate("&9+2 Armor"))).build());
         add(new ItemBuilder(Material.IRON_CHESTPLATE).lore(Collections.singletonList(TextUtil.translate("&9+6 Armor"))).build());

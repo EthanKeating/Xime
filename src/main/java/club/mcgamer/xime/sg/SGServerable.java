@@ -78,7 +78,10 @@ public class SGServerable extends Serverable {
         gameSettings.setSilentJoinLeave(true);
         new ArrayList<>(getPlayerList()).forEach(this::add);
 
-        Bukkit.unloadWorld(toString(), false);
+        if(Bukkit.getWorld(toString()) != null) {
+            Bukkit.getWorld(toString()).getPlayers().forEach(loopPlayer -> loopPlayer.teleport(Bukkit.getWorlds().get(0).getSpawnLocation()));
+            Bukkit.unloadWorld(toString(), false);
+        }
     }
 
     public void setSpectating(Profile profile) {

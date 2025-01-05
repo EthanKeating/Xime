@@ -7,6 +7,7 @@ import club.mcgamer.xime.rank.RankHandler;
 import club.mcgamer.xime.rank.impl.Rank;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.util.Pair;
 import club.mcgamer.xime.util.TextUtil;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerDisplayScoreboard;
@@ -95,7 +96,10 @@ public class TagImpl {
                     break;
                 default:
                     serverable.getPlayerList().forEach(loopProfile -> {
-                        createOrUpdateObjective(loopProfile.getName(), "BOUNTY", "&3Bounty", 10);
+                        if (loopProfile.getTemporaryData() instanceof SGTemporaryData) {
+                            SGTemporaryData temporaryData = (SGTemporaryData) loopProfile.getTemporaryData();
+                            createOrUpdateObjective(loopProfile.getName(), "BOUNTY", "&3Bounty", temporaryData.getBounty());
+                        }
                     });
             }
         }

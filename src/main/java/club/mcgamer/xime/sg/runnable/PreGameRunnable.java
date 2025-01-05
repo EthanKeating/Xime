@@ -104,7 +104,7 @@ public class PreGameRunnable extends AbstractGameRunnable {
         }
 
         if (currentTime <= 10)
-            serverable.announceTitle("", "&6" + currentTime , 2, 16, 2);
+            serverable.announceTitle("", "&6" + currentTime , 0, 30, 0);
 
         if (currentTime <= 5 || currentTime == 10 || currentTime == 30) {
             Pair<String, String> significantUnit = gameTimer.toSignificantUnit();

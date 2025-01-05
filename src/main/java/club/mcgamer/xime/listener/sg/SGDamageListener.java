@@ -46,8 +46,6 @@ public class SGDamageListener extends IListener {
     private void onSGDamageOtherEntity(ServerDamageOtherEntityEvent event) {
         if (event.getServerable() instanceof SGServerable) {
 
-            event.getAttacker().sendMessage(event.getEvent().getEntityType().toString());
-
             SGServerable serverable = (SGServerable) event.getServerable();
 
             switch (serverable.getGameState()) {
@@ -58,11 +56,6 @@ public class SGDamageListener extends IListener {
                 case RESTARTING:
                 case CLEANUP:
                     event.getEvent().setCancelled(true);
-                    break;
-                case LIVEGAME:
-                case DEATHMATCH:
-                    if (serverable.getSpectatorList().contains(event.getAttacker()))
-                        event.getEvent().setCancelled(true);
                     break;
             }
         }
@@ -75,6 +68,8 @@ public class SGDamageListener extends IListener {
 
             Profile victim = event.getVictim();
             Player victimPlayer = victim.getPlayer();
+
+            if (victimPlayer.isDead()) victimPlayer.setHealth(20);
 
             int tempPoints = (int) (Math.random() * 2000);
             int lostPoints = (int) (tempPoints * 0.05); //5% of a player's points

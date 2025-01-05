@@ -34,9 +34,9 @@ public class LiveGameRunnable extends AbstractGameRunnable {
 
         fillChests(true);
         serverable.announce("&3The games have begun!");
+        serverable.announceTitle("", "" , 0, 30, 0);
         serverable.getWorld().setDifficulty(Difficulty.EASY);
         serverable.getPlayerList().forEach(PlayerUtil::refresh);
-
     }
 
     public void run() {
@@ -55,6 +55,9 @@ public class LiveGameRunnable extends AbstractGameRunnable {
         }
 
         if ((seconds == 0 && minutes > 0 && (minutes % 5 == 0 || minutes < 5)) || (minutes == 0 && (seconds % 30 == 0 || seconds == 10 || seconds <= 5))) {
+            serverable.announceTitle("", String.format("&8[&e%s&8] &c%s until deathmatch!",
+                    sigUnit.getKey(),
+                    sigUnit.getValue()), 10, 80, 10);
             serverable.announce(String.format("&8[&e%s&8] &c%s until deathmatch!",
                     sigUnit.getKey(),
                     sigUnit.getValue()));
@@ -63,6 +66,7 @@ public class LiveGameRunnable extends AbstractGameRunnable {
         if ((minutes == 17 || minutes == 4) && seconds == 0) {
             fillChests(false);
             serverable.announceSound(Sound.CHEST_OPEN, 1, 1);
+            serverable.announceTitle("", "&3Sponsors have refilled the chests!", 10, 80, 10);
             serverable.announce("&3Sponsors have refilled the chests!");
             serverable.announce("&fThese tributes have passed: " + String.join("&f, ", serverable.getFallenTributes()));
         }

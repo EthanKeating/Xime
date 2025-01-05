@@ -30,7 +30,7 @@ public class BountyCommand extends XimeCommand {
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
 
-        if (isCorrectServerable(sender, profile.getServerable(), SGServerable.class)) return true;
+        if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class)) return true;
 
         SGServerable serverable = (SGServerable) profile.getServerable();
 

@@ -12,9 +12,9 @@ import java.util.ArrayList;
 public class InfoCommand extends XimeCommand {
 
     public InfoCommand() {
-        super("xime");
+        super("info");
         this.description = "Xime info command";
-        this.usageMessage = "/xime";
+        this.usageMessage = "/info";
         this.setAliases(new ArrayList<String>());
 
         register();

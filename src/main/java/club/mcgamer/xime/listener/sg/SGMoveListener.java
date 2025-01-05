@@ -46,16 +46,16 @@ public class SGMoveListener extends IListener {
                     );
 
                     player.teleport(newLocation);
-                    profile.getUser().sendPacket(new WrapperPlayServerEntityVelocity(player.getEntityId(), new Vector3d(0.0, 0.0, 0.0)));
-                    profile.getUser().sendPacket(new WrapperPlayServerPlayerPositionAndLook(
-                            new Vector3d(pedistalLocation.getX(),
-                                pedistalLocation.getY(),
-                                pedistalLocation.getZ()),
-                            0f,
-                            0f,
-                            (byte) (RelativeFlag.YAW.getMask() | RelativeFlag.PITCH.getMask()),
-                           -1));
-                    profile.getUser().flushPackets();
+//                    profile.getUser().sendPacket(new WrapperPlayServerEntityVelocity(player.getEntityId(), new Vector3d(0.0, 0.0, 0.0)));
+//                    profile.getUser().sendPacket(new WrapperPlayServerPlayerPositionAndLook(
+//                            new Vector3d(pedistalLocation.getX(),
+//                                pedistalLocation.getY(),
+//                                pedistalLocation.getZ()),
+//                            0f,
+//                            0f,
+//                            (byte) (RelativeFlag.YAW.getMask() | RelativeFlag.PITCH.getMask()),
+//                           -1));
+//                    profile.getUser().flushPackets();
                 }
             }
 

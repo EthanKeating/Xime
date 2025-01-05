@@ -12,6 +12,9 @@ public class CommandHandler {
     public CommandHandler(XimePlugin plugin) {
         this.plugin = plugin;
 
+        new PingCommand();
+        new DisguiseCommand();
+        new UndisguiseCommand();
         new FlyCommand();
         new WhitelistCommand();
         new MapCommand();
@@ -21,16 +24,15 @@ public class CommandHandler {
         new SidebarCommand();
         new XimeInfoCommand();
         new InfoCommand();
+        new FixCommand();
 
         new ForcestartCommand();
         new VoteCommand();
         new SpectateCommand();
         new TimeLeftCommand();
         new KillCommand();
-
-        new PingCommand();
-        new DisguiseCommand();
-        new UndisguiseCommand();
+        new BountyCommand();
+        new SponsorCommand();
     }
 
 

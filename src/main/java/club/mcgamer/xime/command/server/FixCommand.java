@@ -1,0 +1,43 @@
+package club.mcgamer.xime.command.server;
+
+import club.mcgamer.xime.command.XimeCommand;
+import club.mcgamer.xime.profile.Profile;
+import club.mcgamer.xime.profile.impl.GeneralData;
+import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sg.state.GameState;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class FixCommand extends XimeCommand {
+
+    public FixCommand() {
+        super("fix");
+        this.description = "Fix your position";
+        this.usageMessage = "/fix";
+        this.setAliases(Arrays.asList("gf", "ghostfix", "ghost"));
+
+        register();
+    }
+
+    @Override
+    public boolean execute(CommandSender sender, String alias, String[] args) {
+        if (!isPlayer(sender)) return true;
+
+        Player player = (Player) sender;
+        Profile profile = plugin.getProfileHandler().getProfile(player);
+
+        Location backLocation = player.getLocation();
+
+        player.teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
+        player.teleport(backLocation);
+        profile.sendMessage("&8[&3Xime&8] &fYou have been de-ghosted&8.");
+
+        return true;
+    }
+
+}

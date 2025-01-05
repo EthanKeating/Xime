@@ -34,6 +34,7 @@ public class PlayerUtil {
         player.setLevel(0);
         player.setExp(0);
         player.setTotalExperience(0);
+        player.getInventory().setHeldItemSlot(0);
 
         player.getEquipment().clear();
         player.getInventory().clear();

@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="lots of changes">
+    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="Bug fixes + loot changes">
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/FixCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/BountyCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/SponsorCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/menu/sg/SponsorMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/design/tag/TagImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/design/tag/TagImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGDamageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGDamageListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/wrapper/PlayerDamageWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/wrapper/PlayerDamageWrapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/SGServerable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/SGServerable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/LiveGameRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/LiveGameRunnable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/PreGameRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/PreGameRunnable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/CommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/CommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/XimeCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/XimeCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGMoveListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGMoveListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/util/PlayerUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/util/PlayerUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,9 +109,9 @@
       <recent name="C:\Users\Ethan\IdeaProjects\Xime\src\main\java\club\mcgamer\xime\hub" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="club.mcgamer.xime.command.sg" />
       <recent name="club.mcgamer.xime.command.server" />
       <recent name="club.mcgamer.xime.server.event" />
-      <recent name="club.mcgamer.xime.command.sg" />
       <recent name="club.mcgamer.xime.listener.server" />
       <recent name="club.mcgamer.xime.listener.hub" />
     </key>
@@ -136,7 +138,7 @@
       <workItem from="1735180000050" duration="28631000" />
       <workItem from="1735265459078" duration="20603000" />
       <workItem from="1735363319174" duration="15662000" />
-      <workItem from="1735580632538" duration="15826000" />
+      <workItem from="1735580632538" duration="21762000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -232,7 +234,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736026822068</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Bug fixes + loot changes">
+      <option name="closed" value="true" />
+      <created>1736043082135</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1736043082135</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -258,6 +268,7 @@
     <MESSAGE value="timeleft command" />
     <MESSAGE value="removed system outs" />
     <MESSAGE value="lots of changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="lots of changes" />
+    <MESSAGE value="Bug fixes + loot changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug fixes + loot changes" />
   </component>
 </project>

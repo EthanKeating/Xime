@@ -64,4 +64,12 @@ public abstract class XimeCommand extends BukkitCommand {
         }
         return true;
     }
+
+    public boolean hasArgs(CommandSender commandSender, String[] args, int argumentRequirement, String customPrefix) {
+        if (args.length < argumentRequirement) {
+            commandSender.sendMessage(TextUtil.translate(customPrefix + " &cUsage: " + getUsage()));
+            return false;
+        }
+        return true;
+    }
 }

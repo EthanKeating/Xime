@@ -3,6 +3,7 @@ package club.mcgamer.xime.command.sg;
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.Bukkit;
@@ -53,10 +54,12 @@ public class BountyCommand extends XimeCommand {
             return true;
         }
 
-        if (!serverable.getTributeList().contains(argumentProfile)) {
+        if (!serverable.getTributeList().contains(argumentProfile) || !(argumentProfile.getTemporaryData() instanceof SGTemporaryData)) {
             profile.sendMessage("&8[&6MCSG&8] &cYou cannot bounty that player!");
             return true;
         }
+
+        SGTemporaryData temporaryData = (SGTemporaryData) argumentProfile.getTemporaryData();
 
         if (!args[1].matches("-?\\d+")) {
             hasArgs(sender, args, Short.MAX_VALUE, "&8[&6MCSG&8] &c");
@@ -68,12 +71,13 @@ public class BountyCommand extends XimeCommand {
         //TODO: Check if player has enough points
         //&8[&6MCSG&8] &4You do not have enough points&8.
 
-        if (points <= 10) {
+        if (points < 10) {
             profile.sendMessage("&8[&6MCSG&8] &cBounties must be higher than &8[&e10&8] &cpoints&8.");
             return true;
         }
 
-        serverable.announce(String.format("&6Bounty has been set on &f%s &3by &f%s for &8[&e%s&8] &3points.", profile.getDisplayName(), argumentProfile.getDisplayName(), points));
+        serverable.announce(String.format("&3Bounty has been set on &f%s &3by &f%s for &8[&e%s&8] &3points.", profile.getDisplayName(), argumentProfile.getDisplayName(), points));
+        temporaryData.setBounty(temporaryData.getBounty() + points);
         return true;
     }
 

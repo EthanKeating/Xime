@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="quick fix for pregame">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="bounty change">
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/BountyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/BountyCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/LiveGameRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/LiveGameRunnable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +131,7 @@
       <workItem from="1735265459078" duration="20603000" />
       <workItem from="1735363319174" duration="15662000" />
       <workItem from="1735580632538" duration="22101000" />
-      <workItem from="1736057174962" duration="551000" />
+      <workItem from="1736057174962" duration="694000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -269,7 +267,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736057514700</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="bounty change">
+      <option name="closed" value="true" />
+      <created>1736057751850</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1736057751850</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,6 +305,7 @@
     <MESSAGE value="Added bounty, fix, started sponsor, and modified some other stuff" />
     <MESSAGE value="Fixed bounty &amp; sponsor bug" />
     <MESSAGE value="quick fix for pregame" />
-    <option name="LAST_COMMIT_MESSAGE" value="quick fix for pregame" />
+    <MESSAGE value="bounty change" />
+    <option name="LAST_COMMIT_MESSAGE" value="bounty change" />
   </component>
 </project>

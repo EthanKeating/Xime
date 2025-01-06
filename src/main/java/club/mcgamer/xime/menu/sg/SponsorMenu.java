@@ -6,11 +6,13 @@ import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.util.Pair;
 import club.mcgamer.xime.util.TextUtil;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class SponsorMenu extends FastInv {
 
@@ -19,25 +21,26 @@ public class SponsorMenu extends FastInv {
         super(9, TextUtil.translate("Sponsor: " + sponsored.getDisplayName()));
 
         int index = 0;
-        for(Pair<ItemStack, Integer> sponsorItem : new CopyOnWriteArrayList<>(serverable.getSponsorItems())) {
-            int cost = sponsorItem.getValue();
+        for(Pair<ItemStack, AtomicInteger> sponsorItem : new CopyOnWriteArrayList<>(serverable.getSponsorItems())) {
+            int cost = sponsorItem.getValue().get();
 
             ItemStack originalItem = sponsorItem.getKey();
-            ItemStack displayItem = new ItemBuilder(originalItem.getType())
+            ItemStack displayItem = sponsorItem.getValue().get() == -1 ? new ItemStack(Material.AIR)
+                    : new ItemBuilder(originalItem.getType())
                     .amount(originalItem.getAmount())
                     .lore(String.format("&8[&6Cost&8] &e%s &apoints", cost))
                     .build();
 
-            setItem(index, displayItem, e -> {
+            setItem(index++, displayItem, e -> {
 
                 Player clicked = ((Player) e.getWhoClicked());
 
-                if (!serverable.getSponsorItems().contains(sponsorItem)) {
+                if (sponsorItem.getValue().get() == -1) {
                     profile.sendMessage("&8[&6MCSG&8] &cThat item is no longer available&8.");
                     return;
                 }
 
-                serverable.getSponsorItems().remove(sponsorItem);
+                sponsorItem.getValue().set(-1);
 
                 //TODO: CHeck if player has points and remove them.
 

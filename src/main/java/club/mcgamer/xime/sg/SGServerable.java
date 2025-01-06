@@ -16,6 +16,7 @@ import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.util.Pair;
 import club.mcgamer.xime.util.PlayerUtil;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerPlayerAbilities;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -32,6 +33,7 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 public class SGServerable extends Serverable {
@@ -49,7 +51,7 @@ public class SGServerable extends Serverable {
     private final ArrayList<Profile> spectatorList = new ArrayList<>();
     private final ArrayList<String> fallenTributes = new ArrayList<>();
 
-    private final ArrayList<Pair<ItemStack, Integer>> sponsorItems = new ArrayList<>();
+    private final ArrayList<Pair<ItemStack, AtomicInteger>> sponsorItems = new ArrayList<>();
 
     @Setter private MapPool mapPool;
     @Setter private VoteableMap mapWinner;
@@ -100,15 +102,15 @@ public class SGServerable extends Serverable {
 
         sponsorItems.clear();
         sponsorItems.addAll(Arrays.asList(
-                new Pair<>(new ItemBuilder(Material.ENDER_PEARL).build(), 150),
-                new Pair<>(new ItemBuilder(Material.IRON_INGOT).build(), 125),
-                new Pair<>(new ItemBuilder(Material.ARROW).amount(5).build(), 75),
-                new Pair<>(new ItemBuilder(Material.EXP_BOTTLE).amount(2).build(), 125),
-                new Pair<>(new ItemBuilder(Material.PORK).build(), 50),
-                new Pair<>(new ItemBuilder(Material.BOW).build(), 100),
-                new Pair<>(new ItemBuilder(Material.FLINT_AND_STEEL).build(), 125),
-                new Pair<>(new ItemBuilder(Material.MUSHROOM_SOUP).build(), 60),
-                new Pair<>(new ItemBuilder(Material.CAKE).build(), 75)
+                new Pair<>(new ItemBuilder(Material.ENDER_PEARL).build(), new AtomicInteger(150)),
+                new Pair<>(new ItemBuilder(Material.IRON_INGOT).build(), new AtomicInteger(125)),
+                new Pair<>(new ItemBuilder(Material.ARROW).amount(5).build(), new AtomicInteger(75)),
+                new Pair<>(new ItemBuilder(Material.EXP_BOTTLE).amount(2).build(), new AtomicInteger(125)),
+                new Pair<>(new ItemBuilder(Material.PORK).build(), new AtomicInteger(50)),
+                new Pair<>(new ItemBuilder(Material.BOW).build(), new AtomicInteger(100)),
+                new Pair<>(new ItemBuilder(Material.FLINT_AND_STEEL).build(), new AtomicInteger(125)),
+                new Pair<>(new ItemBuilder(Material.MUSHROOM_SOUP).build(), new AtomicInteger(60)),
+                new Pair<>(new ItemBuilder(Material.CAKE).build(), new AtomicInteger(75))
         ));
     }
 

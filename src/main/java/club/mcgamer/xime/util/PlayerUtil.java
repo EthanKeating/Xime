@@ -2,6 +2,7 @@ package club.mcgamer.xime.util;
 
 import club.mcgamer.xime.profile.Profile;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerChangeGameState;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerPlayerAbilities;
 import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
 import lombok.experimental.UtilityClass;
 import org.bukkit.ChatColor;
@@ -22,10 +23,10 @@ public class PlayerUtil {
         for(PotionEffect effect : player.getActivePotionEffects())
             player.removePotionEffect(effect.getType());
 
+        player.setAllowFlight(false);
         player.setFlying(false);
         player.setMaximumNoDamageTicks(19);
         player.setSaturation(10f);
-        player.setAllowFlight(false);
         player.setFoodLevel(20);
         player.setHealth(20f);
         player.setWalkSpeed(0.2f);

@@ -6,6 +6,7 @@ import club.mcgamer.xime.server.event.ServerJoinEvent;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.fastinv.ItemBuilder;
 import club.mcgamer.xime.util.PlayerUtil;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerPlayerAbilities;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.World;

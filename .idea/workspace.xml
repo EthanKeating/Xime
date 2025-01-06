@@ -4,19 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="removed useless class and nearly finished sponsoring">
+    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="some changes to sponsoring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/SponsorCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/SponsorCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/hub/HubServerable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/hub/HubServerable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/build/BuildJoinListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/build/BuildJoinListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/hub/HubJoinListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/hub/HubJoinListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/loot/tables/MCSGLootTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/loot/tables/MCSGLootTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/menu/hub/HubSelectorMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/menu/hub/HubSelectorMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/menu/hub/SGSubMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/menu/hub/SGSubMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/server/PhysicsListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/server/PhysicsListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/menu/sg/SponsorMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/menu/sg/SponsorMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/rank/RankHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/rank/RankHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/SGServerable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/SGServerable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/util/ItemBuilder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/util/PlayerUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/util/PlayerUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +137,7 @@
       <workItem from="1735265459078" duration="20603000" />
       <workItem from="1735363319174" duration="15662000" />
       <workItem from="1735580632538" duration="22101000" />
-      <workItem from="1736057174962" duration="6269000" />
+      <workItem from="1736057174962" duration="7397000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -358,7 +353,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736112649166</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="removed useless class and nearly finished sponsoring">
+      <option name="closed" value="true" />
+      <created>1736118589758</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1736118589758</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -396,6 +399,7 @@
     <MESSAGE value="changed a few messages" />
     <MESSAGE value="changed snow" />
     <MESSAGE value="removed useless class and nearly finished sponsoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed useless class and nearly finished sponsoring" />
+    <MESSAGE value="some changes to sponsoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="some changes to sponsoring" />
   </component>
 </project>

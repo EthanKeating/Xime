@@ -32,10 +32,8 @@ public class TagImpl {
     // Create teams when player joins (Owner, Admin, SrMod, Mod, Quantum, Platinum, Diamond, Gold, Iron, Default, Spectator
     // Have a add(otherPlayer) and remove(otherPlayer) method that gets called whenever a player becomes visible/hidden from a player
     private final HashMap<String, String> nameToImplName = new HashMap<>();
-    private final HashMap<String, List<String>> teamToPlayerList = new HashMap<>();
+    private final HashMap<String, Set<String>> teamToPlayerList = new HashMap<>();
     private final HashMap<String, HashMap<String, Integer>> objectiveValues = new HashMap<>();
-
-
 
     private Serverable currentServerable;
 
@@ -48,7 +46,7 @@ public class TagImpl {
         for(int priority = 0; priority < rankHandler.getRankList().size(); priority++) {
             Rank rank = rankHandler.getRankList().get(priority);
             createTeam(rank.getName(), rank.getColor(), priority);
-            teamToPlayerList.put(rank.getName(), new ArrayList<>());
+            teamToPlayerList.put(rank.getName(), new HashSet<>());
         }
         //createTeam("Spectator", TextUtil.translate("&7&o"), rankHandler.getRankList().size());
     }
@@ -76,8 +74,15 @@ public class TagImpl {
             }
         });
 
+//        newPlayerNameToRankName.forEach((currentPlayerName, oldTeamName) -> {
+//            if (newPlayerNameToRankName.containsKey(currentPlayerName) && !playerNameToTeamName.containsKey(currentPlayerName)) {
+//                addPlayer(newPlayerNameToRankName.get(currentPlayerName), currentPlayerName);
+//            }
+//        });
+
+        //TODO: Revert if causing client sided lag
         newPlayerNameToRankName.forEach((currentPlayerName, oldTeamName) -> {
-            if (newPlayerNameToRankName.containsKey(currentPlayerName) && !playerNameToTeamName.containsKey(currentPlayerName)) {
+            if (newPlayerNameToRankName.containsKey(currentPlayerName)) {
                 addPlayer(newPlayerNameToRankName.get(currentPlayerName), currentPlayerName);
             }
         });

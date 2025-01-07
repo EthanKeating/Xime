@@ -47,7 +47,6 @@ public class ListenerHandler {
         new WorldCleanListener();
         new WeatherChangeListener();
         new FishingRodListener();
-        new PhysicsListener();
 
         //Wrappers, used to wrap server based events for ease of use
         new BlockModifyWrapper();

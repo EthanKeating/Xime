@@ -19,8 +19,6 @@ public class ServerHandler {
     private final XimePlugin plugin;
     @Getter private final List<Serverable> serverList = new ArrayList<>();
 
-    @Getter @Setter private boolean isWhitelisted = true;
-
     public ServerHandler(XimePlugin plugin) {
         this.plugin = plugin;
 

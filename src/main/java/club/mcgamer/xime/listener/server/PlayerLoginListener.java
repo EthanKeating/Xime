@@ -8,6 +8,7 @@ import club.mcgamer.xime.util.TextUtil;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerPlayerListHeaderAndFooter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -26,10 +27,15 @@ public class PlayerLoginListener extends IListener {
                 "\n&7For more information, join our Discord&8:" +
                 "\n&6https://discord.gg/Twyqpa8tqZ");
 
-
-        if (plugin.getServerHandler().isWhitelisted() && !player.hasPermission("mcgamer.admin")) {
-            event.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, disallowMessage);
+        if (player.hasPermission("mcgamer.admin")) {
+            Bukkit.getWhitelistedPlayers().add(player);
+            Bukkit.reloadWhitelist();
+            return;
         }
+
+        if (Bukkit.hasWhitelist())
+            event.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, disallowMessage);
+
     }
 
 

@@ -81,17 +81,17 @@ public class GeoLocationData {
         conn.setRequestProperty("Accept", "application/json");
 
         // Check for successful response code
-        if (conn.getResponseCode() != 200) {
+        if (conn.getResponseCode() != 200)
             throw new RuntimeException("Failed: HTTP error code: " + conn.getResponseCode());
-        }
+
 
         // Read the response
         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
         StringBuilder response = new StringBuilder();
         String line;
-        while ((line = br.readLine()) != null) {
+        while ((line = br.readLine()) != null)
             response.append(line);
-        }
+
         br.close();
         conn.disconnect();
 

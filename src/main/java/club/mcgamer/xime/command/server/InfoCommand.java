@@ -4,6 +4,7 @@ import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.server.Serverable;
+import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -34,7 +35,7 @@ public class InfoCommand extends XimeCommand {
         profile.sendMessage("Current Map&8: &f" + serverable.getMapData().getMapName());
         profile.sendMessage("Map Creator&8: &f" + serverable.getMapData().getMapAuthor());
         profile.sendMessage("Map Link&8: &f" + serverable.getMapData().getMapLink());
-        profile.sendMessage("Developers&8: &4E&ct&6h&es");
+        profile.sendMessage("Developers&8: " + TextUtil.toRainbow("Eths"));
         profile.sendMessage("&fHosted by&8: &ehttps://www.mcgamer.club/");
         profile.sendMessage(String.format("&fRunning the&8: &8[&3Xime&8] &cv%s &fengine&8.", ServerHandler.SERVER_VERSION));
 

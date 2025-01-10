@@ -19,13 +19,19 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PreGameRunnable extends AbstractGameRunnable {
 
     private final XimePlugin plugin;
     private final SGServerable serverable;
     private final GameTimer gameTimer;
+
+    private List<Integer> spawnIndexes = new ArrayList<>();
+    private List<MapLocation> spawnLocations;
+    private Location centerLocation;
 
     public PreGameRunnable(SGServerable serverable, XimePlugin plugin) {
         this.plugin = plugin;
@@ -35,6 +41,7 @@ public class PreGameRunnable extends AbstractGameRunnable {
         GameSettings gameSettings = serverable.getGameSettings();
 
         gameTimer.setTime(gameSettings.getPreGameLength());
+        serverable.setJoinable(false);
 
         VoteableMap mapWinner = serverable.getMapPool().complete();
         MapData mapData = mapWinner.getMapData();
@@ -57,9 +64,9 @@ public class PreGameRunnable extends AbstractGameRunnable {
 
         List<Profile> allPlayers = new ArrayList<>(serverable.getPlayerList());
 
-        List<Integer> spawnIndexes = MathUtil.distributeObjects(24, allPlayers.size());
-        List<MapLocation> spawnLocations = serverable.getMapData().getSpawnLocations();
-        Location centerLocation = serverable.getMapData().getCenterLocation().toBukkit(serverable.getWorld()).add(0.5, 0.5, 0.5);
+        spawnIndexes = MathUtil.distributeObjects(24, allPlayers.size());
+        spawnLocations = serverable.getMapData().getSpawnLocations();
+        centerLocation = serverable.getMapData().getCenterLocation().toBukkit(serverable.getWorld()).add(0.5, 0.5, 0.5);
 
         for (int i = 0; i < allPlayers.size(); i++) {
             int spawnIndex = spawnIndexes.get(i % spawnIndexes.size());
@@ -73,18 +80,14 @@ public class PreGameRunnable extends AbstractGameRunnable {
             player.teleport(worldLocation);
             temporaryData.setPedistalLocation(worldLocation);
             temporaryData.setDistrictId((i % 12) + 1);
+            temporaryData.setLifeStart(System.currentTimeMillis());
             serverable.getTributeList().add(profile);
             PlayerUtil.refresh(profile);
             player.setGameMode(GameMode.SURVIVAL);
         }
 
-        MapData mapData = serverable.getMapData();
-
-        serverable.announce(String.format("&eMap name&8: &2%s", mapData.getMapName()));
-        serverable.announce(String.format("&eMap author&8: &2%s", mapData.getMapAuthor()));
-        serverable.announce(String.format("&eMap link&8: &2%s", mapData.getMapLink()));
-        serverable.announceTitle("&2" + mapData.getMapName(), "&6by " + mapData.getMapAuthor(), 5, 50, 10);
-
+        //TODO: Make pregame joinable
+        //serverable.setJoinable(true);
     }
 
     public void run() {
@@ -96,6 +99,14 @@ public class PreGameRunnable extends AbstractGameRunnable {
         }
 
         if (currentTime == gameTimer.getInitialTime()) {
+
+            MapData mapData = serverable.getMapData();
+            serverable.announceTitle("&2" + mapData.getMapName(), "&6by " + mapData.getMapAuthor(), 5, 50, 10);
+
+
+            serverable.announce(String.format("&eMap name&8: &2%s", mapData.getMapName()));
+            serverable.announce(String.format("&eMap author&8: &2%s", mapData.getMapAuthor()));
+            serverable.announce(String.format("&eMap link&8: &2%s", mapData.getMapLink()));
 
             Pair<String, String> sigUnit = gameTimer.toSignificantUnit();
             serverable.announce(String.format("&cPlease wait &8[&e%s&8] &c%s before the games begin.",

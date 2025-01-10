@@ -27,7 +27,7 @@ public class PlayerLoginListener extends IListener {
                 "\n&7For more information, join our Discord&8:" +
                 "\n&6https://discord.gg/Twyqpa8tqZ");
 
-        if (player.hasPermission("mcgamer.admin")) {
+        if (player.hasPermission("xime.admin")) {
             Bukkit.getWhitelistedPlayers().add(player);
             Bukkit.reloadWhitelist();
             return;

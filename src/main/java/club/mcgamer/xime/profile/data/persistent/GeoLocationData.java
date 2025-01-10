@@ -1,20 +1,17 @@
-package club.mcgamer.xime.profile.impl;
+package club.mcgamer.xime.profile.data.persistent;
 
 import com.viaversion.viaversion.libs.gson.JsonObject;
 import com.viaversion.viaversion.libs.gson.JsonParser;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
-import org.bukkit.Bukkit;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.time.ZoneId;
-import java.util.TimeZone;
 
 @Getter @Setter
 public class GeoLocationData {
@@ -50,6 +47,8 @@ public class GeoLocationData {
         this(ipAddress.getHostAddress());
     }
 
+    public static GeoLocationData DEFAULT = new GeoLocationData("51.77.107.225");
+
     public GeoLocationData(String ipAddress) {
         this.ipAddress = ipAddress;
 
@@ -67,7 +66,7 @@ public class GeoLocationData {
         this.providerType = jsonResponse.has("organisation") ? jsonResponse.getAsJsonObject("organisation").get("type").getAsString() : null;
         this.timeZoneName = jsonResponse.has("time_zone") ? jsonResponse.getAsJsonObject("time_zone").get("name").getAsString() : null;
         this.timeZoneCode = jsonResponse.has("time_zone") ? jsonResponse.getAsJsonObject("time_zone").get("abbr").getAsString() : null;
-        this.timeZone = ZoneId.of(timeZoneName);
+        this.timeZone = timeZoneName == null ? ZoneId.systemDefault() : ZoneId.of(timeZoneName);
         this.proxy = jsonResponse.has("threat") && jsonResponse.getAsJsonObject("threat").get("is_proxy").getAsBoolean();
         this.dataCenter = jsonResponse.has("threat") && jsonResponse.getAsJsonObject("threat").get("is_datacenter").getAsBoolean();
         this.threat = jsonResponse.has("threat") && jsonResponse.getAsJsonObject("threat").get("is_threat").getAsBoolean();

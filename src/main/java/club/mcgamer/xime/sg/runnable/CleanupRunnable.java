@@ -1,6 +1,7 @@
 package club.mcgamer.xime.sg.runnable;
 
 import club.mcgamer.xime.XimePlugin;
+import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.map.MapData;
 import club.mcgamer.xime.map.MapLocation;
 import club.mcgamer.xime.profile.Profile;
@@ -49,9 +50,22 @@ public class CleanupRunnable extends AbstractGameRunnable {
 
             if (gameWinnerProfile.getTemporaryData() instanceof SGTemporaryData) {
                 SGTemporaryData temporaryData = (SGTemporaryData) gameWinnerProfile.getTemporaryData();
+                PlayerData playerData = gameWinnerProfile.getPlayerData();
+
+                playerData.setSgGamesWon(playerData.getSgGamesWon() + 1);
+                playerData.setSgGamesPlayed(playerData.getSgGamesPlayed() + 1);
+
+                if (playerData.getSgMostKills() < temporaryData.getKillCount())
+                    playerData.setSgMostKills(temporaryData.getKillCount());
+
+                long lifeDuration = System.currentTimeMillis() - temporaryData.getLifeStart();
+
+                playerData.setSgLifeSpan(playerData.getSgLifeSpan() + lifeDuration);
+                if (playerData.getSgLongestLifeSpan() < lifeDuration)
+                    playerData.setSgLongestLifeSpan(lifeDuration);
 
                 if (temporaryData.getBounty() > 0) {
-                    //TODO: Give player extra points
+                    playerData.setSgPoints(playerData.getSgPoints() + temporaryData.getBounty());
                     gameWinnerProfile.sendMessage(String.format("&8[&6MCSG&8] &aYou've gained &8[&e%s&8] &aextra points from your bounty!", temporaryData.getBounty()));
                 }
             }

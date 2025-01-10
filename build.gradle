@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'io.freefair.lombok' version '6.5.1'
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
 }
 
 group = 'club.mcgamer'
@@ -27,6 +28,12 @@ dependencies {
     compileOnly "com.viaversion:viaversion-api:5.1.0"
     compileOnly "com.lunarclient:apollo-api:1.1.6"
     compileOnly "com.grinderwolf:slimeworldmanager-api:2.2.1"
+
+
+    implementation "mysql:mysql-connector-java:8.0.29"
+    implementation "com.j256.ormlite:ormlite-core:5.1"
+    implementation "com.j256.ormlite:ormlite-jdbc:5.1"
+
     implementation "com.github.retrooper:packetevents-spigot:2.7.0-SNAPSHOT"
     implementation "com.google.code.gson:gson:2.11.0"
 }
@@ -39,4 +46,13 @@ java {
 
 compileJava {
     options.encoding = "UTF-8"
+}
+
+shadowJar {
+    archiveClassifier.set('all')  // Creates a fat JAR with dependencies
+    mergeServiceFiles()
+}
+
+tasks.build {
+    dependsOn shadowJar
 }

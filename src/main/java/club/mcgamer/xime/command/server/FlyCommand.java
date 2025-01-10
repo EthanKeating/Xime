@@ -1,12 +1,10 @@
 package club.mcgamer.xime.command.server;
 
 import club.mcgamer.xime.command.XimeCommand;
-import club.mcgamer.xime.hub.HubServerable;
+import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.profile.impl.GeneralData;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.state.GameState;
-import com.github.retrooper.packetevents.PacketEvents;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -19,7 +17,7 @@ public class FlyCommand extends XimeCommand {
         this.description = "Fly in hubs and lobbies";
         this.usageMessage = "/fly";
         this.setAliases(new ArrayList<String>());
-        setPermission("xime.donator");
+        setPermission("xime.platinum");
 
         register();
     }
@@ -32,7 +30,7 @@ public class FlyCommand extends XimeCommand {
 
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
-        GeneralData generalData = profile.getGeneralData();
+        PlayerData generalData = profile.getPlayerData();
 
         generalData.setCanFly(!generalData.isCanFly());
 

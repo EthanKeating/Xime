@@ -3,14 +3,11 @@ package club.mcgamer.xime.command.sg;
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.profile.ProfileHandler;
-import club.mcgamer.xime.profile.impl.CombatTagData;
+import club.mcgamer.xime.profile.data.temporary.CombatTagData;
 import club.mcgamer.xime.server.ServerHandler;
-import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.server.event.ServerDeathEvent;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.state.GameState;
-import club.mcgamer.xime.sg.timer.GameTimer;
-import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -67,6 +64,8 @@ public class KillCommand extends XimeCommand {
                             profile.getServerable(),
                             null
                     ));
+
+                    profile.sendMessage("&8[&6MCSG&8] &fYou have committed suicide.");
 
                     return true;
             }

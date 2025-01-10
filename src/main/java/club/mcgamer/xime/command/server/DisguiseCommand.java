@@ -2,6 +2,8 @@ package club.mcgamer.xime.command.server;
 
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
+import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sg.state.GameState;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
@@ -16,7 +18,7 @@ public class DisguiseCommand extends XimeCommand {
         this.description = "Get a random disguise";
         this.usageMessage = "/disguise";
         this.setAliases(Arrays.asList("d"));
-        setPermission("xime.donator");
+        setPermission("xime.diamond");
 
         register();
     }
@@ -27,8 +29,15 @@ public class DisguiseCommand extends XimeCommand {
         if (!isPlayer(sender)) return true;
         if (!hasPermission(sender)) return true;
 
-        Profile profile = plugin.getProfileHandler().getProfile((Player) sender);
-        Player player = profile.getPlayer();
+        Player player = (Player) sender;
+        Profile profile = plugin.getProfileHandler().getProfile(player);
+
+        if (profile.getServerable() instanceof SGServerable) {
+            if (((SGServerable) profile.getServerable()).getGameState() != GameState.LOBBY) {
+                profile.sendMessage("&8[&3Xime&8] &cYou cannot use this command right now.");
+                return true;
+            }
+        }
 
         plugin.getDisguiseHandler().disguise(profile);
 

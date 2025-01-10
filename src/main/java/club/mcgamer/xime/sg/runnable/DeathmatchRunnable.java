@@ -61,7 +61,7 @@ public class DeathmatchRunnable extends AbstractGameRunnable {
             borderSize = Math.max(borderSize - decrement, 0);
         if (currentTime % 5 == 0) {
             for (Profile loopProfile : new CopyOnWriteArrayList<>(serverable.getTributeList())) {
-                Location playerLocation = loopProfile.getPlayer().getLocation();
+                Location playerLocation = loopProfile.getPlayer().getLocation().add(0, -2, 0);
                 MapLocation centerLocation = serverable.getMapData().getCenterLocation();
 
                 double distance = Math.sqrt(

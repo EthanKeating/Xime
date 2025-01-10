@@ -21,23 +21,21 @@ import org.bukkit.ChatColor;
 import org.bukkit.Server;
 
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class TagImpl {
 
 
     private final Profile profile;
     private final XimePlugin plugin = XimePlugin.getPlugin(XimePlugin.class);
-    //TODO: nameTagImpl
-    //
-    // Create teams when player joins (Owner, Admin, SrMod, Mod, Quantum, Platinum, Diamond, Gold, Iron, Default, Spectator
-    // Have a add(otherPlayer) and remove(otherPlayer) method that gets called whenever a player becomes visible/hidden from a player
+
     private final HashMap<String, String> nameToImplName = new HashMap<>();
     private final HashMap<String, Set<String>> teamToPlayerList = new HashMap<>();
     private final HashMap<String, HashMap<String, Integer>> objectiveValues = new HashMap<>();
 
     private Serverable currentServerable;
 
-    private HashMap<String, String> playerNameToTeamName = new HashMap<>();
+    private HashMap<String, String> playerNameToRankName = new HashMap<>();
 
     public TagImpl(Profile profile) {
         this.profile = profile;
@@ -48,7 +46,8 @@ public class TagImpl {
             createTeam(rank.getName(), rank.getColor(), priority);
             teamToPlayerList.put(rank.getName(), new HashSet<>());
         }
-        //createTeam("Spectator", TextUtil.translate("&7&o"), rankHandler.getRankList().size());
+        createTeam("Spectator", "&7&o", 99);
+        teamToPlayerList.put("Spectator", new HashSet<>());
     }
 
     public void tick() {
@@ -56,38 +55,34 @@ public class TagImpl {
 
         ProfileHandler profileHandler = plugin.getProfileHandler();
 
-        profileHandler.getProfiles().forEach(profile -> {
-            newPlayerNameToRankName.put(profile.getName(), profile.getRank().getName());
-        });
-////
-////        playerNameToTeamName.forEach((player, team) -> {
-////            addPlayer(team, player);
-////        });
+        for(Profile loopProfile : new CopyOnWriteArrayList<>(profileHandler.getProfiles())) {
+            if (loopProfile.getServerable() instanceof SGServerable) {
+                SGServerable serverable = (SGServerable) loopProfile.getServerable();
 
-        playerNameToTeamName.forEach((currentPlayerName, oldTeamName) -> {
-            if (!newPlayerNameToRankName.containsKey(currentPlayerName)) {
-                removePlayer(oldTeamName, currentPlayerName);
+                if (serverable.getSpectatorList().contains(loopProfile)) {
+                    newPlayerNameToRankName.put(loopProfile.getName(), "Spectator");
+                    continue;
+                }
             }
-            else if (!oldTeamName.equalsIgnoreCase(newPlayerNameToRankName.get(currentPlayerName))) {
-                removePlayer(oldTeamName, currentPlayerName);
-                addPlayer(newPlayerNameToRankName.get(currentPlayerName), currentPlayerName);
-            }
-        });
+            newPlayerNameToRankName.put(loopProfile.getName(), loopProfile.getRank().getName());
+        }
 
-//        newPlayerNameToRankName.forEach((currentPlayerName, oldTeamName) -> {
-//            if (newPlayerNameToRankName.containsKey(currentPlayerName) && !playerNameToTeamName.containsKey(currentPlayerName)) {
-//                addPlayer(newPlayerNameToRankName.get(currentPlayerName), currentPlayerName);
-//            }
-//        });
-
-        //TODO: Revert if causing client sided lag
-        newPlayerNameToRankName.forEach((currentPlayerName, oldTeamName) -> {
-            if (newPlayerNameToRankName.containsKey(currentPlayerName)) {
-                addPlayer(newPlayerNameToRankName.get(currentPlayerName), currentPlayerName);
+        playerNameToRankName.forEach((player, team) -> {
+            if (!newPlayerNameToRankName.containsKey(player)) {
+                removePlayer(team, player);
+            } else if (!newPlayerNameToRankName.get(player).equalsIgnoreCase(team)) {
+                removePlayer(team, player);
+                addPlayer(newPlayerNameToRankName.get(player), player);
             }
         });
 
-        playerNameToTeamName = newPlayerNameToRankName;
+        newPlayerNameToRankName.forEach((player, team) -> {
+            if (!playerNameToRankName.containsKey(player)) {
+                addPlayer(team, player);
+            }
+        });
+
+        playerNameToRankName = newPlayerNameToRankName;
 
         //TODO: Eventually move this to a TagAdapter class
         if (profile.getServerable() instanceof SGServerable) {
@@ -118,7 +113,7 @@ public class TagImpl {
 
     public void createTeam(String teamName, String prefix, int priority) {
 
-        nameToImplName.put(teamName, priority + teamName);
+        nameToImplName.put(teamName, "!0000000000000" + (priority <= 9 ? "0" + priority : priority) + teamName);
 
         profile.getUser().sendPacket(new WrapperPlayServerTeams(
                 nameToImplName.get(teamName),
@@ -127,10 +122,14 @@ public class TagImpl {
                         Component.text(""), //displayname - not required?
                         Component.text(TextUtil.translate(prefix)), //prefix
                         Component.text(""), //suffix
-                        WrapperPlayServerTeams.NameTagVisibility.ALWAYS,
-                        WrapperPlayServerTeams.CollisionRule.ALWAYS,
+                        teamName.equals("Spectator") ?
+                                WrapperPlayServerTeams.NameTagVisibility.HIDE_FOR_OWN_TEAM :
+                                WrapperPlayServerTeams.NameTagVisibility.ALWAYS,
+                        WrapperPlayServerTeams.CollisionRule.NEVER,
                         NamedTextColor.WHITE,
-                        WrapperPlayServerTeams.OptionData.FRIENDLY_CAN_SEE_INVISIBLE
+                        teamName.equals("Spectator") ?
+                                WrapperPlayServerTeams.OptionData.FRIENDLY_CAN_SEE_INVISIBLE :
+                                WrapperPlayServerTeams.OptionData.NONE
                 ),
                 Collections.emptyList()));
     }
@@ -151,7 +150,7 @@ public class TagImpl {
                         NamedTextColor.WHITE,
                         WrapperPlayServerTeams.OptionData.FRIENDLY_CAN_SEE_INVISIBLE
                 ),
-                teamToPlayerList.get(teamName)));
+                Collections.singletonList(playerName)));
     }
 
     public void removePlayer(String teamName, String playerName) {
@@ -169,7 +168,7 @@ public class TagImpl {
                         NamedTextColor.WHITE,
                         WrapperPlayServerTeams.OptionData.FRIENDLY_CAN_SEE_INVISIBLE
                 ),
-                teamToPlayerList.get(teamName)));
+                Collections.singletonList(playerName)));
     }
 
     public void removeTeam(String teamName) {

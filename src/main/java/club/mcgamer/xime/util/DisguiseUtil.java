@@ -5,6 +5,7 @@ import com.github.retrooper.packetevents.protocol.player.GameMode;
 import com.github.retrooper.packetevents.protocol.player.UserProfile;
 import com.github.retrooper.packetevents.util.reflection.Reflection;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerPlayerInfo;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerRespawn;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
@@ -73,16 +74,47 @@ public class DisguiseUtil {
         nameField.set(gameProfile, name);
     }
 
-    @SneakyThrows
-    public void update(Profile profile) {
+    private void update(Profile profile) {
+        Location startLoc = profile.getPlayer().getLocation();
+        profile.getServerable().getPlayerList().stream().map(Profile::getPlayer).forEach(loopPlayer -> {
+            loopPlayer.hidePlayer(profile.getPlayer());
+            loopPlayer.showPlayer(profile.getPlayer());
+        });
+        profile.getPlayer().teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
+        profile.getPlayer().teleport(startLoc);
+    }
+
+    public void updateToDisguise(Profile profile) {
         GameProfile gameProfile = (GameProfile) SpigotReflectionUtil.getGameProfile(profile.getPlayer());
-        UserProfile userProfile = new UserProfile(profile.getUuid(), gameProfile.getName(), SpigotReflectionUtil.getUserProfile(profile.getPlayer()));
+
+        WrapperPlayServerPlayerInfo addPlayer = new WrapperPlayServerPlayerInfo(
+                WrapperPlayServerPlayerInfo.Action.ADD_PLAYER,
+                new WrapperPlayServerPlayerInfo.PlayerData(
+                        null,
+                        new UserProfile(gameProfile.getId(),
+                                profile.getName(),
+                                SpigotReflectionUtil.getUserProfile(profile.getPlayer())),
+                        GameMode.SURVIVAL,
+                        0
+                )
+        );
+
+
+        update(profile);
+        profile.getUser().sendPacket(addPlayer);
+    }
+
+    @SneakyThrows
+    public void updateBackToNormal(Profile profile) {
+        GameProfile gameProfile = (GameProfile) SpigotReflectionUtil.getGameProfile(profile.getPlayer());
 
         WrapperPlayServerPlayerInfo removePlayer = new WrapperPlayServerPlayerInfo(
                 WrapperPlayServerPlayerInfo.Action.REMOVE_PLAYER,
                 new WrapperPlayServerPlayerInfo.PlayerData(
-                        Component.text(profile.getName()),
-                        userProfile,
+                        null,
+                        new UserProfile(gameProfile.getId(),
+                                profile.getName(),
+                                SpigotReflectionUtil.getUserProfile(profile.getPlayer())),
                         GameMode.SURVIVAL,
                         0
                 )
@@ -90,22 +122,17 @@ public class DisguiseUtil {
         WrapperPlayServerPlayerInfo addPlayer = new WrapperPlayServerPlayerInfo(
                 WrapperPlayServerPlayerInfo.Action.ADD_PLAYER,
                 new WrapperPlayServerPlayerInfo.PlayerData(
-                        Component.text(profile.getName()),
-                        userProfile,
+                        null,
+                        new UserProfile(gameProfile.getId(),
+                                profile.getNameBypassDisguise(),
+                                SpigotReflectionUtil.getUserProfile(profile.getPlayer())),
                         GameMode.SURVIVAL,
                         0
-                )
+                        )
         );
 
-        //Fully refresh the player easier
-        Location startLoc = profile.getPlayer().getLocation();
         profile.getUser().sendPacket(removePlayer);
-        Bukkit.getOnlinePlayers().forEach(loopPlayer -> {
-            loopPlayer.hidePlayer(profile.getPlayer());
-            loopPlayer.showPlayer(profile.getPlayer());
-        });
-        profile.getPlayer().teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
-        profile.getPlayer().teleport(startLoc);
+        update(profile);
         profile.getUser().sendPacket(addPlayer);
     }
 

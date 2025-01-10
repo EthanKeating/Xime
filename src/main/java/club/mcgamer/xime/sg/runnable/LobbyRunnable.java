@@ -28,6 +28,7 @@ public class LobbyRunnable extends AbstractGameRunnable {
         serverable.setGameSettings(this.gameSettings);
         serverable.setGameTimer(this.gameTimer);
         serverable.setMapPool(new MapPool());
+        serverable.setMaxPlayers(this.gameSettings.getMaximumPlayers());
 
         GameSettings gameSettings = serverable.getGameSettings();
 

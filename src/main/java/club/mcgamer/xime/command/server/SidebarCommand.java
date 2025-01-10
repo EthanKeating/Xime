@@ -2,8 +2,7 @@ package club.mcgamer.xime.command.server;
 
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.profile.impl.SidebarType;
-import com.github.retrooper.packetevents.PacketEvents;
+import club.mcgamer.xime.profile.data.impl.SidebarType;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -29,23 +28,23 @@ public class SidebarCommand extends XimeCommand {
 
         if (args.length == 1) {
             if (args[0].equalsIgnoreCase("default")) {
-                profile.setSidebarType(SidebarType.DEFAULT);
-                profile.sendMessage(String.format("&8[&3Xime&8] &fThe sidebar theme is now %s.", profile.getSidebarType().getName().toLowerCase()));
+                profile.getPlayerData().setSidebarType(SidebarType.DEFAULT.ordinal());
+                profile.sendMessage(String.format("&8[&3Xime&8] &fThe sidebar theme is now %s.", SidebarType.values()[profile.getPlayerData().getSidebarType()].getName().toLowerCase()));
                 return true;
             }
             if (args[0].equalsIgnoreCase("minimize") || args[0].equalsIgnoreCase("minimized")) {
-                profile.setSidebarType(SidebarType.MINIMIZE);
-                profile.sendMessage(String.format("&8[&3Xime&8] &fThe sidebar theme is now %s.", profile.getSidebarType().getName().toLowerCase()));
+                profile.getPlayerData().setSidebarType(SidebarType.MINIMIZE.ordinal());
+                profile.sendMessage(String.format("&8[&3Xime&8] &fThe sidebar theme is now %s.", SidebarType.values()[profile.getPlayerData().getSidebarType()].getName().toLowerCase()));
                 return true;
             }
             if (args[0].equalsIgnoreCase("2014")) {
-                profile.setSidebarType(SidebarType.TWENTY_FOURTEEN);
-                profile.sendMessage(String.format("&8[&3Xime&8] &fThe sidebar theme is now %s.", profile.getSidebarType().getName().toLowerCase()));
+                profile.getPlayerData().setSidebarType(SidebarType.TWENTY_FOURTEEN.ordinal());
+                profile.sendMessage(String.format("&8[&3Xime&8] &fThe sidebar theme is now %s.", SidebarType.values()[profile.getPlayerData().getSidebarType()].getName().toLowerCase()));
                 return true;
             }
             if (args[0].equalsIgnoreCase("2015")) {
-                profile.setSidebarType(SidebarType.TWENTY_FIFTEEN);
-                profile.sendMessage(String.format("&8[&3Xime&8] &fThe sidebar theme is now %s.", profile.getSidebarType().getName().toLowerCase()));
+                profile.getPlayerData().setSidebarType(SidebarType.TWENTY_FIFTEEN.ordinal());
+                profile.sendMessage(String.format("&8[&3Xime&8] &fThe sidebar theme is now %s.", SidebarType.values()[profile.getPlayerData().getSidebarType()].getName().toLowerCase()));
                 return true;
             }
         }

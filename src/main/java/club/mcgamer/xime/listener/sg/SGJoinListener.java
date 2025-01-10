@@ -9,6 +9,7 @@ import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.PlayerUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -38,8 +39,10 @@ public class SGJoinListener extends IListener {
                         player.setLevel(serverable.getServerId());
                         player.teleport(serverable.getLobbyLocation());
 
-                        if(profile.getGeneralData().isCanFly())
+                        if(profile.getPlayerData().isCanFly()) {
                             player.setAllowFlight(true);
+                            PlayerUtil.setFlying(profile);
+                        }
                     }
                     break;
                 case PREGAME:
@@ -47,12 +50,15 @@ public class SGJoinListener extends IListener {
                 case PREDEATHMATCH:
                 case DEATHMATCH:
                 case CLEANUP:
-                    MapData mapData = serverable.getMapData();
-                    if (mapData != null) {
-                        Location centerLocation = mapData.getCenterLocation().toBukkit(serverable.getWorld());
-                        player.teleport(centerLocation);
-                    }
-                    serverable.setSpectating(profile);
+
+                    Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                        MapData mapData = serverable.getMapData();
+                        if (mapData != null) {
+                            serverable.setSpectating(profile);
+                            Location centerLocation = mapData.getCenterLocation().toBukkit(serverable.getWorld());
+                            player.teleport(centerLocation);
+                        }
+                    }, 1L);
                     break;
                 case RESTARTING:
                     //disallow

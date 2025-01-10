@@ -27,7 +27,7 @@ public class BuildJoinListener extends IListener {
             PlayerUtil.refresh(profile);
             player.setGameMode(GameMode.SURVIVAL);
             player.setAllowFlight(true);
-            player.setFlying(true);
+            PlayerUtil.setFlying(profile);
             PlayerUtil.unsetGamemode(profile);
 
             player.getInventory().setItem(0, new ItemBuilder(Material.SKULL_ITEM)

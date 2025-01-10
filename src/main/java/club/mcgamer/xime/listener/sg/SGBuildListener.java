@@ -77,10 +77,9 @@ public class SGBuildListener extends IListener {
                         case WEB:
                         case CAKE_BLOCK:
                         case DEAD_BUSH:
-                            return;
                         case FIRE:
-                            //TODO: implement hqCore's flint and steel mechanics
                             return;
+
                     }
             }
             event.getEvent().setCancelled(true);

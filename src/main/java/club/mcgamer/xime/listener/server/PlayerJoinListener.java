@@ -1,5 +1,6 @@
 package club.mcgamer.xime.listener.server;
 
+import club.mcgamer.xime.data.DataHandler;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.profile.ProfileHandler;
 import club.mcgamer.xime.server.ServerHandler;
@@ -10,10 +11,19 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 
 public class PlayerJoinListener extends IListener {
+
+    @EventHandler
+    private void onPlayerLogin(AsyncPlayerPreLoginEvent event) {
+        ProfileHandler profileHandler = plugin.getProfileHandler();
+        ServerHandler serverHandler = plugin.getServerHandler();
+
+        Profile profile = profileHandler.createProfile(event.getUniqueId());
+    }
 
     @EventHandler
     private void onPlayerJoin(PlayerJoinEvent event) {
@@ -23,14 +33,16 @@ public class PlayerJoinListener extends IListener {
         ServerHandler serverHandler = plugin.getServerHandler();
 
         Player player = event.getPlayer();
-        Profile profile = profileHandler.createProfile(player);
+        Profile profile = profileHandler.getProfile(player);
+
+        profile.complete();
 
         Bukkit.getOnlinePlayers().forEach(loopPlayer -> {
             loopPlayer.hidePlayer(player);
             player.hidePlayer(loopPlayer);
         });
 
-        serverHandler.getServerList().get(0).add(profile);
+        serverHandler.getFallback().add(profile);
 
         if (profile.getServerable() == null) {
             player.kickPlayer(TextUtil.translate("&cCould not locate a server for you!"));

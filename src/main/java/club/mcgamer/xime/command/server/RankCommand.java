@@ -1,15 +1,16 @@
 package club.mcgamer.xime.command.server;
 
 import club.mcgamer.xime.command.XimeCommand;
+import club.mcgamer.xime.data.DataHandler;
+import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.rank.RankHandler;
 import club.mcgamer.xime.rank.impl.Rank;
 import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
-import javax.xml.soap.Text;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -40,26 +41,42 @@ public class RankCommand extends XimeCommand {
             sender.sendMessage(rankListString);
             return true;
         }
-        if (Bukkit.getPlayer(args[0]) == null) {
-            sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThat player is not online."));
-            return true;
-        }
 
-        if (rankHandler.getRank(args[1]) == null) {
-            sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThat rank is not valid."));
-            sender.sendMessage(rankListString);
-            return true;
-        }
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
 
-        Player player = Bukkit.getPlayer(args[0]);
-        Profile profile = plugin.getProfileHandler().getProfile(player);
-        Rank rank = rankHandler.getRank(args[1]);
+            OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+            Rank rank = rankHandler.getRank(args[1]);
 
-        rankHandler.setRank(profile, rank);
+            if (target == null) {
+                sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThat player does not exist."));
+                return;
+            }
 
-        sender.sendMessage(TextUtil.translate(String.format("&8[&3Xime&8] &bYou have set &e%s&b's rank to&8: &f%s%s&8.", player.getName(), rank.getColor(), rank.getName())));
-        player.sendMessage(TextUtil.translate(String.format("&8[&3Xime&8] &bYour rank has been set to&8: &f%s%s&8.", rank.getColor(), rank.getName())));
+            if (rank == null) {
+                sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThat rank is not valid."));
+                sender.sendMessage(rankListString);
+                return;
+            }
 
+            Profile profile = plugin.getProfileHandler().getProfile(target.getUniqueId());
+
+            if (profile == null) {
+                DataHandler dataHandler = plugin.getDataHandler();
+
+                PlayerData playerData = dataHandler.getPlayerData(target.getUniqueId());
+
+                playerData.setRank(rank.getName());
+                playerData.setDisplayName(rank.getColor() + target.getName());
+
+                dataHandler.updatePlayerData(playerData);
+            } else {
+                profile.setRank(rank);
+                profile.sendMessage(TextUtil.translate(String.format("&8[&3Xime&8] &bYour rank has been set to&8: &f%s%s&8.", rank.getColor(), rank.getName())));
+            }
+
+            sender.sendMessage(TextUtil.translate(String.format("&8[&3Xime&8] &bYou have set &e%s&b's rank to&8: &f%s%s&8.", target.getName(), rank.getColor(), rank.getName())));
+
+        });
         return true;
     }
 }

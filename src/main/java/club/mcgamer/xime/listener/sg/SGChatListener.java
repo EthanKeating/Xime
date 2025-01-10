@@ -1,5 +1,6 @@
 package club.mcgamer.xime.listener.sg;
 
+import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerChatEvent;
 import club.mcgamer.xime.sg.SGServerable;
@@ -7,10 +8,7 @@ import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.TextUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
-
-import java.util.Objects;
 
 public class SGChatListener extends IListener {
 
@@ -23,9 +21,11 @@ public class SGChatListener extends IListener {
             GameState gameState = serverable.getGameState();
             String chatFormat;
 
+            PlayerData playerData = profile.getMockOrRealPlayerData();
+
             if (gameState == GameState.LOBBY) {
                 chatFormat = TextUtil.translate(String.format("&8[&e%s&8]&f%s&8: &f%s",
-                        100, //TODO: replace with points once stats are setup
+                        playerData.getSgPoints(),
                         profile.getDisplayName(),
                         profile.getChatColor()));
 
@@ -47,7 +47,7 @@ public class SGChatListener extends IListener {
             }
 
             chatFormat = TextUtil.translate(String.format("&8[&e%s&8]&4SPEC&8|&f%s&8: &f%s",
-                    100, //TODO: replace with points once stats are setup
+                    playerData.getSgPoints(),
                     profile.getDisplayName(),
                     profile.getChatColor()));
 

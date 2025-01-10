@@ -1,4 +1,4 @@
-package club.mcgamer.xime.profile.impl;
+package club.mcgamer.xime.profile.data.impl;
 
 public enum SidebarType {
 

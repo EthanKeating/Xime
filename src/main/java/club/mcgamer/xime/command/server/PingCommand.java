@@ -15,7 +15,7 @@ public class PingCommand extends XimeCommand {
         super("ping");
         this.description = "Check your latency to the server";
         this.usageMessage = "/ping [player]";
-        this.setAliases(new ArrayList<String>());
+        this.setAliases(new ArrayList<>());
 
         register();
     }

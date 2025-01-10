@@ -1,5 +1,6 @@
 package club.mcgamer.xime.menu.sg;
 
+import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.fastinv.FastInv;
 import club.mcgamer.xime.fastinv.ItemBuilder;
 import club.mcgamer.xime.profile.Profile;
@@ -16,7 +17,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class SponsorMenu extends FastInv {
 
-    //TODO: Finish sponsor menu
     public SponsorMenu(Profile profile, Profile sponsored, SGServerable serverable) {
         super(9, TextUtil.translate("Sponsor: " + sponsored.getDisplayName()));
 
@@ -42,7 +42,14 @@ public class SponsorMenu extends FastInv {
 
                 sponsorItem.getValue().set(-1);
 
-                //TODO: CHeck if player has points and remove them.
+                PlayerData playerData = profile.getPlayerData();
+
+                if (playerData.getSgPoints() < cost) {
+                    profile.sendMessage("&8[&6MCSG&8] &4You do not have enough points&8.");
+                    return;
+                }
+
+                playerData.setSgPoints(playerData.getSgPoints() - cost);
 
                 sponsored.getPlayer().getInventory().addItem(originalItem);
                 sponsored.getPlayer().playSound(sponsored.getPlayer().getLocation(), Sound.LEVEL_UP, 2, 2);

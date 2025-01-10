@@ -16,7 +16,7 @@ public class MCSGLootTable extends LootTable {
 
     @Override
     public int getAverageItemCount() {
-        return 5;
+        return 6;
     }
     private final List<ItemStack> tier1Items = new ArrayList<ItemStack>(){{
         add(new ItemStack(Material.STONE_SWORD));
@@ -37,6 +37,7 @@ public class MCSGLootTable extends LootTable {
 
         add(new ItemStack(Material.BOW));
         add(new ItemStack(Material.FISHING_ROD));
+        add(new ItemStack(Material.FISHING_ROD));
         add(new ItemStack(Material.ARROW, 2));
 
         add(new ItemStack(Material.IRON_INGOT));
@@ -48,7 +49,6 @@ public class MCSGLootTable extends LootTable {
         add(new ItemStack(Material.FLINT, 1));
 //        add(new ItemStack(Material.FLINT, 1));
 
-        add(new ItemStack(Material.BOWL));
         add(new ItemStack(Material.PUMPKIN_PIE));
         add(new ItemStack(Material.BAKED_POTATO));
         add(new ItemStack(Material.APPLE));

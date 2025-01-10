@@ -1,12 +1,15 @@
 package club.mcgamer.xime.sg;
 
 import club.mcgamer.xime.fastinv.ItemBuilder;
+import club.mcgamer.xime.hub.HubServerable;
 import club.mcgamer.xime.map.MapData;
+import club.mcgamer.xime.map.MapLocation;
 import club.mcgamer.xime.map.MapPool;
 import club.mcgamer.xime.map.VoteableMap;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.server.data.TemporaryData;
+import club.mcgamer.xime.server.event.ServerJoinEvent;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.sg.design.bossbar.SGBossbarAdapter;
 import club.mcgamer.xime.sg.design.sidebar.SGSidebarAdapter;
@@ -33,6 +36,7 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
@@ -51,6 +55,8 @@ public class SGServerable extends Serverable {
     private final ArrayList<Profile> spectatorList = new ArrayList<>();
     private final ArrayList<String> fallenTributes = new ArrayList<>();
 
+    private final Set<MapLocation> openedChestLocations = new HashSet<>();
+
     private final ArrayList<Pair<ItemStack, AtomicInteger>> sponsorItems = new ArrayList<>();
 
     @Setter private MapPool mapPool;
@@ -65,12 +71,46 @@ public class SGServerable extends Serverable {
         setBossbarAdapter(new SGBossbarAdapter());
     }
 
+    public void add(Profile profile) {
+        Player player = profile.getPlayer();
+
+        if (getPlayerList().size() >= getMaxPlayers()) {
+            profile.sendMessage("&cThat server is full.");
+
+            if (!(profile.getServerable() instanceof HubServerable))
+                plugin.getServerHandler().getFallback().add(profile);
+
+            return;
+        }
+
+        if (!isJoinable()) {
+            profile.sendMessage("&cThis server is not currently joinable");
+            return;
+        }
+
+        if (profile.getServerable() != null)
+            profile.getServerable().remove(profile);
+
+
+        //TODO: Fix the weird spectator bug
+        getPlayerList().stream().map(Profile::getPlayer).forEach(loopPlayer -> {
+            loopPlayer.showPlayer(player);
+            player.showPlayer(loopPlayer);
+        });
+
+        getPlayerList().remove(profile);
+        getPlayerList().add(profile);
+        profile.setServerable(this);
+        profile.setTemporaryData(createTemporaryData());
+        Bukkit.getPluginManager().callEvent(new ServerJoinEvent(profile, profile.getServerable()));
+
+    }
+
     public TemporaryData createTemporaryData() {
         return new SGTemporaryData();
     }
 
     public void setup() {
-        setMaxPlayers(24);
         setWorld(toString() + "-" + LOBBY_NAME, LOBBY_NAME);
         setMapData(MapData.load(LOBBY_NAME));
         setGameState(GameState.LOBBY);
@@ -79,7 +119,6 @@ public class SGServerable extends Serverable {
     }
 
     public void reset() {
-        setMaxPlayers(24);
         setGameState(GameState.LOBBY);
         overrideWorld(Bukkit.getWorld(toString() + "-" + LOBBY_NAME));
         setMapData(MapData.load(LOBBY_NAME));
@@ -90,7 +129,10 @@ public class SGServerable extends Serverable {
         spectatorList.clear();
 
         gameSettings.setSilentJoinLeave(true);
-        new ArrayList<>(getPlayerList()).forEach(this::add);
+
+        new ArrayList<>(getPlayerList()).forEach(profile -> {
+            plugin.getServerHandler().getFallback().add(profile);
+        });
 
         if(Bukkit.getWorld(toString()) != null) {
             Bukkit.getWorld(toString()).getPlayers().forEach(loopPlayer -> loopPlayer.teleport(Bukkit.getWorlds().get(0).getSpawnLocation()));
@@ -133,12 +175,21 @@ public class SGServerable extends Serverable {
             player.showPlayer(loopPlayer);
         });
 
-        PlayerUtil.refresh(profile);
-        PlayerUtil.unsetGamemode(profile);
-        player.setVelocity(new Vector(0, 0.5, 0.0));
-        player.setAllowFlight(true);
-        player.setFlying(true);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Short.MAX_VALUE, 255, false, false));
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            if (profile.getPlayer() == null)
+                return;
+            if (profile.getServerable() == null)
+                return;
+            if (profile.getServerable() != this)
+                return;
+
+            PlayerUtil.refresh(profile);
+            PlayerUtil.unsetGamemode(profile);
+            player.setVelocity(new Vector(0, 0.5, 0.0));
+            player.setAllowFlight(true);
+            PlayerUtil.setFlying(profile);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Short.MAX_VALUE, 255, false, false));
+        }, 1L);
     }
 
     public void setGameState(GameState newState) {

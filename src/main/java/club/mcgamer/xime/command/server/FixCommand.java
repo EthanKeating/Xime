@@ -2,15 +2,11 @@ package club.mcgamer.xime.command.server;
 
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.profile.impl.GeneralData;
-import club.mcgamer.xime.sg.SGServerable;
-import club.mcgamer.xime.sg.state.GameState;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class FixCommand extends XimeCommand {

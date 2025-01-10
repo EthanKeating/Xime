@@ -7,12 +7,16 @@ import club.mcgamer.xime.util.IListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class PlayerChatWrapper extends IListener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     private void onPlayerChat(AsyncPlayerChatEvent event) {
+        if (event.isCancelled())
+            return;
+
         event.setCancelled(true);
         Player player = event.getPlayer();
         Profile profile = plugin.getProfileHandler().getProfile(player);

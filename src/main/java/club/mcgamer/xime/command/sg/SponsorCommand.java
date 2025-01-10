@@ -58,8 +58,6 @@ public class SponsorCommand extends XimeCommand {
         }
 
         new SponsorMenu(profile, argumentProfile, serverable).open(player);
-        //TODO: Check if player has enough points
-        //&8[&6MCSG&8] &4You do not have enough points&8.
 
         return true;
     }

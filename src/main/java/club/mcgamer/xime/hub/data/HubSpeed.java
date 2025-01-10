@@ -1,7 +1,5 @@
 package club.mcgamer.xime.hub.data;
 
-import club.mcgamer.xime.util.TextUtil;
-
 public enum HubSpeed {
     NORMAL,
     SPEEDY,

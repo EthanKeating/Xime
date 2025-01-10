@@ -16,7 +16,7 @@ public class InfoCommand extends XimeCommand {
         super("info");
         this.description = "Xime info command";
         this.usageMessage = "/info";
-        this.setAliases(new ArrayList<String>());
+        this.setAliases(new ArrayList<>());
 
         register();
     }

@@ -3,6 +3,7 @@ package club.mcgamer.xime.server;
 import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.design.bossbar.BossbarAdapter;
 import club.mcgamer.xime.design.sidebar.SidebarAdapter;
+import club.mcgamer.xime.hub.HubServerable;
 import club.mcgamer.xime.map.MapData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.data.TemporaryData;
@@ -72,6 +73,15 @@ public abstract class Serverable {
     public void add(Profile profile) {
         Player player = profile.getPlayer();
 
+        if (getPlayerList().size() >= getMaxPlayers()) {
+            profile.sendMessage("&cThat server is full.");
+
+            if (!(profile.getServerable() instanceof HubServerable))
+                plugin.getServerHandler().getFallback().add(profile);
+
+            return;
+        }
+
         if (!isJoinable()) {
             profile.sendMessage("&cThis server is not currently joinable");
             return;
@@ -79,6 +89,7 @@ public abstract class Serverable {
 
         if (profile.getServerable() != null)
             profile.getServerable().remove(profile);
+
 
         getPlayerList().stream().map(Profile::getPlayer).forEach(loopPlayer -> {
             loopPlayer.showPlayer(player);

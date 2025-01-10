@@ -53,6 +53,12 @@ public class HubServerable extends Serverable {
     public void add(Profile profile) {
         Player player = profile.getPlayer();
 
+        if (getPlayerList().size() >= getMaxPlayers()) {
+            profile.sendMessage("&cThat server is full.");
+
+            return;
+        }
+
         if (!isJoinable()) {
             profile.sendMessage("&cThis server is not currently joinable");
             return;
@@ -61,7 +67,7 @@ public class HubServerable extends Serverable {
         if (profile.getServerable() != null)
             profile.getServerable().remove(profile);
 
-        getPlayerList().stream().forEach(loopProfile -> {
+        getPlayerList().forEach(loopProfile -> {
             Player loopPlayer = loopProfile.getPlayer();
             HubTemporaryData hubTemporaryData = (HubTemporaryData) loopProfile.getTemporaryData();
 

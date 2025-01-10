@@ -1,6 +1,7 @@
 package club.mcgamer.xime;
 
 import club.mcgamer.xime.command.CommandHandler;
+import club.mcgamer.xime.data.DataHandler;
 import club.mcgamer.xime.design.DesignHandler;
 import club.mcgamer.xime.disguise.DisguiseHandler;
 import club.mcgamer.xime.listener.ListenerHandler;
@@ -31,6 +32,8 @@ public class XimePlugin extends JavaPlugin {
     private DisguiseHandler disguiseHandler;
     private MenuHandler menuHandler;
     private RankHandler rankHandler;
+    private DataHandler dataHandler;
+    private ListenerHandler listenerHandler;
     private SlimePlugin slimePlugin;
 
     public void onLoad() {
@@ -50,9 +53,10 @@ public class XimePlugin extends JavaPlugin {
         commandHandler = new CommandHandler(this);
         disguiseHandler = new DisguiseHandler(this);
         rankHandler = new RankHandler(this);
+        dataHandler = new DataHandler(this);
         menuHandler = new MenuHandler(this);
+        listenerHandler = new ListenerHandler(this);
 
-        new ListenerHandler();
         CombatModule combatModule = Apollo.getModuleManager().getModule(CombatModule.class);
         combatModule.getOptions().set(CombatModule.DISABLE_MISS_PENALTY, true);
     }

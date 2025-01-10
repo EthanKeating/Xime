@@ -5,6 +5,7 @@ import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
+import club.mcgamer.xime.util.PlayerUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -33,12 +34,18 @@ public class SpectateCommand extends XimeCommand {
         SGServerable serverable = (SGServerable) profile.getServerable();
         SGTemporaryData temporaryData = (SGTemporaryData) profile.getTemporaryData();
 
+        if (!temporaryData.canSpectate()) {
+            return true;
+        }
+
         if(!serverable.getSpectatorList().contains(profile)) {
             profile.sendMessage("&8[&6MCSG&8] &cYou can only use this command as a spectator.");
             return true;
         }
-        if (temporaryData.getPreviousSpectateIndex() > serverable.getTributeList().size() - 1)
+        if (temporaryData.getPreviousSpectateIndex() >= serverable.getTributeList().size() - 1)
             temporaryData.setPreviousSpectateIndex(0);
+        else
+            temporaryData.setPreviousSpectateIndex(temporaryData.getPreviousSpectateIndex() + 1);
 
         if (serverable.getTributeList().isEmpty())
             return true;
@@ -47,6 +54,8 @@ public class SpectateCommand extends XimeCommand {
 
         profile.sendMessage(String.format("&8[&6MCSG&8] &fTeleporting to %s", spectatedProfile.getDisplayName()));
         profile.getPlayer().teleport(spectatedProfile.getPlayer().getLocation().add(0.0, 0.25, 0.0));
+        temporaryData.setLastSpectate(System.currentTimeMillis());
+        PlayerUtil.setFlying(profile);
 
         return true;
     }

@@ -37,10 +37,9 @@ public class SGVehicleListener extends IListener {
 
             if (profile.getServerable() instanceof SGServerable) {
                 SGServerable serverable = (SGServerable) profile.getServerable();
-
-
                 if (serverable.getSpectatorList().contains(profile)) {
                     event.setCancelled(true);
+                    event.setDamage(0.0f);
                 }
             }
         }

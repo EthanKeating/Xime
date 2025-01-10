@@ -34,7 +34,7 @@ public class ServerHandler {
         Optional<Serverable> optionalFallback = serverList
                 .stream()
                 .filter(serverable -> serverable instanceof HubServerable)
-                .filter(serverable -> (double) serverable.getPlayerList().size() / serverable.getMaxPlayers() < 0.5)
+                .filter(serverable -> serverable.getPlayerList().size() < serverable.getMaxPlayers())
                 .findFirst();
         return optionalFallback.orElse(null);
     }

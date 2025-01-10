@@ -1,10 +1,12 @@
 package club.mcgamer.xime.util;
 
 import club.mcgamer.xime.profile.Profile;
+import club.mcgamer.xime.server.Serverable;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerChangeGameState;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerPlayerAbilities;
 import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
 import lombok.experimental.UtilityClass;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -55,5 +57,13 @@ public class PlayerUtil {
 
     public String getHealth(Profile profile) {
         return ChatColor.RED + new DecimalFormat("#000.0").format(Math.max(0.5, Math.round(profile.getPlayer().getHealth()) / 2F));
+    }
+
+    public void setFlying(Profile profile) {
+        Player player = profile.getPlayer();
+
+        profile.getUser().sendPacket(new WrapperPlayServerPlayerAbilities(
+                false, true, true, false, 0.05f, 0.1f
+        ));
     }
 }

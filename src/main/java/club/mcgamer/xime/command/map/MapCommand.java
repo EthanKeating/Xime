@@ -39,7 +39,6 @@ public class MapCommand extends XimeCommand {
             return true;
         }
 
-
         BuildServerable buildServerable = plugin.getServerHandler()
                 .getServerList()
                 .stream()

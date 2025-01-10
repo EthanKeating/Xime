@@ -1,15 +1,15 @@
 package club.mcgamer.xime.profile;
 
 import club.mcgamer.xime.XimePlugin;
+import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.design.bossbar.BossbarImpl;
 import club.mcgamer.xime.design.sidebar.SidebarImpl;
 import club.mcgamer.xime.design.tag.TagImpl;
 import club.mcgamer.xime.disguise.DisguiseData;
-import club.mcgamer.xime.profile.impl.CombatTagData;
-import club.mcgamer.xime.profile.impl.GeneralData;
-import club.mcgamer.xime.profile.impl.GeoLocationData;
-import club.mcgamer.xime.profile.impl.SidebarType;
-import club.mcgamer.xime.rank.RankHandler;
+import club.mcgamer.xime.profile.data.impl.ProfileStatus;
+import club.mcgamer.xime.profile.data.impl.ReplyData;
+import club.mcgamer.xime.profile.data.persistent.GeoLocationData;
+import club.mcgamer.xime.profile.data.temporary.CombatTagData;
 import club.mcgamer.xime.rank.impl.Rank;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.server.data.TemporaryData;
@@ -24,16 +24,11 @@ import com.lunarclient.apollo.module.title.Title;
 import com.lunarclient.apollo.module.title.TitleModule;
 import com.lunarclient.apollo.module.title.TitleType;
 import com.lunarclient.apollo.player.ApolloPlayer;
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
 import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
 import lombok.Getter;
 import lombok.Setter;
 import net.kyori.adventure.text.Component;
-import net.minecraft.server.v1_8_R3.EntityPlayer;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.time.Duration;
@@ -43,31 +38,44 @@ import java.util.UUID;
 @Getter
 public class Profile {
 
-    private final UUID uuid;
-    private final User user;
-    private final Skin skin;
+    private final XimePlugin plugin;
 
-    @Setter private Rank rank;
+    private ProfileStatus profileStatus = ProfileStatus.LOADING;
+
+    private UUID uuid;
+    private User user;
+    private Skin skin;
+
+    @Setter private String chatColor = "&f";
 
     @Setter private Serverable serverable;
 
-    private final String name;
+    private String name;
+    private Rank rank;
 
-    private final SidebarImpl sidebarImpl;
-    private final BossbarImpl bossbarImpl;
-    private final TagImpl tagImpl;
+    private SidebarImpl sidebarImpl;
+    private BossbarImpl bossbarImpl;
+    private TagImpl tagImpl;
 
-    @Setter private SidebarType sidebarType;
     @Setter private TemporaryData temporaryData;
-    private final GeneralData generalData;
-    private final CombatTagData combatTagData;
-    private GeoLocationData geoLocationData;
+    private PlayerData playerData;
+    private CombatTagData combatTagData;
+    private GeoLocationData geoLocationData = GeoLocationData.DEFAULT;
     @Setter private DisguiseData disguiseData;
+    private ReplyData replyData;
 
-    private final boolean legacy;
+    private boolean legacy;
 
-    public Profile(final UUID uuid) {
+    public Profile(final UUID uuid, XimePlugin plugin) {
+        this.plugin = plugin;
         this.uuid = uuid;
+
+        this.playerData = plugin.getDataHandler().getPlayerData(uuid);
+
+        setRank(playerData.getRank());
+    }
+
+    public void complete() {
         this.user = PacketEvents.getAPI()
                 .getProtocolManager()
                 .getUser(SpigotReflectionUtil.getChannel(getPlayer()));
@@ -78,16 +86,39 @@ public class Profile {
         this.bossbarImpl = new BossbarImpl(this);
         this.tagImpl = new TagImpl(this);
         this.combatTagData = new CombatTagData();
-        this.generalData = new GeneralData();
-        this.sidebarType = SidebarType.DEFAULT;
+        this.replyData = new ReplyData();
 
         this.skin = DisguiseUtil.getSkin(getPlayer());
-        this.rank = RankHandler.DEFAULT_RANK;
+        this.profileStatus = ProfileStatus.COMPLETE;
 
-        //TODO: make this better add the async task in the data population, and auto populate every field with default data
-        Bukkit.getScheduler().runTaskAsynchronously(XimePlugin.getProvidingPlugin(XimePlugin.class), () -> {
-            geoLocationData = new GeoLocationData(getPlayer().getAddress().getAddress());
+        updatePermissions();
+        playerData.setDisplayName(rank.getColor() + getNameBypassDisguise());
+        getPlayer().setDisplayName(rank.getColor() + getNameBypassDisguise());
+    }
+
+    private void updatePermissions() {
+        Player player = getPlayer();
+
+        player.getEffectivePermissions().forEach(permissionAttachmentInfo -> {
+            if (permissionAttachmentInfo != null && permissionAttachmentInfo.getAttachment() != null && permissionAttachmentInfo.getAttachment().getPlugin() == plugin)
+                player.removeAttachment(permissionAttachmentInfo.getAttachment());
         });
+        rank.getPermissions().forEach(permission -> player.addAttachment(plugin, permission, true));
+    }
+
+    public void setRank(String rankName) {
+        setRank(plugin.getRankHandler().getRank(rankName));
+    }
+
+    public void setRank(Rank rank) {
+        this.rank = rank;
+        playerData.setRank(rank.getName());
+
+        if (getPlayer() != null) {
+            playerData.setDisplayName(rank.getColor() + getNameBypassDisguise());
+            getPlayer().setDisplayName(rank.getColor() + getNameBypassDisguise());
+            updatePermissions();
+        }
     }
 
     public Player getPlayer() {
@@ -101,6 +132,17 @@ public class Profile {
         return name;
     }
 
+    public String getNameBypassDisguise() {
+        return name;
+    }
+
+    public PlayerData getMockOrRealPlayerData() {
+        if (disguiseData != null)
+            return disguiseData.getMockData();
+
+        return playerData;
+    }
+
     public String getDisplayName() {
 
         if (disguiseData != null)
@@ -110,18 +152,32 @@ public class Profile {
             return TextUtil.toRainbow(getPlayer().getName());
 
         //replace with Disguise displayname aswell
-        return TextUtil.translate(rank.getColor()) + getPlayer().getDisplayName();
+        return TextUtil.translate(rank.getColor() + getPlayer().getDisplayName());
+    }
+
+    public String getDisplayNameBypassDisguise() {
+        if (rank.getName().equalsIgnoreCase("Developer"))
+            return TextUtil.toRainbow(name);
+
+        //replace with Disguise displayname aswell
+        return TextUtil.translate(rank.getColor() + name);
     }
 
     public String getChatColor() {
+        if (disguiseData != null)
+            return TextUtil.translate("&f");
 
-        return "&f";
+        return TextUtil.translate(chatColor);
     }
 
     public Rank getRank() {
         if (disguiseData != null)
             return disguiseData.getRank();
 
+        return rank;
+    }
+
+    public Rank getRankBypassDisguise() {
         return rank;
     }
 

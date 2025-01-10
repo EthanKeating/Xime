@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class WhitelistCommand extends XimeCommand {
 
@@ -19,7 +20,7 @@ public class WhitelistCommand extends XimeCommand {
         this.description = "Toggle the server whitelist";
         this.usageMessage = "/whitelist <on/off/player>";
         this.setAliases(new ArrayList<String>());
-        setPermission("xime.whitelist");
+        setPermission("xime.admin");
 
         register();
     }
@@ -28,7 +29,14 @@ public class WhitelistCommand extends XimeCommand {
     public boolean execute(CommandSender sender, String alias, String[] args) {
 
         if (!hasPermission(sender)) return true;
-        if (!hasArgs(sender, args, 1)) return true;
+        if (!hasArgs(sender, args, 1)) {
+
+            sender.sendMessage(Bukkit.getWhitelistedPlayers()
+                    .stream()
+                    .map(OfflinePlayer::getName)
+                    .collect(Collectors.joining(", ")));
+            return true;
+        }
 
         if (args[0].equalsIgnoreCase("on")) {
             sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &fThe server has been &cwhitelisted."));

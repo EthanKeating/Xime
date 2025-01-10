@@ -1,5 +1,6 @@
 package club.mcgamer.xime.listener.sg;
 
+import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerDamageEvent;
 import club.mcgamer.xime.server.event.ServerDamageOtherEntityEvent;
@@ -16,6 +17,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageEvent;
 
 public class SGDamageListener extends IListener {
 
@@ -35,12 +37,17 @@ public class SGDamageListener extends IListener {
                     return;
                 case LIVEGAME:
                 case DEATHMATCH:
+
                     if (serverable.getSpectatorList().contains(event.getVictim())
                         || (event.getAttacker().isPresent() && serverable.getSpectatorList().contains(event.getAttacker().get()))) {
-                        event.getEvent().setCancelled(true);
-                        return;
+
+                        if (event.getEvent().getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+                            event.getEvent().setCancelled(true);
+                            return;
+                        }
                     }
             }
+
             if (event.getAttacker().isPresent()) {
                 if (event.getAttacker().get().getPlayer().getInventory().getItemInHand().getType() == Material.AIR) {
                     event.getEvent().setDamage(Math.min(0.5, event.getEvent().getDamage()));
@@ -77,15 +84,27 @@ public class SGDamageListener extends IListener {
             Player victimPlayer = victim.getPlayer();
 
             if (victimPlayer.isDead()) victimPlayer.setHealth(20);
+            PlayerData victimData = victim.getPlayerData();
+            SGTemporaryData victimTempData = (SGTemporaryData) victim.getTemporaryData();
 
-            int tempPoints = (int) (Math.random() * 2000);
-            int lostPoints = (int) (tempPoints * 0.05); //5% of a player's points
+            //int tempPoints = (int) (Math.random() * 2000);
+            int lostPoints = (int) (victimData.getSgPoints() * 0.05); //5% of a player's points
+
+            victimData.setSgPoints(Math.max(0, victimData.getSgPoints() - lostPoints));
+            victimData.setSgDeaths(victimData.getSgDeaths() + 1);
+            victimData.setSgGamesPlayed(victimData.getSgGamesPlayed() + 1);
+
+            long lifeDuration = System.currentTimeMillis() - victimTempData.getLifeStart();
+
+            victimData.setSgLifeSpan(victimData.getSgLifeSpan() + lifeDuration);
+            if (victimData.getSgLongestLifeSpan() < lifeDuration)
+                victimData.setSgLongestLifeSpan(lifeDuration);
 
             if (victim.getServerable() == serverable)
                 serverable.setSpectating(victim);
             serverable.getFallenTributes().add(victimPlayer.getDisplayName());
 
-            victimPlayer.getWorld().strikeLightningEffect(victimPlayer.getLocation());
+            victimPlayer.getWorld().strikeLightningEffect(victimPlayer.getLocation().add(0, -2, 0));
             victim.sendMessage("&8[&6MCSG&8] &aYou have been eliminated from the game.");
 
             String tributePlural = "tribute" + (serverable.getTributeList().size() == 1 ? "" : "s");
@@ -102,10 +121,14 @@ public class SGDamageListener extends IListener {
 
                 if (temporaryData.getBounty() > 0) {
                     if (event.getAttacker().isPresent()) {
-                        //TODO: Add points to this player's balance
+                        Profile attacker = event.getAttacker().get();
+                        PlayerData attackerData = attacker.getPlayerData();
+
+                        attackerData.setSgPoints(attackerData.getSgPoints() + temporaryData.getBounty());
                         event.getAttacker().get().sendMessage(String.format("&8[&6MCSG&8] &3You've gained &8[&e%s&8] &3extra points from bounties set on &f%s&8!", temporaryData.getBounty(), event.getVictim().getDisplayName()));
                     }
-                    serverable.announceRaw(String.format("&6A bounty of &8[&a%s&8] &6points has been claimed upon &f%s&6's death&8.",temporaryData.getBounty(), event.getVictim().getDisplayName()));
+                    serverable.announceRaw(String.format("&6A bounty of &8[&a%s&8] &6points has been claimed upon &f%s&6's death&8.", temporaryData.getBounty(), event.getVictim().getDisplayName()));
+                    temporaryData.setBounty(0);
                 }
             }
 
@@ -126,7 +149,15 @@ public class SGDamageListener extends IListener {
                 int gainedPoints = Math.max(5, lostPoints); //5 minimum points gained
                 Profile attacker = event.getAttacker().get();
 
-                //TODO: Add points to this player's balance
+                PlayerData attackerData = attacker.getPlayerData();
+                SGTemporaryData temporaryData = (SGTemporaryData) event.getVictim().getTemporaryData();
+
+                attackerData.setSgPoints(attackerData.getSgPoints() + gainedPoints);
+                attackerData.setSgKills(attackerData.getSgKills() + 1);
+                temporaryData.setKillCount(temporaryData.getKillCount() + 1);
+                if (attackerData.getSgMostKills() < temporaryData.getKillCount())
+                    attackerData.setSgMostKills(temporaryData.getKillCount());
+
                 attacker.sendMessage(String.format("&8[&6MCSG&8] &3You've gained &8[&e%s&8] &3points for killing %s&8!",
                         gainedPoints,
                         victim.getDisplayName()));
@@ -143,7 +174,7 @@ public class SGDamageListener extends IListener {
 
             int deathmatchCountdown = 60;
 
-            if (currentTime > deathmatchCountdown + 1 && serverable.getTributeList().size() <= gameSettings.getDeathmatchPlayers())
+            if ((serverable.getGameState() != GameState.PREDEATHMATCH && serverable.getGameState() != GameState.DEATHMATCH) && currentTime > deathmatchCountdown + 1 && serverable.getTributeList().size() <= gameSettings.getDeathmatchPlayers())
                 gameTimer.overrideTime(deathmatchCountdown);
 
         }

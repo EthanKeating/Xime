@@ -1,5 +1,6 @@
 package club.mcgamer.xime.listener;
 
+import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.listener.build.BuildItemInteractListener;
 import club.mcgamer.xime.listener.build.BuildJoinListener;
 import club.mcgamer.xime.listener.build.BuildLoadListener;
@@ -10,7 +11,10 @@ import club.mcgamer.xime.listener.wrapper.*;
 
 public class ListenerHandler {
 
-    public ListenerHandler() {
+    private final XimePlugin plugin;
+
+    public ListenerHandler(XimePlugin plugin) {
+        this.plugin = plugin;
 
         //SG listeners
         new SGJoinListener();
@@ -47,6 +51,7 @@ public class ListenerHandler {
         new WorldCleanListener();
         new WeatherChangeListener();
         new FishingRodListener();
+        new EnchantListener();
 
         //Wrappers, used to wrap server based events for ease of use
         new BlockModifyWrapper();

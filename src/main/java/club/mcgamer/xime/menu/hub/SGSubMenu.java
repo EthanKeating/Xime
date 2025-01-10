@@ -21,9 +21,10 @@ public class SGSubMenu extends FastInv {
                 .filter(serverable -> serverable instanceof SGServerable)
                 .map(serverable -> (SGServerable) serverable)
                 .sorted(Comparator
-                        .comparingInt((SGServerable serverable) -> serverable.getPlayerList().size()) // Sort by player count in ascending order
-                        .reversed()
-                        .thenComparing(SGServerable::getGameState)) // Then sort by game state in ascending order
+                        .comparingInt((SGServerable serverable) -> serverable.getGameState().ordinal())
+                        .reversed()// Sort by player count in ascending order
+                        .thenComparing(serverable -> serverable.getPlayerList().size())
+                        .reversed()) // Then sort by game state in ascending order
                 .collect(Collectors.toList());
 
         int index = 9;

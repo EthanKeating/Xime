@@ -3,6 +3,7 @@ package club.mcgamer.xime.map;
 import club.mcgamer.xime.profile.Profile;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.bukkit.entity.Player;
 
 import java.util.HashSet;
 
@@ -16,11 +17,26 @@ public class VoteableMap {
     private HashSet<Profile> votedFor = new HashSet<>();
 
     public int getVotes() {
-        return votedFor.stream()
-                .mapToInt(profile -> profile.getPlayer().hasPermission("hq.media") ? 3
-                        : profile.getPlayer().hasPermission("hq.donator") ? 2
-                        : 1)
-                .sum();
+        int total = 0;
+
+        for(Profile profile : votedFor) {
+            Player player = profile.getPlayer();
+
+            if (player.hasPermission("xime.quantum"))
+                total += 6;
+            else if (player.hasPermission("xime.platinum"))
+                total += 5;
+            else if (player.hasPermission("xime.diamond"))
+                total += 4;
+            else if (player.hasPermission("xime.gold"))
+                total += 3;
+            else if (player.hasPermission("xime.iron"))
+                total += 2;
+            else
+                total += 1;
+        }
+
+        return total;
     }
 
 }

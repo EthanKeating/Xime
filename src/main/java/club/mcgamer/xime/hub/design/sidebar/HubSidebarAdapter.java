@@ -2,12 +2,11 @@ package club.mcgamer.xime.hub.design.sidebar;
 
 import club.mcgamer.xime.design.sidebar.SidebarAdapter;
 import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.profile.impl.SidebarType;
+import club.mcgamer.xime.profile.data.impl.SidebarType;
 import club.mcgamer.xime.server.Serverable;
 import lombok.Getter;
 import org.bukkit.ChatColor;
 
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +26,7 @@ public class HubSidebarAdapter extends SidebarAdapter {
     public List<String> getLines(Profile profile) {
         Serverable serverable = profile.getServerable();
 
-        SidebarType sidebarType = profile.getSidebarType();
+        SidebarType sidebarType = SidebarType.values()[profile.getPlayerData().getSidebarType()];
 
         final String[] timeFormats = new String[3];
         ZonedDateTime dateTimeUser = ZonedDateTime.now(profile.getGeoLocationData() == null

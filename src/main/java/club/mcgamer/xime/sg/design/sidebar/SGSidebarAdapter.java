@@ -2,7 +2,7 @@ package club.mcgamer.xime.sg.design.sidebar;
 
 import club.mcgamer.xime.design.sidebar.SidebarAdapter;
 import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.profile.impl.SidebarType;
+import club.mcgamer.xime.profile.data.impl.SidebarType;
 import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.state.GameState;
@@ -10,7 +10,6 @@ import club.mcgamer.xime.sg.timer.GameTimer;
 import lombok.Getter;
 import org.bukkit.ChatColor;
 
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -49,7 +48,7 @@ public class SGSidebarAdapter extends SidebarAdapter {
 
             SGServerable serverable = (SGServerable) profile.getServerable();
             GameState gameState = serverable.getGameState();
-            SidebarType sidebarType = profile.getSidebarType();
+            SidebarType sidebarType = SidebarType.values()[profile.getPlayerData().getSidebarType()];
             List<String> lines = new ArrayList<>();
 
             switch (sidebarType) {

@@ -31,6 +31,9 @@ public class SGMoveListener extends IListener {
                 if (temporaryData == null || temporaryData.getPedistalLocation() == null)
                     return;
 
+                if (serverable.getSpectatorList().contains(profile))
+                    return;
+
                 Location pedistalLocation = temporaryData.getPedistalLocation();
                 Location playerLocation = event.getTo();
 

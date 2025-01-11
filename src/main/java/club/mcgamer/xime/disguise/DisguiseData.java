@@ -31,5 +31,15 @@ public class DisguiseData {
         this.mockData = PlayerData.createMock(profile);
     }
 
+    public DisguiseData(Profile profile, UUID uuid, String name, Skin skin, Rank rank) {
+        this.profile = profile;
+        this.uuid = uuid;
+        this.name = name;
+        this.skin = skin;
+        this.rank = rank;
+
+        this.mockData = PlayerData.createMock(profile);
+    }
+
 
 }

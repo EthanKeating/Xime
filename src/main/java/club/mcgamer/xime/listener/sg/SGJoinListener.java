@@ -7,6 +7,7 @@ import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.runnable.LobbyRunnable;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
+import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.PlayerUtil;
 import org.bukkit.Bukkit;
@@ -34,7 +35,8 @@ public class SGJoinListener extends IListener {
                     if (serverable.getCurrentRunnable() instanceof LobbyRunnable) {
                         LobbyRunnable runnable = (LobbyRunnable) serverable.getCurrentRunnable();
 
-                        player.performCommand("vote");
+                        if (!(serverable instanceof SGMakerServerable))
+                            player.performCommand("vote");
                         PlayerUtil.refresh(profile);
                         player.setLevel(serverable.getServerId());
                         player.teleport(serverable.getLobbyLocation());

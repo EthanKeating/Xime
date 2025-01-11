@@ -14,7 +14,7 @@ public class MapPool {
     private static final Random random = new Random();
 
     //Where maps are fundamentally added to the sg gamemode
-    private static final List<String> mapIdentifiers = Arrays.asList(
+    @Getter private static final List<String> mapIdentifiers = Arrays.asList(
             "Par_72",
             "Green_Grass",
             "Demons_Breeze",
@@ -32,7 +32,7 @@ public class MapPool {
             "Solar_Frost",
             "Inertia",
             "Survival_Kingdom",
-            "MoonBase9"
+            "Return_To_Moonbase_9"
     );
 
     @Getter private static final HashMap<String, MapData> allMaps = new HashMap<>();
@@ -46,6 +46,12 @@ public class MapPool {
 
     public MapPool() {
         randomizeMaps();
+    }
+
+    public void setMap(String mapIdentifier) {
+        randomMaps.clear();
+
+        randomMaps.put(0, new VoteableMap(mapIdentifier, allMaps.get(mapIdentifier), 0));
     }
 
     public void randomizeMaps() {
@@ -66,9 +72,9 @@ public class MapPool {
         int mapInt = 1;
         for (Integer loopIndex : randomIndex) {
             String mapIdentifier = mapIdentifiers.get(loopIndex);
-            MapData mapName = allMaps.get(mapIdentifier);
+            MapData mapData = allMaps.get(mapIdentifier);
 
-            randomMaps.put(mapInt, new VoteableMap(mapIdentifier, mapName, mapInt));
+            randomMaps.put(mapInt, new VoteableMap(mapIdentifier, mapData, mapInt));
             mapInt++;
         }
     }
@@ -109,6 +115,13 @@ public class MapPool {
 
         return randomMaps.values().stream().max(Comparator.comparing(VoteableMap::getVotes)).get();
     }
+
+    public static VoteableMap get(String mapIdentifier) {
+        if (!mapIdentifiers.contains(mapIdentifier))
+            return null;
+
+        return new VoteableMap(mapIdentifier, allMaps.get(mapIdentifier), 0);
+    };
 
 
 

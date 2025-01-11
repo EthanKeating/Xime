@@ -9,6 +9,7 @@ import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.util.Pair;
 import lombok.Getter;
+import org.bukkit.Effect;
 import org.bukkit.Location;
 
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -75,6 +76,7 @@ public class DeathmatchRunnable extends AbstractGameRunnable {
                     else
                         loopProfile.getPlayer().damage(6.0);
                     loopProfile.sendMessage("&8[&6MCSG&8] &4Please return to spawn!");
+                    playerLocation.getWorld().playEffect(playerLocation.add(0.0, 1.5, 0.0), Effect.MOBSPAWNER_FLAMES, 1);
                     //loopProfile.sendTitle("", "&cYou must stay in the deathmatch area!", 0, 30, 10);
                 }
             }

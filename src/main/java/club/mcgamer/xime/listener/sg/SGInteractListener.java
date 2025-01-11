@@ -1,6 +1,7 @@
 package club.mcgamer.xime.listener.sg;
 
 import club.mcgamer.xime.data.entities.PlayerData;
+import club.mcgamer.xime.hub.HubServerable;
 import club.mcgamer.xime.map.MapLocation;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerAirInteractEvent;
@@ -14,8 +15,27 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
 public class SGInteractListener extends IListener {
+
+    @EventHandler
+    private void onSGItemMove(InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        Profile profile = plugin.getProfileHandler().getProfile(player);
+
+        if (profile.getServerable() instanceof SGServerable) {
+            SGServerable serverable = (SGServerable) profile.getServerable();
+
+            switch (serverable.getGameState()) {
+                case LOBBY:
+                case PREGAME:
+                case LOADING:
+                case RESTARTING:
+                    event.setCancelled(true);
+            }
+        }
+    }
 
     @EventHandler
     private void onSGInteractItem(ServerInteractEvent event) {
@@ -61,7 +81,6 @@ public class SGInteractListener extends IListener {
                 case LOBBY:
                 case LOADING:
                 case PREGAME:
-                case PREDEATHMATCH:
                 case RESTARTING:
                     event.getEvent().setCancelled(true);
                     return;

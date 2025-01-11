@@ -7,6 +7,9 @@ import club.mcgamer.xime.listener.build.BuildLoadListener;
 import club.mcgamer.xime.listener.hub.*;
 import club.mcgamer.xime.listener.server.*;
 import club.mcgamer.xime.listener.sg.*;
+import club.mcgamer.xime.listener.sgmaker.SGMakerItemInteractListener;
+import club.mcgamer.xime.listener.sgmaker.SGMakerJoinListener;
+import club.mcgamer.xime.listener.sgmaker.SGMakerLoadListener;
 import club.mcgamer.xime.listener.wrapper.*;
 
 public class ListenerHandler {
@@ -61,6 +64,11 @@ public class ListenerHandler {
         new ItemDropWrapper();
         new WorldLoadWrapper();
         new PlayerChatWrapper();
+
+        //SGMaker
+        new SGMakerLoadListener();
+        new SGMakerJoinListener();
+        new SGMakerItemInteractListener();
     }
 
 }

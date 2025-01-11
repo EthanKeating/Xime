@@ -7,6 +7,8 @@ import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
+import club.mcgamer.xime.sgmaker.SGMakerServerable;
+import club.mcgamer.xime.sgmaker.runnable.MakerLobbyRunnable;
 import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -33,13 +35,17 @@ public class ForcestartCommand extends XimeCommand {
         Profile profile = plugin.getProfileHandler().getProfile((Player) sender);
         ServerHandler serverHandler = plugin.getServerHandler();
 
-        if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class)) return true;
+        if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class, SGMakerServerable.class)) return true;
 
         SGServerable serverable = (SGServerable) profile.getServerable();
 
         if (serverable.getGameState() != GameState.LOBBY) {
             sender.sendMessage(TextUtil.translate("&8[&6MCSG&8] &cYou can only use this command in the lobby."));
             return true;
+        }
+
+        if (serverable instanceof SGMakerServerable) {
+            ((MakerLobbyRunnable) serverable.getCurrentRunnable()).setStartGame(true);
         }
 
         GameTimer gameTimer = serverable.getGameTimer();

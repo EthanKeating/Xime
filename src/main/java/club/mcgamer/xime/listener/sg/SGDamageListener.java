@@ -38,13 +38,17 @@ public class SGDamageListener extends IListener {
                 case LIVEGAME:
                 case DEATHMATCH:
 
-                    if (serverable.getSpectatorList().contains(event.getVictim())
-                        || (event.getAttacker().isPresent() && serverable.getSpectatorList().contains(event.getAttacker().get()))) {
-
+                    if ((event.getAttacker().isPresent() && serverable.getSpectatorList().contains(event.getAttacker().get()))) {
                         if (event.getEvent().getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
                             event.getEvent().setCancelled(true);
-                            return;
                         }
+                        if (serverable.getSpectatorList().contains(event.getVictim()))
+                            event.getEvent().setCancelled(true);
+                        return;
+                    }
+
+                    if (serverable.getSpectatorList().contains(event.getVictim())) {
+                        event.getEvent().setCancelled(true);
                     }
             }
 
@@ -104,7 +108,7 @@ public class SGDamageListener extends IListener {
                 serverable.setSpectating(victim);
             serverable.getFallenTributes().add(victimPlayer.getDisplayName());
 
-            victimPlayer.getWorld().strikeLightningEffect(victimPlayer.getLocation().add(0, -2, 0));
+            victimPlayer.getWorld().strikeLightningEffect(victimPlayer.getLocation());
             victim.sendMessage("&8[&6MCSG&8] &aYou have been eliminated from the game.");
 
             String tributePlural = "tribute" + (serverable.getTributeList().size() == 1 ? "" : "s");

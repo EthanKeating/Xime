@@ -44,6 +44,8 @@ public class CommandHandler {
         new ChatColorCommand();
         new GlobalListCommand();
         new ListCommand();
+        new MakerCommand();
+        new SecretCommand();
 
         new ForcestartCommand();
         new LeaderboardCommand();

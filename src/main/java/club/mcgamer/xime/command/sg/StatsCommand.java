@@ -7,6 +7,7 @@ import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.profile.ProfileHandler;
 import club.mcgamer.xime.rank.impl.Rank;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
@@ -34,7 +35,7 @@ public class StatsCommand extends XimeCommand {
         ProfileHandler profileHandler = plugin.getProfileHandler();
         Profile profile = profileHandler.getProfile(player);
 
-        if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class)) return true;
+        if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class, SGMakerServerable.class)) return true;
 
         OfflinePlayer argumentPlayer = args.length > 0 ? Bukkit.getOfflinePlayer(args[0]) : (OfflinePlayer) sender;
         String argumentPlayerName = args.length > 0 ? args[0] : ((OfflinePlayer) sender).getName();

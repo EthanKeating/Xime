@@ -87,7 +87,7 @@ public class SGSidebarAdapter extends SidebarAdapter {
                 case TWENTY_FIFTEEN:
                     lines = new ArrayList<>(Arrays.asList(
                             "&7&l» &fYou",
-                            profile.getDisplayName(),
+                            profile.getDisplayNameBypassDisguise(),
                             "",
                             "&7&l» &fTime",
                             ChatColor.YELLOW + timeFormats[0],

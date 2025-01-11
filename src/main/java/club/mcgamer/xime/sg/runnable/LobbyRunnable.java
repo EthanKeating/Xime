@@ -16,10 +16,10 @@ import java.text.NumberFormat;
 
 public class LobbyRunnable extends AbstractGameRunnable {
 
-    private final XimePlugin plugin;
-    private final SGServerable serverable;
-    private final GameTimer gameTimer = new GameTimer();
-    private final GameSettings gameSettings = new GameSettings();
+    protected final XimePlugin plugin;
+    protected final SGServerable serverable;
+    protected final GameTimer gameTimer = new GameTimer();
+    protected final GameSettings gameSettings = new GameSettings();
 
 
     public LobbyRunnable(SGServerable serverable, XimePlugin plugin) {

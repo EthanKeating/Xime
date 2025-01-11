@@ -5,6 +5,7 @@ import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
+import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.util.PlayerUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -29,7 +30,7 @@ public class SpectateCommand extends XimeCommand {
         Profile profile = plugin.getProfileHandler().getProfile((Player) sender);
         ServerHandler serverHandler = plugin.getServerHandler();
 
-        if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class)) return true;
+        if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class, SGMakerServerable.class)) return true;
 
         SGServerable serverable = (SGServerable) profile.getServerable();
         SGTemporaryData temporaryData = (SGTemporaryData) profile.getTemporaryData();

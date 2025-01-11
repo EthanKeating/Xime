@@ -6,6 +6,7 @@ import club.mcgamer.xime.design.bossbar.BossbarImpl;
 import club.mcgamer.xime.design.sidebar.SidebarAdapter;
 import club.mcgamer.xime.design.sidebar.SidebarImpl;
 import club.mcgamer.xime.design.tag.TagImpl;
+import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.profile.ProfileHandler;
 import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.server.Serverable;
@@ -47,7 +48,10 @@ public class DesignThread extends Thread {
             }
         });
 
-        new CopyOnWriteArrayList<>(profileHandler.getProfiles()).forEach(profile -> {
+        for(Profile profile : new CopyOnWriteArrayList<>(profileHandler.getProfiles())) {
+            if (profile == null || profile.getPlayer() == null || profile.getPlayer().getDisplayName() == null)
+                continue;
+
             Serverable serverable = profile.getServerable();
             Serverable previousServerable = previousServerables.getOrDefault(profile.getUuid(), null);
 
@@ -67,7 +71,7 @@ public class DesignThread extends Thread {
                 if (tagImpl != null)
                     tagImpl.tick();
             }
-        });
+        }
     }
 
     @SneakyThrows

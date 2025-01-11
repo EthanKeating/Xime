@@ -4,6 +4,7 @@ import club.mcgamer.xime.fastinv.FastInv;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.fastinv.ItemBuilder;
+import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -19,6 +20,7 @@ public class SGSubMenu extends FastInv {
 
         List<SGServerable> gameServers = plugin.getServerHandler().getServerList().stream()
                 .filter(serverable -> serverable instanceof SGServerable)
+                .filter(serverable -> !(serverable instanceof SGMakerServerable))
                 .map(serverable -> (SGServerable) serverable)
                 .sorted(Comparator
                         .comparingInt((SGServerable serverable) -> serverable.getGameState().ordinal())

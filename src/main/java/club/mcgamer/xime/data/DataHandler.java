@@ -44,7 +44,7 @@ public class DataHandler {
                updatePlayerData(profile.getPlayerData());
             });
             rankPlayerData();
-        }, 30 * 20, 30 * 20);
+        }, 60 * 20, 60 * 20);
 
     }
 
@@ -95,6 +95,6 @@ public class DataHandler {
 //        queryBuilder.limit(100L);
 //        topPlayerData = queryBuilder.query();
 
-        Bukkit.getLogger().log(Level.INFO, "[Leaderboard] Ranked players in {0} ms", System.currentTimeMillis() - startTime);
+        //Bukkit.getLogger().log(Level.INFO, "[Leaderboard] Ranked players in {0} ms", System.currentTimeMillis() - startTime);
     }
 }

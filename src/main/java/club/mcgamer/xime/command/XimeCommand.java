@@ -33,12 +33,14 @@ public abstract class XimeCommand extends BukkitCommand {
         return true;
     }
 
-    public boolean isCorrectServerable(CommandSender commandSender, Serverable serverable, Class<?> clazz) {
-        if (!serverable.getClass().equals(clazz)) {
-            commandSender.sendMessage("Unknown command. Type \"/help\" for help.");
-            return false;
+    public boolean isCorrectServerable(CommandSender commandSender, Serverable serverable, Class<?>... clazz) {
+        for(Class<?> loopClazz : clazz) {
+            if (serverable.getClass().equals(loopClazz)) {
+                return true;
+            }
         }
-        return true;
+        commandSender.sendMessage("Unknown command. Type \"/help\" for help.");
+        return false;
     }
 
     public boolean isPlayer(CommandSender commandSender) {

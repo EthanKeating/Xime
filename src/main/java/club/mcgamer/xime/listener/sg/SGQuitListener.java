@@ -26,7 +26,8 @@ public class SGQuitListener extends IListener {
 
             switch (gameState) {
                 case LOBBY:
-                    serverable.getMapPool().removeVote(profile);
+                    if (serverable.getMapPool() != null)
+                        serverable.getMapPool().removeVote(profile);
                     break;
                 case PREGAME:
                 case LIVEGAME:

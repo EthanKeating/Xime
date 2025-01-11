@@ -9,6 +9,7 @@ import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.runnable.LobbyRunnable;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
+import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -33,7 +34,7 @@ public class TimeLeftCommand extends XimeCommand {
         Profile profile = plugin.getProfileHandler().getProfile((Player) sender);
         ServerHandler serverHandler = plugin.getServerHandler();
 
-        if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class)) return true;
+        if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class, SGMakerServerable.class)) return true;
 
         SGServerable serverable = (SGServerable) profile.getServerable();
         GameState gameState = serverable.getGameState();

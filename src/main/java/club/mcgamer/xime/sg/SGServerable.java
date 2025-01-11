@@ -44,23 +44,23 @@ public class SGServerable extends Serverable {
 
     public static final String LOBBY_NAME = "Lobby";
 
-    @Setter private Location lobbyLocation;
+    @Setter protected Location lobbyLocation;
 
-    private AbstractGameRunnable currentRunnable;
-    @Setter private GameTimer gameTimer;
-    @Setter private GameSettings gameSettings;
-    private GameState gameState;
+    protected AbstractGameRunnable currentRunnable;
+    @Setter protected GameTimer gameTimer;
+    @Setter protected GameSettings gameSettings;
+    protected GameState gameState;
 
-    private final ArrayList<Profile> tributeList = new ArrayList<>();
-    private final ArrayList<Profile> spectatorList = new ArrayList<>();
-    private final ArrayList<String> fallenTributes = new ArrayList<>();
+    protected final ArrayList<Profile> tributeList = new ArrayList<>();
+    protected final ArrayList<Profile> spectatorList = new ArrayList<>();
+    protected final ArrayList<String> fallenTributes = new ArrayList<>();
 
-    private final Set<MapLocation> openedChestLocations = new HashSet<>();
+    protected final Set<MapLocation> openedChestLocations = new HashSet<>();
 
-    private final ArrayList<Pair<ItemStack, AtomicInteger>> sponsorItems = new ArrayList<>();
+    protected final ArrayList<Pair<ItemStack, AtomicInteger>> sponsorItems = new ArrayList<>();
 
-    @Setter private MapPool mapPool;
-    @Setter private VoteableMap mapWinner;
+    @Setter protected MapPool mapPool;
+    @Setter protected VoteableMap mapWinner;
 
     public SGServerable() {
         super();
@@ -127,6 +127,7 @@ public class SGServerable extends Serverable {
 
         tributeList.clear();
         spectatorList.clear();
+        fallenTributes.clear();
 
         gameSettings.setSilentJoinLeave(true);
 
@@ -138,9 +139,10 @@ public class SGServerable extends Serverable {
             Bukkit.getWorld(toString()).getPlayers().forEach(loopPlayer -> loopPlayer.teleport(Bukkit.getWorlds().get(0).getSpawnLocation()));
             Bukkit.unloadWorld(toString(), false);
         }
+        gameSettings.setSilentJoinLeave(false);
     }
 
-    private void populateSponsor() {
+    protected void populateSponsor() {
 
         sponsorItems.clear();
         sponsorItems.addAll(Arrays.asList(

@@ -5,6 +5,7 @@ import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.util.TextUtil;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
@@ -49,6 +50,7 @@ public class JoinCommand extends XimeCommand {
             int id = Integer.parseInt(args[1]);
             Optional<Serverable> serverableOptional = serverHandler.getServerList().stream()
                     .filter(serverable -> serverable instanceof SGServerable)
+                    .filter(serverable -> !(serverable instanceof SGMakerServerable))
                     .filter(serverable -> serverable.getServerId() == id)
                     .findFirst();
 
@@ -69,6 +71,7 @@ public class JoinCommand extends XimeCommand {
         // Then sort by game state in ascending order
         Optional<SGServerable> serverableOptional = plugin.getServerHandler().getServerList().stream()
                 .filter(serverable -> serverable instanceof SGServerable)
+                .filter(serverable -> !(serverable instanceof SGMakerServerable))
                 .filter(serverable -> serverable.getPlayerList().size() < serverable.getMaxPlayers())
                 .map(serverable -> (SGServerable) serverable).max(Comparator
                         .comparingInt((SGServerable serverable) -> serverable.getGameState().ordinal())

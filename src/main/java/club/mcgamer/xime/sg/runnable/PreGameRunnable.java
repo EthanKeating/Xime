@@ -33,6 +33,8 @@ public class PreGameRunnable extends AbstractGameRunnable {
     private List<MapLocation> spawnLocations;
     private Location centerLocation;
 
+    private boolean mapLoaded;
+
     public PreGameRunnable(SGServerable serverable, XimePlugin plugin) {
         this.plugin = plugin;
         this.serverable = serverable;
@@ -88,10 +90,17 @@ public class PreGameRunnable extends AbstractGameRunnable {
 
         //TODO: Make pregame joinable
         //serverable.setJoinable(true);
+        mapLoaded = true;
     }
 
     public void run() {
         int currentTime = gameTimer.decrement();
+
+        if (!mapLoaded) {
+            gameTimer.reset();
+            return;
+        }
+
         //Switch to livegame
         if (currentTime == 0) {
             cancel();

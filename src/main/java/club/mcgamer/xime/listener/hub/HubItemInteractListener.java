@@ -15,11 +15,23 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.inventory.InventoryClickEvent;
 
 public class HubItemInteractListener extends IListener {
+
+    @EventHandler
+    private void onHubItemMove(InventoryClickEvent event) {
+        Player player = (Player) event.getWhoClicked();
+        Profile profile = plugin.getProfileHandler().getProfile(player);
+
+        if (profile.getServerable() instanceof HubServerable) {
+            event.setCancelled(true);
+        }
+    }
 
     @EventHandler
     private void onHubItemInteract(ServerItemInteractEvent event) {

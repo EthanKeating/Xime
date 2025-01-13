@@ -15,6 +15,7 @@ import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class VoteCommand extends XimeCommand {
     public VoteCommand() {
@@ -48,6 +49,8 @@ public class VoteCommand extends XimeCommand {
                     serverable.getMaxPlayers(),
                     serverable.getGameSettings().getMinimumPlayers()));
             profile.sendMessage("&8[&6MCSG&8] &2Vote using &8[&a/vote #&8].");
+            if (!serverable.getPreviousMapNames().isEmpty())
+                profile.sendMessage("&8[&6MCSG&8] &2Previous maps played&8: &7" + String.join("&8, &7", serverable.getPreviousMapNames()) + "&8.");
             ((LobbyRunnable) serverable.getCurrentRunnable()).sendVotes(profile);
             return true;
         }

@@ -94,7 +94,7 @@ public class DeathmatchRunnable extends AbstractGameRunnable {
     public void cancel() {
         super.cancel();
 
-        serverable.setGameState(GameState.CLEANUP);
+        serverable.setGameState(GameState.ENDGAME);
     }
 
 }

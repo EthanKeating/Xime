@@ -21,12 +21,12 @@ public class RankHandler {
 
         //Rank priority is defined by the order added (First = Best, Last = Worst)
         rankList = Arrays.asList(
-                new Rank("Owner", "&4&l", Arrays.asList("xime.admin", "xime.regular", "xime.gold", "xime.diamond", "xime.platinum", "xime.quantum")),
-                new Rank("Administrator", "&4&l", Arrays.asList("xime.admin", "xime.regular", "xime.gold", "xime.diamond", "xime.platinum", "xime.quantum")),
-                new Rank("Devmin", "&9&l", Arrays.asList("xime.admin", "xime.regular", "xime.gold", "xime.diamond", "xime.platinum", "xime.quantum")),
-                new Rank("Developer", "&e&l", Arrays.asList("xime.admin", "xime.regular", "xime.gold", "xime.diamond", "xime.platinum", "xime.quantum")),
-                new Rank("SeniorModerator", "&4", Arrays.asList("xime.moderator", "xime.regular", "xime.gold", "xime.diamond", "xime.platinum", "xime.quantum")),
-                new Rank("Moderator", "&c", Arrays.asList("xime.moderator", "xime.regular", "xime.gold", "xime.diamond", "xime.platinum", "xime.quantum")),
+                new Rank("Owner", "&4&l", Arrays.asList("xime.staff", "xime.admin", "xime.moderator", "xime.regular", "xime.gold", "xime.diamond", "xime.platinum", "xime.quantum")),
+                new Rank("Administrator", "&4&l", Arrays.asList("xime.staff", "xime.admin", "xime.moderator", "xime.regular", "xime.gold", "xime.diamond", "xime.platinum", "xime.quantum")),
+                new Rank("Devmin", "&9&l", Arrays.asList("xime.staff", "xime.admin", "xime.moderator", "xime.regular", "xime.gold", "xime.diamond", "xime.platinum", "xime.quantum")),
+                new Rank("Developer", "&e&l", Arrays.asList("xime.staff", "xime.admin", "xime.moderator", "xime.regular", "xime.gold", "xime.diamond", "xime.platinum", "xime.quantum")),
+                new Rank("SeniorModerator", "&4", Arrays.asList("xime.staff", "xime.moderator", "xime.regular", "xime.gold", "xime.diamond", "xime.platinum", "xime.quantum")),
+                new Rank("Moderator", "&c", Arrays.asList("xime.staff", "xime.moderator", "xime.regular", "xime.gold", "xime.diamond", "xime.platinum", "xime.quantum")),
                 new Rank("VIP", "&5", Arrays.asList("xime.regular", "xime.gold", "xime.diamond", "xime.platinum", "xime.quantum")),
                 new Rank("MapMaker", "&d", Arrays.asList("xime.regular", "xime.gold", "xime.diamond", "xime.platinum", "xime.quantum")),
                 new Rank("Quantum", "&a", Arrays.asList("xime.regular", "xime.gold", "xime.diamond", "xime.platinum", "xime.quantum")),

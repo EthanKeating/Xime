@@ -23,10 +23,10 @@ public class InfoCommand extends XimeCommand {
 
     @Override
     public boolean execute(CommandSender sender, String alias, String[] args) {
+        if (!isPlayer(sender)) return true;
+
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
-
-        if (!isPlayer(sender)) return true;
 
         Serverable serverable = profile.getServerable();
 

@@ -5,6 +5,7 @@ import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.runnable.CleanupRunnable;
+import club.mcgamer.xime.sg.runnable.EndGameRunnable;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
 
@@ -18,13 +19,13 @@ public class SGBossbarAdapter extends BossbarAdapter {
     @Override
     public String getTitle(Profile profile) {
         SGServerable serverable = (SGServerable) profile.getServerable();
-        if (serverable.getGameState() == GameState.CLEANUP) {
-            if (serverable.getCurrentRunnable() == null || (!(serverable.getCurrentRunnable() instanceof CleanupRunnable)))
+        if (serverable.getGameState() == GameState.ENDGAME) {
+            if (serverable.getCurrentRunnable() == null || (!(serverable.getCurrentRunnable() instanceof EndGameRunnable)))
                 return "";
-            CleanupRunnable cleanupRunnable = (CleanupRunnable) serverable.getCurrentRunnable();
+            EndGameRunnable endGameRunnable = (EndGameRunnable) serverable.getCurrentRunnable();
 
-            if (cleanupRunnable.getGameWinner().isPresent()) {
-                return String.format("&8[&6MCSG&8] &a%s &ahas won the Survival Games!", cleanupRunnable.getGameWinner().get().getDisplayName());
+            if (endGameRunnable.getGameWinner().isPresent()) {
+                return String.format("&8[&6MCSG&8] &a%s &ahas won the Survival Games!", endGameRunnable.getGameWinner().get().getDisplayName());
             }
             return "&8[&6MCSG&8] &aThe games have ended!";
         }

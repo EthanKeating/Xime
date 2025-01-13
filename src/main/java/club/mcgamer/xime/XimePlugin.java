@@ -9,6 +9,7 @@ import club.mcgamer.xime.menu.MenuHandler;
 import club.mcgamer.xime.packet.PacketHandler;
 import club.mcgamer.xime.profile.ProfileHandler;
 import club.mcgamer.xime.rank.RankHandler;
+import club.mcgamer.xime.report.ReportHandler;
 import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.world.WorldHandler;
 import com.github.retrooper.packetevents.PacketEvents;
@@ -34,6 +35,7 @@ public class XimePlugin extends JavaPlugin {
     private RankHandler rankHandler;
     private DataHandler dataHandler;
     private ListenerHandler listenerHandler;
+    private ReportHandler reportHandler;
     private SlimePlugin slimePlugin;
 
     public void onLoad() {
@@ -55,6 +57,7 @@ public class XimePlugin extends JavaPlugin {
         rankHandler = new RankHandler(this);
         dataHandler = new DataHandler(this);
         menuHandler = new MenuHandler(this);
+        reportHandler = new ReportHandler(this);
         listenerHandler = new ListenerHandler(this);
 
         CombatModule combatModule = Apollo.getModuleManager().getModule(CombatModule.class);

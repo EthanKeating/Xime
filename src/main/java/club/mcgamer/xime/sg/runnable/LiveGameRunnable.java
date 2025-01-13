@@ -56,9 +56,9 @@ public class LiveGameRunnable extends AbstractGameRunnable {
         }
 
         if ((seconds == 0 && minutes > 0 && (minutes % 5 == 0 || minutes < 5)) || (minutes == 0 && (seconds % 30 == 0 || seconds == 10 || seconds <= 5))) {
-//            serverable.announceTitle("", String.format("&8[&e%s&8] &c%s until deathmatch!",
-//                    sigUnit.getKey(),
-//                    sigUnit.getValue()), 10, 80, 10);
+            serverable.announceTitle("", String.format("&8[&e%s&8] &c%s until deathmatch!",
+                    sigUnit.getKey(),
+                    sigUnit.getValue()), 10, 80, 10);
             serverable.announce(String.format("&8[&e%s&8] &c%s until deathmatch!",
                     sigUnit.getKey(),
                     sigUnit.getValue()));

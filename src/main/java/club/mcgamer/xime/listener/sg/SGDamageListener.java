@@ -14,6 +14,7 @@ import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.TextUtil;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -32,6 +33,7 @@ public class SGDamageListener extends IListener {
                 case PREGAME:
                 case PREDEATHMATCH:
                 case RESTARTING:
+                case ENDGAME:
                 case CLEANUP:
                     event.getEvent().setCancelled(true);
                     return;
@@ -104,11 +106,15 @@ public class SGDamageListener extends IListener {
             if (victimData.getSgLongestLifeSpan() < lifeDuration)
                 victimData.setSgLongestLifeSpan(lifeDuration);
 
-            if (victim.getServerable() == serverable)
+            if (victim.getServerable() == serverable) {
+                if ((victimPlayer.getLastDamageCause() != null && victimPlayer.getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.VOID) || victimPlayer.getLocation().getY() < 0) {
+                    victimPlayer.teleport(serverable.getMapData().getCenterLocation().toBukkit(victimPlayer.getWorld()));
+                }
                 serverable.setSpectating(victim);
+            }
             serverable.getFallenTributes().add(victimPlayer.getDisplayName());
 
-            victimPlayer.getWorld().strikeLightningEffect(victimPlayer.getLocation());
+            victimPlayer.getWorld().strikeLightningEffect(victimPlayer.getLocation().add(0, 8, 0));
             victim.sendMessage("&8[&6MCSG&8] &aYou have been eliminated from the game.");
 
             String tributePlural = "tribute" + (serverable.getTributeList().size() == 1 ? "" : "s");
@@ -118,7 +124,7 @@ public class SGDamageListener extends IListener {
             serverable.announce(String.format("&aThere is &8[&6%s&8] &a%s watching the game.", serverable.getSpectatorList().size(), spectatorPlural));
 
             victim.sendMessage(String.format("&8[&6MCSG&8] &3You've lost &8[&e%s&8] &3points for dying&8!", lostPoints));
-            serverable.announceRaw(String.format("&6A cannon can be heard in the distance in memorial for %s", victim.getDisplayName()));
+            victim.sendTitle("&cYou have died.", "", 10, 50, 10);
 
             if (event.getVictim().getTemporaryData() instanceof SGTemporaryData) {
                 SGTemporaryData temporaryData = (SGTemporaryData) event.getVictim().getTemporaryData();
@@ -135,19 +141,6 @@ public class SGDamageListener extends IListener {
                     temporaryData.setBounty(0);
                 }
             }
-
-            TextComponent message = new TextComponent(TextUtil.translate("&fWant to join &lAnother &6Survival Games &fgame? Click "));
-            TextComponent linkSection = new TextComponent(TextUtil.translate("&6&nhere&f"));
-//                    serverSection.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{
-//                            new TextComponent(ColorUtil.translate(String.format("&e%s &f(%s)", serverable, serverable.getPlayers().size() + " player" + (serverable.getPlayers().size() == 1 ? "" : "s")))),
-//                            new TextComponent(ColorUtil.translate("\n\n&6Click to connect to this server"))
-//                    }));
-            linkSection.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/join sg"));
-            message.addExtra(linkSection);
-
-            victim.sendMessage("");
-            victim.getPlayer().spigot().sendMessage(message);
-            victim.sendMessage("");
 
             if (event.getAttacker().isPresent()) {
                 int gainedPoints = Math.max(5, lostPoints); //5 minimum points gained
@@ -167,8 +160,27 @@ public class SGDamageListener extends IListener {
                         victim.getDisplayName()));
             }
 
+            serverable.announceRaw(String.format("&6A cannon can be heard in the distance in memorial for %s", victim.getDisplayName()));
+
+            Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                TextComponent message = new TextComponent(TextUtil.translate("&fWant to join &lAnother &6MCSG &fgame? Click "));
+                TextComponent linkSection = new TextComponent(TextUtil.translate("&f&nHere&f!"));
+//                    serverSection.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{
+//                            new TextComponent(ColorUtil.translate(String.format("&e%s &f(%s)", serverable, serverable.getPlayers().size() + " player" + (serverable.getPlayers().size() == 1 ? "" : "s")))),
+//                            new TextComponent(ColorUtil.translate("\n\n&6Click to connect to this server"))
+//                    }));
+                linkSection.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/join sg"));
+                message.addExtra(linkSection);
+
+                if (victimPlayer.isOnline()) {
+                    victim.sendMessage("");
+                    victim.getPlayer().spigot().sendMessage(message);
+                    victim.sendMessage("");
+                }
+            }, 1);
+
             if (serverable.getTributeList().size() <= 1) {
-                serverable.forceGameState(GameState.CLEANUP);
+                serverable.forceGameState(GameState.ENDGAME);
                 return;
             }
 

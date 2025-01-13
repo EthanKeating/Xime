@@ -1,5 +1,6 @@
 package club.mcgamer.xime.listener.sg;
 
+import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerQuitEvent;
 import club.mcgamer.xime.sg.SGServerable;
@@ -17,11 +18,12 @@ public class SGQuitListener extends IListener {
             SGServerable serverable = (SGServerable) event.getServerable();
             Profile profile = event.getProfile();
             Player player = profile.getPlayer();
+            PlayerData playerData = profile.getPlayerData();
 
             GameState gameState = serverable.getGameState();
             GameSettings gameSettings = serverable.getGameSettings();
 
-            if (!gameSettings.isSilentJoinLeave())
+            if (!gameSettings.isSilentJoinLeave() && !playerData.isSilentJoin())
                 serverable.announceRaw(String.format("&2%s &6has left&8.", profile.getDisplayName()));
 
             switch (gameState) {
@@ -39,6 +41,7 @@ public class SGQuitListener extends IListener {
                     serverable.getTributeList().remove(profile);
                     serverable.getSpectatorList().remove(profile);
                     break;
+                case ENDGAME:
                 case CLEANUP:
                 case RESTARTING:
                     //disallow

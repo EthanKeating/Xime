@@ -46,6 +46,7 @@ public class ScrambleCommand extends XimeCommand {
             profile.sendMessage("&8[&3Xime&8] &fYour stats have been re-scrambled.");
         } else {
             profile.setDisguiseData(new DisguiseData(profile, profile.getUuid(), profile.getName(), profile.getSkin(), profile.getRank()));
+            profile.getDisguiseData().setMockData(PlayerData.createMock(profile));
             profile.sendMessage("&8[&3Xime&8] &fYour stats have been scrambled.");
         }
 

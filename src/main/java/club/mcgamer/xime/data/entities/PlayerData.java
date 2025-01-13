@@ -23,6 +23,9 @@ public class PlayerData {
     @DatabaseField(canBeNull = false, defaultValue = "Regular")
     private String rank = "Regular";
 
+    @DatabaseField(canBeNull = false, defaultValue = "false")
+    private boolean silentJoin = false;
+
     @DatabaseField(canBeNull = false, defaultValue = "")
     private String displayName = "";
 

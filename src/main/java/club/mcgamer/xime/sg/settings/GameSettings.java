@@ -19,7 +19,7 @@ public class GameSettings {
     private int liveGameLength = 30 * 60; //30 minutes
     private int preDeathmatchTime = 10;
     private int deathmatchTime = 3 * 60; //3 minutes
-    private int cleanupTime = 10;
+    private int endGameTime = 10;
 
     private int deathmatchShrinkTime = 2 * 60; //2 minutes
 

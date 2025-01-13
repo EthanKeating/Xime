@@ -8,6 +8,7 @@ public enum GameState {
     LIVEGAME,
     PREDEATHMATCH,
     DEATHMATCH,
+    ENDGAME,
     CLEANUP,
     RESTARTING;
 
@@ -25,6 +26,8 @@ public enum GameState {
                 return "PreDeathmatch";
             case DEATHMATCH:
                 return "Deathmatch";
+            case ENDGAME:
+                return "EndGame";
             case CLEANUP:
                 return "Cleanup";
             case RESTARTING:

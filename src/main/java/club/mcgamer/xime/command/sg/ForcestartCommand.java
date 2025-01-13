@@ -52,7 +52,7 @@ public class ForcestartCommand extends XimeCommand {
         GameSettings gameSettings = serverable.getGameSettings();
 
         gameTimer.setTime(10);
-        gameSettings.setMinimumPlayers(0);
+        gameSettings.setMinimumPlayers(1);
 
         serverable.announce(String.format("&4The game has been force started by %s&8.", profile.getDisplayName()));
 

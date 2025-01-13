@@ -1,5 +1,6 @@
 package club.mcgamer.xime.listener.hub;
 
+import club.mcgamer.xime.animation.TextShineAnimation;
 import club.mcgamer.xime.hub.HubServerable;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerJoinEvent;
@@ -7,6 +8,7 @@ import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.fastinv.ItemBuilder;
 import club.mcgamer.xime.util.PlayerUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -24,8 +26,12 @@ public class HubJoinListener extends IListener {
             Player player = profile.getPlayer();
 
             PlayerUtil.refresh(profile);
+            player.setGameMode(GameMode.ADVENTURE);
             player.setLevel(serverable.getServerId());
             player.teleport(serverable.getSpawnLocation());
+
+            new TextShineAnimation(plugin, profile, "You joined MCGamer Hub " + serverable.getServerId());
+            //profile.sendAction("&6&lYou joined MCGamer Hub " + serverable.getServerId());
 
             player.getInventory().setItem(0, new ItemBuilder(Material.COMPASS)
                     .name("&b&lQuick Teleport &7- Right click to teleport!")
@@ -50,6 +56,11 @@ public class HubJoinListener extends IListener {
             player.getInventory().setItem(8, new ItemBuilder(Material.NETHER_STAR)
                     .name("&c&lLobby Selector &7- Right click to switch lobbies!")
                     .build());
+
+            profile.sendMessage("&6You have &a0 &6online friend(s) and &a0 &6request(s) pending!")
+                    .sendMessage("")
+                    .sendMessage("&8[&eMCGamer&8] &7Want to change your movement speed&8? &aUse the &2Minecart in your hotbar!")
+                    .sendMessage("&8[&eMCGamer&8] &7Hub chat is currently in &8Global &7mode.");
 
             profile.sendMessage("&8[&3Xime&8] &bAccess the shop with the &6Gold Bar&8!")
                     .sendMessage("&8[&3Xime&8] &bYou have &61000 &bMCGamer Hub Credits&8.");

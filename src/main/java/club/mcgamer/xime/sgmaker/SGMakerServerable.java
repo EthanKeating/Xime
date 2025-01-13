@@ -44,6 +44,8 @@ public class SGMakerServerable extends SGServerable {
                 currentRunnable = new PreDeathmatchRunnable(this, plugin); break;
             case DEATHMATCH:
                 currentRunnable = new DeathmatchRunnable(this, plugin); break;
+            case ENDGAME:
+                currentRunnable = new EndGameRunnable(this, plugin); break;
             case CLEANUP:
                 currentRunnable = new CleanupRunnable(this, plugin); break;
             default:

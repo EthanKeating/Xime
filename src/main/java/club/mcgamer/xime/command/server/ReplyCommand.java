@@ -15,7 +15,7 @@ public class ReplyCommand extends XimeCommand {
     public ReplyCommand() {
         super("reply");
         this.description = "send a private message";
-        this.usageMessage = "/reply <player> <message>";
+        this.usageMessage = "/reply <message>";
         this.setAliases(Arrays.asList("r"));
 
         register();

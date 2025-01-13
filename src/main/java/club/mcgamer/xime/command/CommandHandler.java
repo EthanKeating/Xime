@@ -24,9 +24,16 @@ public class CommandHandler {
     public CommandHandler(XimePlugin plugin) {
         this.plugin = plugin;
 
+        new StaffCommand();
+        new GoToCommand();
+
+        new ReportCommand();
         new MessageCommand();
         new ReplyCommand();
         new PingCommand();
+        new SilentJoinCommand();
+        new MaskCommand();
+        new UnmaskCommand();
         new DisguiseCommand();
         new UndisguiseCommand();
         new ScrambleCommand();
@@ -46,6 +53,7 @@ public class CommandHandler {
         new ListCommand();
         new MakerCommand();
         new SecretCommand();
+        new StaffChatCommand();
 
         new ForcestartCommand();
         new LeaderboardCommand();

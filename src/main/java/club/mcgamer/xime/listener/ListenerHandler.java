@@ -10,6 +10,7 @@ import club.mcgamer.xime.listener.sg.*;
 import club.mcgamer.xime.listener.sgmaker.SGMakerItemInteractListener;
 import club.mcgamer.xime.listener.sgmaker.SGMakerJoinListener;
 import club.mcgamer.xime.listener.sgmaker.SGMakerLoadListener;
+import club.mcgamer.xime.listener.staff.StaffOtherJoinListener;
 import club.mcgamer.xime.listener.wrapper.*;
 
 public class ListenerHandler {
@@ -18,6 +19,9 @@ public class ListenerHandler {
 
     public ListenerHandler(XimePlugin plugin) {
         this.plugin = plugin;
+
+        // Staff listeners
+        new StaffOtherJoinListener();
 
         //SG listeners
         new SGJoinListener();

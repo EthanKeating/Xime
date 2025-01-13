@@ -36,7 +36,7 @@ public class SidebarImpl {
 
     public SidebarImpl(Profile profile) {
         this.profile = profile;
-        zeroBoard = !profile.isLegacy();
+        zeroBoard = false;
         this.init();
     }
 

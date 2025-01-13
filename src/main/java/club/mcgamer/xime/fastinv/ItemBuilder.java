@@ -1,20 +1,23 @@
 package club.mcgamer.xime.fastinv;
 
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
+import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.lang.reflect.Field;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -110,6 +113,28 @@ public class ItemBuilder {
 
     public ItemBuilder lore(List<String> lore) {
         return meta(meta -> meta.setLore(lore.stream().map(line -> ChatColor.translateAlternateColorCodes('&', line)).collect(Collectors.toList())));
+    }
+
+    public ItemBuilder owner(Player player) {
+        SkullMeta skullMeta = (SkullMeta) item.getItemMeta();
+
+        item.setItemMeta(skullMeta);
+
+        GameProfile gameProfile = (GameProfile) SpigotReflectionUtil.getGameProfile(player);
+
+        try {
+            Field field = skullMeta.getClass().getDeclaredField("profile");
+            field.setAccessible(true);
+            field.set(skullMeta, gameProfile);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        item.setItemMeta(skullMeta);
+
+        return this;
     }
 
     public ItemBuilder addLore(String line) {

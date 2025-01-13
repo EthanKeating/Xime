@@ -17,16 +17,14 @@ import club.mcgamer.xime.sg.runnable.*;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
+import club.mcgamer.xime.util.EvictingList;
 import club.mcgamer.xime.util.Pair;
 import club.mcgamer.xime.util.PlayerUtil;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerPlayerAbilities;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -61,6 +59,8 @@ public class SGServerable extends Serverable {
 
     @Setter protected MapPool mapPool;
     @Setter protected VoteableMap mapWinner;
+
+    private final EvictingList<String> previousMapNames = new EvictingList<>(5);
 
     public SGServerable() {
         super();
@@ -132,6 +132,7 @@ public class SGServerable extends Serverable {
         gameSettings.setSilentJoinLeave(true);
 
         new ArrayList<>(getPlayerList()).forEach(profile -> {
+            profile.sendMessage("Sending you to a hub...");
             plugin.getServerHandler().getFallback().add(profile);
         });
 
@@ -208,6 +209,8 @@ public class SGServerable extends Serverable {
                 currentRunnable = new PreDeathmatchRunnable(this, plugin); break;
             case DEATHMATCH:
                 currentRunnable = new DeathmatchRunnable(this, plugin); break;
+            case ENDGAME:
+                currentRunnable = new EndGameRunnable(this, plugin); break;
             case CLEANUP:
                 currentRunnable = new CleanupRunnable(this, plugin); break;
             default:

@@ -39,11 +39,6 @@ public class LobbyRunnable extends AbstractGameRunnable {
     public void run() {
         int playerCount = serverable.getPlayerList().size();
 
-        if (playerCount == 0) {
-            gameTimer.reset();
-            return;
-        }
-
         int currentTime = gameTimer.decrement();
 
         if (currentTime == 0) {
@@ -65,6 +60,9 @@ public class LobbyRunnable extends AbstractGameRunnable {
 
             serverable.announce(String.format("&8[&e%s&8] &c%s until lobby ends!", significantUnit.getKey(), significantUnit.getValue()));
         }
+        if (currentTime <= 10)
+            serverable.announceTitle("&6" + currentTime, "", 0, 30, 0);
+
         //Show vote messages
         if (currentTime % 30 == 0) {
             serverable.getPlayerList().forEach(this::sendVotes);

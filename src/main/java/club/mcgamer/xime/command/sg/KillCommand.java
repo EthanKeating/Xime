@@ -59,14 +59,14 @@ public class KillCommand extends XimeCommand {
                     } else {
                         attackerOptional = Optional.of(profileHandler.getProfile(combatTagData.getAttackedBy()));
                     }
+
+                    profile.sendMessage("&8[&6MCSG&8] &fYou have committed suicide.");
                     Bukkit.getPluginManager().callEvent(new ServerDeathEvent(
                             profile,
                             attackerOptional,
                             profile.getServerable(),
                             null
                     ));
-
-                    profile.sendMessage("&8[&6MCSG&8] &fYou have committed suicide.");
 
                     return true;
             }

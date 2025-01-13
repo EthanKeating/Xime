@@ -5,6 +5,7 @@ import club.mcgamer.xime.fastinv.ItemBuilder;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
+import club.mcgamer.xime.sgmaker.runnable.MakerLobbyRunnable;
 import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.Material;
 
@@ -52,7 +53,12 @@ public class ServerManagementMenu extends FastInv {
                         .name("&bStart Game")
                         .build(),
                 e -> {
-                    profile.getPlayer().performCommand("forcestart");
+                    if (serverable.getCurrentRunnable() instanceof MakerLobbyRunnable) {
+                        MakerLobbyRunnable lobbyRunnable = (MakerLobbyRunnable) serverable.getCurrentRunnable();
+
+                        lobbyRunnable.setStartGame(true);
+                        serverable.announce("&3The host has started the countdown timer&8.");
+                    }
                 });
 
     }

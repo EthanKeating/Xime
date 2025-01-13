@@ -47,6 +47,7 @@ public class PreGameRunnable extends AbstractGameRunnable {
 
         VoteableMap mapWinner = serverable.getMapPool().complete();
         MapData mapData = mapWinner.getMapData();
+        serverable.getPreviousMapNames().add(mapData.getMapName());
 
         serverable.setMapWinner(mapWinner);
         serverable.setMapData(mapData);
@@ -124,7 +125,7 @@ public class PreGameRunnable extends AbstractGameRunnable {
         }
 
         if (currentTime <= 10)
-            serverable.announceTitle("", "&6" + currentTime , 0, 30, 0);
+            serverable.announceTitle("&6" + currentTime, "", 0, 30, 0);
 
         if (currentTime <= 5 || currentTime == 10 || currentTime == 30) {
             Pair<String, String> significantUnit = gameTimer.toSignificantUnit();

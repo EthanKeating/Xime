@@ -1,6 +1,7 @@
 package club.mcgamer.xime.disguise;
 
 import club.mcgamer.xime.XimePlugin;
+import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.util.DisguiseUtil;
 import club.mcgamer.xime.util.IListener;
@@ -32,6 +33,7 @@ public class DisguiseHandler {
                 randomName,
                 skin)
         );
+        profile.getDisguiseData().setMockData(PlayerData.createMock(profile));
         disguises.put(profile.getUuid(), profile.getDisguiseData());
 
 //        profile.getUser().getProfile().setName(randomName);

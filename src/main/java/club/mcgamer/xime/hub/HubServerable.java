@@ -20,6 +20,7 @@ import net.minecraft.server.v1_8_R3.Packet;
 import net.minecraft.server.v1_8_R3.PacketPlayOutWorldParticles;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -85,14 +86,15 @@ public class HubServerable extends Serverable {
     }
 
     private void snow() {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                for (Profile p : getPlayerList()) {
-                    sendParticle(EnumParticle.FIREWORKS_SPARK, p.getPlayer(), 0.0f, 150);
-                }
-            }
-        }.runTaskTimer(plugin, 10, 10);
+//
+//        new BukkitRunnable() {
+//            @Override
+//            public void run() {
+//                for (Profile p : getPlayerList()) {
+//                    sendParticle(EnumParticle.FIREWORKS_SPARK, p.getPlayer(), 0.0f, 150);
+//                }
+//            }
+//        }.runTaskTimer(plugin, 10, 10);
     }
 
     public void sendParticle(EnumParticle particle, Player p, float speed, Integer amount) {

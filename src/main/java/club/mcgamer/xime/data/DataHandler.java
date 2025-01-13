@@ -29,7 +29,7 @@ public class DataHandler {
     private String username = "u16081_i5gNiX83Yy";
     private String password = "lA9qJ+R=nDvDHxHI^zJ=84sz";
 
-    //private List<PlayerData> topPlayerData = new ArrayList<>();
+    private List<PlayerData> topPlayerData = new ArrayList<>();
 
     @SneakyThrows
     public DataHandler(XimePlugin plugin) {
@@ -89,11 +89,11 @@ public class DataHandler {
             playerData.setSgGameRank(livePlayerData.getSgGameRank());
         });
 //
-//        QueryBuilder<PlayerData, String> queryBuilder = playerDataDao.queryBuilder();
-//
-//        queryBuilder.orderBy("sgGameRank", false);
-//        queryBuilder.limit(100L);
-//        topPlayerData = queryBuilder.query();
+        QueryBuilder<PlayerData, String> queryBuilder = playerDataDao.queryBuilder();
+
+        queryBuilder.orderBy("sgGameRank", true);
+        queryBuilder.limit(100L);
+        topPlayerData = queryBuilder.query();
 
         //Bukkit.getLogger().log(Level.INFO, "[Leaderboard] Ranked players in {0} ms", System.currentTimeMillis() - startTime);
     }

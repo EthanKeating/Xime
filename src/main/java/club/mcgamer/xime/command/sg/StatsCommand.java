@@ -56,7 +56,7 @@ public class StatsCommand extends XimeCommand {
         String displayName = argumentProfile != null ? argumentProfile.getDisplayName() : plugin.getRankHandler().getRank(playerData.getRank()).getColor() + argumentPlayerName;
         String rankName = argumentProfile != null ? argumentProfile.getRank().getName() : playerData.getRank();
 
-        if (args.length > 0 && argumentProfile.getDisguiseData() != null && argumentProfile.getNameBypassDisguise().equalsIgnoreCase(args[0])) {
+        if (args.length > 0 && argumentProfile != null && argumentProfile.getDisguiseData() != null && argumentProfile.getNameBypassDisguise().equalsIgnoreCase(args[0])) {
             displayName = argumentProfile.getDisplayNameBypassDisguise();
             playerData = argumentProfile.getPlayerData();
             rankName = argumentProfile.getRankBypassDisguise().getName();

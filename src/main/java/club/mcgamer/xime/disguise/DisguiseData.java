@@ -18,7 +18,7 @@ public class DisguiseData {
     private final UUID uuid;
     private final String name;
     private final Skin skin;
-    private final Rank rank;
+    private Rank rank;
     private PlayerData mockData;
 
     public DisguiseData(Profile profile, UUID uuid, String name, Skin skin) {
@@ -27,8 +27,6 @@ public class DisguiseData {
         this.name = name;
         this.skin = skin;
         this.rank = RankHandler.DEFAULT_RANK;
-
-        this.mockData = PlayerData.createMock(profile);
     }
 
     public DisguiseData(Profile profile, UUID uuid, String name, Skin skin, Rank rank) {
@@ -37,8 +35,6 @@ public class DisguiseData {
         this.name = name;
         this.skin = skin;
         this.rank = rank;
-
-        this.mockData = PlayerData.createMock(profile);
     }
 
 

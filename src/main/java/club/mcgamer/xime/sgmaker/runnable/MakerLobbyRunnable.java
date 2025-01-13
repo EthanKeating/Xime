@@ -25,7 +25,7 @@ public class MakerLobbyRunnable extends LobbyRunnable {
         super(serverable, plugin);
 
         serverable.getMapPool().setMap(MapPool.getMapIdentifiers().get(0));
-        serverable.getGameTimer().setTime(14);
+        serverable.getGameTimer().setTime(4);
 
         //Initialize all data
     }

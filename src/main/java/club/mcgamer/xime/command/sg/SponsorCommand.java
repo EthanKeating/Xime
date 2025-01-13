@@ -37,6 +37,7 @@ public class SponsorCommand extends XimeCommand {
                 || serverable.getGameState() == GameState.LOADING
                 || serverable.getGameState() == GameState.PREGAME
                 || serverable.getGameState() == GameState.CLEANUP
+                || serverable.getGameState() == GameState.ENDGAME
                 || serverable.getGameState() == GameState.RESTARTING) {
             profile.sendMessage("&8[&6MCSG&8] &cYou cannot use this command right now.");
             return true;

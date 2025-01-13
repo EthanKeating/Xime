@@ -19,6 +19,10 @@ public class HubSidebarAdapter extends SidebarAdapter {
 
     @Override
     public String getTitle(Profile profile) {
+//        if (profile.getPlayer().isSneaking()) {
+//            return profile.getRank().getColor() + profile.getName() + " &8- &c5:00";
+//        }
+
         return "&b&lMCGamer.club";
     }
 
@@ -39,13 +43,29 @@ public class HubSidebarAdapter extends SidebarAdapter {
         timeFormats[1] = dateTimeUser.format(DateTimeFormatter.ofPattern("hh:mm a z"));
         timeFormats[2] = dateTimeLocal.format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm"));
 
+//        if (profile.getPlayer().isSneaking()) {
+//            return Arrays.asList(
+//                    String.format("&7EU%s %s", serverable.getServerId(), serverVersion),
+//                    ChatColor.GRAY + timeFormats[2],
+//                    "",
+//                    "&5Huahwi&8: &f15",
+//                    "&4&l1utb&8: &f11",
+//                    "&4&lCentipede1&8: &f11",
+//                    "&2Blumes&8: &f11",
+//                    "&2Jakitocool&8: &f11",
+//                    "&3You&8: &f11",
+//                    "",
+//                    "&b&lMCGamer.club"
+//            );
+//        }
+
         switch (sidebarType) {
             case MINIMIZE:
                 return Arrays.asList(
                         String.format("&7EU%s %s", serverable.getServerId(), serverVersion),
                         ChatColor.GRAY + timeFormats[2],
                         "",
-                        String.format("&fOnline: %s", serverable.getPlayerList().size())
+                        String.format("&6Online: &e%s", serverable.getPlayerList().size())
                 );
 
             case TWENTY_FOURTEEN:

@@ -88,7 +88,7 @@ public class PlayerDamageWrapper extends IListener {
 
         ProfileHandler profileHandler = plugin.getProfileHandler();
 
-        Profile attacker = profileHandler.getProfile((Player) event.getEntity());
+        Profile attacker = profileHandler.getProfile((Player) event.getDamager());
 
         Bukkit.getPluginManager().callEvent(new ServerDamageOtherEntityEvent(
                 event.getEntity(),

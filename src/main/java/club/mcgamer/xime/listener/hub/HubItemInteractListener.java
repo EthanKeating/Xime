@@ -47,7 +47,7 @@ public class HubItemInteractListener extends IListener {
 
             switch(type) {
                 case COMPASS:
-                    new SGSubMenu().open(player);
+                    new SGSubMenu(profile).open(player);
                     break;
                 case WATCH:
 

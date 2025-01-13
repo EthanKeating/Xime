@@ -22,6 +22,8 @@ public class SGMoveListener extends IListener {
         Player player = event.getPlayer();
         Profile profile = plugin.getProfileHandler().getProfile(player);
 
+        if (profile == null) return;
+
         if (profile.getServerable() instanceof SGServerable) {
 
             SGServerable serverable = (SGServerable) profile.getServerable();

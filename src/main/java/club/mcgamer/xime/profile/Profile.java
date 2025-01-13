@@ -10,6 +10,7 @@ import club.mcgamer.xime.profile.data.impl.ProfileStatus;
 import club.mcgamer.xime.profile.data.impl.ReplyData;
 import club.mcgamer.xime.profile.data.persistent.GeoLocationData;
 import club.mcgamer.xime.profile.data.temporary.CombatTagData;
+import club.mcgamer.xime.rank.RankHandler;
 import club.mcgamer.xime.rank.impl.Rank;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.server.data.TemporaryData;
@@ -17,7 +18,11 @@ import club.mcgamer.xime.util.DisguiseUtil;
 import club.mcgamer.xime.util.Skin;
 import club.mcgamer.xime.util.TextUtil;
 import com.github.retrooper.packetevents.PacketEvents;
+import com.github.retrooper.packetevents.protocol.chat.ChatTypes;
 import com.github.retrooper.packetevents.protocol.player.User;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerActionBar;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerChatMessage;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerChatPreview;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerClearTitles;
 import com.lunarclient.apollo.Apollo;
 import com.lunarclient.apollo.module.title.Title;
@@ -28,6 +33,7 @@ import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
 import lombok.Getter;
 import lombok.Setter;
 import net.kyori.adventure.text.Component;
+import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -137,7 +143,7 @@ public class Profile {
     }
 
     public PlayerData getMockOrRealPlayerData() {
-        if (disguiseData != null)
+        if (disguiseData != null && disguiseData.getMockData() != null)
             return disguiseData.getMockData();
 
         return playerData;
@@ -164,7 +170,7 @@ public class Profile {
     }
 
     public String getChatColor() {
-        if (disguiseData != null)
+        if (disguiseData != null && rank == RankHandler.DEFAULT_RANK)
             return TextUtil.translate("&f");
 
         return TextUtil.translate(chatColor);
@@ -195,6 +201,10 @@ public class Profile {
             return;
         }
         getUser().sendPacket(new WrapperPlayServerClearTitles(true));
+    }
+
+    public void sendAction(String text) {
+        getUser().sendMessage(Component.text(TextUtil.translate(text)), ChatTypes.GAME_INFO);
     }
 
     public void sendTitle(String title, String subTitle, int fadeIn, int duration, int fadeOut) {

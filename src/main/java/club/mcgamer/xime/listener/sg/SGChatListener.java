@@ -52,7 +52,7 @@ public class SGChatListener extends IListener {
                     profile.getChatColor()));
 
             //Send to everyone
-            if (gameState == GameState.CLEANUP) {
+            if (gameState == GameState.ENDGAME || gameState == GameState.CLEANUP || gameState == GameState.RESTARTING) {
                 serverable.announceRawUncoloured(chatFormat + event.getMessage());
                 return;
             }

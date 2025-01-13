@@ -9,6 +9,7 @@ import club.mcgamer.xime.util.TextUtil;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerPlayerListHeaderAndFooter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
@@ -22,7 +23,13 @@ public class PlayerJoinListener extends IListener {
         ProfileHandler profileHandler = plugin.getProfileHandler();
         ServerHandler serverHandler = plugin.getServerHandler();
 
+        if (Bukkit.getPlayer(event.getUniqueId()) != null) {
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, TextUtil.translate("&cYou are already connected to this server, please rejoin"));
+            Bukkit.getPlayer(event.getUniqueId()).kickPlayer(ChatColor.RED + "Logged in from another location.");
+        }
+
         Profile profile = profileHandler.createProfile(event.getUniqueId());
+
     }
 
     @EventHandler
@@ -54,6 +61,9 @@ public class PlayerJoinListener extends IListener {
 
         profile.getUser().sendPacket(headerAndFooter);
         profile.getUser().flushPackets();
+
+        if(!player.hasPermission("xime.gold"))
+            profile.getPlayerData().setSilentJoin(false);
     }
 
 

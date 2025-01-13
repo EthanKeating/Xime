@@ -35,6 +35,19 @@ public class SpectateCommand extends XimeCommand {
         SGServerable serverable = (SGServerable) profile.getServerable();
         SGTemporaryData temporaryData = (SGTemporaryData) profile.getTemporaryData();
 
+        if (args.length > 0) {
+            Player argumentPlayer =  isPlayer(sender, args[0]);
+
+            if (argumentPlayer == null) return true;
+
+            Profile spectatedProfile = plugin.getProfileHandler().getProfile(argumentPlayer);
+
+            profile.sendMessage(String.format("&8[&6MCSG&8] &fTeleporting to %s", spectatedProfile.getDisplayName()));
+            profile.getPlayer().teleport(spectatedProfile.getPlayer().getLocation().add(0.0, 0.25, 0.0));
+            PlayerUtil.setFlying(profile);
+            return true;
+        }
+
         if (!temporaryData.canSpectate()) {
             return true;
         }

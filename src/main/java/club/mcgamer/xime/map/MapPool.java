@@ -36,7 +36,8 @@ public class MapPool {
             "Holiday_Resort",
             "Holiday_Resort_2",
             "Origins_(Reqrium_V2)",
-            "Winds_of_Change"
+            "Winds_of_Change",
+            "Lobby_Games"
             //"Return_To_Moonbase_9"
     );
 

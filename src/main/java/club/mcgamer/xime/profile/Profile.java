@@ -20,9 +20,6 @@ import club.mcgamer.xime.util.TextUtil;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.protocol.chat.ChatTypes;
 import com.github.retrooper.packetevents.protocol.player.User;
-import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerActionBar;
-import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerChatMessage;
-import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerChatPreview;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerClearTitles;
 import com.lunarclient.apollo.Apollo;
 import com.lunarclient.apollo.module.title.Title;
@@ -33,7 +30,6 @@ import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
 import lombok.Getter;
 import lombok.Setter;
 import net.kyori.adventure.text.Component;
-import net.minecraft.server.v1_8_R3.PacketPlayOutChat;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

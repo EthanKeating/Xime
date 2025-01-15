@@ -1,16 +1,6 @@
 package club.mcgamer.xime.listener.sgmaker;
 
-import club.mcgamer.xime.build.BuildServerable;
-import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.server.event.ServerLoadEvent;
-import club.mcgamer.xime.sg.state.GameState;
-import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.util.IListener;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 
 public class SGMakerLoadListener extends IListener {
 

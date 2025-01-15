@@ -9,7 +9,6 @@ import club.mcgamer.xime.sg.state.GameState;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
 import java.util.Collections;
 
 public class ScrambleCommand extends XimeCommand {

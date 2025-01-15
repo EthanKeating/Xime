@@ -5,7 +5,6 @@ import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.rank.RankHandler;
 import club.mcgamer.xime.rank.impl.Rank;
 import club.mcgamer.xime.util.Skin;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

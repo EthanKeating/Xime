@@ -1,6 +1,5 @@
 package club.mcgamer.xime.menu.sgmaker;
 
-import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.fastinv.FastInv;
 import club.mcgamer.xime.fastinv.ItemBuilder;
 import club.mcgamer.xime.profile.Profile;

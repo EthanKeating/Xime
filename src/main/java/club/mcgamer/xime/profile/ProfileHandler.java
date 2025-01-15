@@ -2,8 +2,6 @@ package club.mcgamer.xime.profile;
 
 import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.profile.data.impl.ProfileStatus;
-import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;

@@ -3,7 +3,6 @@ package club.mcgamer.xime.command.server;
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.staff.StaffServerable;
-import com.github.retrooper.packetevents.PacketEvents;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

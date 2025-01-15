@@ -4,12 +4,8 @@ import club.mcgamer.xime.loot.LootStyle;
 import club.mcgamer.xime.loot.LootTable;
 import club.mcgamer.xime.loot.tables.MCSGLootTable;
 import club.mcgamer.xime.sgmaker.config.impl.TeamType;
-import club.mcgamer.xime.sgmaker.config.template.CWMakerConfig;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Getter @Setter
 public class MakerConfig {

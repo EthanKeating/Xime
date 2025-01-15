@@ -6,16 +6,13 @@ import club.mcgamer.xime.map.VoteableMap;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.sg.SGServerable;
-import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.sg.runnable.LobbyRunnable;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class VoteCommand extends XimeCommand {
     public VoteCommand() {

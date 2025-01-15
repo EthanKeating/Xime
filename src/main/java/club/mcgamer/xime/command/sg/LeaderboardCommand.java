@@ -1,14 +1,10 @@
 package club.mcgamer.xime.command.sg;
 
 import club.mcgamer.xime.command.XimeCommand;
-import club.mcgamer.xime.data.DataHandler;
 import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.profile.ProfileHandler;
-import club.mcgamer.xime.rank.impl.Rank;
 import club.mcgamer.xime.sg.SGServerable;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

@@ -1,15 +1,14 @@
 package club.mcgamer.xime.listener.hub;
 
 import club.mcgamer.xime.animation.TextShineAnimation;
+import club.mcgamer.xime.fastinv.ItemBuilder;
 import club.mcgamer.xime.hub.HubServerable;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerJoinEvent;
 import club.mcgamer.xime.util.IListener;
-import club.mcgamer.xime.fastinv.ItemBuilder;
 import club.mcgamer.xime.util.PlayerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

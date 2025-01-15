@@ -1,8 +1,6 @@
 package club.mcgamer.xime.command.server;
 
 import club.mcgamer.xime.command.XimeCommand;
-import club.mcgamer.xime.data.entities.PlayerData;
-import club.mcgamer.xime.disguise.DisguiseData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.state.GameState;

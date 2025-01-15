@@ -36,10 +36,9 @@ public class DesignThread extends Thread {
     private void update() {
         serverTickId++;
 
-        for(UUID uuid : new WeakHashMap<>(previousServerables).keySet()) {
+        for(UUID uuid : new WeakHashMap<>(previousServerables).keySet())
             if (uuid == null || Bukkit.getPlayer(uuid) == null || !Bukkit.getPlayer(uuid).isOnline())
                 previousServerables.remove(uuid);
-        }
 
         new CopyOnWriteArrayList<>(serverHandler.getServerList()).forEach(serverable -> {
             if (serverable != null) {

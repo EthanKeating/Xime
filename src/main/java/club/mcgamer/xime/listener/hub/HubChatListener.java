@@ -3,17 +3,12 @@ package club.mcgamer.xime.listener.hub;
 import club.mcgamer.xime.hub.HubServerable;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerChatEvent;
-import club.mcgamer.xime.sg.SGServerable;
-import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.event.EventHandler;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class HubChatListener extends IListener {
 

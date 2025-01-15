@@ -1,10 +1,10 @@
 package club.mcgamer.xime.menu.hub;
 
 import club.mcgamer.xime.fastinv.FastInv;
+import club.mcgamer.xime.fastinv.ItemBuilder;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.state.GameState;
-import club.mcgamer.xime.fastinv.ItemBuilder;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

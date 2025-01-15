@@ -11,7 +11,7 @@ import java.util.List;
 public class Rank {
 
     private final String name;
-    private final String color = ChatColor.GREEN.toString();
-    private final List<String> permissions = new ArrayList<>();
+    private String color = ChatColor.GREEN.toString();
+    private List<String> permissions = new ArrayList<>();
 
 }

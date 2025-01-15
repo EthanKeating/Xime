@@ -1,10 +1,8 @@
 package club.mcgamer.xime.rank;
 
 import club.mcgamer.xime.XimePlugin;
-import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.rank.impl.Rank;
 import lombok.Getter;
-import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.Collections;

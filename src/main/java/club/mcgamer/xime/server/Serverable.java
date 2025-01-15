@@ -11,7 +11,6 @@ import club.mcgamer.xime.server.event.ServerJoinEvent;
 import club.mcgamer.xime.server.event.ServerQuitEvent;
 import club.mcgamer.xime.server.event.ServerStartEvent;
 import club.mcgamer.xime.server.event.ServerStopEvent;
-import club.mcgamer.xime.staff.StaffServerable;
 import club.mcgamer.xime.util.PlayerUtil;
 import club.mcgamer.xime.world.WorldHandler;
 import lombok.AccessLevel;

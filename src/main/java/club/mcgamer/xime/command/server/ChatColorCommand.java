@@ -3,12 +3,9 @@ package club.mcgamer.xime.command.server;
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.util.TextUtil;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import javax.xml.soap.Text;
 import java.util.Arrays;
 
 public class ChatColorCommand extends XimeCommand {

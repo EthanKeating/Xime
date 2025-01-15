@@ -9,7 +9,6 @@ import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.util.ChestUtil;
 import club.mcgamer.xime.util.Pair;
-import club.mcgamer.xime.util.PlayerUtil;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
 import org.bukkit.World;

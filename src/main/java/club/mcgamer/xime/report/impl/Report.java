@@ -2,8 +2,6 @@ package club.mcgamer.xime.report.impl;
 
 import lombok.AllArgsConstructor;
 
-import java.util.Date;
-
 @AllArgsConstructor
 public class Report {
 

@@ -1,6 +1,5 @@
 package club.mcgamer.xime.listener.server;
 
-import club.mcgamer.xime.data.DataHandler;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.profile.ProfileHandler;
 import club.mcgamer.xime.server.ServerHandler;

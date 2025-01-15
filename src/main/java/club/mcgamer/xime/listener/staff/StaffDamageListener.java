@@ -1,7 +1,6 @@
 package club.mcgamer.xime.listener.staff;
 
 import club.mcgamer.xime.server.event.ServerDamageEvent;
-import club.mcgamer.xime.server.event.ServerInteractEvent;
 import club.mcgamer.xime.staff.StaffServerable;
 import club.mcgamer.xime.util.IListener;
 import org.bukkit.event.EventHandler;

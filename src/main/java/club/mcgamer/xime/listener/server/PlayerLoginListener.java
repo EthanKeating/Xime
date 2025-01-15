@@ -1,17 +1,9 @@
 package club.mcgamer.xime.listener.server;
 
-import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.profile.ProfileHandler;
-import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.TextUtil;
-import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerPlayerListHeaderAndFooter;
-import net.kyori.adventure.text.Component;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 
 

@@ -1,27 +1,9 @@
 package club.mcgamer.xime.sg.runnable;
 
 import club.mcgamer.xime.XimePlugin;
-import club.mcgamer.xime.data.entities.PlayerData;
-import club.mcgamer.xime.map.MapData;
-import club.mcgamer.xime.map.MapLocation;
-import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.server.ServerHandler;
-import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.sg.SGServerable;
-import club.mcgamer.xime.sg.data.SGTemporaryData;
-import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
-import lombok.Getter;
-import org.bukkit.Color;
-import org.bukkit.FireworkEffect;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.entity.Firework;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.FireworkMeta;
-
-import java.util.*;
 
 public class CleanupRunnable extends AbstractGameRunnable {
 

@@ -1,14 +1,10 @@
 package club.mcgamer.xime.command.server;
 
 import club.mcgamer.xime.command.XimeCommand;
-import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.util.TextUtil;
-import com.github.retrooper.packetevents.PacketEvents;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;

@@ -5,7 +5,6 @@ import club.mcgamer.xime.data.DataHandler;
 import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.profile.ProfileHandler;
-import club.mcgamer.xime.rank.impl.Rank;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import org.bukkit.Bukkit;

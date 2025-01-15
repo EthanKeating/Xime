@@ -2,7 +2,6 @@ package club.mcgamer.xime.command.server;
 
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.profile.data.impl.ReplyData;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

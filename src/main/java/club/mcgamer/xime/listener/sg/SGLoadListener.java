@@ -1,6 +1,5 @@
 package club.mcgamer.xime.listener.sg;
 
-import club.mcgamer.xime.map.MapData;
 import club.mcgamer.xime.server.event.ServerLoadEvent;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.runnable.PreGameRunnable;

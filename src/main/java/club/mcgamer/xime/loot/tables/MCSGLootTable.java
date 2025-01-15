@@ -1,7 +1,7 @@
 package club.mcgamer.xime.loot.tables;
 
-import club.mcgamer.xime.loot.LootTable;
 import club.mcgamer.xime.fastinv.ItemBuilder;
+import club.mcgamer.xime.loot.LootTable;
 import club.mcgamer.xime.util.TextUtil;
 import lombok.Getter;
 import org.bukkit.Material;

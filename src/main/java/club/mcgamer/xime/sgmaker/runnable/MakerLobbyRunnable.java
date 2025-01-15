@@ -1,21 +1,13 @@
 package club.mcgamer.xime.sgmaker.runnable;
 
 import club.mcgamer.xime.XimePlugin;
-import club.mcgamer.xime.map.MapData;
 import club.mcgamer.xime.map.MapPool;
-import club.mcgamer.xime.map.VoteableMap;
-import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.runnable.LobbyRunnable;
-import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.util.Pair;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 
 @Getter @Setter
 public class MakerLobbyRunnable extends LobbyRunnable {

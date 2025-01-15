@@ -4,7 +4,6 @@ import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.util.DisguiseUtil;
-import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.Skin;
 import lombok.Getter;
 import lombok.SneakyThrows;

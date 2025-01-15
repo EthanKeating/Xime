@@ -1,16 +1,12 @@
 package club.mcgamer.xime.command.server;
 
 import club.mcgamer.xime.command.XimeCommand;
-import club.mcgamer.xime.disguise.DisguiseData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.rank.RankHandler;
-import club.mcgamer.xime.rank.impl.Rank;
-import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class UnmaskCommand extends XimeCommand {
 

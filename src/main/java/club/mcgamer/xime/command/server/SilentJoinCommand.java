@@ -3,13 +3,9 @@ package club.mcgamer.xime.command.server;
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.server.ServerHandler;
-import club.mcgamer.xime.server.Serverable;
-import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SilentJoinCommand extends XimeCommand {

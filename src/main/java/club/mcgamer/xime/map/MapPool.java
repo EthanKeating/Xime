@@ -1,12 +1,9 @@
 package club.mcgamer.xime.map;
 
 import club.mcgamer.xime.profile.Profile;
-import com.google.common.util.concurrent.AtomicDouble;
 import lombok.Getter;
 
 import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.IntStream;
 
 @Getter
 public class MapPool {

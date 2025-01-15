@@ -5,7 +5,6 @@ import club.mcgamer.xime.build.input.InputType;
 import club.mcgamer.xime.map.MapData;
 import club.mcgamer.xime.map.MapLocation;
 import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.profile.ProfileHandler;
 import club.mcgamer.xime.server.event.ServerChatEvent;
 import club.mcgamer.xime.server.event.ServerItemInteractEvent;
 import club.mcgamer.xime.util.IListener;
@@ -15,7 +14,6 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class BuildItemInteractListener extends IListener {

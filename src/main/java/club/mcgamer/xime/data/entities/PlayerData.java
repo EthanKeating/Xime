@@ -1,6 +1,5 @@
 package club.mcgamer.xime.data.entities;
 
-import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.profile.Profile;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -9,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Random;
-import java.util.UUID;
 
 @Getter @Setter @NoArgsConstructor
 @DatabaseTable(tableName = "playerdata")

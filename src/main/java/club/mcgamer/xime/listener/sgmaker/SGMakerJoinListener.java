@@ -1,23 +1,16 @@
 package club.mcgamer.xime.listener.sgmaker;
 
 import club.mcgamer.xime.fastinv.ItemBuilder;
-import club.mcgamer.xime.map.MapData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerJoinEvent;
-import club.mcgamer.xime.sg.SGServerable;
-import club.mcgamer.xime.sg.runnable.LobbyRunnable;
-import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.util.IListener;
-import club.mcgamer.xime.util.PlayerUtil;
 import club.mcgamer.xime.util.TextUtil;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

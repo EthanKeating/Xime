@@ -5,8 +5,6 @@ import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.map.MapData;
 import club.mcgamer.xime.map.MapLocation;
 import club.mcgamer.xime.profile.Profile;
-import club.mcgamer.xime.server.ServerHandler;
-import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.sg.settings.GameSettings;

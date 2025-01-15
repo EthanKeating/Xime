@@ -15,7 +15,6 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class JoinCommand extends XimeCommand {
 
@@ -66,9 +65,6 @@ public class JoinCommand extends XimeCommand {
             return true;
         }
 
-        // Sort by player count in ascending order
-        // Sort by player count in ascending order
-        // Then sort by game state in ascending order
         Optional<SGServerable> serverableOptional = plugin.getServerHandler().getServerList().stream()
                 .filter(serverable -> serverable instanceof SGServerable)
                 .filter(serverable -> !(serverable instanceof SGMakerServerable))
@@ -78,7 +74,7 @@ public class JoinCommand extends XimeCommand {
                         .reversed()// Sort by player count in ascending order
                         .thenComparing((SGServerable serverable) -> serverable.getGameState().ordinal()));
 
-        if (!serverableOptional.isPresent()) {
+        if (serverableOptional.isEmpty()) {
             sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThis server is offline or does not exist."));
             return true;
         }

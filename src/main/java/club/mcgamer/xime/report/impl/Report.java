@@ -14,6 +14,7 @@ public class Report {
     private final String reportDescription;
     private final String reportedDateTime;
 
+    private final String reportPriority;
     private final String reporterDisplayName;
     private final String reporterName;
     private final String reporterUUID;

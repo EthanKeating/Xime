@@ -27,14 +27,20 @@ public class PlayerLoginListener extends IListener {
                 "\n&7For more information, join our Discord&8:" +
                 "\n&6https://discord.gg/Twyqpa8tqZ");
 
-        if (player.hasPermission("xime.admin")) {
-            Bukkit.getWhitelistedPlayers().add(player);
-            Bukkit.reloadWhitelist();
+        if (plugin.getProfileHandler().getProfile(player) != null && plugin.getProfileHandler().getProfile(player).getRank() != null) {
+            if (plugin.getProfileHandler().getProfile(player).getRank().getPermissions().contains("xime.staff")) {
+                return;
+            }
+        }
+        if (player.hasPermission("xime.staff")) {
             return;
         }
 
-        if (Bukkit.hasWhitelist())
+        if (plugin.getServerHandler().isWhitelisted()) {
             event.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, disallowMessage);
+            if (plugin.getProfileHandler().getProfile(player) != null)
+                plugin.getProfileHandler().removeProfile(player);
+        }
 
     }
 

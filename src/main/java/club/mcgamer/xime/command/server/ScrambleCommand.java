@@ -33,16 +33,13 @@ public class ScrambleCommand extends XimeCommand {
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
 
-        if (profile.getServerable() instanceof SGServerable) {
-            if (((SGServerable) profile.getServerable()).getGameState() != GameState.LOBBY) {
-                profile.sendMessage("&8[&3Xime&8] &cYou cannot use this command right now.");
-                return true;
-            }
+        if (!(profile.getServerable() instanceof SGServerable serverable) || serverable.getGameState() != GameState.LOBBY) {
+            profile.sendMessage("&8[&3Xime&8] &cYou cannot use this command right now.");
+            return true;
         }
 
         if (profile.getDisguiseData() != null) {
             profile.getDisguiseData().setMockData(PlayerData.createMock(profile));
-
             profile.sendMessage("&8[&3Xime&8] &fYour stats have been re-scrambled.");
         } else {
             profile.setDisguiseData(new DisguiseData(profile, profile.getUuid(), profile.getName(), profile.getSkin(), profile.getRank()));

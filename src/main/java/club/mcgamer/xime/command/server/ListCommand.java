@@ -31,25 +31,28 @@ public class ListCommand extends XimeCommand {
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
 
-        if (profile.getServerable() instanceof HubServerable) {
-            HubServerable serverable = (HubServerable) profile.getServerable();
+        if (profile.getServerable() instanceof HubServerable serverable) {
 
             profile.sendMessage(String.format("&8[&3Xime&8] &fThere are &8[&6%s&8/&6%s&8] &fplayers online&8.", serverable.getPlayerList().size(), serverable.getMaxPlayers()));
         }
 
-        if (profile.getServerable() instanceof SGServerable) {
-            SGServerable serverable = (SGServerable) profile.getServerable();
+        if (profile.getServerable() instanceof SGServerable serverable) {
 
             profile.sendMessage(String.format("&8[&3Xime&8] &fThere are &8[&6%s&8/&6%s&8] &fplayers online&8.", serverable.getPlayerList().size(), serverable.getMaxPlayers()));
 
-
             if(serverable.getGameState() == GameState.LOBBY) {
-                profile.sendMessage("&8- &f&lPlaying: &f" + serverable.getPlayerList().stream().map(Profile::getDisplayName).collect(Collectors.joining("&8, &f")));
-            } else {
-                profile.sendMessage("&8- &f&lPlaying: &f" + serverable.getTributeList().stream().map(Profile::getDisplayName).collect(Collectors.joining("&8, &f")));
-                profile.sendMessage("&8- &f&lWatching: &f" + serverable.getSpectatorList().stream().map(Profile::getDisplayName).collect(Collectors.joining("&8, &f")));
+                profile.sendMessage("&8- &f&lPlaying: &f" + serverable.getPlayerList().stream()
+                        .map(Profile::getDisplayName)
+                        .collect(Collectors.joining("&8, &f")));
+                return true;
             }
 
+            profile.sendMessage("&8- &f&lPlaying: &f" + serverable.getTributeList().stream()
+                    .map(Profile::getDisplayName)
+                    .collect(Collectors.joining("&8, &f")));
+            profile.sendMessage("&8- &f&lWatching: &f" + serverable.getSpectatorList().stream()
+                    .map(Profile::getDisplayName)
+                    .collect(Collectors.joining("&8, &f")));
         }
 
         return true;

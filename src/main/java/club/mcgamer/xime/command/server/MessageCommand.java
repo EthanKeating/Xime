@@ -60,7 +60,6 @@ public class MessageCommand  extends XimeCommand {
         argumentProfile.getReplyData().setReplyTimestamp(System.currentTimeMillis());
 
         String message = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
-
         argumentProfile.sendMessage(String.format("&8[&bFrom &f%s&8] &7%s", profile.getDisplayName(), message));
         profile.sendMessage(String.format("&8[&bTo &f%s&8] &7%s", argumentProfile.getDisplayName(), message));
 

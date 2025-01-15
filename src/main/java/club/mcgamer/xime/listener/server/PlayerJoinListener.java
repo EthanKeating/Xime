@@ -25,7 +25,15 @@ public class PlayerJoinListener extends IListener {
 
         if (Bukkit.getPlayer(event.getUniqueId()) != null) {
             event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, TextUtil.translate("&cYou are already connected to this server, please rejoin"));
-            Bukkit.getPlayer(event.getUniqueId()).kickPlayer(ChatColor.RED + "Logged in from another location.");
+            Bukkit.getScheduler().runTask(plugin, () -> {
+                Bukkit.getPlayer(event.getUniqueId()).kickPlayer(ChatColor.RED + "Logged in from another location.");
+            });
+
+            return;
+        }
+        if (plugin.getProfileHandler().getProfile(event.getUniqueId()) != null) {
+            event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, TextUtil.translate("&cYou are already connected to this server, please rejoin"));
+            return;
         }
 
         Profile profile = profileHandler.createProfile(event.getUniqueId());
@@ -62,7 +70,7 @@ public class PlayerJoinListener extends IListener {
         profile.getUser().sendPacket(headerAndFooter);
         profile.getUser().flushPackets();
 
-        if(!player.hasPermission("xime.gold"))
+        if(!player.hasPermission("xime.diamond"))
             profile.getPlayerData().setSilentJoin(false);
     }
 

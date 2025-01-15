@@ -33,17 +33,17 @@ public class ServerManagementMenu extends FastInv {
                         .name("&bTeam Selection")
                         .build(),
                 e -> {
-                    //OPEN START TIME SUB MENU
+                    new TeamSelectionSubMenu(this, profile, serverable).open(profile.getPlayer());
                 });
 
         setItem(4, new ItemBuilder(Material.GOLDEN_APPLE)
                         .name("&bMutators")
                         .build(),
                 e -> {
-                    //OPEN START TIME SUB MENU
+                    new MutatorsSubMenu(this, profile, serverable).open(profile.getPlayer());
                 });
         setItem(5, new ItemBuilder(Material.SKULL_ITEM)
-                        .name("&bPlayers")
+                        .name("&bPrivacy")
                         .build(),
                 e -> {
                     //OPEN START TIME SUB MENU
@@ -58,6 +58,7 @@ public class ServerManagementMenu extends FastInv {
 
                         lobbyRunnable.setStartGame(true);
                         serverable.announce("&3The host has started the countdown timer&8.");
+                        profile.getPlayer().closeInventory();
                     }
                 });
 

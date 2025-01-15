@@ -11,6 +11,7 @@ import club.mcgamer.xime.server.event.ServerJoinEvent;
 import club.mcgamer.xime.server.event.ServerQuitEvent;
 import club.mcgamer.xime.server.event.ServerStartEvent;
 import club.mcgamer.xime.server.event.ServerStopEvent;
+import club.mcgamer.xime.staff.StaffServerable;
 import club.mcgamer.xime.util.PlayerUtil;
 import club.mcgamer.xime.world.WorldHandler;
 import lombok.AccessLevel;
@@ -97,12 +98,18 @@ public abstract class Serverable {
             player.showPlayer(loopPlayer);
         });
 
+//        plugin.getServerHandler().getByClass(StaffServerable.class)
+//                .forEach(serverable -> serverable.getPlayerList()
+//                        .forEach(loopPlayer -> {
+//                            loopPlayer.getPlayer().showPlayer(player);
+//        }));
+
         playerList.remove(profile);
         playerList.add(profile);
         profile.setServerable(this);
         profile.setTemporaryData(createTemporaryData());
         PlayerUtil.unsetGamemode(profile);
-        player.teleport(player.getLocation().add(0.0, 0.1, 0.0));
+        player.teleport(player.getLocation().add(0.0, 0.01, 0.0));
         PlayerUtil.setFlying(profile);
         Bukkit.getPluginManager().callEvent(new ServerJoinEvent(profile, profile.getServerable()));
 

@@ -7,6 +7,7 @@ import club.mcgamer.xime.menu.MenuHandler;
 import club.mcgamer.xime.menu.hub.HubSelectorMenu;
 import club.mcgamer.xime.menu.hub.SGSubMenu;
 import club.mcgamer.xime.profile.Profile;
+import club.mcgamer.xime.server.event.ServerInteractEvent;
 import club.mcgamer.xime.server.event.ServerItemInteractEvent;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.PlayerUtil;
@@ -16,10 +17,15 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.Material;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.util.Vector;
 
 public class HubItemInteractListener extends IListener {
 
@@ -30,6 +36,21 @@ public class HubItemInteractListener extends IListener {
 
         if (profile.getServerable() instanceof HubServerable) {
             event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onPressurePlateStep(ServerInteractEvent event) {
+
+        Profile profile = event.getProfile();
+
+        if (profile.getServerable() instanceof HubServerable) {
+            if (event.getEvent().getAction() == Action.PHYSICAL) {
+                // Get the block the player stepped on
+                if (event.getEvent().getClickedBlock() != null && event.getEvent().getClickedBlock().getType() == Material.STONE_PLATE)
+                    launchPlayerForward(profile.getPlayer());
+
+            }
         }
     }
 
@@ -101,6 +122,23 @@ public class HubItemInteractListener extends IListener {
             }
 
         }
+    }
+
+    private void launchPlayerForward(Player player) {
+        // Get the player's current velocity
+        Vector velocity = player.getVelocity();
+
+        velocity.setY(2.0);
+
+        float yaw = player.getLocation().getYaw();
+        double radYaw = Math.toRadians(yaw);
+        double forwardSpeed = 3.1;
+
+        velocity.setX(-Math.sin(radYaw) * forwardSpeed);
+        velocity.setZ(Math.cos(radYaw) * forwardSpeed);
+
+        // Set the new velocity for the player
+        player.setVelocity(velocity);
     }
 
 }

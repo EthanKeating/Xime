@@ -30,11 +30,9 @@ public class UndisguiseCommand extends XimeCommand {
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
 
-        if (profile.getServerable() instanceof SGServerable) {
-            if (((SGServerable) profile.getServerable()).getGameState() != GameState.LOBBY) {
-                profile.sendMessage("&8[&3Xime&8] &cYou cannot use this command right now.");
-                return true;
-            }
+        if (!(profile.getServerable() instanceof SGServerable serverable) || serverable.getGameState() != GameState.LOBBY) {
+            profile.sendMessage("&8[&3Xime&8] &cYou cannot use this command right now.");
+            return true;
         }
 
         plugin.getDisguiseHandler().undisguise(profile);

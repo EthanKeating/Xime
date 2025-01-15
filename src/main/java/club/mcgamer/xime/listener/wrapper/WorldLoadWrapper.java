@@ -19,6 +19,7 @@ public class WorldLoadWrapper extends IListener {
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             serverHandler.getServerList().stream()
+                    .filter(serverable -> serverable.getWorldName() != null)
                     .filter(loopServerable -> loopServerable.getWorldName().equals(world.getName()))
                     .findFirst()
                     .ifPresent(serverable -> {

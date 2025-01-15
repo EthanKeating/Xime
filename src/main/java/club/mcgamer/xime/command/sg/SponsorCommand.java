@@ -49,7 +49,7 @@ public class SponsorCommand extends XimeCommand {
         Profile argumentProfile = plugin.getProfileHandler().getProfile(argumentPlayer);
 
         if (!serverable.getPlayerList().contains(argumentProfile)) {
-            profile.sendMessage("That player is not online!");
+            profile.sendMessage("&8[&6MCSG&8] &cThat player is not online!");
             return true;
         }
 

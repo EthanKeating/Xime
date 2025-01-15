@@ -23,7 +23,15 @@ public class GameSettings {
 
     private int deathmatchShrinkTime = 2 * 60; //2 minutes
 
+    private double rodSpeedMultiplier = 1.0;
+    private double maxHealth = 20.0;
+
     private boolean silentJoinLeave = false;
+    private boolean randomizeNames = false;
+    private boolean itemizedFlowers = false;
+    private boolean dayLightCycle = true;
+    private boolean naturalRegeneration = true;
+    private boolean noHitDelay = false;
 
     private LootTable lootTable = new MCSGLootTable();
     private LootStyle lootStyle = LootStyle.DEFAULT;

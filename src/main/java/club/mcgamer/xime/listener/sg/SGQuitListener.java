@@ -35,16 +35,14 @@ public class SGQuitListener extends IListener {
                 case LIVEGAME:
                 case PREDEATHMATCH:
                 case DEATHMATCH:
+                case ENDGAME:
+                case CLEANUP:
+                case RESTARTING:
                     if (serverable.getTributeList().contains(profile))
                         player.setHealth(0.0);
 
                     serverable.getTributeList().remove(profile);
                     serverable.getSpectatorList().remove(profile);
-                    break;
-                case ENDGAME:
-                case CLEANUP:
-                case RESTARTING:
-                    //disallow
                     break;
 
             }

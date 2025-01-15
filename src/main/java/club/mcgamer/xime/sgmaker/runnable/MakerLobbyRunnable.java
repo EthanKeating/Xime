@@ -12,6 +12,7 @@ import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.util.Pair;
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Bukkit;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -39,15 +40,14 @@ public class MakerLobbyRunnable extends LobbyRunnable {
 
         int currentTime = gameTimer.decrement();
 
-        if (currentTime == 0) {
-            cancel();
-            return;
-        }
-
         if (currentTime <= 5 || currentTime == 10 || currentTime % 30 == 0) {
             Pair<String, String> significantUnit = gameTimer.toSignificantUnit();
 
             serverable.announce(String.format("&8[&e%s&8] &c%s until lobby ends!", significantUnit.getKey(), significantUnit.getValue()));
+        }
+
+        if (currentTime == 1) {
+            Bukkit.getScheduler().runTaskLater(plugin, this::cancel, 11L);
         }
     }
 

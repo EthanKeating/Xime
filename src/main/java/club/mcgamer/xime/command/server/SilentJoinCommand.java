@@ -19,7 +19,7 @@ public class SilentJoinCommand extends XimeCommand {
         this.description = "Toggle silent join";
         this.usageMessage = "/silentjoin";
         this.setAliases(Arrays.asList("sj"));
-        setPermission("xime.gold");
+        setPermission("xime.diamond");
 
         register();
     }
@@ -30,7 +30,6 @@ public class SilentJoinCommand extends XimeCommand {
 
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
-
         PlayerData playerData = profile.getPlayerData();
 
         playerData.setSilentJoin(!playerData.isSilentJoin());

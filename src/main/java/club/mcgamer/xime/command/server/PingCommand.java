@@ -34,8 +34,8 @@ public class PingCommand extends XimeCommand {
         }
 
         Player argumentPlayer = isPlayer(sender, args[0]);
-
         if (argumentPlayer == null) return true;
+
         Profile argumentProfile = plugin.getProfileHandler().getProfile(argumentPlayer);
         profile.sendMessage(String.format("&8[&3Xime&8] &f%s&f's current ping is &6%s &fms.", argumentProfile.getDisplayName(), PacketEvents.getAPI().getPlayerManager().getPing(argumentPlayer)));
         profile.sendMessage("&8[&3Xime&8] &fThe server is hosted in &aFrankfurt, Germany");

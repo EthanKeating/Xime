@@ -247,7 +247,6 @@ public class BlockUtil {
             case DIODE_BLOCK_ON:
             case PUMPKIN_STEM:
             case MELON_STEM:
-            case WATER_LILY:
             case NETHER_WARTS:
             case ENDER_PORTAL:
             case COCOA:

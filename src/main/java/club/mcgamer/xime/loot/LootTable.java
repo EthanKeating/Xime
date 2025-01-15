@@ -53,8 +53,10 @@ public abstract class LootTable {
         }
 
         List<Integer> allSlots = new ArrayList<>();
-        for (int i = 0; i < inventory.getSize(); i++)
+        for (int i = 0; i < inventory.getSize(); i++) {
             allSlots.add(i);
+            allSlots.add(i);
+        }
 
         Collections.shuffle(allSlots, random);
 

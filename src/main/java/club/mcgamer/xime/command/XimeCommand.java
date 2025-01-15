@@ -54,7 +54,7 @@ public abstract class XimeCommand extends BukkitCommand {
     public Player isPlayer(CommandSender commandSender, String argument) {
         Player argumentPlayer = Bukkit.getPlayer(argument);
         if (argumentPlayer == null) {
-            commandSender.sendMessage(TextUtil.translate("That player is not online!"));
+            commandSender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThat player is not online!"));
         }
         return argumentPlayer;
     }

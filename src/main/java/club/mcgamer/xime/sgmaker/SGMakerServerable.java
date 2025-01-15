@@ -7,6 +7,7 @@ import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.runnable.*;
 import club.mcgamer.xime.sg.state.GameState;
+import club.mcgamer.xime.sgmaker.config.MakerConfig;
 import club.mcgamer.xime.sgmaker.runnable.MakerLobbyRunnable;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,11 @@ public class SGMakerServerable extends SGServerable {
         super();
 
         this.owner = owner;
+    }
+
+    public void applyConfig(MakerConfig makerConfig) {
+        getGameSettings().setLootTable(makerConfig.getLootTable());
+        getGameSettings().setLootStyle(makerConfig.getLootStyle());
     }
 
     @Override
@@ -66,11 +72,7 @@ public class SGMakerServerable extends SGServerable {
 
     public void close() {
         plugin.getServerHandler().getServerList().remove(this);
-
-        if (Bukkit.getWorld(toString() + "-" + LOBBY_NAME) != null) {
-            Bukkit.getWorld(toString() + "-" + LOBBY_NAME).getPlayers().forEach(loopPlayer -> loopPlayer.teleport(Bukkit.getWorlds().get(0).getSpawnLocation()));
-            Bukkit.unloadWorld(toString() + "-" + LOBBY_NAME, false);
-        }
+        gameSettings.setSilentJoinLeave(false);
 
         if(Bukkit.getWorld(toString()) != null) {
             Bukkit.getWorld(toString()).getPlayers().forEach(loopPlayer -> loopPlayer.teleport(Bukkit.getWorlds().get(0).getSpawnLocation()));
@@ -105,7 +107,7 @@ public class SGMakerServerable extends SGServerable {
             add(profile);
         });
 
-        gameSettings.setSilentJoinLeave(false);;
+        gameSettings.setSilentJoinLeave(false);
     }
 
 }

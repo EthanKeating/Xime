@@ -16,9 +16,7 @@ public class StaffOtherJoinListener extends IListener {
     @EventHandler
     private void onOtherPlayerJoinServer(ServerJoinEvent event) {
 
-        List<StaffServerable> staffServerableList = plugin.getServerHandler().getServerList()
-                .stream()
-                .filter(server -> server instanceof StaffServerable)
+        List<StaffServerable> staffServerableList = plugin.getServerHandler().getByClass(StaffServerable.class).stream()
                 .map(server -> (StaffServerable)server)
                 .collect(Collectors.toList());
         Serverable serverable = event.getServerable();

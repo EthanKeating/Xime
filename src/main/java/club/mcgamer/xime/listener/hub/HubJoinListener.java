@@ -65,8 +65,10 @@ public class HubJoinListener extends IListener {
             profile.sendMessage("&8[&3Xime&8] &bAccess the shop with the &6Gold Bar&8!")
                     .sendMessage("&8[&3Xime&8] &bYou have &61000 &bMCGamer Hub Credits&8.");
 
-            if(profile.getPlayerData().isCanFly())
+            if(profile.getPlayerData().isCanFly()) {
                 player.setAllowFlight(true);
+                PlayerUtil.setFlying(profile);
+            }
 
             Bukkit.getScheduler().runTaskLater(plugin, () -> profile.sendTitle("&6Hello " + profile.getName(), "&2Welcome to the &6MCGamer Club&2!", 10, 80, 10), 5);
         }

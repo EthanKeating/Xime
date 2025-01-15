@@ -41,9 +41,18 @@ public class HubServerable extends Serverable {
         setSidebarAdapter(new HubSidebarAdapter());
         setBossbarAdapter(new HubBossbarAdapter());
 
-        setWorld(toString(), MAP_NAME);
+        setWorldName(MAP_NAME + "-1");
+        overrideWorld(Bukkit.getWorld(MAP_NAME + "-1"));
+        //setWorld(toString(), MAP_NAME);
         setMapData(MapData.load(MAP_NAME));
+        setJoinable(true);
         snow();
+    }
+
+    public Location getSpawnLocation() {
+        Location location = getMapData().getCenterLocation().toBukkit(Bukkit.getWorld(MAP_NAME + "-1"));
+        location.setYaw(-90);
+        return location;
     }
 
     public TemporaryData createTemporaryData() {

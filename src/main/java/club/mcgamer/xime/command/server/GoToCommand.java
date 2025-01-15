@@ -13,21 +13,21 @@ public class GoToCommand extends XimeCommand {
 
     public GoToCommand() {
         super("goto");
-        this.description = "Check your latency to the server";
-        this.usageMessage = "/ping [player]";
+        this.description = "Teleport to a player";
+        this.usageMessage = "/goto [player]";
         this.setAliases(new ArrayList<>());
+        setPermission("xime.staff");
 
         register();
     }
 
     @Override
     public boolean execute(CommandSender sender, String alias, String[] args) {
-
         if (!isPlayer(sender)) return true;
-        Player player = (Player) sender;
-        Profile profile = plugin.getProfileHandler().getProfile(player);
         if (!hasArgs(sender, args, 1)) return true;
 
+        Player player = (Player) sender;
+        Profile profile = plugin.getProfileHandler().getProfile(player);
         Player argumentPlayer = isPlayer(sender, args[0]);
 
         if (argumentPlayer == null) return true;
@@ -36,8 +36,7 @@ public class GoToCommand extends XimeCommand {
         if (argumentProfile.getServerable() != profile.getServerable() && !(profile.getServerable() instanceof StaffServerable))
             argumentProfile.getServerable().add(profile);
 
-        player.teleport(argumentPlayer.getLocation().add(0, 0.1, 0));
-
+        player.teleport(argumentPlayer.getLocation().add(0, 0.01, 0));
         profile.sendMessage(String.format("&8[&3Xime&8] &bYou have been teleported to &2%s&8.", argumentProfile.getDisplayName()));
 
         return true;

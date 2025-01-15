@@ -37,7 +37,10 @@ public class LiveGameRunnable extends AbstractGameRunnable {
         serverable.announce("&3The games have begun!");
         serverable.announceTitle("", "" , 0, 30, 0);
         serverable.getWorld().setDifficulty(Difficulty.EASY);
-        serverable.getTributeList().forEach(PlayerUtil::refresh);
+//        serverable.getTributeList().forEach(profile -> {
+//            profile.getPlayer().setMaxHealth(gameSettings.getMaxHealth());
+//            profile.getPlayer().setHealth(gameSettings.getMaxHealth());
+//        });
     }
 
     public void run() {
@@ -65,7 +68,7 @@ public class LiveGameRunnable extends AbstractGameRunnable {
         }
 
         if ((minutes == 17 || minutes == 4) && seconds == 0) {
-            fillChests(false);
+            fillChests(true);
             serverable.announceSound(Sound.CHEST_OPEN, 1, 1);
             serverable.announceTitle("", "&3Sponsors have refilled the chests!", 10, 80, 10);
             serverable.announce("&3Sponsors have refilled the chests!");
@@ -116,8 +119,12 @@ public class LiveGameRunnable extends AbstractGameRunnable {
                         blockState.update(true);
                         Chest chestState = ((Chest) worldLocation.getBlock().getState());
 
+                        if (clearInventory) chestState.getBlockInventory().clear();
+                        chestState.update(true);
+
                         loot.fill(chestState, LootTable.Tier.TWO, serverable.getGameSettings().getLootStyle());
                         switch (serverable.getGameSettings().getLootStyle()) {
+                            case MIXED_ITEMS:
                             case MIXED_CHESTS:
                                 break;
                             case INVERTED:

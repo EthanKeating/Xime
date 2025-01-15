@@ -51,7 +51,6 @@ public class RankCommand extends XimeCommand {
                 sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThat player does not exist."));
                 return;
             }
-
             if (rank == null) {
                 sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThat rank is not valid."));
                 sender.sendMessage(rankListString);
@@ -75,7 +74,6 @@ public class RankCommand extends XimeCommand {
             }
 
             sender.sendMessage(TextUtil.translate(String.format("&8[&3Xime&8] &bYou have set &e%s&b's rank to&8: &f%s%s&8.", target.getName(), rank.getColor(), rank.getName())));
-
         });
         return true;
     }

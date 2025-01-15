@@ -29,61 +29,58 @@ public class BountyCommand extends XimeCommand {
         Profile profile = plugin.getProfileHandler().getProfile(player);
 
         if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class)) return true;
-
         SGServerable serverable = (SGServerable) profile.getServerable();
 
-        if(serverable.getTributeList().contains(profile) || serverable.getGameState() == GameState.LOBBY
-                || serverable.getGameState() == GameState.LOADING
-                || serverable.getGameState() == GameState.PREGAME
-                || serverable.getGameState() == GameState.CLEANUP
-                || serverable.getGameState() == GameState.ENDGAME
-                || serverable.getGameState() == GameState.RESTARTING) {
+        if (serverable.getTributeList().contains(profile)
+                || (serverable.getGameState() != GameState.LIVEGAME
+                    && serverable.getGameState() != GameState.PREDEATHMATCH
+                    && serverable.getGameState() != GameState.DEATHMATCH)) {
             profile.sendMessage("&8[&6MCSG&8] &cYou cannot use this command right now.");
             return true;
         }
 
         if (!hasArgs(sender, args, 2, "&8[&6MCSG&8] &c")) return true;
+
         Player argumentPlayer = isPlayer(sender, args[0]);
         if (argumentPlayer == null) return true;
+
+        int argumentPoints;
         Profile argumentProfile = plugin.getProfileHandler().getProfile(argumentPlayer);
+        PlayerData playerData = profile.getPlayerData();
 
         if (!serverable.getPlayerList().contains(argumentProfile)) {
-            profile.sendMessage("That player is not online!");
+            profile.sendMessage("&8[&6MCSG&8] &cThat player is not online!");
             return true;
         }
 
-        if (!serverable.getTributeList().contains(argumentProfile) || !(argumentProfile.getTemporaryData() instanceof SGTemporaryData)) {
+        if (!serverable.getTributeList().contains(argumentProfile)
+                || !(argumentProfile.getTemporaryData() instanceof SGTemporaryData argumentTemporaryData)) {
             profile.sendMessage("&8[&6MCSG&8] &cYou cannot bounty that player!");
             return true;
         }
 
-        SGTemporaryData temporaryData = (SGTemporaryData) argumentProfile.getTemporaryData();
-
-
-        int points;
-
         try {
-            points = Integer.parseInt(args[1]);
+            argumentPoints = Integer.parseInt(args[1]);
         } catch (Exception exception) {
             hasArgs(sender, args, Short.MAX_VALUE, "&8[&6MCSG&8] &c");
             return true;
         }
 
-        PlayerData playerData = profile.getPlayerData();
-
-        if (points < 10) {
+        if (argumentPoints < 10) {
             profile.sendMessage("&8[&6MCSG&8] &cBounties must be higher than &8[&e10&8] &cpoints&8.");
             return true;
         }
-
-        if (playerData.getSgPoints() < points) {
+        if (playerData.getSgPoints() < argumentPoints) {
             profile.sendMessage("&8[&6MCSG&8] &4You do not have enough points&8.");
             return true;
         }
-        playerData.setSgPoints(playerData.getSgPoints() - points);
 
-        serverable.announce(String.format("&3Bounty has been set on &f%s &3by &f%s&3 for &8[&e%s&8] &3points.", argumentProfile.getDisplayName(), profile.getDisplayName(), points));
-        temporaryData.setBounty(temporaryData.getBounty() + points);
+        playerData.setSgPoints(playerData.getSgPoints() - argumentPoints);
+        argumentTemporaryData.setBounty(argumentTemporaryData.getBounty() + argumentPoints);
+        serverable.announce(String.format("&3Bounty has been set on &f%s &3by &f%s&3 for &8[&e%s&8] &3points.",
+                argumentProfile.getDisplayName(),
+                profile.getDisplayName(),
+                argumentPoints));
         return true;
     }
 

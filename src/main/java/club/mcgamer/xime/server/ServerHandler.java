@@ -4,14 +4,18 @@ import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.hub.HubServerable;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
+import club.mcgamer.xime.staff.StaffServerable;
 import club.mcgamer.xime.util.TextUtil;
+import club.mcgamer.xime.util.WorldUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ServerHandler {
 
@@ -20,16 +24,37 @@ public class ServerHandler {
     private final XimePlugin plugin;
     @Getter private final List<Serverable> serverList = new ArrayList<>();
 
+    @Getter @Setter private boolean isWhitelisted = false;
+
     public ServerHandler(XimePlugin plugin) {
         this.plugin = plugin;
 
+        String lobbyWorldName = SGServerable.LOBBY_NAME + "-1";
+        String hubWorldName = HubServerable.MAP_NAME + "-1";
+
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            plugin.getWorldHandler().loadSlime(hubWorldName, HubServerable.MAP_NAME);
+        }, 10);
+
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            plugin.getWorldHandler().loadSlime(lobbyWorldName, SGServerable.LOBBY_NAME);
+        }, 20);
+
         Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+            if (getByClass(StaffServerable.class).isEmpty())
+                new StaffServerable();
+
             if (getServerList().stream().filter(serverable -> serverable instanceof HubServerable).count() < 3)
                 new HubServerable();
             else if (getServerList().stream().filter(serverable -> !(serverable instanceof SGMakerServerable))
                     .filter(serverable -> serverable instanceof SGServerable).count() < 36)
-                new SGServerable();
-        }, 20, 20);
+                    new SGServerable();
+        }, 30, 1);
+    }
+
+    public List<Serverable> getByClass(Class<?> clazz) {
+        return serverList.stream().filter(serverable -> serverable.getClass().equals(clazz))
+                .collect(Collectors.toList());
     }
 
     public Serverable getFallback() {

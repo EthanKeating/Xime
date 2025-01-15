@@ -37,7 +37,6 @@ public class ReplyCommand extends XimeCommand {
         }
 
         Profile replyProfile = plugin.getProfileHandler().getProfile(replyData.getReplyUUID());
-
         if (replyProfile == null) {
             profile.sendMessage("&8[&3Xime&8] &cYou have nobody to reply to!");
             return true;
@@ -52,7 +51,6 @@ public class ReplyCommand extends XimeCommand {
         replyProfile.getReplyData().setReplyTimestamp(System.currentTimeMillis());
 
         String message = String.join(" ", args);
-
         replyProfile.sendMessage(String.format("&8[&bFrom &f%s&8] &7%s", profile.getDisplayName(), message));
         profile.sendMessage(String.format("&8[&bTo &f%s&8] &7%s", replyProfile.getDisplayName(), message));
 

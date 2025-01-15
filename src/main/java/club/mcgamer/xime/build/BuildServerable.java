@@ -42,9 +42,10 @@ public class BuildServerable extends Serverable {
     }
 
     public void load(String bukkitWorld, Profile editor) {
-        setWorld(bukkitWorld);
-        mapData = MapData.load(bukkitWorld);
+        this.mapData = MapData.load(bukkitWorld);
         this.editor = editor;
+
+        setWorld(bukkitWorld);
     }
 
     public void save() {
@@ -75,7 +76,6 @@ public class BuildServerable extends Serverable {
 
         for (int x = centerChunkX - radius; x < centerChunkX + radius; x++) {
             for (int z = centerChunkZ - radius; z < centerChunkZ + radius; z++) {
-                // Get the chunk at the specified coordinates
                 Chunk chunk = world.getChunkAt(x, z);
 
                 for (int blockX = 0; blockX < 16; blockX++) {
@@ -105,56 +105,6 @@ public class BuildServerable extends Serverable {
                 System.currentTimeMillis() - startTime));
     }
 
-//    @SneakyThrows
-//    public void optimize() {
-//        HashSet<Block> uselessBlocks = new HashSet<>();
-//
-//        World world = getWorld();
-//        Location centerLocation = mapData.getCenterLocation().toBukkit(world);
-//        final long startTime = System.currentTimeMillis();
-//
-//        int centerChunkX = centerLocation.getChunk().getX();
-//        int centerChunkZ = centerLocation.getChunk().getZ();
-//        int radius = 16;
-//
-//        for (int x = centerChunkX - radius; x < centerChunkX + radius; x++) {
-//            for (int z = centerChunkZ - radius; z < centerChunkZ + radius; z++) {
-//                // Get the chunk at the specified coordinates
-//                Chunk chunk = world.getChunkAt(x, z);
-//
-//                for (int blockX = 0; blockX < 16; blockX++) {
-//                    for (int blockZ = 0; blockZ < 16; blockZ++) {
-//                        for (int blockY = 0; blockY < 256; blockY++) {
-//                            Block block = chunk.getBlock(x * 16 + blockX, blockY, z * 16 + blockZ);
-//
-//                            boolean importantBlock = false;
-//
-//                            int outerRadius = 2;
-//                            int centerX = block.getX();
-//                            int centerY = block.getY();
-//                            int centerZ = block.getZ();
-//
-//                            for (int outerX = -radius; outerX <= radius; outerX++) {
-//                                for (int outerY = -radius; outerY <= radius; outerY++) {
-//                                    for (int outerZ = -radius; outerZ <= radius; outerZ++) {
-//                                        if (outerX * outerX + outerY * outerY + outerZ * outerZ <= outerRadius * outerRadius) {
-//                                            Block outerBlock = block.getWorld().getBlockAt(centerX + outerX, centerY + outerY, centerZ + outerZ);
-//
-//                                            if (BlockUtil.isUseful(outerBlock))
-//                                                importantBlock = true;
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                            if (!importantBlock)
-//                                uselessBlocks.add(block);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-
     @SneakyThrows
     public void optimize() {
         uselessBlocks = new ArrayList<>();
@@ -169,17 +119,13 @@ public class BuildServerable extends Serverable {
 
         LinkedList<Pair<Integer, Integer>> chunkCoordinates = new LinkedList<>();
 
-        for (int x = centerChunkX - radius; x < centerChunkX + radius; x++) {
-            for (int z = centerChunkZ - radius; z < centerChunkZ + radius; z++) {
+        for (int x = centerChunkX - radius; x < centerChunkX + radius; x++)
+            for (int z = centerChunkZ - radius; z < centerChunkZ + radius; z++)
                 chunkCoordinates.add(new Pair<>(x, z));
-            }
-        }
 
         new BukkitRunnable() {
-
             int chunkCount = 0;
 
-            @Override
             public void run() {
 
                 for(int i = 0; i < 10; i++) {
@@ -206,11 +152,9 @@ public class BuildServerable extends Serverable {
                             }
                         }
                     }
-                    if (++chunkCount % radius == 0) {
+                    if (++chunkCount % radius == 0)
                         editor.sendMessage(String.format("&8[&3Xime&8] &bChunk cleaner: " + chunkCount + "/" + chunkTotal));
-                    }
                 }
-
             }
         }.runTaskTimer(plugin, 20L, 1L);
     }

@@ -35,6 +35,7 @@ public class MakerCommand extends XimeCommand {
 
         SGMakerServerable serverable = new SGMakerServerable(profile);
         profile.sendMessage("&8[&3Xime&8] &fYour request for a custom server has been received.");
+        serverable.add(profile);
 
         return true;
     }

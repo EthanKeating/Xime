@@ -27,9 +27,10 @@ public class FixCommand extends XimeCommand {
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
 
+        Location toLocation = Bukkit.getWorlds().get(0).getSpawnLocation();
         Location backLocation = player.getLocation();
 
-        player.teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
+        player.teleport(toLocation);
         player.teleport(backLocation);
         profile.sendMessage("&8[&3Xime&8] &fYou have been de-ghosted&8.");
 

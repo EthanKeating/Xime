@@ -10,6 +10,7 @@ import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
+import club.mcgamer.xime.util.DisguiseUtil;
 import club.mcgamer.xime.util.MathUtil;
 import club.mcgamer.xime.util.Pair;
 import club.mcgamer.xime.util.PlayerUtil;
@@ -71,6 +72,9 @@ public class PreGameRunnable extends AbstractGameRunnable {
         spawnLocations = serverable.getMapData().getSpawnLocations();
         centerLocation = serverable.getMapData().getCenterLocation().toBukkit(serverable.getWorld()).add(0.5, 0.5, 0.5);
 
+        serverable.getWorld().setGameRuleValue("doDaylightCycle", String.valueOf(serverable.getGameSettings().isDayLightCycle()));
+        serverable.getWorld().setGameRuleValue("naturalRegeneration", String.valueOf(serverable.getGameSettings().isDayLightCycle()));
+
         for (int i = 0; i < allPlayers.size(); i++) {
             int spawnIndex = spawnIndexes.get(i % spawnIndexes.size());
 
@@ -80,12 +84,21 @@ public class PreGameRunnable extends AbstractGameRunnable {
             Player player = profile.getPlayer();
             SGTemporaryData temporaryData = (SGTemporaryData) profile.getTemporaryData();
 
+            if (serverable.getGameSettings().isRandomizeNames())
+                plugin.getDisguiseHandler().disguise(profile);
+
             player.teleport(worldLocation);
             temporaryData.setPedistalLocation(worldLocation);
             temporaryData.setDistrictId((i % 12) + 1);
             temporaryData.setLifeStart(System.currentTimeMillis());
             serverable.getTributeList().add(profile);
             PlayerUtil.refresh(profile);
+
+            if (serverable.getGameSettings().isNoHitDelay())
+                player.setMaximumNoDamageTicks(3);
+
+            player.setMaxHealth(serverable.getGameSettings().getMaxHealth());
+            player.setHealth(serverable.getGameSettings().getMaxHealth());
             player.setGameMode(GameMode.SURVIVAL);
         }
 

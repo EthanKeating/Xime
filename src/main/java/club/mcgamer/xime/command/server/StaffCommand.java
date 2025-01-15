@@ -17,7 +17,7 @@ public class StaffCommand extends XimeCommand {
         super("staff");
         this.description = "toggle staff mode";
         this.usageMessage = "/staff";
-        this.setAliases(Arrays.asList("mod", "staffmode", "modmode"));
+        this.setAliases(Arrays.asList("gamemaster", "mod", "staffmode", "modmode"));
         setPermission("xime.staff");
 
         register();
@@ -38,7 +38,6 @@ public class StaffCommand extends XimeCommand {
         });
 
         if (profile.getServerable() instanceof StaffServerable) {
-
             plugin.getServerHandler().getFallback().add(profile);
             profile.sendMessage("&8[&3Xime&8] &cYou have been removed from staff mode&8.");
             return true;
@@ -53,9 +52,9 @@ public class StaffCommand extends XimeCommand {
         profile.sendMessage("&8[&3Xime&8] &aYou have been added to staff mode&8.");
 
         PlayerUtil.refresh(profile);
-        player.teleport(player.getLocation().add(0, 0.1, 0));
-        player.setFlying(true);
+        player.teleport(player.getLocation().add(0, 0.01, 0));
         player.setAllowFlight(true);
+        player.setFlying(true);
         PlayerUtil.setFlying(profile);
 
         return true;

@@ -1,5 +1,7 @@
 package club.mcgamer.xime.listener.server;
 
+import club.mcgamer.xime.profile.Profile;
+import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.MathUtil;
 import net.minecraft.server.v1_8_R3.Entity;
@@ -23,6 +25,26 @@ public class FishingRodListener extends IListener {
 
             hook.setSize(0.35f, 0.35f);
 
+        }
+    }
+
+    @EventHandler
+    public void onIncreasedRodSpeed(ProjectileLaunchEvent event) {
+        if (event.getEntityType().equals(EntityType.FISHING_HOOK)) {
+            if (event.getEntity().getShooter() instanceof Player) {
+                Player shooter = (Player) event.getEntity().getShooter();
+                FishHook hook = (FishHook) event.getEntity();
+
+                Profile profile = plugin.getProfileHandler().getProfile(shooter);
+
+                if (profile == null) return;
+
+                if (profile.getServerable() instanceof SGServerable) {
+                    SGServerable serverable = (SGServerable) profile.getServerable();
+
+                    hook.setVelocity(hook.getVelocity().multiply(serverable.getGameSettings().getRodSpeedMultiplier()));
+                }
+            }
         }
     }
 

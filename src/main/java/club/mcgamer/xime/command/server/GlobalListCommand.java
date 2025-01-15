@@ -30,17 +30,20 @@ public class GlobalListCommand extends XimeCommand {
     @Override
     public boolean execute(CommandSender sender, String alias, String[] args) {
 
-        if (sender instanceof Player) {
-            if (!hasPermission(sender))
-                return true;
-        }
+        if (sender instanceof Player && !hasPermission(sender)) return true;
 
-        for(Serverable serverable : plugin.getServerHandler().getServerList()) {
-            if (!serverable.getPlayerList().isEmpty()) {
-                sender.sendMessage(TextUtil.translate(String.format("&8[&3Xime&8] &8[&a%s&8] &fPlayers: &8[&6%s&8/&6%s&8]", serverable, serverable.getPlayerList().size(), serverable.getMaxPlayers())));
-            }
-        }
-        sender.sendMessage(TextUtil.translate(String.format("&8[&3Xime&8] &fThere are &8[&6%s&8/&6%s&8] &fplayers on the network.", Bukkit.getOnlinePlayers().size(), Bukkit.getMaxPlayers())));
+        String serverMessage = "&8[&3Xime&8] &8[&a%s&8] &fPlayers: &8[&6%s&8/&6%s&8]";
+        String globalMessage = "&8[&3Xime&8] &fThere are &8[&6%s&8/&6%s&8] &fplayers on the network.";
+
+        plugin.getServerHandler().getServerList().stream()
+                .filter(serverable -> !serverable.getPlayerList().isEmpty())
+                .forEach(serverable -> sender.sendMessage(
+                        TextUtil.translate(String.format(serverMessage,
+                                serverable,
+                                serverable.getPlayerList().size(),
+                                serverable.getMaxPlayers()))));
+
+        sender.sendMessage(TextUtil.translate(String.format(globalMessage, Bukkit.getOnlinePlayers().size(), Bukkit.getMaxPlayers())));
 
         return true;
     }

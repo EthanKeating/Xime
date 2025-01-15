@@ -10,6 +10,7 @@ import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.util.Pair;
+import org.bukkit.Bukkit;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -66,6 +67,10 @@ public class LobbyRunnable extends AbstractGameRunnable {
         //Show vote messages
         if (currentTime % 30 == 0) {
             serverable.getPlayerList().forEach(this::sendVotes);
+        }
+
+        if (currentTime == 1 && gameSettings.getMinimumPlayers() <= playerCount) {
+            Bukkit.getScheduler().runTaskLater(plugin, this::cancel, 11L);
         }
     }
 

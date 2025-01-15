@@ -17,7 +17,6 @@ public class ServerLoadEvent extends Event {
         return HANDLERS;
     }
 
-
     public ServerLoadEvent(Serverable serverable, World world) {
         this.serverable = serverable;
         this.world = world;

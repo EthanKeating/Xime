@@ -44,7 +44,7 @@ public class MapSelectionSubMenu extends FastInv {
                     e -> {
                         serverable.getMapPool().setMap(identifier);
                         previousMenu.open(profile.getPlayer());
-                        profile.sendMessage("&8[&6MCSG&8] &6Map: &e" + mapData.getMapName());
+                        serverable.announce("&6Map: &e" + mapData.getMapName());
                     });
 
         }

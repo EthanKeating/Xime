@@ -34,19 +34,13 @@ public class FlyCommand extends XimeCommand {
 
         generalData.setCanFly(!generalData.isCanFly());
 
-        if (profile.getServerable() instanceof SGServerable) {
-            if (((SGServerable) profile.getServerable()).getGameState() != GameState.LOBBY) {
-                profile.sendMessage("&8[&3Xime&8] &cYou cannot use this command right now.");
-                return true;
-            }
+        if (!(profile.getServerable() instanceof SGServerable serverable) || serverable.getGameState() != GameState.LOBBY) {
+            profile.sendMessage("&8[&3Xime&8] &cYou cannot use this command right now.");
+            return true;
         }
 
-        if (generalData.isCanFly())
-            profile.sendMessage("&8[&3Xime&8] &fYou can now fly&8.");
-        else
-            profile.sendMessage("&8[&3Xime&8] &fYou can no longer fly&8.");
-
         player.setAllowFlight(generalData.isCanFly());
+        profile.sendMessage(String.format("&8[&3Xime&8] &fYou can %s fly&8.", generalData.isCanFly() ? "now" : "no longer"));
 
         return true;
     }

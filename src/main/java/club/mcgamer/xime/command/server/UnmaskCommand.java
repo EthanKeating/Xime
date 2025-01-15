@@ -38,14 +38,12 @@ public class UnmaskCommand extends XimeCommand {
         }
 
         //player has disguise name, so set disguise data rank back to default rank
-        if (!profile.getName().equalsIgnoreCase(profile.getNameBypassDisguise())) {
+        if (!profile.getName().equalsIgnoreCase(profile.getNameBypassDisguise()))
             profile.getDisguiseData().setRank(RankHandler.DEFAULT_RANK);
-        } else {
+        else
             profile.setDisguiseData(null);
-        }
 
         profile.sendMessage("&8[&3Xime&8] &fYou have been unmasked");
-
         return true;
     }
 }

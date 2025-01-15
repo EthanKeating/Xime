@@ -29,12 +29,11 @@ public class StaffChatCommand extends XimeCommand {
 
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
+        String message = "&8[&5STAFF&8] &f" + profile.getDisplayNameBypassDisguise() + "&8: &b" + String.join(" ", args);
 
-        String message = String.join(" ", args);
-
-        plugin.getProfileHandler().getProfiles().stream().filter(loopProfile -> loopProfile.getPlayer().hasPermission(getPermission())).forEach(
-                loopProfile -> loopProfile.sendMessage("&8[&5STAFF&8] &f" + profile.getDisplayNameBypassDisguise() + "&8: &b" + message)
-        );
+        plugin.getProfileHandler().getProfiles().stream()
+                .filter(loopProfile -> loopProfile.getPlayer().hasPermission(getPermission()))
+                .forEach(loopProfile -> loopProfile.sendMessage(message));
 
         return true;
     }

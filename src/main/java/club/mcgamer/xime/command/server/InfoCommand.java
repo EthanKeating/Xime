@@ -27,7 +27,6 @@ public class InfoCommand extends XimeCommand {
 
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
-
         Serverable serverable = profile.getServerable();
 
         profile.sendMessage(String.format("&6- Server &3%s &6Info -", serverable.toString()));

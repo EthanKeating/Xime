@@ -32,7 +32,15 @@ public class MapPool {
             "Solar_Frost",
             "Inertia",
             "Survival_Kingdom",
-            "Return_To_Moonbase_9"
+            "Construct",
+            "Excavation_Zero",
+            "Fortress_Pyke",
+            "Highfield_Estate",
+            "Holiday_Resort",
+            "Holiday_Resort_2",
+            "Origins_(Reqrium_V2)",
+            "Winds_of_Change"
+            //"Return_To_Moonbase_9"
     );
 
     @Getter private static final HashMap<String, MapData> allMaps = new HashMap<>();

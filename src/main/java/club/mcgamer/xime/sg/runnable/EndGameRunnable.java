@@ -70,7 +70,13 @@ public class EndGameRunnable extends AbstractGameRunnable {
                 }
             }
         }
-        gameWinner.ifPresent(profile -> serverable.announce(String.format("&a%s &ahas won the Survival Games!", profile.getDisplayName())));
+
+        gameWinner.ifPresent(profile -> {
+            if(gameSettings.isRandomizeNames())
+                plugin.getDisguiseHandler().undisguise(profile);
+
+            serverable.announce(String.format("&a%s &ahas won the Survival Games!", profile.getDisplayName()));
+        });
         serverable.getWorld().setTime(18000);
 
         MapData mapData = serverable.getMapData();

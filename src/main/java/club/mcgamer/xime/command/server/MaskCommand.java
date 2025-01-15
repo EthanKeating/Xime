@@ -52,16 +52,15 @@ public class MaskCommand extends XimeCommand {
         }
 
         Rank rank = rankHandler.getRank(args[0]);
-        if (rank == null && !hasArgs(sender, args, 100))
-            return true;
+        if (rank == null && !hasArgs(sender, args, 100)) return true;
 
-        if (profile.getDisguiseData() != null) {
+        if (profile.getDisguiseData() != null)
             profile.getDisguiseData().setRank(rank);
-        } else {
+        else
             profile.setDisguiseData(new DisguiseData(profile, profile.getUuid(), profile.getName(), profile.getSkin(), rank));
-        }
 
         profile.sendMessage(String.format("&8[&3Xime&8] &fYou have been masked as %s&8.", rank.getColor() + rank.getName()));
+
         return true;
     }
 }

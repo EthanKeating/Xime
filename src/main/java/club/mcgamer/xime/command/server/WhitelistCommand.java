@@ -18,7 +18,7 @@ public class WhitelistCommand extends XimeCommand {
     public WhitelistCommand() {
         super("whitelist");
         this.description = "Toggle the server whitelist";
-        this.usageMessage = "/whitelist <on/off/player>";
+        this.usageMessage = "/whitelist <on/off>";
         this.setAliases(new ArrayList<String>());
         setPermission("xime.admin");
 
@@ -40,29 +40,14 @@ public class WhitelistCommand extends XimeCommand {
 
         if (args[0].equalsIgnoreCase("on")) {
             sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &fThe server has been &cwhitelisted."));
-            Bukkit.setWhitelist(true);
-            Bukkit.reloadWhitelist();
+            plugin.getServerHandler().setWhitelisted(true);
             return true;
         }
         else if(args[0].equalsIgnoreCase("off")) {
             sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &fThe server has been &aunwhitelisted."));
-            Bukkit.setWhitelist(false);
-            Bukkit.reloadWhitelist();
+            plugin.getServerHandler().setWhitelisted(false);
             return true;
         }
-
-        OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
-
-        if (offlinePlayer == null) {
-            sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cCould not find an offline player named " + args[0]));
-            return true;
-        }
-
-
-        Bukkit.getWhitelistedPlayers().add(offlinePlayer);
-        Bukkit.reloadWhitelist();
-        sender.sendMessage(TextUtil.translate(String.format("&8[&3Xime&8] &f%s &fhas been added to the &bwhitelist", "&2" + offlinePlayer.getName())));
-
         return true;
     }
 }

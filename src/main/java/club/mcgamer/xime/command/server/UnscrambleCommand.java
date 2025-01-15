@@ -32,22 +32,18 @@ public class UnscrambleCommand extends XimeCommand {
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
 
-        if (profile.getServerable() instanceof SGServerable) {
-            if (((SGServerable) profile.getServerable()).getGameState() != GameState.LOBBY) {
-                profile.sendMessage("&8[&3Xime&8] &cYou cannot use this command right now.");
-                return true;
-            }
+        if (!(profile.getServerable() instanceof SGServerable serverable) || serverable.getGameState() != GameState.LOBBY) {
+            profile.sendMessage("&8[&3Xime&8] &cYou cannot use this command right now.");
+            return true;
         }
 
         if (profile.getDisguiseData() != null && !profile.getDisguiseData().getName().equalsIgnoreCase(profile.getNameBypassDisguise())) {
             profile.sendMessage("&8[&3Xime&8] &cYou cannot unscramble while you are disguised.");
-
             return true;
-        } else {
-            profile.setDisguiseData(null);
-            profile.sendMessage("&8[&3Xime&8] &fYour stats have been unscrambled.");
         }
 
+        profile.setDisguiseData(null);
+        profile.sendMessage("&8[&3Xime&8] &fYour stats have been unscrambled.");
         return true;
     }
 }

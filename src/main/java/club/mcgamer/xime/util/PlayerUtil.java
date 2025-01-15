@@ -27,9 +27,11 @@ public class PlayerUtil {
 
         player.setAllowFlight(false);
         player.setFlying(false);
-        player.setMaximumNoDamageTicks(19);
+        player.setNoDamageTicks(20);
+        player.setMaximumNoDamageTicks(20);
         player.setSaturation(10f);
         player.setFoodLevel(20);
+        player.setMaxHealth(20f);
         player.setHealth(20f);
         player.setWalkSpeed(0.2f);
         player.setFireTicks(0);

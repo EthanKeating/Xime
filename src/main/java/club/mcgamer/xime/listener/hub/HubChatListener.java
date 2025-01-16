@@ -5,6 +5,10 @@ import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerChatEvent;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.TextUtil;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.event.EventHandler;
 
 import java.util.HashSet;
@@ -23,7 +27,6 @@ public class HubChatListener extends IListener {
 
             Set<Profile> hubProfiles = new HashSet<>(serverable.getPlayerList());
 
-            String displayName = profile.getDisplayName();
             String chatColor = profile.getChatColor();
 
             if (globalChat) {
@@ -32,9 +35,16 @@ public class HubChatListener extends IListener {
                         .forEach(loopServerable -> hubProfiles.addAll(loopServerable.getPlayerList()));
             }
 
-            hubProfiles.stream().map(Profile::getPlayer).forEach(loopProfile -> loopProfile.sendMessage(
-                    TextUtil.translate(String.format("%s&8: &f%s", displayName, chatColor)) + event.getMessage()
-            ));
+            hubProfiles.stream().forEach(loopProfile -> {
+                if (loopProfile.getPlayer().hasPermission("xime.staff ")) {
+                    TextUtil.sendStaffMessage(loopProfile, profile, TextUtil.translate(
+                            String.format("%s&8: &f%s",
+                                    profile.getName().equalsIgnoreCase(profile.getNameBypassDisguise()) ? profile.getDisplayName() : profile.getDisplayName() + "&8(" + profile.getDisplayNameBypassDisguise() + "&8)",
+                                    chatColor)) + event.getMessage());
+                } else {
+                    loopProfile.sendMessage(TextUtil.translate(String.format("%s&8: &f%s", profile.getDisplayNameBypassDisguise(), chatColor)) + event.getMessage());
+                }
+                });
 
         }
     }

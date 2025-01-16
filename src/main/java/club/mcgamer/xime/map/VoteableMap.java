@@ -22,7 +22,15 @@ public class VoteableMap {
         for(Profile profile : votedFor) {
             Player player = profile.getPlayer();
 
-            if (player.hasPermission("xime.quantum"))
+            if(false)
+                System.out.println("how");
+            else if (player.hasPermission("xime.admin"))
+                total += 10;
+            else if (player.hasPermission("xime.staff"))
+                total += 8;
+            else if (player.hasPermission("xime.vip"))
+                total += 7;
+            else if (player.hasPermission("xime.quantum"))
                 total += 6;
             else if (player.hasPermission("xime.platinum"))
                 total += 5;

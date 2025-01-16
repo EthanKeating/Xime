@@ -36,6 +36,7 @@ import org.bukkit.entity.Player;
 import java.time.Duration;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Getter
 public class Profile {
@@ -105,7 +106,15 @@ public class Profile {
             if (permissionAttachmentInfo != null && permissionAttachmentInfo.getAttachment() != null && permissionAttachmentInfo.getAttachment().getPlugin() == plugin)
                 player.removeAttachment(permissionAttachmentInfo.getAttachment());
         });
-        rank.getPermissions().forEach(permission -> player.addAttachment(plugin, permission, true));
+
+        plugin.getRankHandler().getRankList()
+                .stream()
+                .filter(otherRank -> plugin.getRankHandler().getRankList().indexOf(otherRank) >= plugin.getRankHandler().getRankList().indexOf(getRankBypassDisguise()))
+                        .forEach(otherRank -> {
+                            otherRank.getPermissions().forEach(permission -> player.addAttachment(plugin, permission, true));
+                        });
+
+
     }
 
     public void setRank(String rankName) {

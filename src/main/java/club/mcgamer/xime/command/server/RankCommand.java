@@ -10,6 +10,7 @@ import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ public class RankCommand extends XimeCommand {
         this.description = "Set a player's rank";
         this.usageMessage = "/rank <player> <rank>";
         this.setAliases(Arrays.asList("setrank"));
-        setPermission("xime.admin");
+        setPermission("xime.owner");
 
         register();
     }
@@ -55,6 +56,13 @@ public class RankCommand extends XimeCommand {
                 sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThat rank is not valid."));
                 sender.sendMessage(rankListString);
                 return;
+            }
+            if (sender instanceof Player) {
+                Profile profile = plugin.getProfileHandler().getProfile((Player) sender);
+                if(plugin.getRankHandler().getRankList().indexOf(rank) < plugin.getRankHandler().getRankList().indexOf(profile.getRankBypassDisguise())) {
+                    sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cYou do not have permission to set that rank."));
+                    return;
+                }
             }
 
             Profile profile = plugin.getProfileHandler().getProfile(target.getUniqueId());

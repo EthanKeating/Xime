@@ -23,6 +23,7 @@ public class ChatColorCommand extends XimeCommand {
     @Override
     public boolean execute(CommandSender sender, String alias, String[] args) {
         if (!isPlayer(sender)) return true;
+        if (!hasPermission(sender)) return true;
 
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);

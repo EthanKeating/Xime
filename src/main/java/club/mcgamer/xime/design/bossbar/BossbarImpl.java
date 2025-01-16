@@ -31,6 +31,8 @@ public class BossbarImpl {
     private float health = 300;
     private boolean hidden;
 
+    private int viewDistance = 6;
+
     public BossbarImpl(Profile profile) {
         this.profile = profile;
     }
@@ -57,8 +59,8 @@ public class BossbarImpl {
         if (bukkitPlayer == null) return;
 
         Location location = (id == 0) ?
-                bukkitPlayer.getEyeLocation().add(bukkitPlayer.getLocation().getDirection().multiply(26)).add(0, 3, 0)
-                : bukkitPlayer.getEyeLocation().add(bukkitPlayer.getLocation().getDirection().multiply(-26));
+                bukkitPlayer.getEyeLocation().add(bukkitPlayer.getLocation().getDirection().multiply(28)).add(0, 3, 0)
+                : bukkitPlayer.getEyeLocation().add(bukkitPlayer.getLocation().getDirection().multiply(-28));
 
         user.sendPacket(new WrapperPlayServerSpawnLivingEntity(
                 ENTITY_IDS[id],

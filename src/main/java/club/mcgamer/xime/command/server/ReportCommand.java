@@ -9,6 +9,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -71,7 +73,7 @@ public class ReportCommand extends XimeCommand {
             return true;
         }
 
-        int reportId = Integer.parseInt(args[0]);
+        int reportId = Integer.parseInt(args[1]);
         String reportReason = reportIdMap.get(reportId);
         String reportPriority = reportPriortyMap.get(reportId).getName();
         String reportDescription = args.length > 2 ?
@@ -83,14 +85,14 @@ public class ReportCommand extends XimeCommand {
             return true;
         }
 
-        LocalDateTime reportDateTime = LocalDateTime.now();
+        ZonedDateTime reportDateTime = ZonedDateTime.now(ZoneId.of("UTC"));
         Report report = new Report(argumentProfile.getDisplayNameBypassDisguise(),
                 argumentProfile.getNameBypassDisguise(),
                 argumentProfile.getUuid().toString(),
                 reportReason,
                 reportDescription,
                 reportPriority,
-                reportDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + " @ " + reportDateTime.format(DateTimeFormatter.ofPattern("hh:mm a z")),
+                reportDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + " @ " + reportDateTime.format(DateTimeFormatter.ofPattern("hh:mm a")),
                 profile.getDisplayNameBypassDisguise(),
                 profile.getNameBypassDisguise(),
                 profile.getUuid().toString());

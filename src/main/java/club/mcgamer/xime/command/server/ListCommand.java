@@ -5,6 +5,7 @@ import club.mcgamer.xime.hub.HubServerable;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.state.GameState;
+import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -17,7 +18,7 @@ public class ListCommand extends XimeCommand {
         super("list");
         this.description = "list players on your server";
         this.usageMessage = "/list";
-        this.setAliases(Collections.emptyList());
+        this.setAliases(Collections.singletonList("l"));
 
         register();
     }
@@ -40,7 +41,7 @@ public class ListCommand extends XimeCommand {
 
             if(serverable.getGameState() == GameState.LOBBY) {
                 profile.sendMessage("&8- &f&lPlaying: &f" + serverable.getPlayerList().stream()
-                        .map(Profile::getDisplayName)
+                        .map(loopProfile -> profile.getPlayer().hasPermission("xime.staff") && loopProfile.getDisguiseData() != null ? TextUtil.translate(loopProfile.getDisplayName() + "&8(" + loopProfile.getDisplayNameBypassDisguise() + "&8)") : TextUtil.translate(loopProfile.getDisplayName()))
                         .collect(Collectors.joining("&8, &f")));
                 return true;
             }

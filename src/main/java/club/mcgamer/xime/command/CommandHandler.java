@@ -28,6 +28,7 @@ public class CommandHandler {
         new GoToCommand();
 
         new ReportCommand();
+        new ReportsCommand();
         new MessageCommand();
         new ReplyCommand();
         new PingCommand();
@@ -54,6 +55,8 @@ public class CommandHandler {
         new MakerCommand();
         new SecretCommand();
         new StaffChatCommand();
+        new StaffListCommand();
+        new InviteCommand();
 
         new ForcestartCommand();
         new LeaderboardCommand();

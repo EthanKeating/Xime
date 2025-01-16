@@ -6,9 +6,12 @@ import club.mcgamer.xime.server.event.ServerChatEvent;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.sg.state.GameState;
+import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.TextUtil;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
+import org.w3c.dom.Text;
 
 public class SGChatListener extends IListener {
 
@@ -26,10 +29,18 @@ public class SGChatListener extends IListener {
             if (gameState == GameState.LOBBY) {
                 chatFormat = TextUtil.translate(String.format("&8[&e%s&8]&f%s&8: &f%s",
                         playerData.getSgPoints(),
-                        profile.getDisplayName(),
+                        "%player%",
                         profile.getChatColor()));
 
-                serverable.announceRawUncoloured(chatFormat + event.getMessage());
+                if (serverable instanceof SGMakerServerable makerServerable) {
+                    if (makerServerable.getOwner() == profile)
+                        chatFormat = ChatColor.GOLD + "[Host]" + chatFormat;
+                }
+
+                String finalChatFormat = chatFormat;
+                serverable.getPlayerList().forEach(loopProfile -> {
+                    TextUtil.sendStaffMessage(loopProfile, profile, finalChatFormat + event.getMessage());
+                });
                 return;
             }
 
@@ -42,7 +53,10 @@ public class SGChatListener extends IListener {
                         profile.getDisplayName(),
                         profile.getChatColor()));
 
-                serverable.announceRawUncoloured(chatFormat + event.getMessage());
+                String finalChatFormat1 = chatFormat;
+                serverable.getPlayerList().forEach(loopProfile -> {
+                    TextUtil.sendStaffMessage(loopProfile, profile, finalChatFormat1 + event.getMessage());
+                });
                 return;
             }
 
@@ -53,13 +67,17 @@ public class SGChatListener extends IListener {
 
             //Send to everyone
             if (gameState == GameState.ENDGAME || gameState == GameState.CLEANUP || gameState == GameState.RESTARTING) {
-                serverable.announceRawUncoloured(chatFormat + event.getMessage());
+                String finalChatFormat2 = chatFormat;
+                serverable.getPlayerList().forEach(loopProfile -> {
+                    TextUtil.sendStaffMessage(loopProfile, profile, finalChatFormat2 + event.getMessage());
+                });
                 return;
             }
 
             //Sent to just spectators
-            serverable.getSpectatorList().stream().map(Profile::getPlayer).forEach(player ->
-                    player.sendMessage(chatFormat + event.getMessage()));
+            String finalChatFormat3 = chatFormat;
+            serverable.getSpectatorList().forEach(loopProfile ->
+                    TextUtil.sendStaffMessage(loopProfile, profile, finalChatFormat3 + event.getMessage()));
 
         }
     }

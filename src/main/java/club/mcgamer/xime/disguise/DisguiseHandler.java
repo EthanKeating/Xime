@@ -8,6 +8,12 @@ import club.mcgamer.xime.util.Skin;
 import lombok.Getter;
 import lombok.SneakyThrows;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -46,6 +52,16 @@ public class DisguiseHandler {
                 .sendMessage("&8[&6MCSG&8] &cStaff can see your true username while using this command.")
                 .sendMessage("&8[&6MCSG&8] &fYou now appear as " + profile.getDisplayName() + "&8.")
                 .sendMessage("&8[&6MCSG&8] &fTo undisguise, use &8[&e/undisguise&8]");
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Paths.get(plugin.getDataFolder().getAbsolutePath(), "disguises").toFile(), true))) {
+            writer.write(String.format("%s '%s' has disguised as '%s'",
+                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                    profile.getNameBypassDisguise(),
+                    randomName));
+            writer.newLine();
+        } catch (IOException e) {
+        }
+
     }
 
     @SneakyThrows

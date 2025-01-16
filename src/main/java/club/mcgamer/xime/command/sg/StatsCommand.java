@@ -68,7 +68,7 @@ public class StatsCommand extends XimeCommand {
         profile.sendMessage(String.format("&8[&6MCSG&8] &fGames (Won/Total)&8: &e%s&8/&e%s", playerData.getSgGamesWon(), playerData.getSgGamesPlayed()));
         profile.sendMessage(String.format("&8[&6MCSG&8] &fKills (Round/Total)&8: &e%s&8/&e%s", playerData.getSgMostKills(), playerData.getSgKills()));
         profile.sendMessage(String.format("&8[&6MCSG&8] &fChests (Round/Total)&8: &e%s&8/&e%s", playerData.getSgMostChests(), playerData.getSgChests()));
-        profile.sendMessage(String.format("&8[&6MCSG&8] &fLifespan (Round/Total)&8: &e%s&8/&e%s", convertDuration(playerData.getSgLongestLifeSpan()), convertDuration(playerData.getSgLifeSpan())));
+        profile.sendMessage(String.format("&8[&6MCSG&8] &fLifespan (Round/Total)&8: &e%s&8/&e%s", convertDuration(playerData.getSgLongestLifeSpan()).replace('m', ':').replace("s", ""), convertDuration(playerData.getSgLifeSpan())));
 
         return true;
     }
@@ -95,7 +95,7 @@ public class StatsCommand extends XimeCommand {
         if (days > 0) result.append(days).append("d");
         if (hours > 0) result.append(hours).append("h");
         if (minutes > 0) result.append(minutes).append("m");
-        if (seconds > 0) result.append(seconds).append("s");
+        if (seconds >= 0) result.append(seconds).append("s");
 
         return result.toString().trim();
     }

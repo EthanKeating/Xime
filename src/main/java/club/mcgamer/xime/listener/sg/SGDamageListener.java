@@ -10,6 +10,7 @@ import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
+import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.TextUtil;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -86,6 +87,12 @@ public class SGDamageListener extends IListener {
         if (event.getServerable() instanceof SGServerable) {
             SGServerable serverable = (SGServerable) event.getServerable();
 
+            if (serverable.getGameState() == GameState.LOBBY ||serverable.getGameState() == GameState.ENDGAME || serverable.getGameState() == GameState.CLEANUP) {
+                event.getVictim().getPlayer().setMaxHealth(20);
+                event.getVictim().getPlayer().setHealth(20);
+                return;
+            }
+
             Profile victim = event.getVictim();
             Player victimPlayer = victim.getPlayer();
 
@@ -96,15 +103,17 @@ public class SGDamageListener extends IListener {
             //int tempPoints = (int) (Math.random() * 2000);
             int lostPoints = (int) (victimData.getSgPoints() * 0.05); //5% of a player's points
 
-            victimData.setSgPoints(Math.max(0, victimData.getSgPoints() - lostPoints));
-            victimData.setSgDeaths(victimData.getSgDeaths() + 1);
-            victimData.setSgGamesPlayed(victimData.getSgGamesPlayed() + 1);
+            if (!(serverable instanceof SGMakerServerable)) {
+                victimData.setSgPoints(Math.max(0, victimData.getSgPoints() - lostPoints));
+                victimData.setSgDeaths(victimData.getSgDeaths() + 1);
+                victimData.setSgGamesPlayed(victimData.getSgGamesPlayed() + 1);
 
-            long lifeDuration = System.currentTimeMillis() - victimTempData.getLifeStart();
+                long lifeDuration = System.currentTimeMillis() - victimTempData.getLifeStart();
 
-            victimData.setSgLifeSpan(victimData.getSgLifeSpan() + lifeDuration);
-            if (victimData.getSgLongestLifeSpan() < lifeDuration)
-                victimData.setSgLongestLifeSpan(lifeDuration);
+                victimData.setSgLifeSpan(victimData.getSgLifeSpan() + lifeDuration);
+                if (victimData.getSgLongestLifeSpan() < lifeDuration)
+                    victimData.setSgLongestLifeSpan(lifeDuration);
+            }
 
             if (victim.getServerable() == serverable) {
                 if ((victimPlayer.getLastDamageCause() != null && victimPlayer.getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.VOID) || victimPlayer.getLocation().getY() < 0) {
@@ -123,22 +132,25 @@ public class SGDamageListener extends IListener {
             String spectatorPlural = "spectator" + (serverable.getTributeList().size() == 1 ? "" : "s");
             serverable.announce(String.format("&aThere is &8[&6%s&8] &a%s watching the game.", serverable.getSpectatorList().size(), spectatorPlural));
 
-            victim.sendMessage(String.format("&8[&6MCSG&8] &3You've lost &8[&e%s&8] &3points for dying&8!", lostPoints));
+            if (!(serverable instanceof SGMakerServerable))
+                victim.sendMessage(String.format("&8[&6MCSG&8] &3You've lost &8[&e%s&8] &3points for dying&8!", lostPoints));
             victim.sendTitle("&cYou have died.", "", 10, 50, 10);
 
             if (event.getVictim().getTemporaryData() instanceof SGTemporaryData) {
                 SGTemporaryData temporaryData = (SGTemporaryData) event.getVictim().getTemporaryData();
 
-                if (temporaryData.getBounty() > 0) {
-                    if (event.getAttacker().isPresent()) {
-                        Profile attacker = event.getAttacker().get();
-                        PlayerData attackerData = attacker.getPlayerData();
+                if (!(serverable instanceof SGMakerServerable)) {
+                    if (temporaryData.getBounty() > 0) {
+                        if (event.getAttacker().isPresent()) {
+                            Profile attacker = event.getAttacker().get();
+                            PlayerData attackerData = attacker.getPlayerData();
 
-                        attackerData.setSgPoints(attackerData.getSgPoints() + temporaryData.getBounty());
-                        event.getAttacker().get().sendMessage(String.format("&8[&6MCSG&8] &3You've gained &8[&e%s&8] &3extra points from bounties set on &f%s&8!", temporaryData.getBounty(), event.getVictim().getDisplayName()));
+                            attackerData.setSgPoints(attackerData.getSgPoints() + temporaryData.getBounty());
+                            event.getAttacker().get().sendMessage(String.format("&8[&6MCSG&8] &3You've gained &8[&e%s&8] &3extra points from bounties set on &f%s&8!", temporaryData.getBounty(), event.getVictim().getDisplayName()));
+                        }
+                        serverable.announceRaw(String.format("&6A bounty of &8[&a%s&8] &6points has been claimed upon &f%s&6's death&8.", temporaryData.getBounty(), event.getVictim().getDisplayName()));
+                        temporaryData.setBounty(0);
                     }
-                    serverable.announceRaw(String.format("&6A bounty of &8[&a%s&8] &6points has been claimed upon &f%s&6's death&8.", temporaryData.getBounty(), event.getVictim().getDisplayName()));
-                    temporaryData.setBounty(0);
                 }
             }
 
@@ -149,15 +161,17 @@ public class SGDamageListener extends IListener {
                 PlayerData attackerData = attacker.getPlayerData();
                 SGTemporaryData temporaryData = (SGTemporaryData) event.getVictim().getTemporaryData();
 
-                attackerData.setSgPoints(attackerData.getSgPoints() + gainedPoints);
-                attackerData.setSgKills(attackerData.getSgKills() + 1);
-                temporaryData.setKillCount(temporaryData.getKillCount() + 1);
-                if (attackerData.getSgMostKills() < temporaryData.getKillCount())
-                    attackerData.setSgMostKills(temporaryData.getKillCount());
+                if (!(serverable instanceof SGMakerServerable)) {
+                    attackerData.setSgPoints(attackerData.getSgPoints() + gainedPoints);
+                    attackerData.setSgKills(attackerData.getSgKills() + 1);
+                    temporaryData.setKillCount(temporaryData.getKillCount() + 1);
+                    if (temporaryData.getKillCount() > attackerData.getSgMostKills())
+                        attackerData.setSgMostKills(temporaryData.getKillCount());
 
-                attacker.sendMessage(String.format("&8[&6MCSG&8] &3You've gained &8[&e%s&8] &3points for killing %s&8!",
-                        gainedPoints,
-                        victim.getDisplayName()));
+                    attacker.sendMessage(String.format("&8[&6MCSG&8] &3You've gained &8[&e%s&8] &3points for killing %s&8!",
+                            gainedPoints,
+                            victim.getDisplayName()));
+                }
             }
 
             serverable.announceRaw(String.format("&6A cannon can be heard in the distance in memorial for %s", victim.getDisplayName()));

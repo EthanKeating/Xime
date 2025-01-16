@@ -24,7 +24,7 @@ public class BuildJoinListener extends IListener {
             Player player = profile.getPlayer();
 
             PlayerUtil.refresh(profile);
-            player.setGameMode(GameMode.SURVIVAL);
+            player.setGameMode(GameMode.CREATIVE);
             player.setAllowFlight(true);
             PlayerUtil.setFlying(profile);
             PlayerUtil.unsetGamemode(profile);

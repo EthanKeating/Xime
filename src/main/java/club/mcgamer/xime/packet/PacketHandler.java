@@ -11,11 +11,13 @@ import com.github.retrooper.packetevents.event.PacketSendEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.protocol.player.User;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientChatMessage;
+import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientSettings;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerPlayerInfo;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerTabComplete;
 import com.github.retrooper.packetevents.wrapper.status.server.WrapperStatusServerResponse;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import org.bukkit.Bukkit;
 
 import java.util.UUID;
 

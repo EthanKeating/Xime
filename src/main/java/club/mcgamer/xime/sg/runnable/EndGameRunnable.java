@@ -10,6 +10,7 @@ import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
+import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import lombok.Getter;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -50,21 +51,23 @@ public class EndGameRunnable extends AbstractGameRunnable {
                 SGTemporaryData temporaryData = (SGTemporaryData) gameWinnerProfile.getTemporaryData();
                 PlayerData playerData = gameWinnerProfile.getPlayerData();
 
-                playerData.setSgGamesWon(playerData.getSgGamesWon() + 1);
-                playerData.setSgGamesPlayed(playerData.getSgGamesPlayed() + 1);
+                if (!(serverable instanceof SGMakerServerable)) {
+                    playerData.setSgGamesWon(playerData.getSgGamesWon() + 1);
+                    playerData.setSgGamesPlayed(playerData.getSgGamesPlayed() + 1);
 
-                if (playerData.getSgMostKills() < temporaryData.getKillCount())
-                    playerData.setSgMostKills(temporaryData.getKillCount());
+                    if (temporaryData.getKillCount() > playerData.getSgMostKills())
+                        playerData.setSgMostKills(temporaryData.getKillCount());
 
-                long lifeDuration = System.currentTimeMillis() - temporaryData.getLifeStart();
+                    long lifeDuration = System.currentTimeMillis() - temporaryData.getLifeStart();
 
-                playerData.setSgLifeSpan(playerData.getSgLifeSpan() + lifeDuration);
-                if (playerData.getSgLongestLifeSpan() < lifeDuration)
-                    playerData.setSgLongestLifeSpan(lifeDuration);
+                    playerData.setSgLifeSpan(playerData.getSgLifeSpan() + lifeDuration);
+                    if (playerData.getSgLongestLifeSpan() < lifeDuration)
+                        playerData.setSgLongestLifeSpan(lifeDuration);
 
-                if (temporaryData.getBounty() > 0) {
-                    playerData.setSgPoints(playerData.getSgPoints() + temporaryData.getBounty());
-                    gameWinnerProfile.sendMessage(String.format("&8[&6MCSG&8] &aYou've gained &8[&e%s&8] &aextra points from your bounty!", temporaryData.getBounty()));
+                    if (temporaryData.getBounty() > 0) {
+                        playerData.setSgPoints(playerData.getSgPoints() + temporaryData.getBounty());
+                        gameWinnerProfile.sendMessage(String.format("&8[&6MCSG&8] &aYou've gained &8[&e%s&8] &aextra points from your bounty!", temporaryData.getBounty()));
+                    }
                 }
             }
         }

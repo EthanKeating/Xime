@@ -1,6 +1,9 @@
 package club.mcgamer.xime.util;
 
+import club.mcgamer.xime.profile.Profile;
 import lombok.experimental.UtilityClass;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 
 @UtilityClass
@@ -44,7 +47,7 @@ public class TextUtil {
         return rainbowString.toString();
     }
 
-    public String toPascalCase(String string) {
+    public static String toPascalCase(String string) {
         String replaced = string.replace('_', ' ');
 
         String[] words = replaced.split(" ");
@@ -56,6 +59,43 @@ public class TextUtil {
             pascalCase.append(" ");
         }
         return pascalCase.toString().trim();
+    }
+
+    public static void sendStaffMessage(Profile sendTo, Profile sender, String originalMessage) {
+        if (sendTo.getPlayer().hasPermission("xime.staff")) {
+            originalMessage = originalMessage.replace("%player%", sender.getDisguiseData() == null ? translate(sender.getDisplayName()) : translate(sender.getDisplayName() + "&8(" + sender.getDisplayNameBypassDisguise() + "&8)"));
+
+            TextComponent message = new TextComponent(TextUtil.translate("&8["));
+
+            TextComponent historyPortion = new TextComponent(TextUtil.translate("&6H"));
+            historyPortion.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/history " + sender.getName()));
+            message.addExtra(historyPortion);
+
+            TextComponent kickPortion = new TextComponent(TextUtil.translate("&3K"));
+            kickPortion.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/kick " + sender.getName()));
+            message.addExtra(kickPortion);
+
+            TextComponent mutePortion = new TextComponent(TextUtil.translate("&2M"));
+            mutePortion.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/mute " + sender.getName()));
+            message.addExtra(mutePortion);
+
+            TextComponent banPortion = new TextComponent(TextUtil.translate("&4B"));
+            banPortion.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/ban " + sender.getName()));
+            message.addExtra(banPortion);
+
+            TextComponent goPortion = new TextComponent(TextUtil.translate("&5G"));
+            goPortion.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/goto " + sender.getName()));
+            message.addExtra(goPortion);
+
+            TextComponent chatMessage = new TextComponent(TextUtil.translate("&8] &f") + originalMessage);
+            message.addExtra(chatMessage);
+
+            sendTo.getPlayer().spigot().sendMessage(message);
+            return;
+        }
+
+        originalMessage = originalMessage.replace("%player%", translate(sender.getDisplayName()));
+        sendTo.sendMessage(originalMessage);
     }
 
 }

@@ -31,7 +31,13 @@ public class SGMakerJoinListener extends IListener {
             if (gameState == GameState.LOBBY && profile == serverable.getOwner()) {
                 profile.sendMessage("&8[&6MCSG&8] &eWelcome to your custom MCSG game!");
                 profile.sendMessage("&6You can configure the game using the &anether star &6in your inventory&8.");
-                profile.sendMessage("&6You can invite people to join by using the command &a/invite <player>");
+
+                TextComponent inviteMessage = new TextComponent(TextUtil.translate("&6You can invite people to join by using the command &a/invite <player>"));
+                inviteMessage.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{
+                        new TextComponent(TextUtil.translate("&a/secret " + serverable.getSecret() + " &7(Click to copy)")),
+                }));
+                inviteMessage.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/invite "));
+                player.spigot().sendMessage(inviteMessage);
 
                 TextComponent message = new TextComponent(TextUtil.translate("&6Players can manually join using &a&nthis&6 secret code &7(Hover)"));
                 message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{

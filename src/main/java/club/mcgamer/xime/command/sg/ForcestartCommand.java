@@ -35,7 +35,7 @@ public class ForcestartCommand extends XimeCommand {
         Profile profile = plugin.getProfileHandler().getProfile((Player) sender);
         ServerHandler serverHandler = plugin.getServerHandler();
 
-        if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class, SGMakerServerable.class)) return true;
+        if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class)) return true;
 
         SGServerable serverable = (SGServerable) profile.getServerable();
 

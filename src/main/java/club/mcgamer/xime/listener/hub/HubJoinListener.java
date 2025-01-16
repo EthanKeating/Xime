@@ -25,7 +25,7 @@ public class HubJoinListener extends IListener {
             Player player = profile.getPlayer();
 
             PlayerUtil.refresh(profile);
-            player.setGameMode(GameMode.ADVENTURE);
+            player.setGameMode(GameMode.SURVIVAL);
             player.setLevel(serverable.getServerId());
             player.teleport(serverable.getSpawnLocation());
 
@@ -68,6 +68,8 @@ public class HubJoinListener extends IListener {
                 player.setAllowFlight(true);
                 PlayerUtil.setFlying(profile);
             }
+
+            player.updateInventory();
 
             Bukkit.getScheduler().runTaskLater(plugin, () -> profile.sendTitle("&6Hello " + profile.getName(), "&2Welcome to the &6MCGamer Club&2!", 10, 80, 10), 5);
         }

@@ -33,7 +33,10 @@ public class SGJoinListener extends IListener {
             if (!gameSettings.isSilentJoinLeave() && !playerData.isSilentJoin())
                 serverable.announceRaw(String.format("&2%s &6has joined&8.", profile.getDisplayName()));
 
-            new TextShineAnimation(plugin, profile, "You joined Survival Games " + serverable.getServerId());
+            if(serverable instanceof SGMakerServerable)
+                new TextShineAnimation(plugin, profile, "You joined " + ((SGMakerServerable) serverable).getOwner().getNameBypassDisguise() + "'s Custom Game " + serverable.getServerId());
+            else
+                new TextShineAnimation(plugin, profile, "You joined Survival Games " + serverable.getServerId());
             //profile.sendAction("&6&lYou joined Survival Games " + serverable.getServerId());
 
             switch (gameState) {
@@ -42,17 +45,24 @@ public class SGJoinListener extends IListener {
                     profile.sendMessage("&8[&6MCSG&8] &fUsed in: &a2014-2015");
                     profile.sendMessage("&8[&6MCSG&8] &fCreated by: &aTeam Elite");
 
-                    if (!(serverable instanceof SGMakerServerable))
-                        player.performCommand("vote");
+                    player.setExp(0);
+                    if (player.getGameMode() != GameMode.SURVIVAL)
+                        player.setGameMode(GameMode.SURVIVAL);
+
                     PlayerUtil.refresh(profile);
-                    player.setGameMode(GameMode.SURVIVAL);
-                    player.setLevel(serverable.getServerId());
+                    if (serverable instanceof SGMakerServerable)
+                        player.setLevel(serverable.getServerId());
+                    else
+                        player.setLevel(0);
                     player.teleport(serverable.getLobbyLocation());
 
                     if(profile.getPlayerData().isCanFly()) {
                         player.setAllowFlight(true);
                         PlayerUtil.setFlying(profile);
                     }
+
+                    if (!(serverable instanceof SGMakerServerable))
+                        player.performCommand("vote");
                     break;
                 case PREGAME:
                 case LIVEGAME:

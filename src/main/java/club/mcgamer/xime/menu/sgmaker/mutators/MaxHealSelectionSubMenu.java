@@ -28,8 +28,8 @@ public class MaxHealSelectionSubMenu extends FastInv {
                 new Pair<>("1 Heart", 1 * 2.0),
                 new Pair<>("5 Hearts", 5 * 2.0),
                 new Pair<>("10 Hearts (Default)", 10 * 2.0),
+                new Pair<>("15 Hearts", 15 * 2.0),
                 new Pair<>("20 Hearts", 20 * 2.0),
-                new Pair<>("30 Hearts", 30 * 2.0),
                 new Pair<>("40 hearts", 40 * 2.0)
         );
 

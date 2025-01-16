@@ -7,6 +7,7 @@ import club.mcgamer.xime.server.event.ServerAirInteractEvent;
 import club.mcgamer.xime.server.event.ServerInteractEvent;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
+import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.util.IListener;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -48,6 +49,7 @@ public class SGInteractListener extends IListener {
 
             if (serverable.getSpectatorList().contains(profile))
                 switch (serverable.getGameState()) {
+                    case PREGAME:
                     case LIVEGAME:
                     case PREDEATHMATCH:
                     case DEATHMATCH:
@@ -96,11 +98,13 @@ public class SGInteractListener extends IListener {
                     SGTemporaryData temporaryData = (SGTemporaryData) profile.getTemporaryData();
                     PlayerData playerData = profile.getPlayerData();
 
-                    temporaryData.setChestCount(temporaryData.getChestCount() + 1);
-                    playerData.setSgChests(playerData.getSgChests() + 1);
+                    if (!(serverable instanceof SGMakerServerable)) {
+                        temporaryData.setChestCount(temporaryData.getChestCount() + 1);
+                        playerData.setSgChests(playerData.getSgChests() + 1);
 
-                    if (playerData.getSgMostChests() < temporaryData.getChestCount())
-                        playerData.setSgMostChests(temporaryData.getChestCount());
+                        if (playerData.getSgMostChests() < temporaryData.getChestCount())
+                            playerData.setSgMostChests(temporaryData.getChestCount());
+                    }
 
                     serverable.getOpenedChestLocations().add(mapLocation);
                 }

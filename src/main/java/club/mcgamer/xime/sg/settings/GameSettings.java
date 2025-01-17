@@ -3,6 +3,7 @@ package club.mcgamer.xime.sg.settings;
 import club.mcgamer.xime.loot.LootStyle;
 import club.mcgamer.xime.loot.LootTable;
 import club.mcgamer.xime.loot.tables.MCSGLootTable;
+import club.mcgamer.xime.sgmaker.config.impl.TeamType;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,6 +34,7 @@ public class GameSettings {
     private boolean naturalRegeneration = true;
     private boolean noHitDelay = false;
 
+    private TeamType teamType = TeamType.NO_TEAMS;
     private LootTable lootTable = new MCSGLootTable();
     private LootStyle lootStyle = LootStyle.DEFAULT;
 

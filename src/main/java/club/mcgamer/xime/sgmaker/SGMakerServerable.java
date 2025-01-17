@@ -8,6 +8,7 @@ import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.runnable.*;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sgmaker.config.MakerConfig;
+import club.mcgamer.xime.sgmaker.privacy.PrivacyMode;
 import club.mcgamer.xime.sgmaker.runnable.MakerLobbyRunnable;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +23,7 @@ public class SGMakerServerable extends SGServerable {
     private final Profile owner;
     private final VoteableMap selectedMap = !MapPool.getMapIdentifiers().isEmpty() ? MapPool.get(MapPool.getMapIdentifiers().get(0)) : null;
 
+    private PrivacyMode privacyMode = PrivacyMode.PRIVATE;
     private final String secret = UUID.randomUUID().toString().substring(0, 5);
 
     public SGMakerServerable(Profile owner) {

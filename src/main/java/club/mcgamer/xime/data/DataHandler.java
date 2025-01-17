@@ -22,16 +22,21 @@ public class DataHandler {
     private final XimePlugin plugin;
 
     private final Dao<PlayerData, String> playerDataDao;
-
-    private String connectionString = "jdbc:mysql://mysql-1.gb-lhr.game.heavynode.net:3306/s16081_mcgamer_playerdata";
-    private String username = "u16081_i5gNiX83Yy";
-    private String password = "lA9qJ+R=nDvDHxHI^zJ=84sz";
-
     private List<PlayerData> topPlayerData = new ArrayList<>();
 
     @SneakyThrows
     public DataHandler(XimePlugin plugin) {
         this.plugin = plugin;
+        String connectionString = "jdbc:mysql://"
+                + plugin.getConfig().getString("mysql.host")
+                + ":"
+                + plugin.getConfig().getString("mysql.port")
+                + "/"
+                + plugin.getConfig().getString("mysql.database");
+
+        String username = plugin.getConfig().getString("mysql.username");
+        String password = plugin.getConfig().getString("mysql.password");
+
         ConnectionSource connectionSource = new JdbcConnectionSource(connectionString, username, password);
 
         TableUtils.createTableIfNotExists(connectionSource, PlayerData.class);

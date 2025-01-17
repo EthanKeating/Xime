@@ -62,6 +62,8 @@ public class XimePlugin extends JavaPlugin {
 
         CombatModule combatModule = Apollo.getModuleManager().getModule(CombatModule.class);
         combatModule.getOptions().set(CombatModule.DISABLE_MISS_PENALTY, true);
+
+        saveDefaultConfig();
     }
 
     public void onDisable() {

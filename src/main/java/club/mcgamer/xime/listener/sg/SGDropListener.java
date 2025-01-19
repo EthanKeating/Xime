@@ -7,6 +7,9 @@ import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.util.IListener;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.stream.Collectors;
 
 public class SGDropListener extends IListener {
 
@@ -16,6 +19,17 @@ public class SGDropListener extends IListener {
         Player player = profile.getPlayer();
         if (event.getServerable() instanceof SGServerable) {
             SGServerable serverable = (SGServerable) event.getServerable();
+
+            if(serverable.getGameSettings().getLootTable().getAllItems()
+                    .stream()
+                    .map(ItemStack::getType)
+                    .collect(Collectors.toSet())
+                    .contains(event.getEvent().getItem().getItemStack().getType())) {
+
+                event.getEvent().setCancelled(true);
+                event.getEvent().getItem().remove();
+                return;
+            }
 
             if (!serverable.getSpectatorList().contains(profile)) {
                 switch (serverable.getGameState()) {

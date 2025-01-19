@@ -8,6 +8,7 @@ import club.mcgamer.xime.server.event.ServerPlaceBlockEvent;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.util.IListener;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -17,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
@@ -74,30 +76,9 @@ public class SGBuildListener extends IListener {
     }
 
     @EventHandler(priority = EventPriority.HIGH)
-    private void onSelectionChestPlace(ServerPlaceBlockEvent event) {
-        if (!(event.getServerable() instanceof SGServerable)) return;
-        if (event.getBlock().getType() != Material.ENDER_CHEST) return;
-
-        Profile profile = event.getProfile();
-        Player player = profile.getPlayer();
-        SGServerable serverable = (SGServerable)event.getServerable();
-
-        ItemStack heldItem = player.getItemInHand();
-
-        if (!heldItem.getItemMeta().hasDisplayName()) return;
-        if (!heldItem.getItemMeta().getDisplayName().equals(BadlionLootTable.SELECTION_CHEST_NAME)) return;
-
-        new SelectionChestMenu(
-                serverable.getGameSettings().getLootTable().getSelectionChestItems(),
-                event.getBlock().getLocation()
-        ).open(player);
-
-    }
-
-    @EventHandler(priority = EventPriority.HIGH)
     private void onDynamitePlace(ServerPlaceBlockEvent event) {
         if (!(event.getServerable() instanceof SGServerable)) return;
-        if (event.getBlock().getType() != Material.ENDER_CHEST) return;
+        if (event.getBlock().getType() != Material.TNT) return;
 
         Material replaced = event.getEvent().getBlockReplacedState().getType();
         Material current = event.getBlock().getType();
@@ -116,6 +97,13 @@ public class SGBuildListener extends IListener {
     }
 
     @EventHandler
+    private void onDynamiteExplosion(EntityExplodeEvent event) {
+        Location dynamiteExplosion = event.getEntity().getLocation();
+        event.setCancelled(true);
+        event.blockList().clear();
+    }
+
+    @EventHandler
     private void onSGPlaceBlock(ServerPlaceBlockEvent event) {
         Profile profile = event.getProfile();
         Player player = profile.getPlayer();
@@ -131,6 +119,7 @@ public class SGBuildListener extends IListener {
                 case LIVEGAME:
                 case DEATHMATCH:
                     Material type = event.getBlock().getType();
+                    ItemStack heldItem = player.getItemInHand();
 
                     switch (type) {
                         case DOUBLE_PLANT:
@@ -141,33 +130,29 @@ public class SGBuildListener extends IListener {
                         case WEB:
                         case CAKE_BLOCK:
                         case DEAD_BUSH:
-                        case FIRE:
-                            return;
+                        case ENDER_CHEST:
 
+                            if (!heldItem.getItemMeta().hasDisplayName()) return;
+                            if (!heldItem.getItemMeta().getDisplayName().equals(BadlionLootTable.SELECTION_CHEST_NAME)) return;
+
+                            new SelectionChestMenu(
+                                    serverable.getGameSettings().getLootTable().getSelectionChestItems(),
+                                    event.getBlock().getLocation()
+                            ).open(player);
+                            return;
+                        case FIRE:
+                            if (player.getItemInHand() == null || player.getItemInHand().getType() != Material.FLINT_AND_STEEL) return;
+
+                            short nextDurability = (short) Math.min((short) (heldItem.getDurability() + (short) 16), (short)64);
+                            heldItem.setDurability(nextDurability);
+                            if (nextDurability > 63) {
+                                player.setItemInHand(new ItemStack(Material.AIR));
+                                player.getWorld().playSound(player.getLocation(), Sound.ITEM_BREAK, 1f, 1f);
+                            }
+                            return;
                     }
             }
             event.getEvent().setCancelled(true);
         }
-    }
-
-    @EventHandler
-    private void onFirePlace(ServerPlaceBlockEvent event) {
-        Profile profile = event.getProfile();
-        Player player = profile.getPlayer();
-
-        if (!(profile.getServerable() instanceof SGServerable)) return;
-        if (event.getEvent().isCancelled()) return;
-        if (event.getBlock().getType() != Material.FIRE) return;
-        if (player.getItemInHand() == null || player.getItemInHand().getType() != Material.FLINT_AND_STEEL) return;
-
-        ItemStack heldItem = player.getItemInHand();
-
-        short nextDurability = (short) Math.min((short) (heldItem.getDurability() + (short) 16), (short)64);
-        heldItem.setDurability(nextDurability);
-        if (nextDurability > 63) {
-            player.setItemInHand(new ItemStack(Material.AIR));
-            player.getWorld().playSound(player.getLocation(), Sound.ITEM_BREAK, 1f, 1f);
-        }
-        player.updateInventory();
     }
 }

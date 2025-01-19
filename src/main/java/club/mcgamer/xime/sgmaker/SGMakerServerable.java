@@ -1,9 +1,11 @@
 package club.mcgamer.xime.sgmaker;
 
-import club.mcgamer.xime.map.MapData;
-import club.mcgamer.xime.map.MapPool;
-import club.mcgamer.xime.map.VoteableMap;
+import club.mcgamer.xime.map.MapHandler;
+import club.mcgamer.xime.map.impl.MapData;
+import club.mcgamer.xime.map.impl.MapPool;
+import club.mcgamer.xime.map.impl.VoteableMap;
 import club.mcgamer.xime.profile.Profile;
+import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.runnable.*;
 import club.mcgamer.xime.sg.state.GameState;
@@ -21,15 +23,28 @@ import java.util.UUID;
 public class SGMakerServerable extends SGServerable {
 
     private final Profile owner;
-    private final VoteableMap selectedMap = !MapPool.getMapIdentifiers().isEmpty() ? MapPool.get(MapPool.getMapIdentifiers().get(0)) : null;
+    private final VoteableMap selectedMap;
 
     private PrivacyMode privacyMode = PrivacyMode.PRIVATE;
     private final String secret = UUID.randomUUID().toString().substring(0, 5);
 
     public SGMakerServerable(Profile owner) {
         super();
+        MapHandler mapHandler = getPlugin().getMapHandler();
 
         this.owner = owner;
+
+        String firstMapIdentifier = new ArrayList<>(mapHandler.getMapPool().keySet()).get(0);
+        MapData firstMapData = mapHandler.getMapPool().get(firstMapIdentifier);
+        this.selectedMap = new VoteableMap(firstMapIdentifier, firstMapData, 0);
+
+        if (Bukkit.getWorld(toString()) != null) {
+            Serverable serverable = getPlugin().getServerHandler().getFallback();
+
+            Bukkit.getWorld(toString()).getPlayers().stream().map(loopPlayer -> getPlugin().getProfileHandler().getProfile(loopPlayer)).forEach(serverable::add);
+        }
+
+        Bukkit.unloadWorld(toString(), false);
     }
 
     public void applyConfig(MakerConfig makerConfig) {

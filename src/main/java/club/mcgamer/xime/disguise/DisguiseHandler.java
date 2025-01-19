@@ -53,8 +53,8 @@ public class DisguiseHandler {
                 .sendMessage("&8[&6MCSG&8] &fYou now appear as " + profile.getDisplayName() + "&8.")
                 .sendMessage("&8[&6MCSG&8] &fTo undisguise, use &8[&e/undisguise&8]");
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Paths.get(plugin.getDataFolder().getAbsolutePath(), "disguises").toFile(), true))) {
-            writer.write(String.format("%s '%s' has disguised as '%s'",
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Paths.get(plugin.getDataFolder().getAbsolutePath(), "disguises.log").toFile(), true))) {
+            writer.write(String.format("[%s] '%s' has disguised as '%s'",
                     LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                     profile.getNameBypassDisguise(),
                     randomName));

@@ -27,29 +27,20 @@ public class PacketHandler extends PacketListenerAbstract {
 
     public static WrapperPlayServerPlayerInfo.PlayerData PLAYER_INFO;
 
+    private String motd = "";
+
     public PacketHandler(XimePlugin plugin) {
         this.plugin = plugin;
 
         PacketEvents.getAPI().init();
         PacketEvents.getAPI().getEventManager().registerListener(this);
+
+        motd = TextUtil.translate(plugin.getLanguageHandler().getDefaultLanguage().getMotd());
     }
 
     @Override
     public void onPacketReceive(PacketReceiveEvent event) {
         User user = event.getUser();
-
-        if(event.getPacketType() == PacketType.Play.Client.CHAT_MESSAGE) {
-
-            WrapperPlayClientChatMessage packet = new WrapperPlayClientChatMessage(event);
-
-            CommandHandler commandHandler = plugin.getCommandHandler();
-            Profile profile = plugin.getProfileHandler().getProfile(event.getUser().getUUID());
-            String command = packet.getMessage();
-
-            event.setCancelled(commandHandler.onCommand(profile, command.toLowerCase()));
-
-            //Bukkit.broadcastMessage(packet.getMessage());
-        }
 
     }
 
@@ -57,122 +48,15 @@ public class PacketHandler extends PacketListenerAbstract {
     public void onPacketSend(PacketSendEvent event) {
         User user = event.getUser();
 
-        if (event.getPacketType() == PacketType.Play.Server.SPAWN_EXPERIENCE_ORB) {
-            event.setCancelled(true);
-        }
-
-//        if (event.getPacketType() == PacketType.Play.Server.DESTROY_ENTITIES) {
-//
-//            if (user.getClientVersion().isNewerThan(ClientVersion.V_1_7_10))
-//                return;
-//
-//            WrapperPlayServerDestroyEntities packet = new WrapperPlayServerDestroyEntities(event);
-//
-//            List<Integer> entityIdList = new ArrayList<>();
-//
-//            for (int entityId : packet.getEntityIds()) {
-//                Entity entity = SpigotReflectionUtil.getEntityById(entityId);
-//
-//                if (entity instanceof Player) {
-//                    entityIdList.add(entityId);
-//                    entityIdList.add(entityId + 1000000);
-//                }
-//            }
-//            packet.setEntityIds(entityIdList.stream().mapToInt(i->i).toArray());
-//        }
-//
-//        if (event.getPacketType() == PacketType.Play.Server.SPAWN_PLAYER) {
-//
-//            if (user.getClientVersion().isNewerThan(ClientVersion.V_1_7_10))
-//                return;
-//
-//            WrapperPlayServerSpawnLivingEntity packet = new WrapperPlayServerSpawnLivingEntity(event);
-//
-//            Entity entity = SpigotReflectionUtil.getEntityById(packet.getEntityId());
-//
-//            if (entity instanceof Player) {
-//                Player viewedPlayer = (Player) entity;
-//                if (true) {
-//                    user.sendPacketSilently(new WrapperPlayServerSpawnLivingEntity(
-//                            packet.getEntityId() + 1000000,
-//                            UUID.randomUUID(),
-//                            EntityTypes.getByLegacyId(ClientVersion.V_1_8, 65),
-//                            new Vector3d(viewedPlayer.getLocation().getX(), 1000, viewedPlayer.getLocation().getY()),
-//                            0,
-//                            0,
-//                            0,
-//                            new Vector3d(0.0, 0.0, 0.0),
-//                            Collections.singletonList(new EntityData(0, EntityDataTypes.BYTE, (byte) 0x20))
-//                    ));
-//
-//
-//                }
-//
-//            }
-//
-//        }
-
-        if (event.getPacketType() == PacketType.Play.Server.TAB_COMPLETE) {
-            WrapperPlayServerTabComplete packet = new WrapperPlayServerTabComplete(event);
-
-            CommandHandler commandHandler = plugin.getCommandHandler();
-            Profile profile = plugin.getProfileHandler().getProfile(event.getUser().getUUID());
-
-            commandHandler.onTabComplete(profile, packet.getCommandMatches());
-        }
-
-        if (event.getPacketType() == PacketType.Play.Server.JOIN_GAME) {
-//            WrapperPlayServerJoinGame joinGame = new WrapperPlayServerJoinGame(event);
-//
-//            List<Object> objectList = Arrays.asList(
-//                    joinGame.getEntityId(),
-//                    joinGame.isHardcore(),
-//                    joinGame.getGameMode(),
-//                    joinGame.getPreviousGameMode(),
-//
-//                    joinGame.getWorldNames(),
-//                    joinGame.getDimensionCodec(),
-//                    joinGame.getDimensionTypeRef(),
-//                    joinGame.getDifficulty(),
-//                    joinGame.getHashedSeed(),
-//                    joinGame.getWorldName(),
-//                    joinGame.getMaxPlayers(),
-//                    joinGame.getViewDistance(),
-//                    joinGame.getSimulationDistance(),
-//                    joinGame.isReducedDebugInfo(),
-//                    joinGame.isRespawnScreenEnabled(),
-//                    joinGame.isLimitedCrafting(),
-//                    joinGame.isDebug(),
-//                    joinGame.isFlat(),
-//                    joinGame.getLastDeathPosition(),
-//                    joinGame.getPortalCooldown(),
-//                    joinGame.getSeaLevel(),
-//                    joinGame.isEnforcesSecureChat()
-//            );
-//
-//            objectList.forEach(object -> {
-//                if (object instanceof List) {
-//                    ((ArrayList) object).forEach(object2 -> user.sendMessage("   " + object2.toString()));
-//                } else {
-//                    user.sendMessage(object.toString());
-//                }
-//            });
-        }
-
-        if (event.getPacketType() == PacketType.Play.Server.RESPAWN) {
-//            WrapperPlayServerRespawn respawn = new WrapperPlayServerRespawn(event);
-//            WrapperPlayServerJoinGame join = new WrapperPlayServerJoinGame(
-        }
-
         if (event.getPacketType() == PacketType.Status.Server.RESPONSE) {
             WrapperStatusServerResponse wrappedPacket = new WrapperStatusServerResponse(event);
 
             JsonObject object = wrappedPacket.getComponent();
 
-            String motd =
-                    "&8[&eMCGamer&8] &6&l1.7 &7& &6&l1.8 &2Alpha Wave &c#5.0.0\n" +
-                            "&4Full recode in progress";
 
+//            if (plugin.getLanguageHandler() != null && plugin.getLanguageHandler().getDefaultLanguage() != null) {
+//                motd = TextUtil.translate(plugin.getLanguageHandler().getDefaultLanguage().getMotd());
+//            }
             object.addProperty("description", TextUtil.translate(motd));
 
 //            JsonObject versionObject = wrappedPacket.getComponent().getAsJsonObject("version");
@@ -195,8 +79,6 @@ public class PacketHandler extends PacketListenerAbstract {
             playersObject.add("sample", sampleArray);
 
 
-/*            if (CommandLockdown.LOCKDOWN_ENABLED)
-                object.add("version", versionObject);*/
             if (plugin.getServerHandler().isWhitelisted())
                 object.add("version", versionObject);
             object.add("players", playersObject);

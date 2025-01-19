@@ -25,7 +25,7 @@ public class ServerManagementMenu extends FastInv {
                 .name("&bMap Selection")
                 .build(),
                 e -> {
-                    new MapSelectionSubMenu(this, profile, serverable).open(profile.getPlayer());
+                    new MapSelectionSubMenu(this, profile, serverable, 1).open(profile.getPlayer());
                 });
 
         setItem(3, new ItemBuilder(Material.LEATHER_CHESTPLATE)

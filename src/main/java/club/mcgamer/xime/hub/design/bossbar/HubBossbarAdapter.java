@@ -1,6 +1,7 @@
 package club.mcgamer.xime.hub.design.bossbar;
 
 import club.mcgamer.xime.design.bossbar.BossbarAdapter;
+import club.mcgamer.xime.lang.impl.Language;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.ServerHandler;
 
@@ -19,7 +20,9 @@ public class HubBossbarAdapter extends BossbarAdapter {
 
     @Override
     public String getTitle(Profile profile) {
-        return String.format("&eMCGamer Network &6Beta &7(%s)&8. &aFeatures/gameplay subject to change.", ServerHandler.SERVER_VERSION);
+        Language language = profile.getLanguage();
+
+        return language.getBossBarText();
     }
 
     @Override

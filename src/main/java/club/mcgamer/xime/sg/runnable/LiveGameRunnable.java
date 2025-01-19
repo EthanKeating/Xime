@@ -2,7 +2,7 @@ package club.mcgamer.xime.sg.runnable;
 
 import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.loot.LootTable;
-import club.mcgamer.xime.map.MapData;
+import club.mcgamer.xime.map.impl.MapData;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;

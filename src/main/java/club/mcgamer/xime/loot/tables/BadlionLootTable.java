@@ -17,8 +17,8 @@ public class BadlionLootTable extends LootTable {
     public static String SELECTION_CHEST_NAME = TextUtil.translate("&aSelection Chest");
 
     @Override
-    public int getAverageItemCount() {
-        return 5;
+    public int getMaxItemCount() {
+        return 6;
     }
 
     public final List<ItemStack> getSelectionChestItems() {

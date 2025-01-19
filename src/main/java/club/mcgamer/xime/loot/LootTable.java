@@ -1,5 +1,6 @@
 package club.mcgamer.xime.loot;
 
+import club.mcgamer.xime.util.Pair;
 import org.bukkit.Material;
 import org.bukkit.block.Chest;
 import org.bukkit.inventory.Inventory;
@@ -13,8 +14,18 @@ public abstract class LootTable {
     public abstract List<ItemStack> getTier2Items();
     public abstract List<ItemStack> getSelectionChestItems();
 
-    public abstract int getAverageItemCount();
+    public abstract int getMaxItemCount();
     public static Random random = new Random();
+
+    public List<ItemStack> getAllItems() {
+        ArrayList<ItemStack> items = new ArrayList<>();
+
+        items.addAll(getTier1Items());
+        items.addAll(getTier2Items());
+        items.addAll(getSelectionChestItems());
+
+        return items;
+    }
 
     public ItemStack getRandomItem() {
         ArrayList<ItemStack> items = new ArrayList<>();
@@ -28,7 +39,7 @@ public abstract class LootTable {
 
         Inventory inventory = chest.getBlockInventory();
 
-        Set<ItemStack> items;
+        ArrayList<Pair<ItemStack, Integer>> items;
 
         switch (lootStyle) {
             case INVERTED:
@@ -52,40 +63,24 @@ public abstract class LootTable {
                 break;
         }
 
-        List<Integer> allSlots = new ArrayList<>();
-        for (int i = 0; i < inventory.getSize(); i++) {
-            allSlots.add(i);
-            allSlots.add(i);
-        }
-
-        Collections.shuffle(allSlots, random);
-
-        int index = 0;
-        for (ItemStack loopItem : items) {
-            inventory.setItem(allSlots.get(index++), loopItem);
-        }
+        for (Pair<ItemStack, Integer> loopItem : items)
+            inventory.setItem(loopItem.getValue(), loopItem.getKey());
 
         chest.update();
     }
 
-    private Set<ItemStack> generate(ArrayList<ItemStack> cloneTable) {
-        Set<ItemStack> selectedTable = new HashSet<>();
-        Set<Material> selectedItems = new HashSet<>();
-        Random random = new Random();
+    private ArrayList<Pair<ItemStack, Integer>> generate(ArrayList<ItemStack> cloneTable) {
+        ArrayList<Pair<ItemStack, Integer>> selectedItems = new ArrayList<>();
 
-        int itemCount = getAverageItemCount() + random.nextInt(3) - 1;
+        int itemCount = getMaxItemCount() - (random.nextInt(2));
 
-        while(selectedItems.size() < itemCount) {
-
-            ItemStack randomItem = cloneTable.get(random.nextInt(cloneTable.size()));
-            if (selectedItems.contains(randomItem.getType()))
-                continue;
-
-            selectedTable.add(randomItem);
-            selectedItems.add(randomItem.getType());
+        for(int i = 0; i < itemCount; i++) {
+            ItemStack selectedItem = cloneTable.get(random.nextInt(cloneTable.size()));
+            cloneTable.remove(selectedItem);
+            int selectedSlot = random.nextInt(27);
+            selectedItems.add(new Pair<>(selectedItem, selectedSlot));
         }
-
-        return selectedTable;
+        return selectedItems;
     }
     public enum Tier {
         ONE,

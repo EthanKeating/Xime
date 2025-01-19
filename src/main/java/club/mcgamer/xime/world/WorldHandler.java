@@ -4,6 +4,7 @@ import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.profile.ProfileHandler;
 import club.mcgamer.xime.server.ServerHandler;
+import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.world.generator.EmptyChunkGenerator;
 import club.mcgamer.xime.world.impl.WorldQueue;
 import com.grinderwolf.swm.api.SlimePlugin;
@@ -35,6 +36,31 @@ public class WorldHandler {
         Bukkit.getScheduler().runTaskTimer(plugin, worldQueue::process, 1, 1);
     }
 
+    public void loadSlime(String worldName, String slimeTemplate) {
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            try {
+                SlimeLoader loader = slime.getLoader("file");
+
+                SlimePropertyMap propertyMap = new SlimePropertyMap();
+
+                propertyMap.setString(SlimeProperties.DIFFICULTY, "normal");
+                propertyMap.setString(SlimeProperties.WORLD_TYPE, "flat");
+
+                propertyMap.setInt(SlimeProperties.SPAWN_X, 0);
+                propertyMap.setInt(SlimeProperties.SPAWN_Y, 64);
+                propertyMap.setInt(SlimeProperties.SPAWN_Z, 0);
+
+                propertyMap.setBoolean(SlimeProperties.ALLOW_ANIMALS, false);
+                propertyMap.setBoolean(SlimeProperties.ALLOW_MONSTERS, false);
+                propertyMap.setBoolean(SlimeProperties.PVP, true);
+
+                SlimeWorld slimeWorld = slime.loadWorld(loader, slimeTemplate, true, propertyMap).clone(worldName);
+                worldQueue.add(slimeWorld);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
     @SneakyThrows
     public void convert(String bukkitWorldName, String saveWorldName) {
@@ -61,35 +87,6 @@ public class WorldHandler {
         worldCreator.generateStructures(false);
 
         return Bukkit.createWorld(worldCreator);
-    }
-
-    public void loadSlime(String worldName, String slimeTemplate) {
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-            try {
-                SlimeLoader loader = slime.getLoader("file");
-
-                SlimePropertyMap propertyMap = new SlimePropertyMap();
-
-                propertyMap.setString(SlimeProperties.DIFFICULTY, "normal");
-                propertyMap.setString(SlimeProperties.WORLD_TYPE, "flat");
-
-                propertyMap.setInt(SlimeProperties.SPAWN_X, 0);
-                propertyMap.setInt(SlimeProperties.SPAWN_Y, 64);
-                propertyMap.setInt(SlimeProperties.SPAWN_Z, 0);
-
-                propertyMap.setBoolean(SlimeProperties.ALLOW_ANIMALS, false);
-                propertyMap.setBoolean(SlimeProperties.ALLOW_MONSTERS, false);
-                propertyMap.setBoolean(SlimeProperties.PVP, true);
-
-                SlimeWorld slimeWorld = slime.loadWorld(loader, slimeTemplate, true, propertyMap).clone(worldName);
-                worldQueue.add(slimeWorld);
-//                Bukkit.getScheduler().runTask(plugin, () -> {
-//                    slime.generateWorld(slimeWorld);
-//                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
     }
 
     public void unload(World world, boolean save) {

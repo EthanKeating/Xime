@@ -10,6 +10,7 @@ import club.mcgamer.xime.listener.sg.*;
 import club.mcgamer.xime.listener.sgmaker.SGMakerItemInteractListener;
 import club.mcgamer.xime.listener.sgmaker.SGMakerJoinListener;
 import club.mcgamer.xime.listener.sgmaker.SGMakerLoadListener;
+import club.mcgamer.xime.listener.staff.StaffChatListener;
 import club.mcgamer.xime.listener.staff.StaffDamageListener;
 import club.mcgamer.xime.listener.staff.StaffInteractListener;
 import club.mcgamer.xime.listener.staff.StaffOtherJoinListener;
@@ -26,6 +27,7 @@ public class ListenerHandler {
         new StaffOtherJoinListener();
         new StaffInteractListener();
         new StaffDamageListener();
+        new StaffChatListener();
 
         //SG listeners
         new SGJoinListener();

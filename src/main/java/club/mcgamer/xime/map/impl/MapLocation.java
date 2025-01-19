@@ -1,4 +1,4 @@
-package club.mcgamer.xime.map;
+package club.mcgamer.xime.map.impl;
 
 import club.mcgamer.xime.util.Pair;
 import lombok.AllArgsConstructor;

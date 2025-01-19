@@ -3,7 +3,7 @@ package club.mcgamer.xime.hub;
 import club.mcgamer.xime.hub.data.HubTemporaryData;
 import club.mcgamer.xime.hub.design.bossbar.HubBossbarAdapter;
 import club.mcgamer.xime.hub.design.sidebar.HubSidebarAdapter;
-import club.mcgamer.xime.map.MapData;
+import club.mcgamer.xime.map.impl.MapData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.server.data.TemporaryData;
@@ -32,7 +32,7 @@ public class HubServerable extends Serverable {
 
         setWorldName(MAP_NAME + "-1");
         overrideWorld(Bukkit.getWorld(MAP_NAME + "-1"));
-        //setWorld(toString(), MAP_NAME);
+        setMaxPlayers(200);
         setMapData(MapData.load(MAP_NAME));
         setJoinable(true);
         snow();
@@ -51,6 +51,11 @@ public class HubServerable extends Serverable {
     @Override
     public void add(Profile profile) {
         Player player = profile.getPlayer();
+
+        if (profile.getServerable() == this) {
+            profile.sendMessage("&cYou are already connected to that server.");
+            return;
+        }
 
         if (getPlayerList().size() >= getMaxPlayers()) {
             profile.sendMessage("&cThat server is full.");

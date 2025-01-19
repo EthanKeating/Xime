@@ -33,7 +33,7 @@ public class PlayerData {
     @DatabaseField(canBeNull = false, defaultValue = "0")
     private int sidebarType = 0;
 
-    @DatabaseField(canBeNull = false, defaultValue = "100")
+    @DatabaseField(canBeNull = false, defaultValue = "1000")
     private int sgPoints = 100;
 
     @DatabaseField(canBeNull = false, defaultValue = "0")

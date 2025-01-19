@@ -2,7 +2,7 @@ package club.mcgamer.xime.listener.sg;
 
 import club.mcgamer.xime.animation.TextShineAnimation;
 import club.mcgamer.xime.data.entities.PlayerData;
-import club.mcgamer.xime.map.MapData;
+import club.mcgamer.xime.map.impl.MapData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerJoinEvent;
 import club.mcgamer.xime.sg.SGServerable;
@@ -75,8 +75,8 @@ public class SGJoinListener extends IListener {
                         MapData mapData = serverable.getMapData();
                         if (mapData != null) {
                             serverable.setSpectating(profile);
-                            Location centerLocation = mapData.getCenterLocation().toBukkit(serverable.getWorld());
-                            player.teleport(centerLocation);
+                            Location specLocation = mapData.getSpectateLocation().toBukkit(serverable.getWorld());
+                            player.teleport(specLocation);
                         }
                     }, 1L);
                     break;

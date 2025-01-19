@@ -25,6 +25,11 @@ public class StaffServerable extends Serverable {
     public void add(Profile profile) {
         Player player = profile.getPlayer();
 
+        if (profile.getServerable() == this) {
+            profile.sendMessage("&cYou are already connected to that server.");
+            return;
+        }
+
         if (profile.getServerable() != null)
             profile.getServerable().remove(profile);
 

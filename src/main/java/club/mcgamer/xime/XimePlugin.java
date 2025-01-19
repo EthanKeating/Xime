@@ -4,7 +4,9 @@ import club.mcgamer.xime.command.CommandHandler;
 import club.mcgamer.xime.data.DataHandler;
 import club.mcgamer.xime.design.DesignHandler;
 import club.mcgamer.xime.disguise.DisguiseHandler;
+import club.mcgamer.xime.lang.LanguageHandler;
 import club.mcgamer.xime.listener.ListenerHandler;
+import club.mcgamer.xime.map.MapHandler;
 import club.mcgamer.xime.menu.MenuHandler;
 import club.mcgamer.xime.packet.PacketHandler;
 import club.mcgamer.xime.profile.ProfileHandler;
@@ -36,6 +38,8 @@ public class XimePlugin extends JavaPlugin {
     private DataHandler dataHandler;
     private ListenerHandler listenerHandler;
     private ReportHandler reportHandler;
+    private LanguageHandler languageHandler;
+    private MapHandler mapHandler;
     private SlimePlugin slimePlugin;
 
     public void onLoad() {
@@ -47,10 +51,12 @@ public class XimePlugin extends JavaPlugin {
     public void onEnable() {
         slimePlugin = (SlimePlugin) Bukkit.getPluginManager().getPlugin("SlimeWorldManager");
 
+        saveDefaultConfig();
+
+        mapHandler = new MapHandler(this);
         serverHandler = new ServerHandler(this);
         profileHandler = new ProfileHandler(this);
         designHandler = new DesignHandler(this);
-        packetHandler = new PacketHandler(this);
         worldHandler = new WorldHandler(this);
         commandHandler = new CommandHandler(this);
         disguiseHandler = new DisguiseHandler(this);
@@ -59,11 +65,11 @@ public class XimePlugin extends JavaPlugin {
         menuHandler = new MenuHandler(this);
         reportHandler = new ReportHandler(this);
         listenerHandler = new ListenerHandler(this);
+        languageHandler = new LanguageHandler(this);
+        packetHandler = new PacketHandler(this);
 
         CombatModule combatModule = Apollo.getModuleManager().getModule(CombatModule.class);
         combatModule.getOptions().set(CombatModule.DISABLE_MISS_PENALTY, true);
-
-        saveDefaultConfig();
     }
 
     public void onDisable() {

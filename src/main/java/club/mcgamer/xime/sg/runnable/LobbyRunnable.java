@@ -1,9 +1,9 @@
 package club.mcgamer.xime.sg.runnable;
 
 import club.mcgamer.xime.XimePlugin;
-import club.mcgamer.xime.map.MapData;
-import club.mcgamer.xime.map.MapPool;
-import club.mcgamer.xime.map.VoteableMap;
+import club.mcgamer.xime.map.impl.MapData;
+import club.mcgamer.xime.map.impl.MapPool;
+import club.mcgamer.xime.map.impl.VoteableMap;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.settings.GameSettings;
@@ -28,7 +28,7 @@ public class LobbyRunnable extends AbstractGameRunnable {
         this.serverable = serverable;
         serverable.setGameSettings(this.gameSettings);
         serverable.setGameTimer(this.gameTimer);
-        serverable.setMapPool(new MapPool());
+        serverable.setMapPool(new MapPool(plugin));
         serverable.setMaxPlayers(this.gameSettings.getMaximumPlayers());
 
         GameSettings gameSettings = serverable.getGameSettings();

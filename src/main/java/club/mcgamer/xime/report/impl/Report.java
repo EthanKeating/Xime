@@ -1,13 +1,19 @@
 package club.mcgamer.xime.report.impl;
 
 import club.mcgamer.xime.fastinv.ItemBuilder;
+import club.mcgamer.xime.profile.Profile;
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 
+import java.lang.reflect.Field;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @Getter
 public class Report {
@@ -27,7 +33,7 @@ public class Report {
     private final ItemStack itemStack;
 
 
-    public Report(String reportedDisplayName, String reportedName, String reportedUUID, String reportedReason, String reportDescription, String reportedDateTime, String reportPriority, String reporterDisplayName, String reporterName, String reporterUUID) {
+    public Report(Profile reported, String reportedDisplayName, String reportedName, String reportedUUID, String reportedReason, String reportDescription, String reportedDateTime, String reportPriority, String reporterDisplayName, String reporterName, String reporterUUID) {
         this.reportedDisplayName = reportedDisplayName;
         this.reportedName = reportedName;
         this.reportedUUID = reportedUUID;
@@ -39,22 +45,42 @@ public class Report {
         this.reporterName = reporterName;
         this.reporterUUID = reporterUUID;
 
-        itemStack = new ItemBuilder(Material.SKULL_ITEM)
+        ItemStack tempItem = new ItemBuilder(Material.SKULL_ITEM)
                 .data(3)
-                .owner(Bukkit.getPlayer(reportedUUID))
-                .name(reportedDisplayName)
+                .name(reportedDisplayName + " &7[" + reportPriority + "&7]")
                 .lore(
                         "&7[" + reportedDateTime + "]",
                         "&8----------------------",
-                        "&eReasons",
-                        " &8* &ef" + reportedReason,
+                        "&e&l" + reportedReason,
                         " &8* &e"  + reportDescription,
                         "&8----------------------",
                         " &bLeft Click &7to &b&lTeleport",
-                        "&bRight Click&7 for more info",
-                        "&bShift Click &7to &b&lClear",
+                        " &bRight Click&7 for more info",
+                        " &bShift Click &7to &b&lClear",
                         "&8----------------------"
                         )
                 .build();
+
+        SkullMeta skullMeta = (SkullMeta) tempItem.getItemMeta();
+
+        tempItem.setItemMeta(skullMeta);
+
+        GameProfile gameProfile = new GameProfile(UUID.randomUUID(), null);
+        gameProfile.getProperties().put("textures", new Property("textures", reported.getSkin().getValue(), reported.getSkin().getSignature()));
+
+        try {
+
+            Field field = skullMeta.getClass().getDeclaredField("profile"); // We get the field profile.
+
+            field.setAccessible(true); // We set as accessible to modify.
+            field.set(skullMeta, gameProfile); // We set in the skullMeta the modified GameProfile that we created.
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        tempItem.setItemMeta(skullMeta);
+        itemStack = tempItem;
     }
 }

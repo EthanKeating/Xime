@@ -21,7 +21,7 @@ public class ForcestartCommand extends XimeCommand {
         this.description = "Forcestart your current game";
         this.usageMessage = "/forcestart";
         this.setAliases(Arrays.asList("fs"));
-        setPermission("xime.admin");
+        setPermission("xime.staff");
 
         register();
     }

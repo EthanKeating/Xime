@@ -1,7 +1,7 @@
 package club.mcgamer.xime.sgmaker.runnable;
 
 import club.mcgamer.xime.XimePlugin;
-import club.mcgamer.xime.map.MapPool;
+import club.mcgamer.xime.map.impl.MapPool;
 import club.mcgamer.xime.sg.runnable.LobbyRunnable;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.util.Pair;
@@ -17,7 +17,7 @@ public class MakerLobbyRunnable extends LobbyRunnable {
     public MakerLobbyRunnable(SGMakerServerable serverable, XimePlugin plugin) {
         super(serverable, plugin);
 
-        serverable.getMapPool().setMap(MapPool.getMapIdentifiers().get(0));
+        //serverable.getMapPool().setMap(MapPool.getMapIdentifiers().get(0));
         serverable.getGameTimer().setTime(4);
 
         //Initialize all data

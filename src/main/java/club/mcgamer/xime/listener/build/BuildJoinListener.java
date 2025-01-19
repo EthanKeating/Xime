@@ -29,43 +29,14 @@ public class BuildJoinListener extends IListener {
             PlayerUtil.setFlying(profile);
             PlayerUtil.unsetGamemode(profile);
 
-            player.getInventory().setItem(0, new ItemBuilder(Material.SKULL_ITEM)
-                    .name("&b&lSet Spectator Spawn &7&o(Map Center)")
-                    .build());
+            profile.sendMessage("&8[&3Xime&8] &bWelcome to the map editor!");
+            profile.sendMessage("");
+            profile.sendMessage(" &eFollow the numbering of the items");
+            profile.sendMessage(" &eTo easily setup an SG Map!");
+            profile.sendMessage("");
+            profile.sendMessage("&aYou can get these items back at any time by doing /items");
 
-            player.getInventory().setItem(1, new ItemBuilder(Material.SKULL_ITEM)
-                    .name("&b&lAdd a Spawn")
-                    .data(3)
-                    .build());
-
-            player.getInventory().setItem(2, new ItemBuilder(Material.ANVIL)
-                    .name("&b&lSet Map Name")
-                    .build());
-
-            player.getInventory().setItem(3, new ItemBuilder(Material.NAME_TAG)
-                    .name("&b&lSet Map Author(s)")
-                    .build());
-
-            player.getInventory().setItem(4, new ItemBuilder(Material.EYE_OF_ENDER)
-                    .name("&b&lSet Map Link")
-                    .build());
-
-            player.getInventory().setItem(5, new ItemBuilder(Material.CHEST)
-                    .name("&b&lScan for Chests")
-                    .build());
-
-            player.getInventory().setItem(6, new ItemBuilder(Material.GLASS)
-                    .name("&b&lRemove useless blocks")
-                    .build());
-
-            player.getInventory().setItem(7, new ItemBuilder(Material.STAINED_CLAY)
-                    .name("&c&lDiscard Map Changes")
-                    .data(6)
-                    .build());
-            player.getInventory().setItem(8, new ItemBuilder(Material.STAINED_CLAY)
-                    .name("&a&lSave Map Changes")
-                    .data(5)
-                    .build());
+            serverable.mainItems(player);
         }
     }
 

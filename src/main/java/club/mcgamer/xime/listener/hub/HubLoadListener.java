@@ -1,7 +1,7 @@
 package club.mcgamer.xime.listener.hub;
 
 import club.mcgamer.xime.hub.HubServerable;
-import club.mcgamer.xime.map.MapData;
+import club.mcgamer.xime.map.impl.MapData;
 import club.mcgamer.xime.server.event.ServerLoadEvent;
 import club.mcgamer.xime.util.IListener;
 import org.bukkit.event.EventHandler;

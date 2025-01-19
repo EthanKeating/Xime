@@ -4,16 +4,18 @@ import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.profile.data.impl.ProfileStatus;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class ProfileHandler {
 
     private final XimePlugin plugin;
 
-    private final HashMap<UUID, Profile> profileMap = new HashMap<>();
+    private final ConcurrentHashMap<UUID, Profile> profileMap = new ConcurrentHashMap<>();
 
     public ProfileHandler(XimePlugin plugin) {
         this.plugin = plugin;

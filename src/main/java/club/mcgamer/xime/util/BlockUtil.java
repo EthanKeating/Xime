@@ -1,11 +1,15 @@
 package club.mcgamer.xime.util;
 
 import lombok.experimental.UtilityClass;
+import net.minecraft.server.v1_8_R3.BlockPosition;
+import net.minecraft.server.v1_8_R3.ChunkSection;
+import net.minecraft.server.v1_8_R3.IBlockData;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 
 import java.util.HashSet;
 import java.util.function.Predicate;
@@ -96,7 +100,7 @@ public class BlockUtil {
                     if (x * x + y * y + z * z <= radius * radius) {
                         Block block = centerBlock.getWorld().getBlockAt(centerX + x, centerY + y, centerZ + z);
 
-                        if (isImportant(block))
+                        if (isImportant(block.getType()))
                             return true;
                     }
                 }
@@ -105,8 +109,29 @@ public class BlockUtil {
         return false;
     }
 
-    public boolean isImportant(Block block) {
-        Material type = block.getType();
+    public static void setBlockInNativeChunkSection(World world, int x, int y, int z, int blockId, byte data) {
+        net.minecraft.server.v1_8_R3.World nmsWorld = ((CraftWorld) world).getHandle();
+        net.minecraft.server.v1_8_R3.Chunk nmsChunk = nmsWorld.getChunkAt(x >> 4, z >> 4);
+        BlockPosition bp = new BlockPosition(x, y, z);
+        IBlockData ibd = net.minecraft.server.v1_8_R3.Block.getByCombinedId(blockId + (data << 12));
+        nmsChunk.a(bp, ibd);
+    }
+    public static void setBlockInNativeWorld(World world, int x, int y, int z, int blockId, byte data, boolean applyPhysics) {
+        net.minecraft.server.v1_8_R3.World nmsWorld = ((CraftWorld) world).getHandle();
+        BlockPosition bp = new BlockPosition(x, y, z);
+        IBlockData ibd = net.minecraft.server.v1_8_R3.Block.getByCombinedId(blockId + (data << 12));
+        nmsWorld.setTypeAndData(bp, ibd, applyPhysics ? 3 : 2);
+    }
+
+
+    public static net.minecraft.server.v1_8_R3.Material getType(World world, int x, int y, int z) {
+        net.minecraft.server.v1_8_R3.World nmsWorld = ((CraftWorld) world).getHandle();
+        BlockPosition bp = new BlockPosition(x, y, z);
+        IBlockData blockData = nmsWorld.getType(bp);
+        return blockData.getBlock().getMaterial();
+    }
+
+    public boolean isImportant(Material type) {
         switch (type) {
             case AIR:
             case ANVIL:

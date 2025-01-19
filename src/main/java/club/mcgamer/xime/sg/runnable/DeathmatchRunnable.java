@@ -1,7 +1,7 @@
 package club.mcgamer.xime.sg.runnable;
 
 import club.mcgamer.xime.XimePlugin;
-import club.mcgamer.xime.map.MapLocation;
+import club.mcgamer.xime.map.impl.MapLocation;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.settings.GameSettings;

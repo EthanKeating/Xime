@@ -16,7 +16,7 @@ public class MakerCommand extends XimeCommand {
         this.description = "maker command";
         this.usageMessage = "/maker";
         this.setAliases(Arrays.asList("sgmaker"));
-        setPermission("xime.platinum");
+        setPermission("xime.iron");
 
         register();
     }
@@ -31,7 +31,10 @@ public class MakerCommand extends XimeCommand {
 
         if (!isCorrectServerable(sender, profile.getServerable(), HubServerable.class)) return true;
 
-        SGMakerServerable serverable = new SGMakerServerable(profile);
+        SGMakerServerable serverable = plugin.getServerHandler().getByClass(SGMakerServerable.class).stream()
+                .map(loopServerable -> (SGMakerServerable) loopServerable)
+                .filter(loopServerable -> loopServerable.getOwner() == profile).findFirst().orElse(new SGMakerServerable(profile));
+
         profile.sendMessage("&8[&3Xime&8] &fYour request for a custom server has been received.");
         serverable.add(profile);
 

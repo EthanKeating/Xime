@@ -47,10 +47,10 @@ public class ListCommand extends XimeCommand {
             }
 
             profile.sendMessage("&8- &f&lPlaying: &f" + serverable.getTributeList().stream()
-                    .map(Profile::getDisplayName)
+                    .map(loopProfile -> profile.getPlayer().hasPermission("xime.staff") && loopProfile.getDisguiseData() != null ? TextUtil.translate(loopProfile.getDisplayName() + "&8(" + loopProfile.getDisplayNameBypassDisguise() + "&8)") : TextUtil.translate(loopProfile.getDisplayName()))
                     .collect(Collectors.joining("&8, &f")));
             profile.sendMessage("&8- &f&lWatching: &f" + serverable.getSpectatorList().stream()
-                    .map(Profile::getDisplayName)
+                    .map(loopProfile -> profile.getPlayer().hasPermission("xime.staff") && loopProfile.getDisguiseData() != null ? TextUtil.translate(loopProfile.getDisplayName() + "&8(" + loopProfile.getDisplayNameBypassDisguise() + "&8)") : TextUtil.translate(loopProfile.getDisplayName()))
                     .collect(Collectors.joining("&8, &f")));
         }
 

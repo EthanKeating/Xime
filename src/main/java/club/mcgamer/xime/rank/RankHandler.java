@@ -23,7 +23,7 @@ public class RankHandler {
                 new Rank("Administrator", "&4&l", Arrays.asList()),
                 new Rank("Devmin", "&9&l", Arrays.asList()),
                 new Rank("Developer", "&e&l", Arrays.asList("xime.admin")),
-                new Rank("SeniorModerator", "&4", Arrays.asList()),
+                new Rank("SeniorModerator", "&4", Arrays.asList("xime.srmoderator")),
                 new Rank("Moderator", "&c", Arrays.asList("litebans.notify", "litebans.history", "litebans.dupeip", "litebans.ban", "litebans.kick", "litebans.mute", "litebans.warn", "grim.alerts", "grim.brand", "xime.staff")),
                 new Rank("VIP", "&5", Arrays.asList()),
                 new Rank("MapMaker", "&d", Arrays.asList("xime.vip")),

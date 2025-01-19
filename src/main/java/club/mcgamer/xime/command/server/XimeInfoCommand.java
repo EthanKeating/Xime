@@ -1,6 +1,7 @@
 package club.mcgamer.xime.command.server;
 
 import club.mcgamer.xime.command.XimeCommand;
+import club.mcgamer.xime.map.impl.MapPool;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.ServerHandler;
 import org.bukkit.command.CommandSender;
@@ -32,6 +33,14 @@ public class XimeInfoCommand extends XimeCommand {
         profile.sendMessage("&8[&3Xime&8] &fVersion&8: &e" + ServerHandler.SERVER_VERSION);
         profile.sendMessage("&8[&3Xime&8] &fBuild type&8: &eAlpha Wave");
         profile.sendMessage("&8[&3Xime&8] &fUpdate channel&8: &eDevelopment");
+
+        if(args.length > 0 && args[0].equalsIgnoreCase("reload") && player.hasPermission("xime.admin")) {
+            plugin.reloadConfig();
+            plugin.getLanguageHandler().load();
+            plugin.getMapHandler().load();
+
+            profile.sendMessage("&8[&3Xime&8] &aReloaded config & map data");
+        }
 
         return true;
     }

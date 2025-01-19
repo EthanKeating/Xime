@@ -2,8 +2,12 @@ package club.mcgamer.xime.listener.build;
 
 import club.mcgamer.xime.build.BuildServerable;
 import club.mcgamer.xime.build.input.InputType;
-import club.mcgamer.xime.map.MapData;
-import club.mcgamer.xime.map.MapLocation;
+import club.mcgamer.xime.build.menu.ChestMenu;
+import club.mcgamer.xime.build.menu.MapDataMenu;
+import club.mcgamer.xime.build.menu.MapSaveMenu;
+import club.mcgamer.xime.build.menu.OptimizeMenu;
+import club.mcgamer.xime.map.impl.MapData;
+import club.mcgamer.xime.map.impl.MapLocation;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerChatEvent;
 import club.mcgamer.xime.server.event.ServerItemInteractEvent;
@@ -30,99 +34,128 @@ public class BuildItemInteractListener extends IListener {
 
             ItemStack item = event.getItemStack();
 
+            if (!item.getItemMeta().hasLore()) return;
             event.getEvent().setCancelled(true);
 
-            if (event.getEvent().getClickedBlock() != null) {
-                Block block = event.getEvent().getClickedBlock();
-                Vector3i blockLocation = new Vector3i(block.getX(), block.getY(), block.getZ());
+            if (item.getType() == Material.NAME_TAG) {
+                new MapDataMenu(profile, serverable).open(player);
+                return;
+            }
+            if (item.getType() == Material.BARRIER) {
+                new MapSaveMenu(profile, serverable).open(player);
+                return;
+            }
 
-                if (item.getType() == Material.SKULL_ITEM && item.getDurability() == 0) {
+            if (item.getType() == Material.CHEST) {
+                new ChestMenu(profile, serverable).open(player);
+                return;
+            }
+            if (item.getType() == Material.DEAD_BUSH) {
+                new OptimizeMenu(profile, serverable).open(player);
+                return;
+            }
+
+            Block block = event.getEvent().getClickedBlock();
+
+            if (item.getType() == Material.SKULL_ITEM) {
+                if (item.getDurability() == 4) {
+                    if (block == null) {
+                        mapData.setCenterLocation(new MapLocation(0, 64, 0));
+                        world.setSpawnLocation(0, 64, 0);
+
+                        profile.sendMessage("&8[&3Xime&8] &cRemoved &fMap Center &bfrom map &f" + mapData.getMapName());
+                        return;
+                    }
+
+                    Vector3i blockLocation = new Vector3i(block.getX(), block.getY(), block.getZ());
                     mapData.setCenterLocation(new MapLocation(blockLocation.getX(), blockLocation.getY() + 1.0, blockLocation.getZ()));
                     world.setSpawnLocation(blockLocation.getX(), blockLocation.getY(), blockLocation.getZ());
-
                     profile.sendMessage("&8[&3Xime&8] &bUpdated &fMap Center &bfor map &f" + mapData.getMapName());
+
                     return;
                 }
+                if (item.getDurability() == 1) {
+                    if (block == null) {
+                        mapData.setDmCenterLocation(null);
 
-                if (item.getType() == Material.SKULL_ITEM && item.getDurability() == 3) {
-                    double offset = world.getBlockAt(blockLocation.getX(), blockLocation.getY(), blockLocation.getZ()).getType().isSolid() ? 1.0 : 0.0;
+                        profile.sendMessage("&8[&3Xime&8] &cRemoved &fDeathmatch Center &bfrom map &f" + mapData.getMapName());
+                        return;
+                    }
+
+                    Vector3i blockLocation = new Vector3i(block.getX(), block.getY(), block.getZ());
+                    mapData.setDmCenterLocation(new MapLocation(blockLocation.getX(), blockLocation.getY() + 1.0, blockLocation.getZ()));
+                    profile.sendMessage("&8[&3Xime&8] &bUpdated &fDeathmatch Center &bfor map &f" + mapData.getMapName());
+
+                    return;
+                }
+                if (item.getDurability() == 0) {
+                    if (block == null) {
+                        mapData.setSpectateLocation(null);
+
+                        profile.sendMessage("&8[&3Xime&8] &cRemoved &fSpectator Location &bfrom map &f" + mapData.getMapName());
+                        return;
+                    }
+
+                    Vector3i blockLocation = new Vector3i(block.getX(), block.getY(), block.getZ());
+                    mapData.setSpectateLocation(new MapLocation(blockLocation.getX(), blockLocation.getY() + 1.0, blockLocation.getZ()));
+                    profile.sendMessage("&8[&3Xime&8] &bUpdated &fSpectator Location &bfor map &f" + mapData.getMapName());
+
+                    return;
+                }
+                if (item.getDurability() == 3) {
+                    if (block == null) {
+                        if (mapData.getSpawnLocations().isEmpty()) {
+                            profile.sendMessage("&8[&3Xime&8] &cThere are no spawns to remove.");
+                            return;
+                        }
+
+                        mapData.getSpawnLocations().remove(mapData.getSpawnLocations().size() - 1);
+                        profile.sendMessage("&8[&3Xime&8] &cRemoved &fSpawn #" + (mapData.getSpawnLocations().size() + 1) + " &cfor map &f" + mapData.getMapName());
+                        return;
+                    }
+
+                    Material type = block.getType();
+                    double offset = 1.0;
+                    Vector3i blockLocation = new Vector3i(block.getX(), block.getY(), block.getZ());
+
+                    if (type == Material.STONE_SLAB2 || type == Material.STEP || type == Material.WOOD_STEP)
+                        offset = 0.5;
+
+                    if (!type.isSolid() || type == Material.GOLD_PLATE || type == Material.IRON_PLATE || type == Material.STONE_PLATE || type == Material.WOOD_PLATE)
+                        offset = 0.0;
 
                     mapData.getSpawnLocations().add(new MapLocation(blockLocation.getX(), blockLocation.getY() + offset, blockLocation.getZ()));
-
                     profile.sendMessage("&8[&3Xime&8] &bAdded &fSpawn #" + mapData.getSpawnLocations().size() + " &bfor map &f" + mapData.getMapName());
                     return;
                 }
 
-            } else {
-                if (item.getType() == Material.SKULL_ITEM && item.getDurability() == 0) {
-                    mapData.setCenterLocation(new MapLocation(0, 64, 0));
-                    world.setSpawnLocation(0, 64, 0);
+                if (item.getDurability() == 2) {
+                    if (block == null) {
+                        if (mapData.getDmLocations().isEmpty()) {
+                            profile.sendMessage("&8[&3Xime&8] &cThere are no deathmatch spawns to remove.");
+                            return;
+                        }
 
-                    profile.sendMessage("&8[&3Xime&8] &cRemoved &fMap Center &bfrom map &f" + mapData.getMapName());
+                        mapData.getDmLocations().remove(mapData.getDmLocations().size() - 1);
+                        profile.sendMessage("&8[&3Xime&8] &cRemoved &fDeathmatch Spawn #" + (mapData.getDmLocations().size() + 1) + " &cfor map &f" + mapData.getMapName());
+                        return;
+                    }
+
+                    Material type = block.getType();
+                    double offset = 1.0;
+                    Vector3i blockLocation = new Vector3i(block.getX(), block.getY(), block.getZ());
+
+                    if (type == Material.STONE_SLAB2 || type == Material.STEP || type == Material.WOOD_STEP)
+                        offset = 0.5;
+
+                    if (!type.isSolid() || type == Material.GOLD_PLATE || type == Material.IRON_PLATE || type == Material.STONE_PLATE || type == Material.WOOD_PLATE)
+                        offset = 0.0;
+
+                    mapData.getDmLocations().add(new MapLocation(blockLocation.getX(), blockLocation.getY() + offset, blockLocation.getZ()));
+                    profile.sendMessage("&8[&3Xime&8] &bAdded &fDeathmatch Spawn #" + mapData.getDmLocations().size() + " &bfor map &f" + mapData.getMapName());
                     return;
                 }
-
-                if (item.getType() == Material.SKULL_ITEM && item.getDurability() == 3 && !mapData.getSpawnLocations().isEmpty()) {
-                    mapData.getSpawnLocations().remove(mapData.getSpawnLocations().size() - 1);
-
-                    profile.sendMessage("&8[&3Xime&8] &cRemoved &fSpawn #" + (mapData.getSpawnLocations().size() + 1) + " &cfor map &f" + mapData.getMapName());
-                    return;
-                }
             }
-            if (item.getType() == Material.CHEST) {
-                serverable.updateChests();
-            }
-            if (item.getType() == Material.GLASS) {
-                serverable.optimize();
-            }
-
-            if (item.getType() == Material.ANVIL) {
-                serverable.setInputType(InputType.NAME);
-
-                profile.sendMessage("&a")
-                        .sendMessage("&a&lPlease enter the map name:")
-                        .sendMessage("&a");
-
-                return;
-            }
-
-            if (item.getType() == Material.NAME_TAG) {
-                serverable.setInputType(InputType.AUTHOR);
-
-                profile.sendMessage("&a")
-                        .sendMessage("&a&lPlease enter the map author:")
-                        .sendMessage("&a");
-
-                return;
-            }
-
-            if (item.getType() == Material.EYE_OF_ENDER) {
-                serverable.setInputType(InputType.LINK);
-
-                profile.sendMessage("&a")
-                        .sendMessage("&a&lPlease enter the map link:")
-                        .sendMessage("&a");
-
-                return;
-            }
-
-            if (item.getType() == Material.STAINED_CLAY && item.getDurability() == 6) {
-                profile.sendMessage("&8[&3Xime&8] &aDiscarded changes for &f" + mapData.getMapName());
-                serverable.discard();
-                serverable.stop();
-                return;
-            }
-
-            if (item.getType() == Material.STAINED_CLAY && item.getDurability() == 5) {
-                //save
-                MapData.save(serverable.getWorldName(), mapData);
-                serverable.save();
-                serverable.stop();
-                profile.sendMessage("&8[&3Xime&8] &aSaved changes for &f" + mapData.getMapName());
-                return;
-            }
-            event.getEvent().setCancelled(false);
-
         }
     }
 

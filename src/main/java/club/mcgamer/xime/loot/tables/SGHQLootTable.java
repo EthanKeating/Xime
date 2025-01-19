@@ -15,8 +15,8 @@ import java.util.List;
 public class SGHQLootTable extends LootTable {
 
     @Override
-    public int getAverageItemCount() {
-        return 6;
+    public int getMaxItemCount() {
+        return 7;
     }
     private final List<ItemStack> tier1Items = new ArrayList<ItemStack>(){{
         add(new ItemStack(Material.STONE_SWORD));

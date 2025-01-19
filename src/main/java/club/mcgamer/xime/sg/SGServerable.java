@@ -2,10 +2,10 @@ package club.mcgamer.xime.sg;
 
 import club.mcgamer.xime.fastinv.ItemBuilder;
 import club.mcgamer.xime.hub.HubServerable;
-import club.mcgamer.xime.map.MapData;
-import club.mcgamer.xime.map.MapLocation;
-import club.mcgamer.xime.map.MapPool;
-import club.mcgamer.xime.map.VoteableMap;
+import club.mcgamer.xime.map.impl.MapData;
+import club.mcgamer.xime.map.impl.MapLocation;
+import club.mcgamer.xime.map.impl.MapPool;
+import club.mcgamer.xime.map.impl.VoteableMap;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.server.data.TemporaryData;
@@ -70,6 +70,11 @@ public class SGServerable extends Serverable {
 
     public void add(Profile profile) {
         Player player = profile.getPlayer();
+
+        if (profile.getServerable() == this) {
+            profile.sendMessage("&cYou are already connected to that server.");
+            return;
+        }
 
         if (getPlayerList().size() >= getMaxPlayers()) {
             profile.sendMessage("&cThat server is full.");

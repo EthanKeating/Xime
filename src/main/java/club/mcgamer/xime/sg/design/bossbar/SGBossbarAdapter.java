@@ -1,6 +1,7 @@
 package club.mcgamer.xime.sg.design.bossbar;
 
 import club.mcgamer.xime.design.bossbar.BossbarAdapter;
+import club.mcgamer.xime.lang.impl.Language;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.sg.SGServerable;
@@ -17,19 +18,21 @@ public class SGBossbarAdapter extends BossbarAdapter {
 
     @Override
     public String getTitle(Profile profile) {
+        Language language = profile.getLanguage();
+
         SGServerable serverable = (SGServerable) profile.getServerable();
         if (serverable.getGameState() == GameState.ENDGAME) {
             if (serverable.getCurrentRunnable() == null || (!(serverable.getCurrentRunnable() instanceof EndGameRunnable)))
                 return "";
             EndGameRunnable endGameRunnable = (EndGameRunnable) serverable.getCurrentRunnable();
 
-            if (endGameRunnable.getGameWinner().isPresent()) {
+            if (endGameRunnable.getGameWinner().isPresent() && endGameRunnable.getGameWinner().get().getPlayer() != null) {
                 return String.format("&8[&6MCSG&8] &a%s &ahas won the Survival Games!", endGameRunnable.getGameWinner().get().getDisplayName());
             }
             return "&8[&6MCSG&8] &aThe games have ended!";
         }
 
-        return String.format("&eMCGamer Network &6Beta &7(%s)&8. &aFeatures/gameplay subject to change.", ServerHandler.SERVER_VERSION);
+        return language.getBossBarText();
     }
 
     @Override

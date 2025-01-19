@@ -20,6 +20,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 
 public class SGDamageListener extends IListener {
 
@@ -59,6 +60,16 @@ public class SGDamageListener extends IListener {
                 if (event.getAttacker().get().getPlayer().getInventory().getItemInHand().getType() == Material.AIR) {
                     event.getEvent().setDamage(Math.min(0.5, event.getEvent().getDamage()));
                 }
+            }
+        }
+    }
+
+    @EventHandler
+    private void onPainting(HangingBreakByEntityEvent event) {
+        if (event.getRemover() instanceof Player player) {
+            Profile profile = plugin.getProfileHandler().getProfile(player);
+            if (profile.getServerable() instanceof SGServerable serverable) {
+                event.setCancelled(true);
             }
         }
     }
@@ -177,14 +188,12 @@ public class SGDamageListener extends IListener {
             serverable.announceRaw(String.format("&6A cannon can be heard in the distance in memorial for %s", victim.getDisplayName()));
 
             Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                TextComponent message = new TextComponent(TextUtil.translate("&fWant to join &lAnother &6MCSG &fgame? Click "));
-                TextComponent linkSection = new TextComponent(TextUtil.translate("&f&nHere&f!"));
+                TextComponent message = new TextComponent(TextUtil.translate("&fWant to join &lAnother &6MCSG &fgame? Click &f&nHere&f!"));
 //                    serverSection.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{
 //                            new TextComponent(ColorUtil.translate(String.format("&e%s &f(%s)", serverable, serverable.getPlayers().size() + " player" + (serverable.getPlayers().size() == 1 ? "" : "s")))),
 //                            new TextComponent(ColorUtil.translate("\n\n&6Click to connect to this server"))
 //                    }));
-                linkSection.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/join sg"));
-                message.addExtra(linkSection);
+                message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/join sg"));
 
                 if (victimPlayer.isOnline()) {
                     victim.sendMessage("");

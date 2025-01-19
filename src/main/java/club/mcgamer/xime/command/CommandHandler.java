@@ -1,6 +1,7 @@
 package club.mcgamer.xime.command;
 
 import club.mcgamer.xime.XimePlugin;
+import club.mcgamer.xime.command.map.ItemsCommand;
 import club.mcgamer.xime.command.map.MapCommand;
 import club.mcgamer.xime.command.server.*;
 import club.mcgamer.xime.command.sg.*;
@@ -27,6 +28,8 @@ public class CommandHandler {
         new StaffCommand();
         new GoToCommand();
 
+        new ScatterCommand();
+        new BringCommand();
         new ReportCommand();
         new ReportsCommand();
         new MessageCommand();
@@ -42,6 +45,7 @@ public class CommandHandler {
         new FlyCommand();
         new WhitelistCommand();
         new MapCommand();
+        new ItemsCommand();
         new JoinCommand();
         new HubCommand();
         new RankCommand();
@@ -57,6 +61,7 @@ public class CommandHandler {
         new StaffChatCommand();
         new StaffListCommand();
         new InviteCommand();
+        new FindCommand();
 
         new ForcestartCommand();
         new LeaderboardCommand();
@@ -67,12 +72,14 @@ public class CommandHandler {
         new KillCommand();
         new BountyCommand();
         new SponsorCommand();
+        new AnnounceCommand();
 
         populate();
     }
 
     public boolean onCommand(Profile profile, String command) {
         String unknownCommand = "Unknown command. Type \"/help\" for help.";
+
 
         if(serverBlockedCommands.contains(command.toLowerCase().split(" ")[0])) {
             profile.sendMessage(unknownCommand);

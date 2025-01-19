@@ -1,7 +1,7 @@
 package club.mcgamer.xime.listener.sg;
 
 import club.mcgamer.xime.data.entities.PlayerData;
-import club.mcgamer.xime.map.MapLocation;
+import club.mcgamer.xime.map.impl.MapLocation;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerAirInteractEvent;
 import club.mcgamer.xime.server.event.ServerInteractEvent;

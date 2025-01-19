@@ -1,4 +1,4 @@
-package club.mcgamer.xime.map;
+package club.mcgamer.xime.map.impl;
 
 import com.viaversion.viaversion.libs.gson.Gson;
 import com.viaversion.viaversion.libs.gson.GsonBuilder;
@@ -28,8 +28,9 @@ public class MapData {
     private final List<MapLocation> spawnLocations = new ArrayList<>();
     private final List<MapLocation> dmLocations = new ArrayList<>();
 
+    private MapLocation centerLocation = new MapLocation(0, 64, 0);
     private MapLocation dmCenterLocation = null;
-    private MapLocation centerLocation = null;
+    private MapLocation spectateLocation = null;
 
     @SneakyThrows
     public static void save(String mapName, MapData mapData) {

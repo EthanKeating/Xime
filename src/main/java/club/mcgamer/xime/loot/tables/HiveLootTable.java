@@ -15,8 +15,8 @@ import java.util.List;
 public class HiveLootTable extends LootTable {
 
     @Override
-    public int getAverageItemCount() {
-        return 4;
+    public int getMaxItemCount() {
+        return 6;
     }
     private final List<ItemStack> tier1Items = new ArrayList<ItemStack>(){{
         add(new ItemStack(Material.WOOD_SWORD));

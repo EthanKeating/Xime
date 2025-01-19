@@ -86,18 +86,19 @@ public class ReportCommand extends XimeCommand {
         }
 
         ZonedDateTime reportDateTime = ZonedDateTime.now(ZoneId.of("UTC"));
-        Report report = new Report(argumentProfile.getDisplayNameBypassDisguise(),
+        Report report = new Report(argumentProfile,
+                argumentProfile.getDisplayNameBypassDisguise(),
                 argumentProfile.getNameBypassDisguise(),
                 argumentProfile.getUuid().toString(),
                 reportReason,
                 reportDescription,
-                reportPriority,
                 reportDateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) + " @ " + reportDateTime.format(DateTimeFormatter.ofPattern("hh:mm a")),
+                reportPriority,
                 profile.getDisplayNameBypassDisguise(),
                 profile.getNameBypassDisguise(),
                 profile.getUuid().toString());
 
-        plugin.getReportHandler().createReport(report);
+        plugin.getReportHandler().createReport(report, profile);
         profile.sendMessage("&8[&3Xime&8] &bThank you for your report&8, &bthe player has been sent to our conviction system&8.");
 
         return true;

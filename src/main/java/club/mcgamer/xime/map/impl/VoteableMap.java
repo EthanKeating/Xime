@@ -1,4 +1,4 @@
-package club.mcgamer.xime.map;
+package club.mcgamer.xime.map.impl;
 
 import club.mcgamer.xime.profile.Profile;
 import lombok.Getter;
@@ -24,12 +24,16 @@ public class VoteableMap {
 
             if(false)
                 System.out.println("how");
+            else if (player.hasPermission("xime.owner"))
+                total += 12;
             else if (player.hasPermission("xime.admin"))
-                total += 10;
-            else if (player.hasPermission("xime.staff"))
-                total += 8;
-            else if (player.hasPermission("xime.vip"))
+                total += 9;
+            else if (player.hasPermission("xime.srmoderator"))
                 total += 7;
+            else if (player.hasPermission("xime.moderator"))
+                total += 6;
+            else if (player.hasPermission("xime.vip"))
+                total += 6;
             else if (player.hasPermission("xime.quantum"))
                 total += 6;
             else if (player.hasPermission("xime.platinum"))

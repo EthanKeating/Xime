@@ -15,37 +15,28 @@ import java.util.List;
 public class MCSGLootTable extends LootTable {
 
     @Override
-    public int getAverageItemCount() {
-        return 6;
+    public int getMaxItemCount() {
+        return 7;
     }
     private final List<ItemStack> tier1Items = new ArrayList<ItemStack>(){{
         add(new ItemStack(Material.STONE_SWORD));
         add(new ItemStack(Material.WOOD_SWORD));
-        add(new ItemStack(Material.WOOD_SWORD));
         add(new ItemStack(Material.STONE_AXE));
-        add(new ItemStack(Material.WOOD_AXE));
         add(new ItemStack(Material.WOOD_AXE));
 
         add(new ItemBuilder(Material.LEATHER_HELMET).lore(Collections.singletonList(TextUtil.translate("&9+1 Armor"))).build());
-        add(new ItemBuilder(Material.LEATHER_HELMET).lore(Collections.singletonList(TextUtil.translate("&9+1 Armor"))).build());
-        add(new ItemBuilder(Material.LEATHER_CHESTPLATE).lore(Collections.singletonList(TextUtil.translate("&9+3 Armor"))).build());
         add(new ItemBuilder(Material.LEATHER_CHESTPLATE).lore(Collections.singletonList(TextUtil.translate("&9+3 Armor"))).build());
         add(new ItemBuilder(Material.LEATHER_LEGGINGS).lore(Collections.singletonList(TextUtil.translate("&9+2 Armor"))).build());
-        add(new ItemBuilder(Material.LEATHER_LEGGINGS).lore(Collections.singletonList(TextUtil.translate("&9+2 Armor"))).build());
-        add(new ItemBuilder(Material.LEATHER_BOOTS).lore(Collections.singletonList(TextUtil.translate("&9+1 Armor"))).build());
         add(new ItemBuilder(Material.LEATHER_BOOTS).lore(Collections.singletonList(TextUtil.translate("&9+1 Armor"))).build());
 
         add(new ItemStack(Material.BOW));
-        add(new ItemStack(Material.FISHING_ROD));
         add(new ItemStack(Material.FISHING_ROD));
         add(new ItemStack(Material.ARROW, 5));
 
         add(new ItemStack(Material.IRON_INGOT));
         add(new ItemStack(Material.GOLD_INGOT));
         add(new ItemStack(Material.STICK));
-        add(new ItemStack(Material.STICK));
         add(new ItemStack(Material.FEATHER, 5));
-        add(new ItemStack(Material.FLINT, 1));
         add(new ItemStack(Material.FLINT, 1));
 
         add(new ItemStack(Material.PUMPKIN_PIE));
@@ -60,10 +51,29 @@ public class MCSGLootTable extends LootTable {
         add(new ItemStack(Material.BREAD));
         add(new ItemStack(Material.RAW_FISH));
 
+        add(new ItemStack(Material.STONE_SWORD));
+        add(new ItemStack(Material.WOOD_SWORD));
+        add(new ItemStack(Material.STONE_AXE));
+        add(new ItemStack(Material.WOOD_AXE));
+
+        add(new ItemBuilder(Material.LEATHER_HELMET).lore(Collections.singletonList(TextUtil.translate("&9+1 Armor"))).build());
+        add(new ItemBuilder(Material.LEATHER_CHESTPLATE).lore(Collections.singletonList(TextUtil.translate("&9+3 Armor"))).build());
+        add(new ItemBuilder(Material.LEATHER_LEGGINGS).lore(Collections.singletonList(TextUtil.translate("&9+2 Armor"))).build());
+        add(new ItemBuilder(Material.LEATHER_BOOTS).lore(Collections.singletonList(TextUtil.translate("&9+1 Armor"))).build());
+
+        add(new ItemStack(Material.BOW));
+        add(new ItemStack(Material.FISHING_ROD));
+        add(new ItemStack(Material.ARROW, 5));
+
+        add(new ItemStack(Material.IRON_INGOT));
+        add(new ItemStack(Material.GOLD_INGOT));
+        add(new ItemStack(Material.STICK));
+        add(new ItemStack(Material.FEATHER, 5));
+        add(new ItemStack(Material.FLINT, 1));
+
     }};
 
     private final List<ItemStack> tier2Items = new ArrayList<ItemStack>(){{
-        add(new ItemStack(Material.STONE_SWORD));
         add(new ItemStack(Material.STONE_SWORD));
 
         add(new ItemBuilder(Material.IRON_HELMET).lore(Collections.singletonList(TextUtil.translate("&9+2 Armor"))).build());
@@ -92,7 +102,6 @@ public class MCSGLootTable extends LootTable {
 
         add(new ItemStack(Material.BAKED_POTATO));
         add(new ItemStack(Material.APPLE, 2));
-        add(new ItemStack(Material.PUMPKIN_PIE, 2));
         add(new ItemStack(Material.GOLDEN_APPLE));
         add(new ItemStack(Material.GOLDEN_CARROT));
         add(new ItemStack(Material.BREAD));

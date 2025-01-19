@@ -36,7 +36,7 @@ public class HubChatListener extends IListener {
             }
 
             hubProfiles.stream().forEach(loopProfile -> {
-                if (loopProfile.getPlayer().hasPermission("xime.staff ")) {
+                if (loopProfile.getPlayer().hasPermission("xime.staff")) {
                     TextUtil.sendStaffMessage(loopProfile, profile, TextUtil.translate(
                             String.format("%s&8: &f%s",
                                     profile.getName().equalsIgnoreCase(profile.getNameBypassDisguise()) ? profile.getDisplayName() : profile.getDisplayName() + "&8(" + profile.getDisplayNameBypassDisguise() + "&8)",

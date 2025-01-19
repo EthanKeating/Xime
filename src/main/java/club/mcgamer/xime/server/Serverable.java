@@ -4,7 +4,7 @@ import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.design.bossbar.BossbarAdapter;
 import club.mcgamer.xime.design.sidebar.SidebarAdapter;
 import club.mcgamer.xime.hub.HubServerable;
-import club.mcgamer.xime.map.MapData;
+import club.mcgamer.xime.map.impl.MapData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.data.TemporaryData;
 import club.mcgamer.xime.server.event.ServerJoinEvent;
@@ -35,12 +35,14 @@ public abstract class Serverable {
     @Getter(AccessLevel.NONE) private final Set<World> worlds = new HashSet<>();
 
     private final List<Profile> playerList = new ArrayList<Profile>();
-    @Setter private int maxPlayers = 64;
+    @Setter private int maxPlayers = 100;
 
     @Setter private MapData mapData;
 
     @Setter private String worldName;
     private World world;
+
+
     private long worldStartTime = System.currentTimeMillis();
 
     @Setter private SidebarAdapter sidebarAdapter = SidebarAdapter.DEFAULT;
@@ -60,6 +62,10 @@ public abstract class Serverable {
         Bukkit.getPluginManager().callEvent(new ServerStartEvent(this));
     }
 
+    public boolean isFull() {
+        return getPlayerList().size() >= getMaxPlayers();
+    }
+
     public abstract TemporaryData createTemporaryData();
 
     public void stop() {
@@ -73,6 +79,11 @@ public abstract class Serverable {
 
     public void add(Profile profile) {
         Player player = profile.getPlayer();
+
+        if (profile.getServerable() == this) {
+            profile.sendMessage("&cYou are already connected to that server.");
+            return;
+        }
 
         if (getPlayerList().size() >= getMaxPlayers()) {
             profile.sendMessage("&cThat server is full.");

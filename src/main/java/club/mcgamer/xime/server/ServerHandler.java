@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,13 +37,13 @@ public class ServerHandler {
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             plugin.getWorldHandler().loadSlime(lobbyWorldName, SGServerable.LOBBY_NAME);
-        }, 20);
+        }, 30);
 
         Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             if (getByClass(StaffServerable.class).isEmpty())
                 new StaffServerable();
 
-            if (getServerList().stream().filter(serverable -> serverable instanceof HubServerable).count() < 3)
+            if (getServerList().stream().filter(serverable -> serverable instanceof HubServerable).count() < 5)
                 new HubServerable();
             else if (getServerList().stream().filter(serverable -> !(serverable instanceof SGMakerServerable))
                     .filter(serverable -> serverable instanceof SGServerable).count() < 36)
@@ -59,8 +60,8 @@ public class ServerHandler {
         Optional<Serverable> optionalFallback = serverList
                 .stream()
                 .filter(serverable -> serverable instanceof HubServerable)
-                .filter(serverable -> serverable.getPlayerList().size() < serverable.getMaxPlayers())
-                .findFirst();
+                .filter(serverable -> !serverable.isFull())
+                .min(Comparator.comparingInt(serverable -> serverable.getPlayerList().size()));
         return optionalFallback.orElse(null);
     }
 

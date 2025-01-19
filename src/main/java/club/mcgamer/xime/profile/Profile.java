@@ -6,10 +6,12 @@ import club.mcgamer.xime.design.bossbar.BossbarImpl;
 import club.mcgamer.xime.design.sidebar.SidebarImpl;
 import club.mcgamer.xime.design.tag.TagImpl;
 import club.mcgamer.xime.disguise.DisguiseData;
+import club.mcgamer.xime.lang.impl.Language;
 import club.mcgamer.xime.profile.data.impl.ProfileStatus;
 import club.mcgamer.xime.profile.data.impl.ReplyData;
 import club.mcgamer.xime.profile.data.persistent.GeoLocationData;
 import club.mcgamer.xime.profile.data.temporary.CombatTagData;
+import club.mcgamer.xime.profile.data.temporary.CooldownData;
 import club.mcgamer.xime.rank.RankHandler;
 import club.mcgamer.xime.rank.impl.Rank;
 import club.mcgamer.xime.server.Serverable;
@@ -56,6 +58,7 @@ public class Profile {
     private String name;
     private Rank rank;
 
+    private Language language;
     private SidebarImpl sidebarImpl;
     private BossbarImpl bossbarImpl;
     private TagImpl tagImpl;
@@ -63,6 +66,7 @@ public class Profile {
     @Setter private TemporaryData temporaryData;
     private PlayerData playerData;
     private CombatTagData combatTagData;
+    private CooldownData cooldownData;
     private GeoLocationData geoLocationData = GeoLocationData.DEFAULT;
     @Setter private DisguiseData disguiseData;
     private ReplyData replyData;
@@ -85,10 +89,12 @@ public class Profile {
         this.legacy = user.getClientVersion().getProtocolVersion() == 5;
         this.name = getPlayer().getName();
 
+        this.language = plugin.getLanguageHandler().getLanguage("en");
         this.sidebarImpl = new SidebarImpl(this);
         this.bossbarImpl = new BossbarImpl(this);
         this.tagImpl = new TagImpl(this);
         this.combatTagData = new CombatTagData();
+        this.cooldownData = new CooldownData(this);
         this.replyData = new ReplyData();
 
         this.skin = DisguiseUtil.getSkin(getPlayer());
@@ -137,6 +143,9 @@ public class Profile {
     }
 
     public String getName() {
+        if (getPlayer() == null)
+            return "";
+
         if (disguiseData != null)
             return disguiseData.getName();
 
@@ -144,6 +153,9 @@ public class Profile {
     }
 
     public String getNameBypassDisguise() {
+        if (getPlayer() == null)
+            return "";
+
         return name;
     }
 
@@ -156,6 +168,9 @@ public class Profile {
 
     public String getDisplayName() {
 
+        if (getPlayer() == null)
+            return "";
+
         if (disguiseData != null)
             return disguiseData.getRank().getColor() + disguiseData.getName();
 
@@ -167,6 +182,9 @@ public class Profile {
     }
 
     public String getDisplayNameBypassDisguise() {
+        if (getPlayer() == null)
+            return "";
+
         if (rank.getName().equalsIgnoreCase("Developer"))
             return TextUtil.toRainbow(name);
 
@@ -175,6 +193,9 @@ public class Profile {
     }
 
     public String getChatColor() {
+        if (getPlayer() == null)
+            return "";
+
         if (disguiseData != null && rank == RankHandler.DEFAULT_RANK)
             return TextUtil.translate("&f");
 
@@ -182,6 +203,7 @@ public class Profile {
     }
 
     public Rank getRank() {
+
         if (disguiseData != null)
             return disguiseData.getRank();
 

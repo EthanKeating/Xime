@@ -12,6 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 
 public class HubCommand extends XimeCommand {
@@ -20,7 +21,7 @@ public class HubCommand extends XimeCommand {
         super("hub");
         this.description = "Return to the hub";
         this.usageMessage = "/hub [id]";
-        this.setAliases(new ArrayList<>());
+        this.setAliases(Arrays.asList("leave", "lobby"));
 
         register();
     }

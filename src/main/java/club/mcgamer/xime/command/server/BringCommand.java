@@ -1,9 +1,11 @@
 package club.mcgamer.xime.command.server;
 
+import club.mcgamer.xime.bg.BGServerable;
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.hub.HubServerable;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -31,9 +33,12 @@ public class BringCommand extends XimeCommand {
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
 
-        for(Profile loopProfile : plugin.getProfileHandler().getProfiles().stream().filter(loopProfile -> loopProfile.getServerable() != null).filter(loopProfile -> loopProfile.getServerable() instanceof HubServerable).collect(Collectors.toCollection(ArrayList::new))) {
-            List<SGServerable> servers = plugin.getServerHandler().getByClass(SGServerable.class).stream().map(serverable -> (SGServerable) serverable).toList();
+        if (!isCorrectServerable(sender, profile.getServerable(),
+                BGServerable.class,
+                SGServerable.class,
+                SGMakerServerable.class)) return true;
 
+        for(Profile loopProfile : plugin.getProfileHandler().getProfiles().stream().filter(loopProfile -> loopProfile.getServerable() != null).filter(loopProfile -> loopProfile.getServerable() instanceof HubServerable).collect(Collectors.toCollection(ArrayList::new))) {
             if (profile.getServerable().isFull())
                 break;
 

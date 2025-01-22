@@ -42,6 +42,22 @@ public class PacketHandler extends PacketListenerAbstract {
     public void onPacketReceive(PacketReceiveEvent event) {
         User user = event.getUser();
 
+        if (event.getPacketType() == PacketType.Play.Client.CHAT_COMMAND) {
+            System.out.println("CMD");
+        }
+
+        if (event.getPacketType() == PacketType.Play.Client.CHAT_MESSAGE) {
+            System.out.println("MSG");
+            WrapperPlayClientChatMessage packet = new WrapperPlayClientChatMessage(event);
+
+            String[] splitMessage = packet.getMessage().split(" ");
+            Profile profile = plugin.getProfileHandler().getProfile(event.getUser().getUUID());
+
+            if (splitMessage.length == 0) return;
+            if (profile == null) return;
+
+            event.setCancelled(plugin.getCommandHandler().onCommand(profile, splitMessage[0]));
+        }
     }
 
     @Override

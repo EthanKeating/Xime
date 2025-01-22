@@ -51,7 +51,7 @@ public class PreGameRunnable extends AbstractGameRunnable {
 
         serverable.setWorld(serverable.toString(), mapWinner.getMapIdentifier());
         if (mapData.getDmCenterLocation() == null)
-            mapData.setDmCenterLocation(mapData.getCenterLocation());
+            mapData.setDmCenterLocation(mapData.getSpectateLocation() == null ? mapData.getCenterLocation() : mapData.getSpectateLocation());
         if (mapData.getDmLocations().isEmpty())
             mapData.getDmLocations().addAll(mapData.getSpawnLocations());
         if (mapData.getSpectateLocation() == null)
@@ -66,12 +66,12 @@ public class PreGameRunnable extends AbstractGameRunnable {
 
         List<Profile> allPlayers = new ArrayList<>(serverable.getPlayerList());
 
-        spawnIndexes = MathUtil.distributeObjects(24, allPlayers.size());
         spawnLocations = serverable.getMapData().getSpawnLocations();
         centerLocation = serverable.getMapData().getCenterLocation().toBukkit(serverable.getWorld()).add(0.5, 0.5, 0.5);
+        spawnIndexes = MathUtil.distributeObjects(spawnLocations.size(), allPlayers.size());
 
         serverable.getWorld().setGameRuleValue("doDaylightCycle", String.valueOf(serverable.getGameSettings().isDayLightCycle()));
-        serverable.getWorld().setGameRuleValue("naturalRegeneration", String.valueOf(serverable.getGameSettings().isDayLightCycle()));
+        serverable.getWorld().setGameRuleValue("naturalRegeneration", String.valueOf(serverable.getGameSettings().isNaturalRegeneration()));
 
         for (int i = 0; i < allPlayers.size(); i++) {
             int spawnIndex = spawnIndexes.get(i % spawnIndexes.size());

@@ -1,5 +1,6 @@
 package club.mcgamer.xime.command.server;
 
+import club.mcgamer.xime.bg.BGServerable;
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.ServerHandler;
@@ -13,6 +14,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Optional;
 
@@ -22,7 +24,7 @@ public class JoinCommand extends XimeCommand {
         super("join");
         this.description = "Join a server";
         this.usageMessage = "/join <game> [id]";
-        this.setAliases(new ArrayList<>());
+        this.setAliases(Arrays.asList("quickjoin"));
 
         register();
     }
@@ -31,7 +33,7 @@ public class JoinCommand extends XimeCommand {
     public boolean execute(CommandSender sender, String alias, String[] args) {
         if (!isPlayer(sender)) return true;
         if (!hasArgs(sender, args, 1)) return true;
-        if (!args[0].equalsIgnoreCase("SG")) {
+        if (!args[0].equalsIgnoreCase("SG") && !args[0].equalsIgnoreCase("BG")) {
             sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cUsage: <game> must be a valid game."));
             return true;
         }
@@ -47,13 +49,22 @@ public class JoinCommand extends XimeCommand {
             }
 
             int id = Integer.parseInt(args[1]);
-            Optional<Serverable> serverableOptional = serverHandler.getServerList().stream()
-                    .filter(serverable -> serverable instanceof SGServerable)
-                    .filter(serverable -> !(serverable instanceof SGMakerServerable))
-                    .filter(serverable -> serverable.getServerId() == id)
-                    .findFirst();
+            Optional<Serverable> serverableOptional;
 
-            if (!serverableOptional.isPresent()) {
+            if (args[0].equalsIgnoreCase("SG")) {
+                serverableOptional = serverHandler.getServerList().stream()
+                        .filter(serverable -> serverable instanceof SGServerable)
+                        .filter(serverable -> !(serverable instanceof SGMakerServerable))
+                        .filter(serverable -> serverable.getServerId() == id)
+                        .findFirst();
+            } else {
+                serverableOptional = serverHandler.getServerList().stream()
+                        .filter(serverable -> serverable instanceof BGServerable)
+                        .filter(serverable -> serverable.getServerId() == id)
+                        .findFirst();
+            }
+
+            if (serverableOptional.isEmpty()) {
                 sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThis server is offline or does not exist."));
                 return true;
             }
@@ -65,14 +76,27 @@ public class JoinCommand extends XimeCommand {
             return true;
         }
 
-        Optional<SGServerable> serverableOptional = plugin.getServerHandler().getServerList().stream()
-                .filter(serverable -> serverable instanceof SGServerable)
-                .filter(serverable -> !(serverable instanceof SGMakerServerable))
-                .filter(serverable -> serverable.getPlayerList().size() < serverable.getMaxPlayers())
-                .map(serverable -> (SGServerable) serverable).max(Comparator
-                        .comparingInt((SGServerable serverable) -> serverable.getGameState().ordinal())
-                        .reversed()// Sort by player count in ascending order
-                        .thenComparing((SGServerable serverable) -> serverable.getGameState().ordinal()));
+        Optional<Serverable> serverableOptional;
+
+        if (args[0].equalsIgnoreCase("SG")) {
+            serverableOptional = plugin.getServerHandler().getServerList().stream()
+                    .filter(serverable -> serverable instanceof SGServerable)
+                    .filter(serverable -> !(serverable instanceof SGMakerServerable))
+                    .filter(serverable -> serverable.getPlayerList().size() < serverable.getMaxPlayers())
+                    .map(serverable -> (SGServerable) serverable).max(Comparator
+                            .comparingInt((SGServerable serverable) -> serverable.getGameState().ordinal())
+                            .reversed()// Sort by player count in ascending order
+                            .thenComparing((SGServerable serverable) -> serverable.getGameState().ordinal()))
+                    .map(serverable -> (Serverable) serverable);
+        } else {
+            serverableOptional = plugin.getServerHandler().getServerList().stream()
+                    .filter(serverable -> serverable instanceof BGServerable)
+                    .filter(serverable -> serverable.getPlayerList().size() < serverable.getMaxPlayers())
+                    .map(serverable -> (BGServerable) serverable).max(Comparator
+                            .comparingInt((BGServerable serverable) -> serverable.getPlayerList().size()))
+                    .stream().map(serverable -> (Serverable) serverable).findFirst();
+
+        }
 
         if (serverableOptional.isEmpty()) {
             sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThis server is offline or does not exist."));

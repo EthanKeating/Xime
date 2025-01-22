@@ -26,7 +26,7 @@ public class SGChatListener extends IListener {
 
             PlayerData playerData = profile.getMockOrRealPlayerData();
 
-            if (gameState == GameState.LOBBY) {
+            if (gameState == GameState.LOBBY || gameState == GameState.LOADING) {
                 chatFormat = TextUtil.translate(String.format("&8[&e%s&8]&f%s&8: &f%s",
                         playerData.getSgPoints(),
                         "%player%",
@@ -50,7 +50,7 @@ public class SGChatListener extends IListener {
                 chatFormat = TextUtil.translate(String.format("&8[&a%s&8]&c%s&8|&f%s&8: &f%s",
                         temporaryData.getBounty(),
                         temporaryData.getDistrictId(),
-                        profile.getDisplayName(),
+                        "%player%",
                         profile.getChatColor()));
 
                 String finalChatFormat1 = chatFormat;
@@ -62,7 +62,7 @@ public class SGChatListener extends IListener {
 
             chatFormat = TextUtil.translate(String.format("&8[&e%s&8]&4SPEC&8|&f%s&8: &f%s",
                     playerData.getSgPoints(),
-                    profile.getDisplayName(),
+                    "%player%",
                     profile.getChatColor()));
 
             //Send to everyone

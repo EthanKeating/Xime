@@ -5,10 +5,12 @@ import club.mcgamer.xime.server.event.ServerPickupItemEvent;
 import club.mcgamer.xime.server.event.ServerPlaceBlockEvent;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.util.IListener;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class SGDropListener extends IListener {
@@ -20,18 +22,38 @@ public class SGDropListener extends IListener {
         if (event.getServerable() instanceof SGServerable) {
             SGServerable serverable = (SGServerable) event.getServerable();
 
-            if(serverable.getGameSettings().getLootTable().getAllItems()
-                    .stream()
-                    .map(ItemStack::getType)
-                    .collect(Collectors.toSet())
-                    .contains(event.getEvent().getItem().getItemStack().getType())) {
-
-                event.getEvent().setCancelled(true);
-                event.getEvent().getItem().remove();
-                return;
-            }
 
             if (!serverable.getSpectatorList().contains(profile)) {
+                Set<Material> allowedItems = serverable.getGameSettings().getLootTable().getAllItems()
+                        .stream()
+                        .map(ItemStack::getType)
+                        .collect(Collectors.toSet());
+
+                allowedItems.add(Material.RED_ROSE);
+                allowedItems.add(Material.YELLOW_FLOWER);
+
+                allowedItems.add(Material.IRON_SWORD);
+                allowedItems.add(Material.IRON_AXE);
+                allowedItems.add(Material.IRON_SPADE);
+                allowedItems.add(Material.IRON_PICKAXE);
+
+                allowedItems.add(Material.GOLD_SWORD);
+                allowedItems.add(Material.GOLD_AXE);
+                allowedItems.add(Material.GOLD_SPADE);
+                allowedItems.add(Material.GOLD_PICKAXE);
+
+                allowedItems.add(Material.DIAMOND_SWORD);
+                allowedItems.add(Material.DIAMOND_AXE);
+                allowedItems.add(Material.DIAMOND_SPADE);
+                allowedItems.add(Material.DIAMOND_PICKAXE);
+
+                if(!allowedItems.contains(event.getEvent().getItem().getItemStack().getType())) {
+
+                    event.getEvent().setCancelled(true);
+                    event.getEvent().getItem().remove();
+                    return;
+                }
+
                 switch (serverable.getGameState()) {
                     case LIVEGAME:
                     case PREDEATHMATCH:

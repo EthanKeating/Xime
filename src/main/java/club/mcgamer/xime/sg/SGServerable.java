@@ -107,7 +107,6 @@ public class SGServerable extends Serverable {
         Bukkit.getPluginManager().callEvent(new ServerJoinEvent(profile, profile.getServerable()));
 
     }
-
     public Location getLobbyLocation() {
         Location location = getMapData().getCenterLocation().toBukkit(Bukkit.getWorld(LOBBY_NAME + "-1"));
         location.setYaw(-90);
@@ -251,14 +250,6 @@ public class SGServerable extends Serverable {
 
     public void announce(String text) {
         announceRaw("&8[&6MCSG&8] &f" + text);
-    }
-
-    public void announceRaw(String text) {
-        getPlayerList().forEach(profile -> profile.sendMessage(text));
-    }
-
-    public void announceRawUncoloured(String text) {
-        getPlayerList().stream().map(Profile::getPlayer).forEach(player -> player.sendMessage(text));
     }
 
     public void announceSound(Sound sound, float volume, float pitch) {

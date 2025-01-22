@@ -36,6 +36,7 @@ dependencies {
 
     implementation "com.github.retrooper:packetevents-spigot:2.7.0-SNAPSHOT"
     implementation "com.google.code.gson:gson:2.11.0"
+    implementation "org.apache.httpcomponents:httpclient:4.5.13"
 }
 
 java {

@@ -64,7 +64,7 @@ public class SGBuildListener extends IListener {
                         case WEB:
                         case FIRE:
                         case LONG_GRASS:
-                        case TNT:
+                        case DEAD_BUSH:
                         case CAKE:
                         case ENDER_CHEST:
                         case VINE:

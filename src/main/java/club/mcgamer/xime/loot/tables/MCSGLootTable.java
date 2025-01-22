@@ -51,7 +51,6 @@ public class MCSGLootTable extends LootTable {
         add(new ItemStack(Material.BREAD));
         add(new ItemStack(Material.RAW_FISH));
 
-        add(new ItemStack(Material.STONE_SWORD));
         add(new ItemStack(Material.WOOD_SWORD));
         add(new ItemStack(Material.STONE_AXE));
         add(new ItemStack(Material.WOOD_AXE));
@@ -63,7 +62,6 @@ public class MCSGLootTable extends LootTable {
 
         add(new ItemStack(Material.BOW));
         add(new ItemStack(Material.FISHING_ROD));
-        add(new ItemStack(Material.ARROW, 5));
 
         add(new ItemStack(Material.IRON_INGOT));
         add(new ItemStack(Material.GOLD_INGOT));

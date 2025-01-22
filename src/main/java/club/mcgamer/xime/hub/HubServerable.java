@@ -71,6 +71,12 @@ public class HubServerable extends Serverable {
         if (profile.getServerable() != null)
             profile.getServerable().remove(profile);
 
+
+        plugin.getProfileHandler().getProfiles().forEach(loopProfile -> {
+            profile.getPlayer().hidePlayer(loopProfile.getPlayer());
+            loopProfile.getPlayer().hidePlayer(loopProfile.getPlayer());
+        });
+
         getPlayerList().forEach(loopProfile -> {
             Player loopPlayer = loopProfile.getPlayer();
             HubTemporaryData hubTemporaryData = (HubTemporaryData) loopProfile.getTemporaryData();

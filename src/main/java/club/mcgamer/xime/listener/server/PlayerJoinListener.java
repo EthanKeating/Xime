@@ -43,6 +43,11 @@ public class PlayerJoinListener extends IListener {
     private void onPlayerJoin(PlayerJoinEvent event) {
         event.setJoinMessage(null);
 
+        if (plugin.getServerHandler() == null || plugin.getServerHandler().getFallback() == null) {
+            event.getPlayer().kickPlayer(TextUtil.translate("&cCould not locate a server for you!"));
+            return;
+        }
+
         ProfileHandler profileHandler = plugin.getProfileHandler();
         ServerHandler serverHandler = plugin.getServerHandler();
 

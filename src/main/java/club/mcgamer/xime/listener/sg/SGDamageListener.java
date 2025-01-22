@@ -19,6 +19,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 
@@ -57,11 +58,27 @@ public class SGDamageListener extends IListener {
             }
 
             if (event.getAttacker().isPresent()) {
-                if (event.getAttacker().get().getPlayer().getInventory().getItemInHand().getType() == Material.AIR) {
+                if (event.getEvent().getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK && event.getAttacker().get().getPlayer().getInventory().getItemInHand().getType() == Material.AIR) {
                     event.getEvent().setDamage(Math.min(0.5, event.getEvent().getDamage()));
                 }
             }
         }
+    }
+
+    @EventHandler
+    private void onCombust(EntityCombustEvent event) {
+        if (event.getEntity() instanceof Player player) {
+            Profile profile = plugin.getProfileHandler().getProfile(player);
+            if (profile == null) return;
+
+            if (profile.getServerable() instanceof SGServerable serverable) {
+                if (serverable.getSpectatorList().contains(profile)) {
+                    event.setDuration(0);
+                    event.setCancelled(true);
+                }
+            }
+        }
+
     }
 
     @EventHandler

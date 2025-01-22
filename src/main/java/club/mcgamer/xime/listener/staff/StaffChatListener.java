@@ -17,15 +17,16 @@ public class StaffChatListener extends IListener {
 
         if (!(event.getServerable() instanceof StaffServerable serverable)) {
             Profile profile = event.getProfile();
-            plugin.getProfileHandler().getProfiles().stream().filter(loopProfile -> loopProfile.getPlayer().hasPermission("xime.staffchat")).forEach(loopProfile -> {
+            plugin.getProfileHandler().getProfiles().stream().filter(loopProfile -> loopProfile.getServerable() instanceof StaffServerable).forEach(loopProfile -> {
                 TextUtil.sendStaffMessage(loopProfile, profile,
-                        TextUtil.translate("&7[" + event.getServerable() + "]" + event.getProfile().getDisplayNameBypassDisguise() + "&7: ") + event.getMessage());
+                        TextUtil.translate("&7[" + event.getServerable() + "] " + event.getProfile().getDisplayNameBypassDisguise() + "&7: ") + event.getMessage());
             });
             return;
         }
 
         Profile profile = event.getProfile();
-        profile.getPlayer().performCommand("staffchat" + event.getMessage());
+
+        Bukkit.getScheduler().runTask(plugin, () -> profile.getPlayer().performCommand("staffchat " + event.getMessage()));
     }
 
 }

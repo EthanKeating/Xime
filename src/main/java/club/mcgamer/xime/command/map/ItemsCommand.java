@@ -28,7 +28,6 @@ public class ItemsCommand extends XimeCommand {
         if (!hasPermission(sender)) return true;
         if (!isPlayer(sender)) return true;
 
-        String map = args[0];
         Profile profile = plugin.getProfileHandler().getProfile((Player) sender);
 
         if (!isCorrectServerable(sender, profile.getServerable(), BuildServerable.class)) return true;

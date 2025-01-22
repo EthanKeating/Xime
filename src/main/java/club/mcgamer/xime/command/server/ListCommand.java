@@ -1,8 +1,10 @@
 package club.mcgamer.xime.command.server;
 
+import club.mcgamer.xime.bg.BGServerable;
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.hub.HubServerable;
 import club.mcgamer.xime.profile.Profile;
+import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.util.TextUtil;
@@ -30,9 +32,19 @@ public class ListCommand extends XimeCommand {
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
 
-        if (profile.getServerable() instanceof HubServerable serverable) {
+        if (profile.getServerable() instanceof HubServerable || profile.getServerable() instanceof BGServerable) {
+            Serverable serverable = profile.getServerable();
 
             profile.sendMessage(String.format("&8[&3Xime&8] &fThere are &8[&6%s&8/&6%s&8] &fplayers online&8.", serverable.getPlayerList().size(), serverable.getMaxPlayers()));
+            profile.sendMessage("&8- &f&lPlayers: &f" + serverable.getPlayerList().stream()
+                    .map(loopProfile -> profile.getPlayer().hasPermission("xime.staff")
+                            && loopProfile.getDisguiseData() != null
+                            ? TextUtil.translate(String.format("%s&8(&f%s&8)",
+                                profile.getDisplayName(),
+                                profile.getDisplayNameBypassDisguise()))
+                            : TextUtil.translate(loopProfile.getDisplayName()))
+                    .collect(Collectors.joining("&8, &f")));
+            return true;
         }
 
         if (profile.getServerable() instanceof SGServerable serverable) {

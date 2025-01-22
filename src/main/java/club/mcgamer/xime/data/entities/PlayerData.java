@@ -66,6 +66,24 @@ public class PlayerData {
     @DatabaseField(canBeNull = false, defaultValue = "0")
     private long sgLongestLifeSpan = 0;
 
+    @DatabaseField(canBeNull = false, defaultValue = "0")
+    private int bgSwordSlot = 0;
+
+    @DatabaseField(canBeNull = false, defaultValue = "1")
+    private int bgRodSlot = 1;
+
+    @DatabaseField(canBeNull = false, defaultValue = "2")
+    private int bgBowSlot = 2;
+
+    @DatabaseField(canBeNull = false, defaultValue = "3")
+    private int bgFNSSlot = 3;
+
+    @DatabaseField(canBeNull = false, defaultValue = "4")
+    private int bgGapSlot = 4;
+
+    @DatabaseField(canBeNull = false, defaultValue = "8")
+    private int bgArrowSlot = 8;
+
     public static PlayerData createMock(Profile profile) {
         PlayerData profileData = new PlayerData();
 

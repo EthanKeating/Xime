@@ -4,6 +4,7 @@ import club.mcgamer.xime.hub.HubServerable;
 import club.mcgamer.xime.hub.data.HubSpeed;
 import club.mcgamer.xime.hub.data.HubTemporaryData;
 import club.mcgamer.xime.menu.MenuHandler;
+import club.mcgamer.xime.menu.hub.HubMainMenu;
 import club.mcgamer.xime.menu.hub.HubSelectorMenu;
 import club.mcgamer.xime.menu.hub.SGSubMenu;
 import club.mcgamer.xime.profile.Profile;
@@ -61,7 +62,7 @@ public class HubItemInteractListener extends IListener {
 
             switch(type) {
                 case COMPASS:
-                    new SGSubMenu(profile).open(player);
+                    new HubMainMenu(profile).open(player);
                     break;
                 case WATCH:
 

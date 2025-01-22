@@ -36,6 +36,7 @@ public class SGSubMenu extends FastInv {
 
         setItem(4, new ItemBuilder(Material.SKULL_ITEM).data(3).owner(profile.getPlayer()).name("&bGame Menu").build(), e -> {
             e.setCancelled(true);
+            new HubMainMenu(profile).open(profile.getPlayer());
         });
 
         setItem(5, new ItemBuilder(Material.BOW).name("&aSurvival Games").build(), e -> {

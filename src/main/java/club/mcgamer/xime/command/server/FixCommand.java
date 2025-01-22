@@ -28,7 +28,7 @@ public class FixCommand extends XimeCommand {
         Profile profile = plugin.getProfileHandler().getProfile(player);
 
         Location toLocation = Bukkit.getWorlds().get(0).getSpawnLocation();
-        Location backLocation = player.getLocation();
+        Location backLocation = player.getLocation().add(0.0, 0.3, 0.0);
 
         player.teleport(toLocation);
         player.teleport(backLocation);

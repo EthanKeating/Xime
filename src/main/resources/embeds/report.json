@@ -1,0 +1,7 @@
+{
+  "embeds":[{
+    "title":"New Report (PRIORITY) :bell:",
+    "description":"`PLAYER` was reported by `EXECUTOR` for `REASON`",
+    "color":"16734208",
+    "footer":{"text":"`DESCRIPTION`"}
+  }]}

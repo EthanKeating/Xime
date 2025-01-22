@@ -33,7 +33,7 @@ public class PreDeathmatchRunnable extends AbstractGameRunnable {
 
         List<Profile> allPlayers = new ArrayList<>(serverable.getTributeList());
 
-        List<Integer> spawnIndexes = MathUtil.distributeObjects(24, allPlayers.size());
+        List<Integer> spawnIndexes = MathUtil.distributeObjects(serverable.getMapData().getDmLocations().size(), allPlayers.size());
         List<MapLocation> spawnLocations = serverable.getMapData().getDmLocations();
         Location centerLocation = serverable.getMapData().getDmCenterLocation().toBukkit(serverable.getWorld()).add(0.0, 0.25, 0.0);
 

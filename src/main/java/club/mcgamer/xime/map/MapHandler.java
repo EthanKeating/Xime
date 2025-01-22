@@ -13,6 +13,8 @@ public class MapHandler {
 
     private final XimePlugin plugin;
 
+    private HashMap<String, MapData> bgMapPool = new HashMap<>();
+
     private HashMap<String, MapData> mapPool = new HashMap<>();
     private List<String> activeMaps = new ArrayList<>();
 
@@ -26,6 +28,9 @@ public class MapHandler {
     public void load() {
         for(String mapIdentifier : plugin.getConfig().getStringList("maps"))
             mapPool.put(mapIdentifier, MapData.load(mapIdentifier));
+
+        for(String mapIdentifier : plugin.getConfig().getStringList("battlegroundsmaps"))
+            bgMapPool.put(mapIdentifier, MapData.load(mapIdentifier));
 
         activeMaps.addAll(plugin.getConfig().getStringList("activemaps"));
     }

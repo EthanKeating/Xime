@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ public class ServerDeathEvent extends Event {
     @Getter private final Profile victim;
     @Getter private final Optional<Profile> attacker;
     @Getter private final Serverable serverable;
-    @Getter private final Event event;
+    @Getter private final PlayerDeathEvent event;
 
     public static HandlerList getHandlerList() {
         return HANDLERS;

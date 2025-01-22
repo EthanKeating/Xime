@@ -54,6 +54,8 @@ public class SGJoinListener extends IListener {
                         player.setLevel(serverable.getServerId());
                     else
                         player.setLevel(0);
+
+                    player.teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
                     player.teleport(serverable.getLobbyLocation());
 
                     if(profile.getPlayerData().isCanFly()) {

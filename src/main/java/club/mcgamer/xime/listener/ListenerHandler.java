@@ -1,6 +1,7 @@
 package club.mcgamer.xime.listener;
 
 import club.mcgamer.xime.XimePlugin;
+import club.mcgamer.xime.listener.bg.*;
 import club.mcgamer.xime.listener.build.BuildItemInteractListener;
 import club.mcgamer.xime.listener.build.BuildJoinListener;
 import club.mcgamer.xime.listener.build.BuildLoadListener;
@@ -28,6 +29,16 @@ public class ListenerHandler {
         new StaffInteractListener();
         new StaffDamageListener();
         new StaffChatListener();
+
+        //BG listeners
+        new BGJoinListener();
+        new BGInteractListener();
+        new BGLoadListener();
+        new BGBuildListener();
+        new BGDamageListener();
+        new BGQuitListener();
+        new BGChatListener();
+        new BGDropListener();
 
         //SG listeners
         new SGJoinListener();

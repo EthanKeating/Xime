@@ -4,85 +4,62 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="Some bug fixes and QOL changes">
-      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/build/design/BuildSidebarAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/build/menu/ChestMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/build/menu/MapDataMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/build/menu/MapSaveMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/build/menu/OptimizeMenu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/map/ItemsCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/AnnounceCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/BringCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/FindCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/RealNameCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/ScatterCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/lang/LanguageHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/lang/impl/Language.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/staff/StaffChatListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/map/MapHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/profile/data/temporary/CooldownData.java" afterDir="false" />
+    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="Battlegrounds implemented">
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/bg/data/BGTemporaryData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/bg/design/bossbar/BGBossbarAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/bg/design/sidebar/BGSidebarAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/bg/leaderboard/LeaderboardEntry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/bg/menu/LoadoutMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/bg/runnable/GameRunnable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/bg/BGBuildListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/bg/BGChatListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/bg/BGDamageListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/bg/BGDropListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/bg/BGInteractListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/bg/BGInventoryListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/bg/BGJoinListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/bg/BGLoadListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/bg/BGQuitListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/menu/hub/BGSubMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/menu/hub/HubMainMenu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/server/task/AutoBroadcastTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/embeds/report.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/XimePlugin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/XimePlugin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/build/BuildServerable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/build/BuildServerable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/bg/BGServerable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/bg/BGServerable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/CommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/CommandHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/HubCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/HubCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/map/ItemsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/map/ItemsCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/AnnounceCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/AnnounceCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/BringCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/BringCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/FixCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/FixCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/JoinCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/JoinCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/ListCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/ListCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/MakerCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/MakerCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/ReportCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/ReportCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/XimeInfoCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/XimeInfoCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/ForcestartCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/ForcestartCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/VoteCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/VoteCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/data/entities/PlayerData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/data/entities/PlayerData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/design/DesignThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/design/DesignThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/disguise/DisguiseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/disguise/DisguiseHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/hub/HubServerable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/hub/HubServerable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/hub/design/bossbar/HubBossbarAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/hub/design/bossbar/HubBossbarAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/ListenerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/ListenerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/build/BuildItemInteractListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/build/BuildItemInteractListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/build/BuildJoinListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/build/BuildJoinListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/hub/HubChatListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/hub/HubChatListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/hub/HubLoadListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/hub/HubLoadListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/hub/HubItemInteractListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/hub/HubItemInteractListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/server/PlayerJoinListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/server/PlayerJoinListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGBuildListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGBuildListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGChatListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGChatListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGDamageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGDamageListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGDropListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGDropListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGInteractListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGInteractListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGJoinListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGJoinListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/wrapper/WorldLoadWrapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/wrapper/WorldLoadWrapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/loot/LootTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/loot/LootTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/loot/tables/BadlionLootTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/loot/tables/BadlionLootTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/loot/tables/HiveLootTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/loot/tables/HiveLootTable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/staff/StaffChatListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/staff/StaffChatListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/loot/tables/MCSGLootTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/loot/tables/MCSGLootTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/loot/tables/SGHQLootTable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/loot/tables/SGHQLootTable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/map/MapData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/map/impl/MapData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/map/MapLocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/map/impl/MapLocation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/map/MapPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/map/impl/MapPool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/map/VoteableMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/map/impl/VoteableMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/menu/sgmaker/MapSelectionSubMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/menu/sgmaker/MapSelectionSubMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/menu/sgmaker/ServerManagementMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/menu/sgmaker/ServerManagementMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/map/MapHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/map/MapHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/map/impl/MapLocation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/map/impl/MapLocation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/map/impl/MapPool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/map/impl/MapPool.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/menu/hub/SGSubMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/menu/hub/SGSubMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/packet/PacketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/packet/PacketHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/profile/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/profile/Profile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/profile/ProfileHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/profile/ProfileHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/rank/RankHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/rank/RankHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/report/ReportHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/report/ReportHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/report/impl/Report.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/report/impl/Report.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/server/ServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/server/ServerHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/server/Serverable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/server/Serverable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/server/event/ServerDeathEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/server/event/ServerDeathEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/SGServerable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/SGServerable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/design/bossbar/SGBossbarAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/design/bossbar/SGBossbarAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/DeathmatchRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/DeathmatchRunnable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/EndGameRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/EndGameRunnable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/LiveGameRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/LiveGameRunnable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/LobbyRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/LobbyRunnable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/PreDeathmatchRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/PreDeathmatchRunnable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/PreGameRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/runnable/PreGameRunnable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sgmaker/SGMakerServerable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sgmaker/SGMakerServerable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sgmaker/runnable/MakerLobbyRunnable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sgmaker/runnable/MakerLobbyRunnable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/staff/StaffServerable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/staff/StaffServerable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/staff/menu/ReportsMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/staff/menu/ReportsMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/util/BlockUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/util/BlockUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/world/WorldHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/world/WorldHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/world/impl/WorldQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/world/impl/WorldQueue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,7 +152,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Ethan/Documents/IntelliJ/WindSpigot&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Ethan/Desktop/PandaSpigot&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -191,22 +168,23 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ethan\Documents\IntelliJ\Xime\src\main\java\club\mcgamer\xime\bg" />
       <recent name="C:\Users\Ethan\Documents\IntelliJ\Xime\src\main\java\club\mcgamer\xime\loot" />
       <recent name="C:\Users\Ethan\IdeaProjects\Xime\src\main\java\club\mcgamer\xime\hub" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="club.mcgamer.xime.menu.hub" />
+      <recent name="club.mcgamer.xime.listener.bg" />
       <recent name="club.mcgamer.xime.command.server" />
       <recent name="club.mcgamer.xime.build.menu" />
       <recent name="club.mcgamer.xime.command.map" />
-      <recent name="club.mcgamer.xime.menu.sgmaker.mutators" />
-      <recent name="club.mcgamer.xime.menu.sgmaker" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.117" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.117" />
       </set>
     </attachedChunks>
   </component>
@@ -248,7 +226,10 @@
       <workItem from="1737098346086" duration="486000" />
       <workItem from="1737099075330" duration="1386000" />
       <workItem from="1737138378275" duration="17730000" />
-      <workItem from="1737216363508" duration="38799000" />
+      <workItem from="1737216363508" duration="100814000" />
+      <workItem from="1737502758214" duration="10008000" />
+      <workItem from="1737563823285" duration="3156000" />
+      <workItem from="1737574941082" duration="2160000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -528,7 +509,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736979145197</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Some bug fixes and QOL changes">
+      <option name="closed" value="true" />
+      <created>1737311164071</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1737311164071</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -546,7 +535,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="permission update" />
     <MESSAGE value="added some commands and started the rank system" />
     <MESSAGE value="timeleft command" />
     <MESSAGE value="removed system outs" />
@@ -571,6 +559,7 @@
     <MESSAGE value="update map pool" />
     <MESSAGE value="Almost ready for release" />
     <MESSAGE value="Some bug fixes and QOL changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Some bug fixes and QOL changes" />
+    <MESSAGE value="Battlegrounds implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="Battlegrounds implemented" />
   </component>
 </project>

@@ -1,6 +1,7 @@
 package club.mcgamer.xime.server;
 
 import club.mcgamer.xime.XimePlugin;
+import club.mcgamer.xime.bg.BGServerable;
 import club.mcgamer.xime.hub.HubServerable;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
@@ -48,7 +49,11 @@ public class ServerHandler {
             else if (getServerList().stream().filter(serverable -> !(serverable instanceof SGMakerServerable))
                     .filter(serverable -> serverable instanceof SGServerable).count() < 36)
                     new SGServerable();
+            else if (getServerList().stream().filter(serverable -> serverable instanceof BGServerable).count() < 9)
+                new BGServerable();
         }, 30, 1);
+
+        Bukkit.getScheduler().runTaskLater(plugin, BGServerable::new, 50L);
     }
 
     public List<Serverable> getByClass(Class<?> clazz) {

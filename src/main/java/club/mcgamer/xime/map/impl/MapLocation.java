@@ -30,6 +30,10 @@ public class MapLocation {
         return new Location(world, x, y, z, 0.0f, 0.0f).add(0.5, 0.0, 0.5);
     }
 
+    public Location toBukkitNoOffset(World world) {
+        return new Location(world, x, y, z, 0.0f, 0.0f);
+    }
+
     public Pair<Integer, Integer> getChunk() {
         return new Pair<>((int)x >> 4, (int)z >> 4);
     }

@@ -66,6 +66,10 @@ public abstract class Serverable {
         return getPlayerList().size() >= getMaxPlayers();
     }
 
+    public boolean isEmpty() {
+        return getPlayerList().isEmpty();
+    }
+
     public abstract TemporaryData createTemporaryData();
 
     public void stop() {
@@ -163,6 +167,14 @@ public abstract class Serverable {
 
     public boolean isWorldNull() {
         return !this.worldName.equals(world.getName());
+    }
+
+    public void announceRaw(String text) {
+        getPlayerList().forEach(profile -> profile.sendMessage(text));
+    }
+
+    public void announceRawUncoloured(String text) {
+        getPlayerList().stream().map(Profile::getPlayer).forEach(player -> player.sendMessage(text));
     }
 
     @Override

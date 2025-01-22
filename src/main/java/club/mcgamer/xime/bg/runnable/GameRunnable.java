@@ -1,0 +1,66 @@
+package club.mcgamer.xime.bg.runnable;
+
+import club.mcgamer.xime.bg.BGServerable;
+import club.mcgamer.xime.map.impl.MapLocation;
+import club.mcgamer.xime.sg.timer.GameTimer;
+import club.mcgamer.xime.util.Pair;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import org.bukkit.Difficulty;
+import org.bukkit.Material;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+
+@Getter
+public class GameRunnable extends BukkitRunnable {
+
+    private final BGServerable serverable;
+
+    public GameRunnable(BGServerable serverable) {
+        this.serverable = serverable;
+
+        getServerable().getPlayerList().forEach(serverable::setWaiting);
+        getServerable().getWorld().setDifficulty(Difficulty.HARD);
+    }
+
+    @Override
+    public void run() {
+        GameTimer gameTimer = serverable.getGameTimer();
+        if (serverable.isEmpty())
+            return;
+
+        HashMap<MapLocation, Long> placedBlocks = serverable.getPlacedBlocks();
+        HashSet<MapLocation> removeableBlocks = new HashSet<>();
+
+        for(Map.Entry<MapLocation, Long> entry : placedBlocks.entrySet()) {
+            MapLocation mapLocation = entry.getKey();
+            long timeStamp = entry.getValue();
+
+            if (System.currentTimeMillis() - timeStamp > 5 * 1000) {
+                removeableBlocks.add(mapLocation);
+            }
+        }
+
+        for(MapLocation removeableBlock : removeableBlocks) {
+            removeableBlock.toBukkit(serverable.getWorld()).getBlock().setType(Material.AIR);
+            placedBlocks.remove(removeableBlock);
+        }
+
+        int gameTime = gameTimer.decrement();
+        Pair<String, String> sigUnit = gameTimer.toSignificantUnit();
+
+        if (gameTime == 0) {
+            serverable.reset();
+            return;
+        }
+        serverable.updateLeaderboard();
+//        serverable.getPlayerList().forEach(profile -> profile.getPlayer().setLevel(gameTime));
+
+        if (gameTime % 60 == 0 || gameTime == 30 || gameTime == 15 || gameTime == 10 || gameTime <= 5)
+            serverable.announce(String.format("&8[&6%s&8] &e%s until the next game&8!", sigUnit.getKey(), sigUnit.getValue()));
+    }
+}

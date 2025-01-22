@@ -13,7 +13,6 @@ public class MapPool {
 
     private static final Random random = new Random();
 
-
     private final HashMap<Integer, VoteableMap> randomMaps = new HashMap<>();
     private final boolean mapChances = true;
 

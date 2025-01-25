@@ -73,7 +73,7 @@ public class ListenerHandler {
         new PlayerQuitListener();
         new PlayerLoginListener();
         new WorldCleanListener();
-        new WeatherChangeListener();
+        new EnvironmentListener();
         new FishingRodListener();
         new EnchantListener();
 

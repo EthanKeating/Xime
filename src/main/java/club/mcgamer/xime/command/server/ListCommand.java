@@ -40,8 +40,8 @@ public class ListCommand extends XimeCommand {
                     .map(loopProfile -> profile.getPlayer().hasPermission("xime.staff")
                             && loopProfile.getDisguiseData() != null
                             ? TextUtil.translate(String.format("%s&8(&f%s&8)",
-                                profile.getDisplayName(),
-                                profile.getDisplayNameBypassDisguise()))
+                                loopProfile.getDisplayName(),
+                                loopProfile.getDisplayNameBypassDisguise()))
                             : TextUtil.translate(loopProfile.getDisplayName()))
                     .collect(Collectors.joining("&8, &f")));
             return true;
@@ -52,13 +52,13 @@ public class ListCommand extends XimeCommand {
             profile.sendMessage(String.format("&8[&3Xime&8] &fThere are &8[&6%s&8/&6%s&8] &fplayers online&8.", serverable.getPlayerList().size(), serverable.getMaxPlayers()));
 
             if(serverable.getGameState() == GameState.LOBBY) {
-                profile.sendMessage("&8- &f&lPlaying: &f" + serverable.getPlayerList().stream()
+                profile.sendMessage("&8- &f&lWaiting: &f" + serverable.getPlayerList().stream()
                         .map(loopProfile -> profile.getPlayer().hasPermission("xime.staff") && loopProfile.getDisguiseData() != null ? TextUtil.translate(loopProfile.getDisplayName() + "&8(" + loopProfile.getDisplayNameBypassDisguise() + "&8)") : TextUtil.translate(loopProfile.getDisplayName()))
                         .collect(Collectors.joining("&8, &f")));
                 return true;
             }
 
-            profile.sendMessage("&8- &f&lPlaying: &f" + serverable.getTributeList().stream()
+            profile.sendMessage("&8- &f&lIngame: &f" + serverable.getTributeList().stream()
                     .map(loopProfile -> profile.getPlayer().hasPermission("xime.staff") && loopProfile.getDisguiseData() != null ? TextUtil.translate(loopProfile.getDisplayName() + "&8(" + loopProfile.getDisplayNameBypassDisguise() + "&8)") : TextUtil.translate(loopProfile.getDisplayName()))
                     .collect(Collectors.joining("&8, &f")));
             profile.sendMessage("&8- &f&lWatching: &f" + serverable.getSpectatorList().stream()

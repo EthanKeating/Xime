@@ -38,9 +38,10 @@ public class ForcestartCommand extends XimeCommand {
         if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class)) return true;
 
         SGServerable serverable = (SGServerable) profile.getServerable();
+        String prefix = serverable.getPrefix();
 
         if (serverable.getGameState() != GameState.LOBBY) {
-            sender.sendMessage(TextUtil.translate("&8[&6MCSG&8] &cYou can only use this command in the lobby."));
+            sender.sendMessage(TextUtil.translate(prefix + "&cYou can only use this command in the lobby."));
             return true;
         }
 

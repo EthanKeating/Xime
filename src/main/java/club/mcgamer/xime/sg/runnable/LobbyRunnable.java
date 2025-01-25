@@ -83,12 +83,13 @@ public class LobbyRunnable extends AbstractGameRunnable {
             MapData mapData = voteableMap.getMapData();
 
             double chancePercentage = (double) voteableMap.getVotes() / totalVotes * 100;
+            String prefix = serverable.getPrefix();
 
             NumberFormat nf = new DecimalFormat("##.##");
 
             if (serverable.getMapPool().isMapChances())
                 profile.sendMessage(String.format(
-                        "&8[&6MCSG&8] &a%s &8> | &e%s &7%s &8| &e%s%% &7Chance &8| &2%s",
+                        prefix + "&a%s &8> | &e%s &7%s &8| &e%s%% &7Chance &8| &2%s",
                         id,
                         voteableMap.getVotes(),
                         voteableMap.getVotes() == 1 ? "Vote" : "Votes",
@@ -96,7 +97,7 @@ public class LobbyRunnable extends AbstractGameRunnable {
                         mapData.getMapName()));
             else
                 profile.sendMessage(String.format(
-                        "&8[&6MCSG&8] &a%s &8> | &e%s &7%s &8| &2%s",
+                        prefix + "&a%s &8> | &e%s &7%s &8| &2%s",
                         id,
                         voteableMap.getVotes(),
                         voteableMap.getVotes() == 1 ? "Vote" : "Votes",

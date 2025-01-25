@@ -35,19 +35,20 @@ public class VoteCommand extends XimeCommand {
         if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class)) return true;
 
         SGServerable serverable = (SGServerable) profile.getServerable();
+        String prefix = serverable.getPrefix();
 
         if (serverable.getGameState() != GameState.LOBBY) {
-            sender.sendMessage(TextUtil.translate("&8[&6MCSG&8] &cYou can only use this command in the lobby."));
+            sender.sendMessage(TextUtil.translate(prefix + "&cYou can only use this command in the lobby."));
             return true;
         }
         if (args.length == 0) {
-            profile.sendMessage(String.format("&8[&6MCSG&8] &2Players waiting&8: &8[&6%s&8/&6%s&8]. &2Game requires &8[&6%s&8] &2to play.",
+            profile.sendMessage(String.format(prefix + "&2Players waiting&8: &8[&6%s&8/&6%s&8]. &2Game requires &8[&6%s&8] &2to play.",
                     serverable.getPlayerList().size(),
                     serverable.getMaxPlayers(),
                     serverable.getGameSettings().getMinimumPlayers()));
-            profile.sendMessage("&8[&6MCSG&8] &2Vote using &8[&a/vote #&8].");
+            profile.sendMessage(prefix + "&2Vote using &8[&a/vote #&8].");
             if (!serverable.getPreviousMapNames().isEmpty())
-                profile.sendMessage("&8[&6MCSG&8] &2Previous maps played&8: &7" + String.join("&8, &7", serverable.getPreviousMapNames()) + "&8.");
+                profile.sendMessage(prefix + "&2Previous maps played&8: &7" + String.join("&8, &7", serverable.getPreviousMapNames()) + "&8.");
             ((LobbyRunnable) serverable.getCurrentRunnable()).sendVotes(profile);
             return true;
         }
@@ -55,7 +56,7 @@ public class VoteCommand extends XimeCommand {
         MapPool mapPool = serverable.getMapPool();
         String pattern = String.format("^[1-%s]", mapPool.getRandomMaps().size());
         if (!args[0].matches(pattern)) {
-            sender.sendMessage(TextUtil.translate(String.format("&8[&6MCSG&8] &cThere is no map with the number &e%s&8.", args[0])));
+            sender.sendMessage(TextUtil.translate(String.format(prefix + "&cThere is no map with the number &e%s&8.", args[0])));
             return true;
         }
 
@@ -66,13 +67,13 @@ public class VoteCommand extends XimeCommand {
             mapPool.removeVote(profile);
             String votesPlural = map.getVotes() == 1 ? "vote" : "votes";
 
-            sender.sendMessage(TextUtil.translate(String.format("&8[&6MCSG&8] &fYour map now has &8[&6%s&8] &f%s&8.", map.getVotes(), votesPlural)));
+            sender.sendMessage(TextUtil.translate(String.format(prefix + "&fYour map now has &8[&6%s&8] &f%s&8.", map.getVotes(), votesPlural)));
             return true;
         }
 
         mapPool.addVote(profile, voteId);
         String votesPlural = map.getVotes() == 1 ? "vote" : "votes";
-        sender.sendMessage(TextUtil.translate(String.format("&8[&6MCSG&8] &fYour map now has &8[&6%s&8] &f%s&8.", map.getVotes(), votesPlural)));
+        sender.sendMessage(TextUtil.translate(String.format(prefix + "&fYour map now has &8[&6%s&8] &f%s&8.", map.getVotes(), votesPlural)));
 
         return true;
     }

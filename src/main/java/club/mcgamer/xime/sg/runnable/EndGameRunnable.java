@@ -35,6 +35,7 @@ public class EndGameRunnable extends AbstractGameRunnable {
         this.serverable = serverable;
         this.gameTimer = serverable.getGameTimer();
 
+        String prefix = serverable.getPrefix();
         GameSettings gameSettings = serverable.getGameSettings();
 
         gameTimer.setTime(gameSettings.getEndGameTime());
@@ -66,7 +67,7 @@ public class EndGameRunnable extends AbstractGameRunnable {
 
                     if (temporaryData.getBounty() > 0) {
                         playerData.setSgPoints(playerData.getSgPoints() + temporaryData.getBounty());
-                        gameWinnerProfile.sendMessage(String.format("&8[&6MCSG&8] &aYou've gained &8[&e%s&8] &aextra points from your bounty!", temporaryData.getBounty()));
+                        gameWinnerProfile.sendMessage(String.format(prefix + "&aYou've gained &8[&e%s&8] &aextra points from your bounty!", temporaryData.getBounty()));
                     }
                 }
             }

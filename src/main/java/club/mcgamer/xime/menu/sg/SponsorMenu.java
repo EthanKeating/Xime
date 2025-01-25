@@ -20,6 +20,8 @@ public class SponsorMenu extends FastInv {
     public SponsorMenu(Profile profile, Profile sponsored, SGServerable serverable) {
         super(9, TextUtil.translate("Sponsor: " + sponsored.getDisplayName()));
 
+        String prefix = serverable.getPrefix();
+
         int index = 0;
         for(Pair<ItemStack, AtomicInteger> sponsorItem : new CopyOnWriteArrayList<>(serverable.getSponsorItems())) {
             int cost = sponsorItem.getValue().get();
@@ -36,7 +38,7 @@ public class SponsorMenu extends FastInv {
                 Player clicked = ((Player) e.getWhoClicked());
 
                 if (sponsorItem.getValue().get() == -1) {
-                    profile.sendMessage("&8[&6MCSG&8] &cThat item is no longer available&8.");
+                    profile.sendMessage(prefix + "&cThat item is no longer available&8.");
                     return;
                 }
 
@@ -45,7 +47,7 @@ public class SponsorMenu extends FastInv {
                 PlayerData playerData = profile.getPlayerData();
 
                 if (playerData.getSgPoints() < cost) {
-                    profile.sendMessage("&8[&6MCSG&8] &4You do not have enough points&8.");
+                    profile.sendMessage(prefix + "&4You do not have enough points&8.");
                     return;
                 }
 
@@ -53,9 +55,9 @@ public class SponsorMenu extends FastInv {
 
                 sponsored.getPlayer().getInventory().addItem(originalItem);
                 sponsored.getPlayer().playSound(sponsored.getPlayer().getLocation(), Sound.LEVEL_UP, 2, 2);
-                sponsored.sendMessage("&8[&6MCSG&8] &fSurprise - you were sponsored by " + profile.getDisplayName());
-                sponsored.sendMessage("&8[&6MCSG&8] &fRemember to thank them!");
-                profile.sendMessage("&8[&6MCSG&8] &fItem sent to " + sponsored.getDisplayName());
+                sponsored.sendMessage(prefix + "&fSurprise - you were sponsored by " + profile.getDisplayName());
+                sponsored.sendMessage(prefix + "&fRemember to thank them!");
+                profile.sendMessage(prefix + "&fItem sent to " + sponsored.getDisplayName());
 
                 clicked.closeInventory();
                 e.setCancelled(true);

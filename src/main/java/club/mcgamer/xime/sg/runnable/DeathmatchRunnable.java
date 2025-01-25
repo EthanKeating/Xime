@@ -48,6 +48,7 @@ public class DeathmatchRunnable extends AbstractGameRunnable {
         int currentTime = gameTimer.decrement();
 
         Pair<String, String> sigUnit = gameTimer.toSignificantUnit();
+        String prefix = serverable.getPrefix();
 
         int seconds = gameTimer.getSeconds();
         int minutes = gameTimer.getMinutes();
@@ -75,7 +76,7 @@ public class DeathmatchRunnable extends AbstractGameRunnable {
                         loopProfile.getPlayer().setHealth(0.0);
                     else
                         loopProfile.getPlayer().damage(6.0);
-                    loopProfile.sendMessage("&8[&6MCSG&8] &4Please return to spawn!");
+                    loopProfile.sendMessage(prefix + "&4Please return to spawn!");
                     playerLocation.getWorld().playEffect(playerLocation.add(0.0, 1.5, 0.0), Effect.MOBSPAWNER_FLAMES, 1);
                     //loopProfile.sendTitle("", "&cYou must stay in the deathmatch area!", 0, 30, 10);
                 }

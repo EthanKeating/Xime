@@ -4,6 +4,7 @@ import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.profile.ProfileHandler;
+import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.sg.SGServerable;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -32,6 +33,9 @@ public class LeaderboardCommand extends XimeCommand {
 
         if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class)) return true;
 
+        SGServerable serverable = (SGServerable) profile.getServerable();
+        String prefix = serverable.getPrefix();
+
         int page;
 
         if (args.length > 0) {
@@ -47,7 +51,7 @@ public class LeaderboardCommand extends XimeCommand {
         }
         int topPlayers = 10 * page;
 
-        profile.sendMessage(String.format("&8[&6MCSG&8] &fTop %s Leaderboard", topPlayers));
+        profile.sendMessage(String.format(prefix + "&fTop %s Leaderboard", topPlayers));
         for (int i = 1 + (10 * (page - 1)); i <= 10 + (10 * (page - 1)); i++) {
 
             if (plugin.getDataHandler().getTopPlayerData().isEmpty()) break;
@@ -57,7 +61,7 @@ public class LeaderboardCommand extends XimeCommand {
 
             if (playerData == null) break;
 
-            profile.sendMessage("&8[&6MCSG&8] &e#" + i + "&8) &f" + playerData.getDisplayName() + " &8- &f" + playerData.getSgGamesWon() + " wins");
+            profile.sendMessage(prefix + "&e#" + i + "&8) &f" + playerData.getDisplayName() + " &8- &f" + playerData.getSgGamesWon() + " wins");
         }
 
         return true;

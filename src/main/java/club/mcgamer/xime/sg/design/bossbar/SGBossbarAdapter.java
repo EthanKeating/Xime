@@ -21,15 +21,16 @@ public class SGBossbarAdapter extends BossbarAdapter {
         Language language = profile.getLanguage();
 
         SGServerable serverable = (SGServerable) profile.getServerable();
+        String prefix = serverable.getPrefix();
         if (serverable.getGameState() == GameState.ENDGAME) {
             if (serverable.getCurrentRunnable() == null || (!(serverable.getCurrentRunnable() instanceof EndGameRunnable)))
                 return "";
             EndGameRunnable endGameRunnable = (EndGameRunnable) serverable.getCurrentRunnable();
 
             if (endGameRunnable.getGameWinner().isPresent() && endGameRunnable.getGameWinner().get().getPlayer() != null) {
-                return String.format("&8[&6MCSG&8] &a%s &ahas won the Survival Games!", endGameRunnable.getGameWinner().get().getDisplayName());
+                return String.format(prefix + "&a%s &ahas won the Survival Games!", endGameRunnable.getGameWinner().get().getDisplayName());
             }
-            return "&8[&6MCSG&8] &aThe games have ended!";
+            return prefix + "&aThe games have ended!";
         }
 
         return language.getBossBarText();

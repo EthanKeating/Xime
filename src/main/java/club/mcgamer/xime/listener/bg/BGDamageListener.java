@@ -3,6 +3,7 @@ package club.mcgamer.xime.listener.bg;
 import club.mcgamer.xime.bg.BGServerable;
 import club.mcgamer.xime.bg.data.BGTemporaryData;
 import club.mcgamer.xime.profile.Profile;
+import club.mcgamer.xime.server.data.TemporaryData;
 import club.mcgamer.xime.server.event.ServerDamageEvent;
 import club.mcgamer.xime.server.event.ServerDamageOtherEntityEvent;
 import club.mcgamer.xime.server.event.ServerDeathEvent;
@@ -12,10 +13,12 @@ import club.mcgamer.xime.util.MathUtil;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityCombustEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
@@ -98,6 +101,25 @@ public class BGDamageListener extends IListener {
     }
 
     @EventHandler
+    private void onBGProjectileDamage(ServerDamageEvent event) {
+        if (event.getServerable() instanceof BGServerable serverable) {
+            if (!(event.getEvent() instanceof EntityDamageByEntityEvent entityDamageByEntityEvent)) return;
+            if (event.getAttacker().isEmpty()) return;
+
+            if (entityDamageByEntityEvent.getDamager() instanceof Arrow) {
+                Bukkit.getScheduler().runTaskLater(plugin, () -> {
+                    double baseHealth = ((int) Math.round(event.getVictim().getPlayer().getHealth())) / 2.0;
+                    NumberFormat healthFormat = new DecimalFormat("##.#");
+                    String formattedHealth = healthFormat.format(Math.max(0.5, baseHealth));
+                    String shotMessage = String.format("&8[&3Battlegrounds&8] %s &eis now at &8[&c%s❤&8]", event.getVictim().getDisplayName(), formattedHealth);
+                    if (baseHealth < 10.0)
+                        event.getAttacker().get().sendMessage(shotMessage);
+                }, 1L);
+            }
+        }
+    }
+
+    @EventHandler
     private void onBGDeath(ServerDeathEvent event) {
         if (event.getServerable() instanceof BGServerable) {
             BGServerable serverable = (BGServerable) event.getServerable();
@@ -116,7 +138,7 @@ public class BGDamageListener extends IListener {
 
                 double baseHealth = ((int) Math.round(attacker.getPlayer().getHealth())) / 2.0;
                 NumberFormat healthFormat = new DecimalFormat("##.#");
-                String formattedHealth = healthFormat.format(baseHealth);
+                String formattedHealth = healthFormat.format(Math.max(0.5, baseHealth));
                 victim.sendMessage(String.format("&8[&3Battlegrounds&8] &eYou were killed by %s&e with &8[&c%s❤&8]",
                         attacker.getDisplayName(),
                         formattedHealth));
@@ -124,38 +146,39 @@ public class BGDamageListener extends IListener {
                         victim.getDisplayName(),
                         formattedHealth));
 
-                int gappleCount = 0;
-                for(ItemStack item : attacker.getPlayer().getInventory().getContents()) {
+                if (!((BGTemporaryData)attacker.getTemporaryData()).isWaiting()) {
+                    int gappleCount = 0;
+                    for (ItemStack item : attacker.getPlayer().getInventory().getContents()) {
 
-                    if (item != null && item.getType() == Material.GOLDEN_APPLE)
-                        gappleCount += item.getAmount();
-                }
-                if (gappleCount < 2) {
-                    if (gappleCount == 0) {
-                        int gapSlot = attacker.getPlayerData().getBgGapSlot();
-                        ItemStack itemAtGap = attacker.getPlayer().getInventory().getItem(gapSlot);
+                        if (item != null && item.getType() == Material.GOLDEN_APPLE)
+                            gappleCount += item.getAmount();
+                    }
+                    if (gappleCount < 2) {
+                        if (gappleCount == 0) {
+                            int gapSlot = attacker.getPlayerData().getBgGapSlot();
+                            ItemStack itemAtGap = attacker.getPlayer().getInventory().getItem(gapSlot);
 
-                        if (itemAtGap == null || itemAtGap.getType() == Material.AIR) {
-                            attacker.getPlayer().getInventory().setItem(gapSlot, new ItemStack(Material.GOLDEN_APPLE));
+                            if (itemAtGap == null || itemAtGap.getType() == Material.AIR) {
+                                attacker.getPlayer().getInventory().setItem(gapSlot, new ItemStack(Material.GOLDEN_APPLE));
+                            } else {
+                                attacker.getPlayer().getInventory().addItem(new ItemStack(Material.GOLDEN_APPLE));
+                            }
                         } else {
                             attacker.getPlayer().getInventory().addItem(new ItemStack(Material.GOLDEN_APPLE));
                         }
-                    } else {
-                        attacker.getPlayer().getInventory().addItem(new ItemStack(Material.GOLDEN_APPLE));
                     }
-                }
-                if (!attacker.getPlayer().getInventory().contains(Material.FLINT_AND_STEEL)) {
-                    int fnsSlot = attacker.getPlayerData().getBgFNSSlot();
-                    ItemStack itemAtFNS = attacker.getPlayer().getInventory().getItem(fnsSlot);
+                    if (!attacker.getPlayer().getInventory().contains(Material.FLINT_AND_STEEL)) {
+                        int fnsSlot = attacker.getPlayerData().getBgFNSSlot();
+                        ItemStack itemAtFNS = attacker.getPlayer().getInventory().getItem(fnsSlot);
 
-                    if (itemAtFNS == null || itemAtFNS.getType() == Material.AIR) {
-                        attacker.getPlayer().getInventory().setItem(fnsSlot, new ItemStack(Material.FLINT_AND_STEEL));
-                    } else {
-                        attacker.getPlayer().getInventory().addItem(new ItemStack(Material.FLINT_AND_STEEL));
+                        if (itemAtFNS == null || itemAtFNS.getType() == Material.AIR) {
+                            attacker.getPlayer().getInventory().setItem(fnsSlot, new ItemStack(Material.FLINT_AND_STEEL));
+                        } else {
+                            attacker.getPlayer().getInventory().addItem(new ItemStack(Material.FLINT_AND_STEEL));
+                        }
                     }
+                    attacker.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 3 * 20, 3));
                 }
-                attacker.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 3 * 20, 3));
-
                 if (attacker.getTemporaryData() instanceof BGTemporaryData attackerTemporaryData) {
                     attackerTemporaryData.setKills(attackerTemporaryData.getKills() + 1);
                 }

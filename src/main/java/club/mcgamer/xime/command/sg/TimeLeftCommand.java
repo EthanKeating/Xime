@@ -34,6 +34,8 @@ public class TimeLeftCommand extends XimeCommand {
         if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class, SGMakerServerable.class)) return true;
 
         SGServerable serverable = (SGServerable) profile.getServerable();
+        String prefix = serverable.getPrefix();
+
         GameState gameState = serverable.getGameState();
         GameTimer gameTimer = serverable.getGameTimer();
 
@@ -43,7 +45,7 @@ public class TimeLeftCommand extends XimeCommand {
         String minutesPortion = gameTimer.getMinutes() == 0 ? "" : String.format("&8[&e%s&8] &f%s&8,&f", gameTimer.getMinutes(), minutesPlural);
         String secondsPortion = String.format("&8[&e%s&8] &f%s", gameTimer.getSeconds(), secondsPlural);
 
-        profile.sendMessage(TextUtil.translate(String.format("&8[&6MCSG&8] &fThere is currently %s %s left in %s&8.",
+        profile.sendMessage(TextUtil.translate(String.format(prefix + "&fThere is currently %s %s left in %s&8.",
                 minutesPortion,
                 secondsPortion,
                 gameState.getName())));

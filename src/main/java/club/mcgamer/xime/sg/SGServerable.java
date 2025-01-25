@@ -68,6 +68,10 @@ public class SGServerable extends Serverable {
         setBossbarAdapter(new SGBossbarAdapter());
     }
 
+    public String getPrefix() {
+        return "&8[&6MCSG&8] &f";
+    }
+
     public void add(Profile profile) {
         Player player = profile.getPlayer();
 
@@ -249,7 +253,7 @@ public class SGServerable extends Serverable {
     }
 
     public void announce(String text) {
-        announceRaw("&8[&6MCSG&8] &f" + text);
+        announceRaw(getPrefix() + "&f" + text);
     }
 
     public void announceSound(Sound sound, float volume, float pitch) {

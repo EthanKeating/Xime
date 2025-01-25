@@ -42,13 +42,11 @@ public class AnnounceCommand extends XimeCommand {
         //if (cooldownData.hasAnnounceCooldown(getCooldownLength(player))) return true;
 
         if (profile.getServerable() instanceof SGMakerServerable sgMakerServerable) {
-            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&a&a%s&8] &a&lCLICK HERE!", profile.getDisplayNameBypassDisguise(), sgMakerServerable)));
+            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&l&nClick Here!", profile.getDisplayNameBypassDisguise(), sgMakerServerable)));
             message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/secret " + sgMakerServerable.getSecret()));
             message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent(TextUtil.translate("&aClick to join " + sgMakerServerable.toString())) }));
             plugin.getProfileHandler().getProfiles().forEach(loopProfile -> {
-                loopProfile.sendMessage("");
                 loopProfile.getPlayer().spigot().sendMessage(message);
-                loopProfile.sendMessage("");
             });
             //cooldownData.setAnnounceCooldown();
 
@@ -56,13 +54,11 @@ public class AnnounceCommand extends XimeCommand {
         }
 
         if (profile.getServerable() instanceof SGServerable sgServerable) {
-            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&a&a%s&8] &a&lCLICK HERE!", profile.getDisplayNameBypassDisguise(), sgServerable)));
+            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&l&nClick Here!", profile.getDisplayNameBypassDisguise(), sgServerable)));
             message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/join sg " + sgServerable.getServerId()));
             message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent(TextUtil.translate("&aClick to join " + sgServerable.toString())) }));
             plugin.getProfileHandler().getProfiles().forEach(loopProfile -> {
-                loopProfile.sendMessage("");
                 loopProfile.getPlayer().spigot().sendMessage(message);
-                loopProfile.sendMessage("");
             });
             //cooldownData.setAnnounceCooldown();
 
@@ -70,13 +66,11 @@ public class AnnounceCommand extends XimeCommand {
         }
 
         if (profile.getServerable() instanceof BGServerable bgServerable) {
-            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&a&a%s&8] &a&lCLICK HERE!", profile.getDisplayNameBypassDisguise(), bgServerable)));
+            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&lClick Here!", profile.getDisplayNameBypassDisguise(), bgServerable)));
             message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/join bg " + bgServerable.getServerId()));
             message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent(TextUtil.translate("&aClick to join " + bgServerable.toString())) }));
             plugin.getProfileHandler().getProfiles().forEach(loopProfile -> {
-                loopProfile.sendMessage("");
                 loopProfile.getPlayer().spigot().sendMessage(message);
-                loopProfile.sendMessage("");
             });
             //cooldownData.setAnnounceCooldown();
 

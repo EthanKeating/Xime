@@ -11,6 +11,7 @@ import club.mcgamer.xime.util.IListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -29,6 +30,36 @@ public class PlayerDamageWrapper extends IListener {
 
         Profile victim = profileHandler.getProfile((Player) event.getEntity());
         Profile attacker = profileHandler.getProfile((Player) event.getDamager());
+
+        Serverable serverable = victim.getServerable();
+        CombatTagData combatTagData = victim.getCombatTagData();
+
+        if (attacker.getServerable() != serverable) {
+            event.setCancelled(true);
+            return;
+        }
+
+        combatTagData.setAttackedAt(System.currentTimeMillis());
+        combatTagData.setAttackedBy(attacker.getUuid());
+
+        Bukkit.getPluginManager().callEvent(new ServerDamageEvent(
+                victim,
+                Optional.of(attacker),
+                victim.getServerable(),
+                event
+        ));
+    }
+
+    @EventHandler
+    private void onDamageByProjectile(EntityDamageByEntityEvent event) {
+        if (event.getEntityType() != EntityType.PLAYER) return;
+        if (!(event.getDamager() instanceof Projectile projectile)) return;
+        if (!(projectile.getShooter() instanceof Player attackerPlayer)) return;
+
+        ProfileHandler profileHandler = plugin.getProfileHandler();
+
+        Profile victim = profileHandler.getProfile((Player) event.getEntity());
+        Profile attacker = profileHandler.getProfile(attackerPlayer);
 
         Serverable serverable = victim.getServerable();
         CombatTagData combatTagData = victim.getCombatTagData();

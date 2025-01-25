@@ -23,6 +23,8 @@ public class SGJoinListener extends IListener {
     private void onSGJoin(ServerJoinEvent event) {
         if (event.getServerable() instanceof SGServerable) {
             SGServerable serverable = (SGServerable) event.getServerable();
+            String prefix = serverable.getPrefix();
+
             Profile profile = event.getProfile();
             Player player = profile.getPlayer();
             PlayerData playerData = profile.getPlayerData();
@@ -41,9 +43,9 @@ public class SGJoinListener extends IListener {
 
             switch (gameState) {
                 case LOBBY:
-                    profile.sendMessage("&8[&6MCSG&8] &6&lAbout this lobby");
-                    profile.sendMessage("&8[&6MCSG&8] &fUsed in: &a2014-2015");
-                    profile.sendMessage("&8[&6MCSG&8] &fCreated by: &aTeam Elite");
+                    profile.sendMessage(prefix + "&6&lAbout this lobby");
+                    profile.sendMessage(prefix + "&fUsed in: &a2014-2015");
+                    profile.sendMessage(prefix + "&fCreated by: &aTeam Elite");
 
                     player.setExp(0);
                     if (player.getGameMode() != GameMode.SURVIVAL)

@@ -66,6 +66,10 @@ public abstract class Serverable {
         return getPlayerList().size() >= getMaxPlayers();
     }
 
+    public String getPrefix() {
+        return "&8[&3Xime&8] &f";
+    }
+
     public boolean isEmpty() {
         return getPlayerList().isEmpty();
     }

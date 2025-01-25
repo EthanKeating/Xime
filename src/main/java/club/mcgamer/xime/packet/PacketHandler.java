@@ -12,6 +12,7 @@ import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.protocol.player.User;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientChatMessage;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientSettings;
+import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientTabComplete;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerPlayerInfo;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerTabComplete;
 import com.github.retrooper.packetevents.wrapper.status.server.WrapperStatusServerResponse;
@@ -20,6 +21,7 @@ import com.google.gson.JsonObject;
 import org.bukkit.Bukkit;
 
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class PacketHandler extends PacketListenerAbstract {
 
@@ -42,12 +44,7 @@ public class PacketHandler extends PacketListenerAbstract {
     public void onPacketReceive(PacketReceiveEvent event) {
         User user = event.getUser();
 
-        if (event.getPacketType() == PacketType.Play.Client.CHAT_COMMAND) {
-            System.out.println("CMD");
-        }
-
         if (event.getPacketType() == PacketType.Play.Client.CHAT_MESSAGE) {
-            System.out.println("MSG");
             WrapperPlayClientChatMessage packet = new WrapperPlayClientChatMessage(event);
 
             String[] splitMessage = packet.getMessage().split(" ");
@@ -58,11 +55,27 @@ public class PacketHandler extends PacketListenerAbstract {
 
             event.setCancelled(plugin.getCommandHandler().onCommand(profile, splitMessage[0]));
         }
+
+        if (event.getPacketType() == PacketType.Play.Client.TAB_COMPLETE) {
+            WrapperPlayClientTabComplete packet = new WrapperPlayClientTabComplete(event);
+
+            //Bukkit.broadcastMessage("Command: " + packet.getText());
+        }
     }
 
     @Override
     public void onPacketSend(PacketSendEvent event) {
         User user = event.getUser();
+
+        if (event.getPacketType() == PacketType.Play.Server.TAB_COMPLETE) {
+            WrapperPlayServerTabComplete packet = new WrapperPlayServerTabComplete(event);
+
+            //Bukkit.broadcastMessage("Matches: " + packet.getCommandMatches()
+                    //.stream().map(WrapperPlayServerTabComplete.CommandMatch::getText)
+                    //.collect(Collectors.joining(", ")));
+//
+//            Bukkit.broadcastMessage("Range: " + packet.getCommandRange());
+        }
 
         if (event.getPacketType() == PacketType.Status.Server.RESPONSE) {
             WrapperStatusServerResponse wrappedPacket = new WrapperStatusServerResponse(event);

@@ -57,6 +57,10 @@ public class BGServerable extends Serverable {
         return new BGTemporaryData();
     }
 
+    public String getPrefix() {
+        return "&8[&3Battlegrounds&8] &f";
+    }
+
     //Called on creation & on game end
     public void setup() {
         List<String> mapPool = new ArrayList<>(plugin.getMapHandler().getBgMapPool().keySet());

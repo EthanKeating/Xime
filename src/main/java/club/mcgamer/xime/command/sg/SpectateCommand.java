@@ -33,6 +33,7 @@ public class SpectateCommand extends XimeCommand {
         if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class, SGMakerServerable.class)) return true;
 
         SGServerable serverable = (SGServerable) profile.getServerable();
+        String prefix = serverable.getPrefix();
         SGTemporaryData temporaryData = (SGTemporaryData) profile.getTemporaryData();
 
         if (args.length > 0) {
@@ -42,7 +43,7 @@ public class SpectateCommand extends XimeCommand {
 
             Profile spectatedProfile = plugin.getProfileHandler().getProfile(argumentPlayer);
 
-            profile.sendMessage(String.format("&8[&6MCSG&8] &fTeleporting to %s", spectatedProfile.getDisplayName()));
+            profile.sendMessage(String.format(prefix + "&fTeleporting to %s", spectatedProfile.getDisplayName()));
             profile.getPlayer().teleport(spectatedProfile.getPlayer().getLocation().add(0.0, 0.25, 0.0));
             PlayerUtil.setFlying(profile);
             return true;
@@ -53,7 +54,7 @@ public class SpectateCommand extends XimeCommand {
         }
 
         if(!serverable.getSpectatorList().contains(profile)) {
-            profile.sendMessage("&8[&6MCSG&8] &cYou can only use this command as a spectator.");
+            profile.sendMessage(prefix + "&cYou can only use this command as a spectator.");
             return true;
         }
         if (temporaryData.getPreviousSpectateIndex() >= serverable.getTributeList().size() - 1)
@@ -66,7 +67,7 @@ public class SpectateCommand extends XimeCommand {
 
         Profile spectatedProfile = serverable.getTributeList().get(temporaryData.getPreviousSpectateIndex());
 
-        profile.sendMessage(String.format("&8[&6MCSG&8] &fTeleporting to %s", spectatedProfile.getDisplayName()));
+        profile.sendMessage(String.format(prefix + "&fTeleporting to %s", spectatedProfile.getDisplayName()));
         profile.getPlayer().teleport(spectatedProfile.getPlayer().getLocation().add(0.0, 0.25, 0.0));
         temporaryData.setLastSpectate(System.currentTimeMillis());
         PlayerUtil.setFlying(profile);

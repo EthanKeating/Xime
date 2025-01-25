@@ -41,6 +41,8 @@ public class DisguiseHandler {
         profile.getDisguiseData().setMockData(PlayerData.createMock(profile));
         disguises.put(profile.getUuid(), profile.getDisguiseData());
 
+        String prefix = profile.getServerable().getPrefix();
+
 //        profile.getUser().getProfile().setName(randomName);
 //        profile.getPlayer().setDisplayName(profile.getName());
 
@@ -48,10 +50,10 @@ public class DisguiseHandler {
         DisguiseUtil.setName(profile, randomName);
         DisguiseUtil.updateToDisguise(profile);
 
-        profile.sendMessage("&8[&6MCSG&8] &c&lWarning! &cThis command is logged.")
-                .sendMessage("&8[&6MCSG&8] &cStaff can see your true username while using this command.")
-                .sendMessage("&8[&6MCSG&8] &fYou now appear as " + profile.getDisplayName() + "&8.")
-                .sendMessage("&8[&6MCSG&8] &fTo undisguise, use &8[&e/undisguise&8]");
+        profile.sendMessage(prefix + "&c&lWarning! &cThis command is logged.")
+                .sendMessage(prefix + "&cStaff can see your true username while using this command.")
+                .sendMessage(prefix + "&fYou now appear as " + profile.getDisplayName() + "&8.")
+                .sendMessage(prefix + "&fTo undisguise, use &8[&e/undisguise&8]");
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(Paths.get(plugin.getDataFolder().getAbsolutePath(), "disguises.log").toFile(), true))) {
             writer.write(String.format("[%s] '%s' has disguised as '%s'",
@@ -77,7 +79,7 @@ public class DisguiseHandler {
         DisguiseUtil.updateBackToNormal(profile);
         disguises.remove(profile.getUuid());
 
-        profile.sendMessage("&8[&6MCSG&8] &fYou have been undisguised");
+        profile.sendMessage(profile.getServerable().getPrefix() + "&fYou have been undisguised");
     }
 
 }

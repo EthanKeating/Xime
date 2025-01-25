@@ -66,7 +66,14 @@ public class ServerHandler {
                 .stream()
                 .filter(serverable -> serverable instanceof HubServerable)
                 .filter(serverable -> !serverable.isFull())
-                .min(Comparator.comparingInt(serverable -> serverable.getPlayerList().size()));
+                .filter(serverable -> serverable.getPlayerList().size() / 2 < serverable.getMaxPlayers())
+                .max(Comparator.comparingInt(serverable -> serverable.getPlayerList().size()));
+
+        if (optionalFallback.isEmpty())
+            optionalFallback = serverList.stream().filter(serverable -> serverable instanceof HubServerable)
+                    .filter(serverable -> !serverable.isFull()).findAny();
+
+
         return optionalFallback.orElse(null);
     }
 

@@ -1,6 +1,8 @@
 package club.mcgamer.xime.design.tag;
 
 import club.mcgamer.xime.XimePlugin;
+import club.mcgamer.xime.bg.BGServerable;
+import club.mcgamer.xime.bg.data.BGTemporaryData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.profile.ProfileHandler;
 import club.mcgamer.xime.rank.RankHandler;
@@ -15,6 +17,7 @@ import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerTe
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerUpdateScore;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.event.block.LeavesDecayEvent;
 
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -100,8 +103,21 @@ public class TagImpl {
             }
         }
 
-        if (!(profile.getServerable() instanceof SGServerable)) {
+        if (objectiveValues.containsKey("BOUNTY") && !(profile.getServerable() instanceof SGServerable)) {
             removeObjective("BOUNTY");
+        }
+
+        //TODO: Eventually move this to a TagAdapter class
+        if (profile.getServerable() instanceof BGServerable) {
+            BGServerable serverable = (BGServerable) profile.getServerable();
+
+            serverable.getPlayerList().forEach(loopProfile -> {
+                createOrUpdateObjective(loopProfile.getName(), "HEALTH", "&c❤", (int)loopProfile.getPlayer().getHealth());
+            });
+        }
+
+        if (objectiveValues.containsKey("HEALTH") && !(profile.getServerable() instanceof BGServerable)) {
+            removeObjective("HEALTH");
         }
 
         currentServerable = profile.getServerable();

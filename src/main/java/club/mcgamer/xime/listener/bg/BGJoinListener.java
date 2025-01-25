@@ -3,6 +3,7 @@ package club.mcgamer.xime.listener.bg;
 import club.mcgamer.xime.animation.TextShineAnimation;
 import club.mcgamer.xime.bg.BGServerable;
 import club.mcgamer.xime.data.entities.PlayerData;
+
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerJoinEvent;
 import club.mcgamer.xime.util.IListener;

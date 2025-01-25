@@ -23,13 +23,14 @@ public class SGMakerJoinListener extends IListener {
             SGMakerServerable serverable = (SGMakerServerable) event.getServerable();
             Profile profile = event.getProfile();
             Player player = profile.getPlayer();
+            String prefix = serverable.getPrefix();
 
             GameState gameState = serverable.getGameState();
 
             profile.sendTitle("", "", 10, 10, 10);
 
             if (gameState == GameState.LOBBY && profile == serverable.getOwner()) {
-                profile.sendMessage("&8[&6MCSG&8] &eWelcome to your custom MCSG game!");
+                profile.sendMessage(prefix + "&eWelcome to your custom MCSG game!");
                 profile.sendMessage("&6You can configure the game using the &anether star &6in your inventory&8.");
 
                 TextComponent inviteMessage = new TextComponent(TextUtil.translate("&6You can invite people to join by using the command &a/invite <player>"));

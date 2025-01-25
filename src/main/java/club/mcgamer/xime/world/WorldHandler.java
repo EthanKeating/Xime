@@ -36,6 +36,9 @@ public class WorldHandler {
         Bukkit.getScheduler().runTaskTimer(plugin, worldQueue::process, 1, 1);
     }
 
+    public void unloadSlime(String worldName) {
+    }
+
     public void loadSlime(String worldName, String slimeTemplate) {
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try {

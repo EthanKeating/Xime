@@ -30,16 +30,17 @@ public class BountyCommand extends XimeCommand {
 
         if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class)) return true;
         SGServerable serverable = (SGServerable) profile.getServerable();
+        String prefix = serverable.getPrefix();
 
         if (serverable.getTributeList().contains(profile)
                 || (serverable.getGameState() != GameState.LIVEGAME
                     && serverable.getGameState() != GameState.PREDEATHMATCH
                     && serverable.getGameState() != GameState.DEATHMATCH)) {
-            profile.sendMessage("&8[&6MCSG&8] &cYou cannot use this command right now.");
+            profile.sendMessage(prefix + "&cYou cannot use this command right now.");
             return true;
         }
 
-        if (!hasArgs(sender, args, 2, "&8[&6MCSG&8] &c")) return true;
+        if (!hasArgs(sender, args, 2)) return true;
 
         Player argumentPlayer = isPlayer(sender, args[0]);
         if (argumentPlayer == null) return true;
@@ -49,29 +50,29 @@ public class BountyCommand extends XimeCommand {
         PlayerData playerData = profile.getPlayerData();
 
         if (!serverable.getPlayerList().contains(argumentProfile)) {
-            profile.sendMessage("&8[&6MCSG&8] &cThat player is not online!");
+            profile.sendMessage(prefix + "&cThat player is not online!");
             return true;
         }
 
         if (!serverable.getTributeList().contains(argumentProfile)
                 || !(argumentProfile.getTemporaryData() instanceof SGTemporaryData argumentTemporaryData)) {
-            profile.sendMessage("&8[&6MCSG&8] &cYou cannot bounty that player!");
+            profile.sendMessage(prefix + "&cYou cannot bounty that player!");
             return true;
         }
 
         try {
             argumentPoints = Integer.parseInt(args[1]);
         } catch (Exception exception) {
-            hasArgs(sender, args, Short.MAX_VALUE, "&8[&6MCSG&8] &c");
+            hasArgs(sender, args, Short.MAX_VALUE);
             return true;
         }
 
         if (argumentPoints < 10) {
-            profile.sendMessage("&8[&6MCSG&8] &cBounties must be higher than &8[&e10&8] &cpoints&8.");
+            profile.sendMessage(prefix + "&cBounties must be higher than &8[&e10&8] &cpoints&8.");
             return true;
         }
         if (playerData.getSgPoints() < argumentPoints) {
-            profile.sendMessage("&8[&6MCSG&8] &4You do not have enough points&8.");
+            profile.sendMessage(prefix + "&4You do not have enough points&8.");
             return true;
         }
 

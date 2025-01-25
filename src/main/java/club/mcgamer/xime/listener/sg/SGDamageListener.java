@@ -114,6 +114,7 @@ public class SGDamageListener extends IListener {
     private void onSGDeath(ServerDeathEvent event) {
         if (event.getServerable() instanceof SGServerable) {
             SGServerable serverable = (SGServerable) event.getServerable();
+            String prefix = serverable.getPrefix();
 
             if (serverable.getGameState() == GameState.LOBBY ||serverable.getGameState() == GameState.ENDGAME || serverable.getGameState() == GameState.CLEANUP) {
                 event.getVictim().getPlayer().setMaxHealth(20);
@@ -152,7 +153,7 @@ public class SGDamageListener extends IListener {
             serverable.getFallenTributes().add(victimPlayer.getDisplayName());
 
             victimPlayer.getWorld().strikeLightningEffect(victimPlayer.getLocation().add(0, 8, 0));
-            victim.sendMessage("&8[&6MCSG&8] &aYou have been eliminated from the game.");
+            victim.sendMessage(prefix + "&aYou have been eliminated from the game.");
 
             String tributePlural = "tribute" + (serverable.getTributeList().size() == 1 ? "" : "s");
             serverable.announce(String.format("&aOnly &8[&6%s&8] &a%s remain!", serverable.getTributeList().size(), tributePlural));
@@ -161,7 +162,7 @@ public class SGDamageListener extends IListener {
             serverable.announce(String.format("&aThere is &8[&6%s&8] &a%s watching the game.", serverable.getSpectatorList().size(), spectatorPlural));
 
             if (!(serverable instanceof SGMakerServerable))
-                victim.sendMessage(String.format("&8[&6MCSG&8] &3You've lost &8[&e%s&8] &3points for dying&8!", lostPoints));
+                victim.sendMessage(String.format(prefix + "&3You've lost &8[&e%s&8] &3points for dying&8!", lostPoints));
             victim.sendTitle("&cYou have died.", "", 10, 50, 10);
 
             if (event.getVictim().getTemporaryData() instanceof SGTemporaryData) {
@@ -174,7 +175,7 @@ public class SGDamageListener extends IListener {
                             PlayerData attackerData = attacker.getPlayerData();
 
                             attackerData.setSgPoints(attackerData.getSgPoints() + temporaryData.getBounty());
-                            event.getAttacker().get().sendMessage(String.format("&8[&6MCSG&8] &3You've gained &8[&e%s&8] &3extra points from bounties set on &f%s&8!", temporaryData.getBounty(), event.getVictim().getDisplayName()));
+                            event.getAttacker().get().sendMessage(String.format(prefix + "&3You've gained &8[&e%s&8] &3extra points from bounties set on &f%s&8!", temporaryData.getBounty(), event.getVictim().getDisplayName()));
                         }
                         serverable.announceRaw(String.format("&6A bounty of &8[&a%s&8] &6points has been claimed upon &f%s&6's death&8.", temporaryData.getBounty(), event.getVictim().getDisplayName()));
                         temporaryData.setBounty(0);
@@ -196,7 +197,7 @@ public class SGDamageListener extends IListener {
                     if (temporaryData.getKillCount() > attackerData.getSgMostKills())
                         attackerData.setSgMostKills(temporaryData.getKillCount());
 
-                    attacker.sendMessage(String.format("&8[&6MCSG&8] &3You've gained &8[&e%s&8] &3points for killing %s&8!",
+                    attacker.sendMessage(String.format(prefix + "&3You've gained &8[&e%s&8] &3points for killing %s&8!",
                             gainedPoints,
                             victim.getDisplayName()));
                 }

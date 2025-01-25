@@ -44,6 +44,10 @@ public class HubServerable extends Serverable {
         return location;
     }
 
+    public String getPrefix() {
+        return "&8[&eMCGamer&8] &f";
+    }
+
     public TemporaryData createTemporaryData() {
         return new HubTemporaryData();
     }

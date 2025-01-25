@@ -1,6 +1,7 @@
 package club.mcgamer.xime.command;
 
 import club.mcgamer.xime.XimePlugin;
+import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.Bukkit;
@@ -53,25 +54,33 @@ public abstract class XimeCommand extends BukkitCommand {
 
     public Player isPlayer(CommandSender commandSender, String argument) {
         Player argumentPlayer = Bukkit.getPlayer(argument);
+
+        String prefix = "&8[&3Xime&8]&f ";
+        if (commandSender instanceof Player) {
+            Profile profile = plugin.getProfileHandler().getProfile((Player)commandSender);
+            if (profile != null)
+                prefix = profile.getServerable().getPrefix();
+        }
+
         if (argumentPlayer == null) {
-            commandSender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThat player is not online!"));
+            commandSender.sendMessage(TextUtil.translate(prefix + "&cThat player is not online!"));
         }
         return argumentPlayer;
     }
 
     public boolean hasArgs(CommandSender commandSender, String[] args, int argumentRequirement) {
+        String prefix = "&8[&3Xime&8]&f ";
+        if (commandSender instanceof Player) {
+            Profile profile = plugin.getProfileHandler().getProfile((Player)commandSender);
+            if (profile != null)
+                prefix = profile.getServerable().getPrefix();
+        }
+
         if (args.length < argumentRequirement) {
-            commandSender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cUsage: " + getUsage()));
+            commandSender.sendMessage(TextUtil.translate(prefix + "&cUsage: " + getUsage()));
             return false;
         }
         return true;
     }
 
-    public boolean hasArgs(CommandSender commandSender, String[] args, int argumentRequirement, String customPrefix) {
-        if (args.length < argumentRequirement) {
-            commandSender.sendMessage(TextUtil.translate(customPrefix + " &cUsage: " + getUsage()));
-            return false;
-        }
-        return true;
-    }
 }

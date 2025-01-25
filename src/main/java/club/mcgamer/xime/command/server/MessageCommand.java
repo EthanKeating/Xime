@@ -14,8 +14,8 @@ public class MessageCommand  extends XimeCommand {
     public MessageCommand() {
         super("msg");
         this.description = "send a private message";
-        this.usageMessage = "/msg <player> <message>";
-        this.setAliases(Arrays.asList("pm", "message", "w", "whisper", "tell"));
+        this.usageMessage = "/message <player> <private message...>";
+        this.setAliases(Arrays.asList("pm", "message", "w", "m", "whisper", "tell"));
 
         register();
     }

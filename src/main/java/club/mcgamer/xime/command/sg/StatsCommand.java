@@ -42,9 +42,10 @@ public class StatsCommand extends XimeCommand {
         if (argumentPlayer == null) return true;
 
         DataHandler dataHandler = plugin.getDataHandler();
+        String prefix = profile.getServerable().getPrefix();
 
         if (!dataHandler.playerDataExists(argumentPlayer.getUniqueId())) {
-            profile.sendMessage("&8[&6MCSG&8] &cThat player has never joined the server!");
+            profile.sendMessage(prefix + " &cThat player has never joined the server!");
             return true;
         }
 
@@ -52,7 +53,7 @@ public class StatsCommand extends XimeCommand {
 
         PlayerData playerData = argumentProfile != null ? argumentProfile.getMockOrRealPlayerData() : dataHandler.getPlayerData(argumentPlayer.getUniqueId());
 
-        String displayName = argumentProfile != null ? argumentProfile.getDisplayName() : plugin.getRankHandler().getRank(playerData.getRank()).getColor() + argumentPlayerName;
+        String displayName = argumentProfile != null ? argumentProfile.getDisplayName() : playerData.getDisplayName();
         String rankName = argumentProfile != null ? argumentProfile.getRank().getName() : playerData.getRank();
 
         if (args.length > 0 && argumentProfile != null && argumentProfile.getDisguiseData() != null && argumentProfile.getNameBypassDisguise().equalsIgnoreCase(args[0])) {
@@ -61,14 +62,14 @@ public class StatsCommand extends XimeCommand {
             rankName = argumentProfile.getRankBypassDisguise().getName();
         }
 
-        profile.sendMessage(String.format("&8[&6MCSG&8] %s&f's Records", displayName));
-        profile.sendMessage(String.format("&8[&6MCSG&8] &fRank&8: &e%s", rankName));
-        profile.sendMessage(String.format("&8[&6MCSG&8] &fPoints&8: &e%s", playerData.getSgPoints()));
-        profile.sendMessage(String.format("&8[&6MCSG&8] &fGame Rank&8: &8#&e%s", playerData.getSgGameRank() == -1 ? "-" : playerData.getSgGameRank()));
-        profile.sendMessage(String.format("&8[&6MCSG&8] &fGames (Won/Total)&8: &e%s&8/&e%s", playerData.getSgGamesWon(), playerData.getSgGamesPlayed()));
-        profile.sendMessage(String.format("&8[&6MCSG&8] &fKills (Round/Total)&8: &e%s&8/&e%s", playerData.getSgMostKills(), playerData.getSgKills()));
-        profile.sendMessage(String.format("&8[&6MCSG&8] &fChests (Round/Total)&8: &e%s&8/&e%s", playerData.getSgMostChests(), playerData.getSgChests()));
-        profile.sendMessage(String.format("&8[&6MCSG&8] &fLifespan (Round/Total)&8: &e%s&8/&e%s", convertDuration(playerData.getSgLongestLifeSpan()).replace('m', ':').replace("s", ""), convertDuration(playerData.getSgLifeSpan())));
+        profile.sendMessage(String.format(prefix + "%s&f's Records", displayName));
+        profile.sendMessage(String.format(prefix + "&fRank&8: &e%s", rankName));
+        profile.sendMessage(String.format(prefix + "&fPoints&8: &e%s", playerData.getSgPoints()));
+        profile.sendMessage(String.format(prefix + "&fGame Rank&8: &8#&e%s", playerData.getSgGameRank() == -1 ? "-" : playerData.getSgGameRank()));
+        profile.sendMessage(String.format(prefix + "&fGames (Won/Total)&8: &e%s&8/&e%s", playerData.getSgGamesWon(), playerData.getSgGamesPlayed()));
+        profile.sendMessage(String.format(prefix + "&fKills (Round/Total)&8: &e%s&8/&e%s", playerData.getSgMostKills(), playerData.getSgKills()));
+        profile.sendMessage(String.format(prefix + "&fChests (Round/Total)&8: &e%s&8/&e%s", playerData.getSgMostChests(), playerData.getSgChests()));
+        profile.sendMessage(String.format(prefix + "&fLifespan (Round/Total)&8: &e%s&8/&e%s", convertDuration(playerData.getSgLongestLifeSpan()).replace('m', ':').replace("s", ""), convertDuration(playerData.getSgLifeSpan())));
 
         return true;
     }

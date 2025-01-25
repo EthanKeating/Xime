@@ -77,7 +77,7 @@ public abstract class LootTable {
         for(int i = 0; i < itemCount; i++) {
             ItemStack selectedItem = cloneTable.get(random.nextInt(cloneTable.size()));
             cloneTable.remove(selectedItem);
-            int selectedSlot = random.nextInt(27);
+            int selectedSlot = 1 + random.nextInt(25);
             selectedItems.add(new Pair<>(selectedItem, selectedSlot));
         }
         return selectedItems;

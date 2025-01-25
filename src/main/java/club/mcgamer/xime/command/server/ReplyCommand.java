@@ -13,7 +13,7 @@ public class ReplyCommand extends XimeCommand {
     public ReplyCommand() {
         super("reply");
         this.description = "send a private message";
-        this.usageMessage = "/reply <message>";
+        this.usageMessage = "/reply <private message...>";
         this.setAliases(Arrays.asList("r"));
 
         register();

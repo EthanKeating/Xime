@@ -40,6 +40,8 @@ public class KillCommand extends XimeCommand {
         GameState gameState = serverable.getGameState();
         Player player = (Player) sender;
 
+        String prefix = serverable.getPrefix();
+
         if (serverable.getTributeList().contains(profile)) {
             switch (gameState) {
                 case PREGAME:
@@ -60,7 +62,7 @@ public class KillCommand extends XimeCommand {
                         attackerOptional = Optional.of(profileHandler.getProfile(combatTagData.getAttackedBy()));
                     }
 
-                    profile.sendMessage("&8[&6MCSG&8] &fYou have committed suicide.");
+                    profile.sendMessage(prefix + "&fYou have committed suicide.");
                     Bukkit.getPluginManager().callEvent(new ServerDeathEvent(
                             profile,
                             attackerOptional,
@@ -71,7 +73,7 @@ public class KillCommand extends XimeCommand {
                     return true;
             }
         }
-        profile.sendMessage("&8[&6MCSG&8] &cYou can only use this command ingame.");
+        profile.sendMessage(prefix + "&cYou can only use this command ingame.");
 
         return true;
     }

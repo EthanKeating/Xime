@@ -28,7 +28,9 @@ public class SidebarCommand extends XimeCommand {
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
         PlayerData playerData = profile.getPlayerData();
-        String usageMessage = "&8[&3Xime&8] &fYou have to use: &2/sidebar &a[default, minimize, 2014, 2015]";
+        String prefix = profile.getServerable().getPrefix();
+
+        String usageMessage = prefix + "&fYou have to use: &2/sidebar &a[default, minimize, 2014, 2015]";
 
         if(args.length == 0) {
             profile.sendMessage(usageMessage);
@@ -52,7 +54,7 @@ public class SidebarCommand extends XimeCommand {
                     profile.sendMessage(usageMessage);
                     return true;
             }
-        profile.sendMessage(String.format("&8[&3Xime&8] &fThe sidebar theme is changed to %s.", args[0].toLowerCase()));
+        profile.sendMessage(String.format(prefix + "&fThe sidebar theme is changed to %s.", args[0].toLowerCase()));
         return true;
     }
 }

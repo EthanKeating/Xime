@@ -101,6 +101,7 @@ public class CommandHandler {
         new ForcestartCommand();
         new LeaderboardCommand();
         new StatsCommand();
+        new RecordsCommand();
         new VoteCommand();
         new SpectateCommand();
         new TimeLeftCommand();

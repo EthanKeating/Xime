@@ -31,11 +31,12 @@ public class ListCommand extends XimeCommand {
 
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
+        String prefix = profile.getServerable().getPrefix();
 
         if (profile.getServerable() instanceof HubServerable || profile.getServerable() instanceof BGServerable) {
             Serverable serverable = profile.getServerable();
 
-            profile.sendMessage(String.format("&8[&3Xime&8] &fThere are &8[&6%s&8/&6%s&8] &fplayers online&8.", serverable.getPlayerList().size(), serverable.getMaxPlayers()));
+            profile.sendMessage(String.format(prefix + "&fThere are &8[&6%s&8/&6%s&8] &fplayers online&8.", serverable.getPlayerList().size(), serverable.getMaxPlayers()));
             profile.sendMessage("&8- &f&lPlayers: &f" + serverable.getPlayerList().stream()
                     .map(loopProfile -> profile.getPlayer().hasPermission("xime.staff")
                             && loopProfile.getDisguiseData() != null
@@ -49,7 +50,7 @@ public class ListCommand extends XimeCommand {
 
         if (profile.getServerable() instanceof SGServerable serverable) {
 
-            profile.sendMessage(String.format("&8[&3Xime&8] &fThere are &8[&6%s&8/&6%s&8] &fplayers online&8.", serverable.getPlayerList().size(), serverable.getMaxPlayers()));
+            profile.sendMessage(String.format(prefix + "&fThere are &8[&6%s&8/&6%s&8] &fplayers online&8.", serverable.getPlayerList().size(), serverable.getMaxPlayers()));
 
             if(serverable.getGameState() == GameState.LOBBY) {
                 profile.sendMessage("&8- &f&lWaiting: &f" + serverable.getPlayerList().stream()

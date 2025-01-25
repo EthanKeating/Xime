@@ -14,13 +14,13 @@ import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 
-public class StatsCommand extends XimeCommand {
+public class RecordsCommand extends XimeCommand {
 
-    public StatsCommand() {
-        super("stats");
-        this.description = "Check a player's stats";
-        this.usageMessage = "/stats [player]";
-        this.setAliases(Arrays.asList("statistics"));
+    public RecordsCommand() {
+        super("records");
+        this.description = "Check a player's records";
+        this.usageMessage = "/records [player]";
+        this.setAliases(Arrays.asList("debug", "db", "bug"));
 
         register();
     }
@@ -62,13 +62,14 @@ public class StatsCommand extends XimeCommand {
             rankName = argumentProfile.getRankBypassDisguise().getName();
         }
 
-        profile.sendMessage(String.format(prefix + "&8&m----&2 %s&6'&fs stats &8&m----", displayName));
-        profile.sendMessage(String.format(prefix + "&fChests Opened&8: &e%s.0", playerData.getSgChests()));
-        profile.sendMessage(String.format(prefix + "&fGames Played&8: &e%s.0", playerData.getSgGamesPlayed()));
-        profile.sendMessage(String.format(prefix + "&fPlayer Kills&8: &e%s.0", playerData.getSgKills()));
-        profile.sendMessage(String.format(prefix + "&Total Lifespan&8: &e%s.0", playerData.getSgLifeSpan()));
-        profile.sendMessage(String.format(prefix + "&fDeathmatches&8: &e%s.0", playerData.getSgGamesPlayed()));
-        profile.sendMessage(String.format(prefix + "&fKill / Death Ratio&8: &e%s", playerData.getSgKills() / Math.min(1, playerData.getSgDeaths())));
+        profile.sendMessage(String.format(prefix + "%s&f's Records", displayName));
+        profile.sendMessage(String.format(prefix + "&fRank&8: &e%s", rankName));
+        profile.sendMessage(String.format(prefix + "&fPoints&8: &e%s", playerData.getSgPoints()));
+        profile.sendMessage(String.format(prefix + "&fGame Rank&8: &8#&e%s", playerData.getSgGameRank() == -1 ? "-" : playerData.getSgGameRank()));
+        profile.sendMessage(String.format(prefix + "&fGames (Won/Total)&8: &e%s&8/&e%s", playerData.getSgGamesWon(), playerData.getSgGamesPlayed()));
+        profile.sendMessage(String.format(prefix + "&fKills (Round/Total)&8: &e%s&8/&e%s", playerData.getSgMostKills(), playerData.getSgKills()));
+        profile.sendMessage(String.format(prefix + "&fChests (Round/Total)&8: &e%s&8/&e%s", playerData.getSgMostChests(), playerData.getSgChests()));
+        profile.sendMessage(String.format(prefix + "&fLifespan (Round/Total)&8: &e%s&8/&e%s", convertDuration(playerData.getSgLongestLifeSpan()).replace('m', ':').replace("s", ""), convertDuration(playerData.getSgLifeSpan())));
 
         return true;
     }

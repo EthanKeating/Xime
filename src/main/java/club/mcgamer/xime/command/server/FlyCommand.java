@@ -30,16 +30,17 @@ public class FlyCommand extends XimeCommand {
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
         PlayerData generalData = profile.getPlayerData();
+        String prefix = profile.getServerable().getPrefix();
 
         generalData.setCanFly(!generalData.isCanFly());
 
         if ((profile.getServerable() instanceof SGServerable serverable) && serverable.getGameState() != GameState.LOBBY) {
-            profile.sendMessage("&8[&3Xime&8] &cYou cannot use this command right now.");
+            profile.sendMessage(prefix + "&cYou cannot use this command right now.");
             return true;
         }
 
         player.setAllowFlight(generalData.isCanFly());
-        profile.sendMessage(String.format("&8[&3Xime&8] &fYou can %s fly&8.", generalData.isCanFly() ? "now" : "no longer"));
+        profile.sendMessage(String.format(prefix + "&fYou can %s fly&8.", generalData.isCanFly() ? "now" : "no longer"));
 
         return true;
     }

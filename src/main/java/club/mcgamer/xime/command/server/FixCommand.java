@@ -15,7 +15,7 @@ public class FixCommand extends XimeCommand {
         super("fix");
         this.description = "Fix your position";
         this.usageMessage = "/fix";
-        this.setAliases(Arrays.asList("gf", "ghostfix", "ghost"));
+        this.setAliases(Arrays.asList("gf", "ghostfix", "ghost", "deghost"));
 
         register();
     }

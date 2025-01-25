@@ -37,7 +37,7 @@ public class HubSidebarAdapter extends SidebarAdapter {
                 ? ZoneId.of("UTC") : profile.getGeoLocationData().getTimeZone());
         ZonedDateTime dateTimeLocal = ZonedDateTime.now(ZoneId.of("UTC"));
 
-        String serverVersion = "5.0.0";
+        String serverVersion = profile.getLanguage().getVersion();
 
         timeFormats[0] = dateTimeUser.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));
         timeFormats[1] = dateTimeUser.format(DateTimeFormatter.ofPattern("hh:mm a z"));

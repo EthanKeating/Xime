@@ -33,7 +33,7 @@ public class DesignThread extends Thread {
         this.profileHandler = plugin.getProfileHandler();
     }
 
-    private void update() {
+    private synchronized void update() {
         serverTickId++;
 
         try {
@@ -41,12 +41,12 @@ public class DesignThread extends Thread {
                 if (uuid == null || Bukkit.getPlayer(uuid) == null || !Bukkit.getPlayer(uuid).isOnline())
                     previousServerables.remove(uuid);
 
-            new CopyOnWriteArrayList<>(serverHandler.getServerList()).forEach(serverable -> {
+            for(Serverable serverable : new CopyOnWriteArrayList<>(serverHandler.getServerList())) {
                 if (serverable != null) {
                     serverable.getSidebarAdapter().tick();
                     serverable.getBossbarAdapter().tick();
                 }
-            });
+            }
 
             for (Profile profile : new CopyOnWriteArrayList<>(profileHandler.getProfiles())) {
                 if (profile == null || profile.getPlayer() == null || profile.getPlayer().getDisplayName() == null)

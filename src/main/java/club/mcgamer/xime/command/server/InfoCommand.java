@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class InfoCommand extends XimeCommand {
 
@@ -31,13 +32,7 @@ public class InfoCommand extends XimeCommand {
         Serverable serverable = profile.getServerable();
 
         profile.sendMessage(String.format("&6- Server &3%s &6Info -", serverable.toString()));
-        profile.sendMessage("Players&8: &f" + serverable.getPlayerList().stream()
-                .map(loopProfile -> profile.getPlayer().hasPermission("xime.staff")
-                        && loopProfile.getDisguiseData() != null
-                        ? TextUtil.translate(String.format("%s&8(&f%s&8)",
-                        loopProfile.getDisplayName(),
-                        loopProfile.getDisplayNameBypassDisguise()))
-                        : TextUtil.translate(loopProfile.getDisplayName())));
+        profile.sendMessage("Players&8: &f" + serverable.getPlayerList().size());
         profile.sendMessage("Current Map&8: &f" + serverable.getMapData().getMapName());
         profile.sendMessage("Map Creator&8: &f" + serverable.getMapData().getMapAuthor());
         profile.sendMessage("Map Link&8: &f" + serverable.getMapData().getMapLink());

@@ -33,9 +33,7 @@ public class BountyCommand extends XimeCommand {
         String prefix = serverable.getPrefix();
 
         if (serverable.getTributeList().contains(profile)
-                || (serverable.getGameState() != GameState.LIVEGAME
-                    && serverable.getGameState() != GameState.PREDEATHMATCH
-                    && serverable.getGameState() != GameState.DEATHMATCH)) {
+                || (serverable.getGameState() != GameState.LIVEGAME)) {
             profile.sendMessage(prefix + "&cYou cannot use this command right now.");
             return true;
         }

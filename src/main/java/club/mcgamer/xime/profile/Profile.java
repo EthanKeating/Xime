@@ -101,6 +101,7 @@ public class Profile {
         this.profileStatus = ProfileStatus.COMPLETE;
 
         updatePermissions();
+        playerData.setUserName(getNameBypassDisguise());
         playerData.setDisplayName(rank.getColor() + getNameBypassDisguise());
         getPlayer().setDisplayName(rank.getColor() + getNameBypassDisguise());
     }
@@ -133,6 +134,7 @@ public class Profile {
 
         if (getPlayer() != null) {
             playerData.setDisplayName(rank.getColor() + getNameBypassDisguise());
+            playerData.setUserName(getNameBypassDisguise());
             getPlayer().setDisplayName(rank.getColor() + getNameBypassDisguise());
             updatePermissions();
         }

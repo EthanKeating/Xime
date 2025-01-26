@@ -21,11 +21,14 @@ public class PlayerData {
     @DatabaseField(canBeNull = false, defaultValue = "Regular")
     private String rank = "Regular";
 
-    @DatabaseField(canBeNull = false, defaultValue = "false")
-    private boolean silentJoin = false;
+    @DatabaseField(canBeNull = false, defaultValue = "")
+    private String userName = "";
 
     @DatabaseField(canBeNull = false, defaultValue = "")
     private String displayName = "";
+
+    @DatabaseField(canBeNull = false, defaultValue = "false")
+    private boolean silentJoin = false;
 
     @DatabaseField(canBeNull = false, defaultValue = "false")
     private boolean canFly = false;
@@ -44,6 +47,9 @@ public class PlayerData {
 
     @DatabaseField(canBeNull = false, defaultValue = "0")
     private int sgGamesPlayed = 0;
+
+    @DatabaseField(canBeNull = false, defaultValue = "0")
+    private int sgDeathmatches = 0;
 
     @DatabaseField(canBeNull = false, defaultValue = "0")
     private int sgKills = 0;

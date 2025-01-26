@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="Fixed wrong game states for sponsoring">
+    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="Changed prefixes a bit">
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/HelpopCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/DisguiseCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/DisguiseCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/ScrambleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/ScrambleCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/UndisguiseCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/UndisguiseCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/UnscrambleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/UnscrambleCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/CommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/CommandHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,10 +121,10 @@
       <recent name="C:\Users\Ethan\IdeaProjects\Xime\src\main\java\club\mcgamer\xime\hub" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="club.mcgamer.xime.command.server" />
       <recent name="club.mcgamer.xime.command.sg" />
       <recent name="club.mcgamer.xime.menu.hub" />
       <recent name="club.mcgamer.xime.listener.bg" />
-      <recent name="club.mcgamer.xime.command.server" />
       <recent name="club.mcgamer.xime.build.menu" />
     </key>
   </component>
@@ -189,15 +187,7 @@
       <workItem from="1737856426487" duration="1108000" />
       <workItem from="1737857571887" duration="747000" />
       <workItem from="1737859393402" duration="332000" />
-      <workItem from="1737862471657" duration="1672000" />
-    </task>
-    <task id="LOCAL-00003" summary="Updates">
-      <option name="closed" value="true" />
-      <created>1735314019835</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1735314019835</updated>
+      <workItem from="1737862471657" duration="2684000" />
     </task>
     <task id="LOCAL-00004" summary="Updates">
       <option name="closed" value="true" />
@@ -581,7 +571,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737863063762</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="Changed prefixes a bit">
+      <option name="closed" value="true" />
+      <created>1737864814995</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1737864814995</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -599,8 +597,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="removed useless class and nearly finished sponsoring" />
-    <MESSAGE value="some changes to sponsoring" />
     <MESSAGE value="lots of updates" />
     <MESSAGE value="too many changes to count + mysql" />
     <MESSAGE value="lots of changes" />
@@ -624,6 +620,8 @@
     <MESSAGE value="Changed stats slightly" />
     <MESSAGE value="Fixed a miscalculation for stats" />
     <MESSAGE value="Fixed wrong game states for sponsoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed wrong game states for sponsoring" />
+    <MESSAGE value="Chagned prefixes a bit" />
+    <MESSAGE value="Changed prefixes a bit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed prefixes a bit" />
   </component>
 </project>

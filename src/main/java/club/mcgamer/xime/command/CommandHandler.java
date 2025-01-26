@@ -75,6 +75,7 @@ public class CommandHandler {
         new UnmaskCommand();
         new DisguiseCommand();
         new UndisguiseCommand();
+        new HelpopCommand();
         new ScrambleCommand();
         new UnscrambleCommand();
         new FlyCommand();

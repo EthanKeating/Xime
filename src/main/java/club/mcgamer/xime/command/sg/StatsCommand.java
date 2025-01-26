@@ -62,13 +62,13 @@ public class StatsCommand extends XimeCommand {
             rankName = argumentProfile.getRankBypassDisguise().getName();
         }
 
-        profile.sendMessage(String.format(prefix + "&8&m----&2 %s&6'&fs stats &8&m----", displayName));
-        profile.sendMessage(String.format(prefix + "&fChests Opened&8: &e%s.0", playerData.getSgChests()));
-        profile.sendMessage(String.format(prefix + "&fGames Played&8: &e%s.0", playerData.getSgGamesPlayed()));
-        profile.sendMessage(String.format(prefix + "&fPlayer Kills&8: &e%s.0", playerData.getSgKills()));
-        profile.sendMessage(String.format(prefix + "&Total Lifespan&8: &e%s.0", playerData.getSgLifeSpan()));
-        profile.sendMessage(String.format(prefix + "&fDeathmatches&8: &e%s.0", playerData.getSgGamesPlayed()));
-        profile.sendMessage(String.format(prefix + "&fKill / Death Ratio&8: &e%s", playerData.getSgKills() / Math.min(1, playerData.getSgDeaths())));
+        profile.sendMessage(String.format("&8&m----&2 %s&6'&fs stats &8&m----", displayName));
+        profile.sendMessage(String.format("&fChests Opened&8: &e%s.0", playerData.getSgChests()));
+        profile.sendMessage(String.format("&fGames Played&8: &e%s.0", playerData.getSgGamesPlayed()));
+        profile.sendMessage(String.format("&fPlayer Kills&8: &e%s.0", playerData.getSgKills()));
+        profile.sendMessage(String.format("&fTotal Lifespan&8: &e%s.0", playerData.getSgLifeSpan()));
+        profile.sendMessage(String.format("&fDeathmatches&8: &e%s.0", playerData.getSgGamesPlayed()));
+        profile.sendMessage("&fKill / Death Ratio&8: &e" + String.format("%.1f", (double)playerData.getSgKills() / (double)Math.max(1, playerData.getSgDeaths())));
 
         return true;
     }

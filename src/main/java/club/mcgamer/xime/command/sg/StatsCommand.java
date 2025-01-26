@@ -66,7 +66,7 @@ public class StatsCommand extends XimeCommand {
         profile.sendMessage(String.format("&fChests Opened&8: &e%s.0", playerData.getSgChests()));
         profile.sendMessage(String.format("&fGames Played&8: &e%s.0", playerData.getSgGamesPlayed()));
         profile.sendMessage(String.format("&fPlayer Kills&8: &e%s.0", playerData.getSgKills()));
-        profile.sendMessage(String.format("&fTotal Lifespan&8: &e%s.0", playerData.getSgLifeSpan()));
+        profile.sendMessage(String.format("&fTotal Lifespan&8: &e%s.0", playerData.getSgLifeSpan() / 1000));
         profile.sendMessage(String.format("&fGames Won&8: &e%s.0", playerData.getSgGamesWon()));
         profile.sendMessage(String.format("&fDeathmatches&8: &e%s.0", playerData.getSgDeathmatches()));
         profile.sendMessage("&fKill / Death Ratio&8: &e" + String.format("%.1f", (double)playerData.getSgKills() / (double)Math.max(1, playerData.getSgDeaths())));

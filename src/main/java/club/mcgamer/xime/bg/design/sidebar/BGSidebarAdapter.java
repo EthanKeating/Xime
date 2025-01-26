@@ -57,7 +57,7 @@ public class BGSidebarAdapter extends SidebarAdapter {
             List<String> lines = new ArrayList<>();
 
             lines = new ArrayList<>(Arrays.asList(
-                    String.format("&7EU%s %s", serverable.getServerId(), ServerHandler.SERVER_VERSION),
+                    String.format("&7EU%s %s", serverable.getServerId(), profile.getLanguage().getVersion()),
                     ChatColor.GRAY + timeFormats[2],
                     ""
             ));

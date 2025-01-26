@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="Reverted InfoCommand to show only player count instead of list">
+    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="Added setpoints command">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/bg/design/sidebar/BGSidebarAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/bg/design/sidebar/BGSidebarAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/XimeInfoCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/XimeInfoCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/design/sidebar/SGSidebarAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/design/sidebar/SGSidebarAdapter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,7 +184,7 @@
       <workItem from="1737684815381" duration="867000" />
       <workItem from="1737695498592" duration="7876000" />
       <workItem from="1737768690286" duration="7876000" />
-      <workItem from="1737844964044" duration="1259000" />
+      <workItem from="1737844964044" duration="2303000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -501,7 +504,23 @@
       <option name="project" value="LOCAL" />
       <updated>1737844807175</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Reverted ability to bounty in PreDeathmatch &amp; Deathmatch">
+      <option name="closed" value="true" />
+      <created>1737849474746</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1737849474746</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Added setpoints command">
+      <option name="closed" value="true" />
+      <created>1737855941146</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1737855941146</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -519,8 +538,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Bug fixes + loot changes" />
-    <MESSAGE value="Added bounty, fix, started sponsor, and modified some other stuff" />
     <MESSAGE value="Fixed bounty &amp; sponsor bug" />
     <MESSAGE value="quick fix for pregame" />
     <MESSAGE value="bounty change" />
@@ -544,6 +561,8 @@
     <MESSAGE value="Message changes" />
     <MESSAGE value="Added Collections.joining() to InfoCommand player list" />
     <MESSAGE value="Reverted InfoCommand to show only player count instead of list" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reverted InfoCommand to show only player count instead of list" />
+    <MESSAGE value="Reverted ability to bounty in PreDeathmatch &amp; Deathmatch" />
+    <MESSAGE value="Added setpoints command" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added setpoints command" />
   </component>
 </project>

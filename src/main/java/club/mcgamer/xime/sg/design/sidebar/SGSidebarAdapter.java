@@ -57,7 +57,7 @@ public class SGSidebarAdapter extends SidebarAdapter {
             switch (sidebarType) {
                 case MINIMIZE:
                     lines = new ArrayList<>(Arrays.asList(
-                            String.format("&7EU%s %s", serverable.getServerId(), ServerHandler.SERVER_VERSION),
+                            String.format("&7EU%s %s", serverable.getServerId(), profile.getLanguage().getVersion()),
                             ChatColor.GRAY + timeFormats[2],
                             ""
                     ));

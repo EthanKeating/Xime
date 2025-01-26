@@ -62,7 +62,7 @@ public class StatsCommand extends XimeCommand {
             rankName = argumentProfile.getRankBypassDisguise().getName();
         }
 
-        profile.sendMessage(String.format("&8&m----&2 %sf's stats &8&m----", displayName));
+        profile.sendMessage(String.format("&8&m----&2 %s&f's stats &8&m----", displayName));
         profile.sendMessage(String.format("&fChests Opened&8: &e%s.0", playerData.getSgChests()));
         profile.sendMessage(String.format("&fGames Played&8: &e%s.0", playerData.getSgGamesPlayed()));
         profile.sendMessage(String.format("&fPlayer Kills&8: &e%s.0", playerData.getSgKills()));

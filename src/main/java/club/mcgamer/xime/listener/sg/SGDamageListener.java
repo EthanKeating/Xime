@@ -188,14 +188,14 @@ public class SGDamageListener extends IListener {
                 Profile attacker = event.getAttacker().get();
 
                 PlayerData attackerData = attacker.getPlayerData();
-                SGTemporaryData temporaryData = (SGTemporaryData) event.getVictim().getTemporaryData();
+                SGTemporaryData temporaryAttackerData = (SGTemporaryData) event.getVictim().getTemporaryData();
 
                 if (!(serverable instanceof SGMakerServerable)) {
                     attackerData.setSgPoints(attackerData.getSgPoints() + gainedPoints);
                     attackerData.setSgKills(attackerData.getSgKills() + 1);
-                    temporaryData.setKillCount(temporaryData.getKillCount() + 1);
-                    if (temporaryData.getKillCount() > attackerData.getSgMostKills())
-                        attackerData.setSgMostKills(temporaryData.getKillCount());
+                    temporaryAttackerData.setKillCount(temporaryAttackerData.getKillCount() + 1);
+                    if (temporaryAttackerData.getKillCount() > attackerData.getSgMostKills())
+                        attackerData.setSgMostKills(temporaryAttackerData.getKillCount());
 
                     attacker.sendMessage(String.format(prefix + "&3You've gained &8[&e%s&8] &3points for killing %s&8!",
                             gainedPoints,

@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="Added games won line to stats">
+    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="Changed stats slightly">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/StatsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/StatsCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/data/entities/PlayerData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/data/entities/PlayerData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/profile/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/profile/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/data/DataHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/data/DataHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGDamageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGDamageListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +184,9 @@
       <workItem from="1737695498592" duration="7876000" />
       <workItem from="1737768690286" duration="7876000" />
       <workItem from="1737844964044" duration="2677000" />
-      <workItem from="1737856426487" duration="210000" />
+      <workItem from="1737856426487" duration="1108000" />
+      <workItem from="1737857571887" duration="747000" />
+      <workItem from="1737859393402" duration="52000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -553,7 +554,31 @@
       <option name="project" value="LOCAL" />
       <updated>1737856282831</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Modified PlayerData structure, added new columns">
+      <option name="closed" value="true" />
+      <created>1737856679170</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1737856679170</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Small typo in Stats">
+      <option name="closed" value="true" />
+      <created>1737856784409</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1737856784409</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Changed stats slightly">
+      <option name="closed" value="true" />
+      <created>1737856966687</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1737856966687</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -571,9 +596,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="made bounty command handle integer overflow" />
-    <MESSAGE value="more bounty logic and messages" />
-    <MESSAGE value="attempt to fix the ghost hand bug" />
     <MESSAGE value="changed a few messages" />
     <MESSAGE value="changed snow" />
     <MESSAGE value="removed useless class and nearly finished sponsoring" />
@@ -596,6 +618,9 @@
     <MESSAGE value="Enabled setpoints command" />
     <MESSAGE value="Changed stats command slightly" />
     <MESSAGE value="Added games won line to stats" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added games won line to stats" />
+    <MESSAGE value="Modified PlayerData structure, added new columns" />
+    <MESSAGE value="Small typo in Stats" />
+    <MESSAGE value="Changed stats slightly" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed stats slightly" />
   </component>
 </project>

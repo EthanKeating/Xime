@@ -2,6 +2,7 @@ package club.mcgamer.xime.data;
 
 import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.data.entities.PlayerData;
+import club.mcgamer.xime.util.TextUtil;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
@@ -11,7 +12,9 @@ import com.j256.ormlite.table.TableUtils;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -91,7 +94,7 @@ public class DataHandler {
 
             playerData.setSgGameRank(livePlayerData.getSgGameRank());
         });
-//
+
         QueryBuilder<PlayerData, String> queryBuilder = playerDataDao.queryBuilder();
 
         queryBuilder.orderBy("sgGameRank", true);

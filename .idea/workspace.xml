@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="Changed stats slightly">
+    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="Fixed wrong game states for sponsoring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/data/DataHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/data/DataHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGDamageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGDamageListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/DisguiseCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/DisguiseCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/ScrambleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/ScrambleCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/UndisguiseCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/UndisguiseCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/UnscrambleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/UnscrambleCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,23 +188,8 @@
       <workItem from="1737844964044" duration="2677000" />
       <workItem from="1737856426487" duration="1108000" />
       <workItem from="1737857571887" duration="747000" />
-      <workItem from="1737859393402" duration="52000" />
-    </task>
-    <task id="LOCAL-00001" summary="Initial commit">
-      <option name="closed" value="true" />
-      <created>1735265955518</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1735265955518</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Updates">
-      <option name="closed" value="true" />
-      <created>1735313759429</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1735313759429</updated>
+      <workItem from="1737859393402" duration="332000" />
+      <workItem from="1737862471657" duration="1672000" />
     </task>
     <task id="LOCAL-00003" summary="Updates">
       <option name="closed" value="true" />
@@ -578,7 +565,23 @@
       <option name="project" value="LOCAL" />
       <updated>1737856966687</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Fixed a miscalculation for stats">
+      <option name="closed" value="true" />
+      <created>1737859641451</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1737859641451</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Fixed wrong game states for sponsoring">
+      <option name="closed" value="true" />
+      <created>1737863063762</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1737863063762</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -596,8 +599,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="changed a few messages" />
-    <MESSAGE value="changed snow" />
     <MESSAGE value="removed useless class and nearly finished sponsoring" />
     <MESSAGE value="some changes to sponsoring" />
     <MESSAGE value="lots of updates" />
@@ -621,6 +622,8 @@
     <MESSAGE value="Modified PlayerData structure, added new columns" />
     <MESSAGE value="Small typo in Stats" />
     <MESSAGE value="Changed stats slightly" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed stats slightly" />
+    <MESSAGE value="Fixed a miscalculation for stats" />
+    <MESSAGE value="Fixed wrong game states for sponsoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed wrong game states for sponsoring" />
   </component>
 </project>

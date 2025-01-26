@@ -32,12 +32,12 @@ public class UnscrambleCommand extends XimeCommand {
         String prefix = profile.getServerable().getPrefix();
 
         if (profile.getServerable() instanceof SGServerable serverable && serverable.getGameState() != GameState.LOBBY) {
-            profile.sendMessage(prefix + "&cYou cannot use this command right now.");
+            profile.sendMessage(prefix + "&4You cannot use this command right now&8.");
             return true;
         }
 
         if (profile.getDisguiseData() != null && !profile.getDisguiseData().getName().equalsIgnoreCase(profile.getNameBypassDisguise())) {
-            profile.sendMessage(prefix + "&cYou cannot unscramble while you are disguised.");
+            profile.sendMessage(prefix + "&4You cannot unscramble while you are disguised&8.");
             return true;
         }
 

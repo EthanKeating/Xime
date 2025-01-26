@@ -53,9 +53,10 @@ public class HelpopCommand extends XimeCommand {
         }
 
         if (serverable instanceof SGServerable) {
-            profile.sendMessage(prefix + "&6 /bounty [player] [amount]&8:&7 Place a bounty on a player.")
-            .sendMessage(prefix + "&6 /confirmbounty&8:&7 To confirm you want to bounty.")
-            .sendMessage(prefix + "&6 /hub&8:&7 Sends you to the hub server.")
+            profile.sendMessage(prefix + "&6&m                 &b&l Ingame Help &6&m                 ")
+                    .sendMessage(prefix + "&6 /bounty [player] [amount]&8:&7 Place a bounty on a player.")
+                .sendMessage(prefix + "&6 /confirmbounty&8:&7 To confirm you want to bounty.")
+                .sendMessage(prefix + "&6 /hub&8:&7 Sends you to the hub server.")
                     .sendMessage(prefix + "&6 /infomation&8:&7 Shows game/server infomation.")
                     .sendMessage(prefix + "&6 /kill&8:&7 Quick way of dying.")
                     .sendMessage(prefix + "&6 /leaderboards&8:&7 Lists the top 10 players of the network.")

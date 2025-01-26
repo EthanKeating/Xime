@@ -19,7 +19,7 @@ public class PlayerData {
     private String uuid;
 
     @DatabaseField(canBeNull = false, defaultValue = "Regular")
-    private String rank = "Regular";
+    private String userRank = "Regular";
 
     @DatabaseField(canBeNull = false, defaultValue = "")
     private String userName = "";
@@ -94,7 +94,7 @@ public class PlayerData {
         PlayerData profileData = new PlayerData();
 
         profileData.uuid = profile.getUuid().toString();
-        profileData.rank = profile.getRank().getName();
+        profileData.userRank = profile.getRank().getName();
         profileData.displayName = profile.getDisplayName();
 
         int baseGameCount = 20 + random.nextInt(20);

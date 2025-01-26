@@ -72,7 +72,7 @@ public class RankCommand extends XimeCommand {
 
                 PlayerData playerData = dataHandler.getPlayerData(target.getUniqueId());
 
-                playerData.setRank(rank.getName());
+                playerData.setUserRank(rank.getName());
                 playerData.setDisplayName(rank.getColor() + target.getName());
 
                 dataHandler.updatePlayerData(playerData);

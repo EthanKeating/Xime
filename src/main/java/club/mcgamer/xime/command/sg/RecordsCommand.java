@@ -54,7 +54,7 @@ public class RecordsCommand extends XimeCommand {
         PlayerData playerData = argumentProfile != null ? argumentProfile.getMockOrRealPlayerData() : dataHandler.getPlayerData(argumentPlayer.getUniqueId());
 
         String displayName = argumentProfile != null ? argumentProfile.getDisplayName() : playerData.getDisplayName();
-        String rankName = argumentProfile != null ? argumentProfile.getRank().getName() : playerData.getRank();
+        String rankName = argumentProfile != null ? argumentProfile.getRank().getName() : playerData.getUserRank();
 
         if (args.length > 0 && argumentProfile != null && argumentProfile.getDisguiseData() != null && argumentProfile.getNameBypassDisguise().equalsIgnoreCase(args[0])) {
             displayName = argumentProfile.getDisplayNameBypassDisguise();

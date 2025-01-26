@@ -79,7 +79,7 @@ public class Profile {
 
         this.playerData = plugin.getDataHandler().getPlayerData(uuid);
 
-        setRank(playerData.getRank());
+        setRank(playerData.getUserRank());
     }
 
     public void complete() {
@@ -130,7 +130,7 @@ public class Profile {
 
     public void setRank(Rank rank) {
         this.rank = rank;
-        playerData.setRank(rank.getName());
+        playerData.setUserName(rank.getName());
 
         if (getPlayer() != null) {
             playerData.setDisplayName(rank.getColor() + getNameBypassDisguise());

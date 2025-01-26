@@ -39,6 +39,10 @@ public class PlayerDamageWrapper extends IListener {
             return;
         }
 
+        if (attacker == victim) {
+            return;
+        }
+
         combatTagData.setAttackedAt(System.currentTimeMillis());
         combatTagData.setAttackedBy(attacker.getUuid());
 

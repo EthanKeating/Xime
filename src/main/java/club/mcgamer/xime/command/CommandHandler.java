@@ -87,6 +87,7 @@ public class CommandHandler {
         new SidebarCommand();
         new XimeInfoCommand();
         new InfoCommand();
+        new SetPointsCommand();
         new FixCommand();
         new ChatColorCommand();
         new GlobalListCommand();

@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="Added setpoints command">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/bg/design/sidebar/BGSidebarAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/bg/design/sidebar/BGSidebarAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/XimeInfoCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/XimeInfoCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/design/sidebar/SGSidebarAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/design/sidebar/SGSidebarAdapter.java" afterDir="false" />
+    <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="Changed where version gets grabbed for messages">
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/CommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/CommandHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +181,7 @@
       <workItem from="1737684815381" duration="867000" />
       <workItem from="1737695498592" duration="7876000" />
       <workItem from="1737768690286" duration="7876000" />
-      <workItem from="1737844964044" duration="2303000" />
+      <workItem from="1737844964044" duration="2399000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -520,7 +517,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737855941146</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Changed where version gets grabbed for messages">
+      <option name="closed" value="true" />
+      <created>1737856064867</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1737856064867</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -538,7 +543,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixed bounty &amp; sponsor bug" />
     <MESSAGE value="quick fix for pregame" />
     <MESSAGE value="bounty change" />
     <MESSAGE value="updated bounty logic" />
@@ -563,6 +567,7 @@
     <MESSAGE value="Reverted InfoCommand to show only player count instead of list" />
     <MESSAGE value="Reverted ability to bounty in PreDeathmatch &amp; Deathmatch" />
     <MESSAGE value="Added setpoints command" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added setpoints command" />
+    <MESSAGE value="Changed where version gets grabbed for messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed where version gets grabbed for messages" />
   </component>
 </project>

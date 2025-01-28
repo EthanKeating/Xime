@@ -72,7 +72,7 @@ public class BGSidebarAdapter extends SidebarAdapter {
             lines.add("&3You&f: " + temporaryData.getKills());
 
             lines.add("");
-            lines.add("&b&lMCGamer.club");
+            lines.add("&b&l" + profile.getLanguage().getServerIp());
 
             return lines;
         }

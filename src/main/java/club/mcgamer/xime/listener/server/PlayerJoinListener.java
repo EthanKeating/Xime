@@ -68,8 +68,8 @@ public class PlayerJoinListener extends IListener {
         }
 
         WrapperPlayServerPlayerListHeaderAndFooter headerAndFooter = new WrapperPlayServerPlayerListHeaderAndFooter(
-                Component.text(TextUtil.translate("&aYou are playing on the &6MCGamer Network&a! &eeu.mcgamer.club")),
-                Component.text(TextUtil.translate("&aVisit our store at &eshop.mcgamer.club&a!")));
+                Component.text(TextUtil.translate(profile.getLanguage().getTabHeader())),
+                Component.text(TextUtil.translate(profile.getLanguage().getTabFooter())));
 
         profile.getUser().sendPacket(headerAndFooter);
         profile.getUser().flushPackets();

@@ -23,7 +23,7 @@ public class HubSidebarAdapter extends SidebarAdapter {
 //            return profile.getRank().getColor() + profile.getName() + " &8- &c5:00";
 //        }
 
-        return "&b&lMCGamer.club";
+        return "&b&l" + profile.getLanguage().getServerIp();
     }
 
     @Override

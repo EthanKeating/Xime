@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="Changed prefixes a bit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/bg/design/sidebar/BGSidebarAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/bg/design/sidebar/BGSidebarAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/InfoCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/InfoCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/hub/design/sidebar/HubSidebarAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/hub/design/sidebar/HubSidebarAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/lang/LanguageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/lang/LanguageHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/lang/impl/Language.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/lang/impl/Language.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/server/PlayerJoinListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/server/PlayerJoinListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/design/sidebar/SGSidebarAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/design/sidebar/SGSidebarAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
     </list>
@@ -197,7 +201,7 @@
       <workItem from="1737990207706" duration="91000" />
       <workItem from="1737995653273" duration="5000" />
       <workItem from="1737996526802" duration="1936000" />
-      <workItem from="1738085479125" duration="88000" />
+      <workItem from="1738085479125" duration="1304000" />
     </task>
     <task id="LOCAL-00004" summary="Updates">
       <option name="closed" value="true" />

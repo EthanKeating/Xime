@@ -15,4 +15,7 @@ public class Language {
     private String bossBarText;
     private String serverIp;
 
+    private String tabHeader;
+    private String tabFooter;
+
 }

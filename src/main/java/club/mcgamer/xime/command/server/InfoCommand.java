@@ -37,7 +37,7 @@ public class InfoCommand extends XimeCommand {
         profile.sendMessage("Map Creator&8: &f" + serverable.getMapData().getMapAuthor());
         profile.sendMessage("Map Link&8: &f" + serverable.getMapData().getMapLink());
         profile.sendMessage("Developers&8: " + TextUtil.toRainbow("Eths"));
-        profile.sendMessage("&fHosted by&8: &ehttps://www.mcgamer.club/");
+        profile.sendMessage("&fHosted by&8: &ehttps://" + profile.getLanguage().getServerIp() + "/");
         profile.sendMessage(String.format("&fRunning the&8: &8[&3Xime&8] &cv%s &fengine&8.", profile.getLanguage().getVersion()));
 
         return true;

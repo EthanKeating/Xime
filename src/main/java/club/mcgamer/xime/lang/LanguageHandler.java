@@ -39,6 +39,8 @@ public class LanguageHandler {
         language.setMotd(languageConfiguration.getString("server.motd"));
         language.setVersion(languageConfiguration.getString("server.version"));
         language.setServerIp(languageConfiguration.getString("server.ip"));
+        language.setTabHeader(languageConfiguration.getString("tab.header"));
+        language.setTabFooter(languageConfiguration.getString("tab.footer"));
 
         language.setBossBarText(languageConfiguration.getString("bossbar.text").replace("%version%", language.getVersion()));
     }

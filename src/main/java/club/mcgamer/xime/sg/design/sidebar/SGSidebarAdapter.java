@@ -67,7 +67,7 @@ public class SGSidebarAdapter extends SidebarAdapter {
                         lines.add(String.format("&fPlaying: %s", serverable.getTributeList().size()));
                         lines.add(String.format("&fWatching: %s", serverable.getSpectatorList().size()));
                     }
-                    lines.add("&b&lMCGamer.club");
+                    lines.add("&b&l" + profile.getLanguage().getServerIp());
                     break;
                 case TWENTY_FOURTEEN:
                     lines = new ArrayList<>(Arrays.asList(
@@ -108,7 +108,7 @@ public class SGSidebarAdapter extends SidebarAdapter {
                         lines.add(String.format("&fPlaying: %s", serverable.getTributeList().size()));
                         lines.add(String.format("&fWatching: %s", serverable.getSpectatorList().size()));
                     }
-                    lines.add("&b&lMCGamer.club");
+                    lines.add("&b&l" + profile.getLanguage().getServerIp());
                     break;
                 default:
                     lines = new ArrayList<>(Arrays.asList(
@@ -129,7 +129,7 @@ public class SGSidebarAdapter extends SidebarAdapter {
                         lines.add(String.format("&fPlaying: %s", serverable.getTributeList().size()));
                         lines.add(String.format("&fWatching: %s", serverable.getSpectatorList().size()));
                     }
-                    lines.add("&b&l" + profile.getLanguage().get);
+                    lines.add("&b&l" + profile.getLanguage().getServerIp());
                     break;
             }
             return lines;

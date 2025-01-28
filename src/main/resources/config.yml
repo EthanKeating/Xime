@@ -8,6 +8,7 @@ webhook: "https://discord.com/api/webhooks/1326655138076561468/LTFoWPmuu2G1R1zbO
 server:
   motd: "&8[&eMCGamer&8] &6&l1.7 &7& &6&l1.8 &2Alpha Wave &c#5.0.0\n&4Full recode in progress"
   version: "5.0.0"
+  ip: "MCGamer.club"
 bossbar:
   text: "&eMCGamer Network &6Beta &7(%version%)&8. &aFeatures/gameplay subject to change."
 activemaps:

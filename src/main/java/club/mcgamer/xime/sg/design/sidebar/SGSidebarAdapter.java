@@ -119,7 +119,7 @@ public class SGSidebarAdapter extends SidebarAdapter {
                             "",
                             "&6&l» Server",
                             String.format("&3EU&8: &f%s", serverable.getServerId()),
-                            "&75.0.0",
+                            "&7" + profile.getLanguage().getVersion(),
                             "",
                             "&6&l» Players"
                     ));
@@ -129,7 +129,7 @@ public class SGSidebarAdapter extends SidebarAdapter {
                         lines.add(String.format("&fPlaying: %s", serverable.getTributeList().size()));
                         lines.add(String.format("&fWatching: %s", serverable.getSpectatorList().size()));
                     }
-                    lines.add("&b&lMCGamer.club");
+                    lines.add("&b&l" + profile.getLanguage().get);
                     break;
             }
             return lines;

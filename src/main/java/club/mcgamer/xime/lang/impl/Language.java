@@ -13,5 +13,6 @@ public class Language {
     private String motd;
     private String version;
     private String bossBarText;
+    private String serverIp;
 
 }

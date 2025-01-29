@@ -11,6 +11,7 @@ import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
+import club.mcgamer.xime.util.FireworkUtil;
 import lombok.Getter;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
@@ -48,8 +49,7 @@ public class EndGameRunnable extends AbstractGameRunnable {
         if (gameWinner.isPresent()) {
             Profile gameWinnerProfile = gameWinner.get();
 
-            if (gameWinnerProfile.getTemporaryData() instanceof SGTemporaryData) {
-                SGTemporaryData temporaryData = (SGTemporaryData) gameWinnerProfile.getTemporaryData();
+            if (gameWinnerProfile.getTemporaryData() instanceof SGTemporaryData temporaryData) {
                 PlayerData playerData = gameWinnerProfile.getPlayerData();
 
                 if (!(serverable instanceof SGMakerServerable)) {
@@ -88,7 +88,7 @@ public class EndGameRunnable extends AbstractGameRunnable {
 
         fireworkLocations.stream()
                 .map(mapLocation -> mapLocation.toBukkit(serverable.getWorld()))
-                .forEach(this::generateFirework);
+                .forEach(FireworkUtil::sendFirework);
     }
 
     public void run() {
@@ -103,29 +103,6 @@ public class EndGameRunnable extends AbstractGameRunnable {
     public void cancel() {
         super.cancel();
         serverable.setGameState(GameState.CLEANUP);
-    }
-
-    private void generateFirework(Location location) {
-        Random random = new Random();
-
-        Color[] colors = {Color.RED, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.LIME, Color.AQUA};
-        Color primaryColor = colors[random.nextInt(colors.length)];
-
-        FireworkEffect effect = FireworkEffect.builder()
-                .withColor(primaryColor)
-                .with(FireworkEffect.Type.BALL)
-                .build();
-
-        ItemStack fireworkItem = new ItemStack(Material.FIREWORK);
-        FireworkMeta meta = (FireworkMeta) fireworkItem.getItemMeta();
-        if (meta != null) {
-            meta.addEffect(effect);
-            meta.setPower(1);
-            fireworkItem.setItemMeta(meta);
-        }
-
-        Firework firework = location.getWorld().spawn(location, Firework.class);
-        firework.setFireworkMeta((FireworkMeta) fireworkItem.getItemMeta());
     }
 
 }

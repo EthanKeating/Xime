@@ -8,7 +8,6 @@ import club.mcgamer.xime.server.event.ServerDamageEvent;
 import club.mcgamer.xime.server.event.ServerDamageOtherEntityEvent;
 import club.mcgamer.xime.server.event.ServerDeathEvent;
 import club.mcgamer.xime.sg.SGServerable;
-import club.mcgamer.xime.util.FireworkUtil;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.MathUtil;
 import org.bukkit.*;
@@ -129,7 +128,7 @@ public class BGDamageListener extends IListener {
             event.getEvent().getDrops().clear();
             event.getEvent().setDroppedExp(0);
 
-            FireworkUtil.sendFirework(victim.getPlayer().getLocation());
+            generateFirework(victim.getPlayer().getLocation());
 
             if (event.getAttacker().isPresent()) {
                 Profile attacker = event.getAttacker().get();
@@ -188,6 +187,28 @@ public class BGDamageListener extends IListener {
             serverable.setWaiting(victim);
             event.getVictim().getPlayer().setVelocity(new Vector(0.0, 0.0, 0.0));
         }
+    }
+
+    private void generateFirework(Location location) {
+        Random random = new Random();
+
+        Color[] colors = {Color.RED, Color.GREEN, Color.YELLOW, Color.ORANGE, Color.LIME, Color.AQUA};
+        Color primaryColor = colors[random.nextInt(colors.length)];
+
+        FireworkEffect effect = FireworkEffect.builder()
+                .withColor(primaryColor)
+                .build();
+
+        ItemStack fireworkItem = new ItemStack(Material.FIREWORK);
+        FireworkMeta meta = (FireworkMeta) fireworkItem.getItemMeta();
+        if (meta != null) {
+            meta.addEffect(effect);
+            meta.setPower(1);
+            fireworkItem.setItemMeta(meta);
+        }
+
+        Firework firework = location.getWorld().spawn(location, Firework.class);
+        firework.setFireworkMeta((FireworkMeta) fireworkItem.getItemMeta());
     }
 
 

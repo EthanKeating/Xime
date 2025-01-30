@@ -5,16 +5,19 @@ import club.mcgamer.xime.loot.LootTable;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 
 //I DID NOT WRITE THIS SHIT, ITS FROM TESC0S SHITTY ASS PLUGIN BUT IM FORCED TO USE HIS CODE FOR THIS
 public class FireworkUtil
 {
     public static void sendFirework(final Location location) {
-        final Firework fw = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK);
-        final FireworkMeta fwm = fw.getFireworkMeta();
+
+        ItemStack fireworkItem = new ItemStack(Material.FIREWORK);
+        final FireworkMeta fwm = (FireworkMeta) fireworkItem.getItemMeta();
         final int rt = LootTable.random.nextInt(5) + 1;
         FireworkEffect.Type type = FireworkEffect.Type.BALL;
         if (rt == 2) {
@@ -33,11 +36,20 @@ public class FireworkUtil
         final int r2i = LootTable.random.nextInt(17) + 1;
         final Color c1 = getColor(r1i);
         final Color c2 = getColor(r2i);
-        final FireworkEffect effect = FireworkEffect.builder().flicker(LootTable.random.nextBoolean()).withColor(c1).withFade(c2).with(type).trail(LootTable.random.nextBoolean()).build();
+        final FireworkEffect effect = FireworkEffect
+                .builder()
+                .flicker(LootTable.random.nextBoolean())
+                .withColor(c1)
+                .withFade(c2)
+                .with(type)
+                .trail(LootTable.random.nextBoolean()).build();
         fwm.addEffect(effect);
         final int rp = LootTable.random.nextInt(2) + 1;
         fwm.setPower(rp);
-        fw.setFireworkMeta(fwm);
+        fireworkItem.setItemMeta(fwm);
+
+        Firework firework = location.getWorld().spawn(location, Firework.class);
+        firework.setFireworkMeta((FireworkMeta) fireworkItem.getItemMeta());
     }
 
     private static Color getColor(final int i) {

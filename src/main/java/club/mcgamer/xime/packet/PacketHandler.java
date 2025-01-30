@@ -101,11 +101,11 @@ public class PacketHandler extends PacketListenerAbstract {
 
             JsonArray sampleArray = new JsonArray();
 
-            sampleArray.add(createLine("&8[&eMCGamer Network&8]"));
-            sampleArray.add(createLine(""));
+            //sampleArray.add(createLine("&8[&eMCGamer Network&8]"));
+            //sampleArray.add(createLine(""));
 
             playersObject.remove("sample");
-            playersObject.add("sample", sampleArray);
+            //playersObject.add("sample", sampleArray);
 
 
             if (plugin.getServerHandler().isWhitelisted())

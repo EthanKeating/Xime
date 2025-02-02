@@ -130,7 +130,7 @@ public class Profile {
 
     public void setRank(Rank rank) {
         this.rank = rank;
-        playerData.setUserName(rank.getName());
+        playerData.setUserRank(rank.getName());
 
         if (getPlayer() != null) {
             playerData.setDisplayName(rank.getColor() + getNameBypassDisguise());

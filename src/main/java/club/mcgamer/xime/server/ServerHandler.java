@@ -3,6 +3,7 @@ package club.mcgamer.xime.server;
 import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.bg.BGServerable;
 import club.mcgamer.xime.hub.HubServerable;
+import club.mcgamer.xime.server.task.AutoBroadcastTask;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.staff.StaffServerable;
@@ -29,6 +30,8 @@ public class ServerHandler {
 
         String lobbyWorldName = SGServerable.LOBBY_NAME + "-1";
         String hubWorldName = HubServerable.MAP_NAME + "-1";
+
+        new AutoBroadcastTask(plugin);
 
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             plugin.getWorldHandler().loadSlime(hubWorldName, HubServerable.MAP_NAME);

@@ -28,7 +28,7 @@ public class PingCommand extends XimeCommand {
 
         if (args.length == 0) {
             profile.sendMessage(String.format("&8[&3Xime&8] &fYour current ping is &6%s &fms.", PacketEvents.getAPI().getPlayerManager().getPing(player)));
-            profile.sendMessage("&8[&3Xime&8] &fThe server is hosted in &aFrankfurt, Germany");
+            profile.sendMessage("&8[&3Xime&8] &fThe server is hosted in &aParis, France");
             return true;
         }
 
@@ -37,7 +37,7 @@ public class PingCommand extends XimeCommand {
 
         Profile argumentProfile = plugin.getProfileHandler().getProfile(argumentPlayer);
         profile.sendMessage(String.format("&8[&3Xime&8] &f%s&f's current ping is &6%s &fms.", argumentProfile.getDisplayName(), PacketEvents.getAPI().getPlayerManager().getPing(argumentPlayer)));
-        profile.sendMessage("&8[&3Xime&8] &fThe server is hosted in &aFrankfurt, Germany");
+        profile.sendMessage("&8[&3Xime&8] &fThe server is hosted in &aParis, France");
 
         return true;
     }

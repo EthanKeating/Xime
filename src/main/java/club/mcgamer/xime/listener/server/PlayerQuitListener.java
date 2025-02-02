@@ -1,6 +1,7 @@
 package club.mcgamer.xime.listener.server;
 
 import club.mcgamer.xime.data.DataHandler;
+import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.profile.ProfileHandler;
 import club.mcgamer.xime.util.IListener;
@@ -21,15 +22,13 @@ public class PlayerQuitListener extends IListener {
         DataHandler dataHandler = plugin.getDataHandler();
         Profile profile = profileHandler.getProfile(player);
 
-        if (profile != null && profile.getServerable() != null) {
+        PlayerData playerData = profile.getPlayerData();
+
+        if (profile.getServerable() != null)
             profile.getServerable().remove(profile);
 
-            Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-                dataHandler.updatePlayerData(profile.getPlayerData());
-            });
-        }
+        dataHandler.updatePlayerData(playerData);
         profileHandler.removeProfile(player);
-
         plugin.getDisguiseHandler().getDisguises().remove(player.getUniqueId());
     }
 

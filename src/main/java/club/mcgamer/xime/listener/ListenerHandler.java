@@ -24,6 +24,9 @@ public class ListenerHandler {
     public ListenerHandler(XimePlugin plugin) {
         this.plugin = plugin;
 
+        //Anti WDL
+        new WorldDownloadListener(plugin);
+
         // Staff listeners
         new StaffOtherJoinListener();
         new StaffInteractListener();

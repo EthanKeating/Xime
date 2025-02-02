@@ -118,5 +118,42 @@ public class HubMainMenu extends FastInv {
                     new HubSelectorMenu(profile).open(profile.getPlayer());
             }
         });
+
+        setItem(28, new ItemBuilder(Material.CHEST).name("&2  MCGamer Maker / MCSG Maker")
+                .lore(Arrays.asList(
+                        "&8████████████████",
+                        "",
+                        "&aCreate your own, private games",
+                        "&a  with friends, with a range of ",
+                        "&a customizable gameplay options!",
+                        "",
+                        "&bLeft Click &7to &b&lMaker Menu",
+                        "",
+                        "&8████████████████"
+                ))
+                .build(), e -> {
+
+            e.setCancelled(true);
+            switch (e.getClick()) {
+                case LEFT:
+                case SHIFT_LEFT:
+                    new MakerMenu(profile).open(profile.getPlayer());
+            }
+        });
+
+        setItem(34, new ItemBuilder(Material.IRON_FENCE).name("&c     In Development")
+                .lore(Arrays.asList(
+                        "&8████████████████",
+                        "",
+                        "&cThis gamemode is currently in",
+                        "&cdevelopment, come back another",
+                        "&ctime to check its availability",
+                        "",
+                        "&8████████████████"
+                ))
+                .build(), e -> {
+
+            e.setCancelled(true);
+        });
     }
 }

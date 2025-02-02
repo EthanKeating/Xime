@@ -12,6 +12,12 @@ server:
 tab:
   header: "&aYou are playing on the &6MCGamer Network&a! &eeu.mcgamer.club"
   footer: "&aVisit our store at &eshop.mcgamer.club&a!"
+broadcast:
+  delay: 240
+  messages:
+  - "&fJoin our Discord: &6&nhttps://discord.gg/Twyqpa8tqZ"
+  - "&fVisit our Website: &6&nhttps://www.mcgamer.club/"
+  - "&fVisit our Store: &6&nhttps://www.mcgamer.club/store/"
 bossbar:
   text: "&eMCGamer Network &6Beta &7(%version%)&8. &aFeatures/gameplay subject to change."
 activemaps:

@@ -42,6 +42,8 @@ public class MutatorsSubMenu extends FastInv {
                         .build(),
                 e -> {
                     //OPEN START TIME SUB MENU
+                    profile.sendMessage("&cThis feature is still being worked on");
+                    e.setCancelled(true);
                 });
 
         setItem(5, new ItemBuilder(Material.MOB_SPAWNER)
@@ -128,7 +130,8 @@ public class MutatorsSubMenu extends FastInv {
                         .lore("&aModify the knockback to match another server.")
                         .build(),
                 e -> {
-                    //OPEN START TIME SUB MENU
+                    profile.sendMessage("&cThis feature is still being worked on");
+                    e.setCancelled(true);
                 });
 
     }

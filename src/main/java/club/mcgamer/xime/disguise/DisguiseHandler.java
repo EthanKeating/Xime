@@ -26,39 +26,38 @@ public class DisguiseHandler {
 
     public DisguiseHandler(XimePlugin plugin) {
         this.plugin = plugin;
+
+        DisguiseUtil.getRandomSkins().forEach(Skin::new);
     }
 
     @SneakyThrows
     public void disguise(Profile profile) {
-        String randomName = DisguiseUtil.getRandomName();
-        Skin skin = DisguiseUtil.getRandomSkin();
-
-        profile.setDisguiseData(new DisguiseData(
-                profile,
-                profile.getUuid(),
-                randomName,
-                skin)
-        );
-        profile.getDisguiseData().setMockData(PlayerData.createMock(profile));
-        disguises.put(profile.getUuid(), profile.getDisguiseData());
-
         String prefix = profile.getServerable().getPrefix();
+
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            String randomName = DisguiseUtil.getRandomName();
+            Skin skin = DisguiseUtil.getRandomSkin();
+
+            profile.setDisguiseData(new DisguiseData(
+                    profile,
+                    profile.getUuid(),
+                    randomName,
+                    skin)
+            );
+            profile.getDisguiseData().setMockData(PlayerData.createMock(profile));
+            disguises.put(profile.getUuid(), profile.getDisguiseData());
 
 //        profile.getUser().getProfile().setName(randomName);
 //        profile.getPlayer().setDisplayName(profile.getName());
-
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             DisguiseUtil.setSkin(profile, skin);
             DisguiseUtil.setName(profile, randomName);
             DisguiseUtil.updateToDisguise(profile);
-        });
 
-        profile.sendMessage(prefix + "&c&lWarning! &cThis command is logged.")
-                .sendMessage(prefix + "&cStaff can see your true username while using this command.")
-                .sendMessage(prefix + "&fYou now appear as " + profile.getDisplayName() + "&8.")
-                .sendMessage(prefix + "&fTo undisguise, use &8[&e/undisguise&8]");
+            profile.sendMessage(prefix + "&c&lWarning! &cThis command is logged.")
+                    .sendMessage(prefix + "&cStaff can see your true username while using this command.")
+                    .sendMessage(prefix + "&fYou now appear as " + profile.getDisplayName() + "&8.")
+                    .sendMessage(prefix + "&fTo undisguise, use &8[&e/undisguise&8]");
 
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(Paths.get(plugin.getDataFolder().getAbsolutePath(), "disguises.log").toFile(), true))) {
                 writer.write(String.format("[%s] '%s' has disguised as '%s'",
                         LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
@@ -68,6 +67,7 @@ public class DisguiseHandler {
             } catch (IOException e) {
             }
         });
+
 
     }
 

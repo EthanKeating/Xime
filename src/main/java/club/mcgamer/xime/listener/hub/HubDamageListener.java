@@ -10,8 +10,7 @@ public class HubDamageListener extends IListener {
 
     @EventHandler
     private void onHubDamage(ServerDamageEvent event) {
-        if (event.getServerable() instanceof HubServerable) {
-            HubServerable serverable = (HubServerable) event.getServerable();
+        if (event.getServerable() instanceof HubServerable serverable) {
             event.getEvent().setCancelled(true);
 
             if (event.getEvent().getCause() == EntityDamageEvent.DamageCause.VOID) {

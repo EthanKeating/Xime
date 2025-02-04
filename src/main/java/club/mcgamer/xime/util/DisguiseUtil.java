@@ -10,6 +10,7 @@ import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
+import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
@@ -147,6 +148,7 @@ public class DisguiseUtil {
 
     public static final Random random = new Random();
 
+    @Getter
     private static final List<UUID> randomSkins = Arrays.asList(
             UUID.fromString("ac81d1cd-fe47-40e1-bc6d-e359aa50fc36"),
             UUID.fromString("5f0898ae-3f2e-4c99-b0fc-ed4c7fecbdea"),

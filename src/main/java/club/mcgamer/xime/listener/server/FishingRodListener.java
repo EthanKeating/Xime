@@ -37,7 +37,7 @@ public class FishingRodListener extends IListener {
                 if (profile.getServerable() instanceof SGServerable) {
                     SGServerable serverable = (SGServerable) profile.getServerable();
 
-                    hook.setVelocity(hook.getVelocity().multiply(serverable.getGameSettings().getRodSpeedMultiplier()));
+                    hook.setVelocity(hook.getVelocity().multiply(serverable.getGameSettings().getRodSpeedMultiplier() + 0.12));
                 }
             }
         }

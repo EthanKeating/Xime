@@ -4,6 +4,7 @@ import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.server.data.TemporaryData;
 import club.mcgamer.xime.server.event.ServerJoinEvent;
+import club.mcgamer.xime.staff.design.sidebar.StaffSidebarAdapter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -13,7 +14,7 @@ public class StaffServerable extends Serverable {
         super();
 
         setMaxPlayers(-1);
-
+        setSidebarAdapter(new StaffSidebarAdapter());
         overrideWorld(Bukkit.getWorlds().get(0));
     }
 

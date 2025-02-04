@@ -50,7 +50,7 @@ public class DataHandler {
                updatePlayerData(profile.getPlayerData());
             });
             rankPlayerData();
-        }, 20 * 20, 20 * 20);
+        }, 20 * 30, 20 * 30);
 
     }
 

@@ -32,6 +32,9 @@ public class PlayerJoinListener extends IListener {
         }
         if (plugin.getProfileHandler().getProfile(event.getUniqueId()) != null) {
             event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, TextUtil.translate("&cYou are already connected to this server, please rejoin"));
+            if (Bukkit.getPlayer(event.getUniqueId()) == null) {
+                profileHandler.removeProfile(profileHandler.getProfile(event.getUniqueId()));
+            }
             return;
         }
 

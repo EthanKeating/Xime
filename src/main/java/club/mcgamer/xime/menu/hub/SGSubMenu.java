@@ -6,6 +6,7 @@ import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
+import club.mcgamer.xime.staff.StaffServerable;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -49,76 +50,76 @@ public class SGSubMenu extends FastInv {
             ItemStack serverItem = null;
             GameState gameState = server.getGameState();
             String serverName = server.toString().replace('-', ' ');
-            switch (gameState) {
-                case LOBBY:
-                    serverItem = new ItemBuilder(Material.STAINED_CLAY)
+
+            if (profile.getServerable() instanceof StaffServerable) {
+                serverItem = new ItemBuilder(Material.STAINED_CLAY)
+                        .data(4)
+                        .amount(Math.max(1, server.getPlayerList().size()))
+                        .name("&a" + serverName)
+                        .lore(String.format("&fPlayers: &e%s/%s", server.getPlayerList().size(), server.getMaxPlayers()),
+                                "&fState: &e", gameState.getName())
+                        .build();
+            } else {
+                serverItem = switch (gameState) {
+                    case LOBBY -> new ItemBuilder(Material.STAINED_CLAY)
                             .data(5)
                             .amount(Math.max(1, server.getPlayerList().size()))
                             .name("&a" + serverName)
                             .lore(String.format("&cPlayers: &f%s/%s", server.getPlayerList().size(), server.getMaxPlayers()), "", "&aLOBBY")
                             .build();
-                    break;
-                case PREGAME:
-                    serverItem = new ItemBuilder(Material.STAINED_CLAY)
+                    case PREGAME -> new ItemBuilder(Material.STAINED_CLAY)
                             .data(4)
                             .amount(Math.max(1, server.getPlayerList().size()))
                             .name("&a" + serverName)
                             .lore(String.format("&cPlayers: &f%s/%s", server.getPlayerList().size(), server.getMaxPlayers()), "", "&ePREGAME")
                             .build();
-                    break;
-                case LIVEGAME:
-                    serverItem = new ItemBuilder(Material.STAINED_CLAY)
+                    case LIVEGAME -> new ItemBuilder(Material.STAINED_CLAY)
                             .data(4)
                             .amount(Math.max(1, server.getPlayerList().size()))
                             .name("&a" + serverName)
                             .lore(String.format("&cPlayers: &f%s/%s", server.getPlayerList().size(), server.getMaxPlayers()), "", "&eLIVEGAME")
                             .build();
-                    break;
-                case PREDEATHMATCH:
-                    serverItem = new ItemBuilder(Material.STAINED_CLAY)
+                    case PREDEATHMATCH -> new ItemBuilder(Material.STAINED_CLAY)
                             .data(14)
                             .amount(Math.max(1, server.getPlayerList().size()))
                             .name("&a" + serverName)
                             .lore(String.format("&cPlayers: &f%s/%s", server.getPlayerList().size(), server.getMaxPlayers()), "", "&cPREDEATHMATCH")
                             .build();
-                    break;
-                case DEATHMATCH:
-                    serverItem = new ItemBuilder(Material.STAINED_CLAY)
+                    case DEATHMATCH -> new ItemBuilder(Material.STAINED_CLAY)
                             .data(14)
                             .amount(Math.max(1, server.getPlayerList().size()))
                             .name("&a" + serverName)
                             .lore(String.format("&cPlayers: &f%s/%s", server.getPlayerList().size(), server.getMaxPlayers()), "", "&cDEATHMATCH")
                             .build();
-                    break;
-                case ENDGAME:
-                    serverItem = new ItemBuilder(Material.STAINED_CLAY)
+                    case ENDGAME -> new ItemBuilder(Material.STAINED_CLAY)
                             .data(14)
                             .amount(Math.max(1, server.getPlayerList().size()))
                             .name("&a" + serverName)
                             .lore(String.format("&cPlayers: &f%s/%s", server.getPlayerList().size(), server.getMaxPlayers()), "", "&cENDGAME")
                             .build();
-                    break;
-                case CLEANUP:
-                    serverItem = new ItemBuilder(Material.STAINED_CLAY)
+                    case CLEANUP -> new ItemBuilder(Material.STAINED_CLAY)
                             .data(14)
                             .amount(Math.max(1, server.getPlayerList().size()))
                             .name("&a" + serverName)
                             .lore(String.format("&cPlayers: &f%s/%s", server.getPlayerList().size(), server.getMaxPlayers()), "", "&cCLEANUP")
                             .build();
-                    break;
-                case RESTARTING:
-                    serverItem = new ItemBuilder(Material.STAINED_CLAY)
+                    case RESTARTING -> new ItemBuilder(Material.STAINED_CLAY)
                             .data(15)
                             .amount(Math.max(1, server.getPlayerList().size()))
                             .name("&a" + serverName)
                             .lore(String.format("&cPlayers: &f%s/%s", server.getPlayerList().size(), server.getMaxPlayers()), "", "&8RESTARTING")
                             .build();
-                    break;
+                    default -> serverItem;
+                };
 
             }
 
             setItem(index++, serverItem, e -> {
-                ((Player) e.getWhoClicked()).performCommand("join sg " + server.getServerId());
+                if (profile.getServerable() instanceof StaffServerable) {
+                    profile.getPlayer().teleport(server.getWorld().getSpawnLocation());
+                    return;
+                }
+                profile.getPlayer().performCommand("join sg " + server.getServerId());
                 e.setCancelled(true);
             });
         }

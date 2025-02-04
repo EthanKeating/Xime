@@ -98,6 +98,12 @@ public class SGServerable extends Serverable {
             profile.getServerable().remove(profile);
 
 
+        //Temporary fix
+        plugin.getProfileHandler().getProfiles().forEach(loopProfile -> {
+            profile.getPlayer().hidePlayer(loopProfile.getPlayer());
+            loopProfile.getPlayer().hidePlayer(loopProfile.getPlayer());
+        });
+
         //TODO: Fix the weird spectator bug
         getPlayerList().stream().map(Profile::getPlayer).forEach(loopPlayer -> {
             loopPlayer.showPlayer(player);

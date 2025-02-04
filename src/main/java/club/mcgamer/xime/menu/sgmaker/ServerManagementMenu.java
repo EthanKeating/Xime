@@ -18,7 +18,8 @@ public class ServerManagementMenu extends FastInv {
                         .name("&bConfig Templates")
                         .build(),
                 e -> {
-
+                    profile.sendMessage("&cThis feature is still being worked on");
+                    e.setCancelled(true);
                 });
 
         setItem(2, new ItemBuilder(Material.EMPTY_MAP)
@@ -32,7 +33,9 @@ public class ServerManagementMenu extends FastInv {
                         .name("&bTeam Selection")
                         .build(),
                 e -> {
-                    new TeamSelectionSubMenu(this, profile, serverable).open(profile.getPlayer());
+                    profile.sendMessage("&cThis feature is still being worked on");
+                    e.setCancelled(true);
+                    //new TeamSelectionSubMenu(this, profile, serverable).open(profile.getPlayer());
                 });
 
         setItem(4, new ItemBuilder(Material.GOLDEN_APPLE)
@@ -45,7 +48,8 @@ public class ServerManagementMenu extends FastInv {
                         .name("&bPrivacy")
                         .build(),
                 e -> {
-                    //OPEN START TIME SUB MENU
+                    profile.sendMessage("&cThis feature is still being worked on");
+                    e.setCancelled(true);
                 });
 
         setItem(7, new ItemBuilder(Material.FIREWORK)

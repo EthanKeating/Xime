@@ -9,6 +9,7 @@ import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
+import club.mcgamer.xime.staff.StaffServerable;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -53,6 +54,11 @@ public class HubMainMenu extends FastInv {
                 .build(), e -> {
 
             e.setCancelled(true);
+            if (profile.getServerable() instanceof StaffServerable) {
+                new SGSubMenu(profile).open(profile.getPlayer());
+                return;
+            }
+
             switch (e.getClick()) {
                 case LEFT:
                 case SHIFT_LEFT:
@@ -134,6 +140,7 @@ public class HubMainMenu extends FastInv {
                 .build(), e -> {
 
             e.setCancelled(true);
+
             switch (e.getClick()) {
                 case LEFT:
                 case SHIFT_LEFT:

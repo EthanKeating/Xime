@@ -20,11 +20,15 @@ import com.lunarclient.apollo.Apollo;
 import com.lunarclient.apollo.module.combat.CombatModule;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import lombok.Getter;
+import me.lucko.spark.api.Spark;
+import me.lucko.spark.api.SparkProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Getter
 public class XimePlugin extends JavaPlugin {
+
+    private Spark spark;
 
     private ServerHandler serverHandler;
     private ProfileHandler profileHandler;
@@ -52,6 +56,8 @@ public class XimePlugin extends JavaPlugin {
         slimePlugin = (SlimePlugin) Bukkit.getPluginManager().getPlugin("SlimeWorldManager");
 
         saveDefaultConfig();
+
+        this.spark = SparkProvider.get();
 
         mapHandler = new MapHandler(this);
         serverHandler = new ServerHandler(this);

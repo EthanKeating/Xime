@@ -31,14 +31,8 @@ public class StaffCommand extends XimeCommand {
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
 
-        Bukkit.getOnlinePlayers().forEach(loopPlayer -> {
-            loopPlayer.hidePlayer(player);
-            player.hidePlayer(loopPlayer);
-        });
-
         if (profile.getServerable() instanceof StaffServerable) {
             plugin.getServerHandler().getFallback().add(profile);
-            profile.sendMessage("&8[&3Xime&8] &cYou have been removed from staff mode&8.");
             return true;
         }
 
@@ -47,14 +41,6 @@ public class StaffCommand extends XimeCommand {
                 .filter(serverable -> serverable instanceof StaffServerable)
                 .findAny()
                 .ifPresent(serverable -> serverable.add(profile));
-
-        profile.sendMessage("&8[&3Xime&8] &aYou have been added to staff mode&8.");
-
-        PlayerUtil.refresh(profile);
-        player.teleport(player.getLocation().add(0, 0.01, 0));
-        player.setAllowFlight(true);
-        player.setFlying(true);
-        PlayerUtil.setFlying(profile);
 
         return true;
     }

@@ -6,5 +6,6 @@ version: 5.0
 depend:
   - Apollo-Bukkit
   - SlimeWorldManager
+  - spark
 soft-depend:
   - LiteBans

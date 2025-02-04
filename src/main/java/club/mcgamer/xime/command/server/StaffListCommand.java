@@ -39,7 +39,7 @@ public class StaffListCommand extends XimeCommand {
                 .collect(Collectors.joining("&8, "))));
 
 
-        sender.sendMessage(TextUtil.translate(String.format(globalMessage, Bukkit.getOnlinePlayers().size(), Bukkit.getMaxPlayers())));
+        sender.sendMessage(TextUtil.translate(String.format(globalMessage, Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("xime.staff")).count(), Bukkit.getMaxPlayers())));
 
         return true;
     }

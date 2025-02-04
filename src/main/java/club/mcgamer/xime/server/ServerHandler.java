@@ -50,7 +50,7 @@ public class ServerHandler {
             else if (getServerList().stream().filter(serverable -> !(serverable instanceof SGMakerServerable))
                     .filter(serverable -> serverable instanceof SGServerable).count() < 36)
                     new SGServerable();
-            else if (getServerList().stream().filter(serverable -> serverable instanceof BGServerable).count() < 9)
+            else if (getServerList().stream().filter(serverable -> serverable instanceof BGServerable).count() < 4)
                 new BGServerable();
         }, 30, 1);
 

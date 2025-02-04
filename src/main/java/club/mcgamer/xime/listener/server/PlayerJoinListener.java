@@ -33,7 +33,7 @@ public class PlayerJoinListener extends IListener {
         if (plugin.getProfileHandler().getProfile(event.getUniqueId()) != null) {
             event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, TextUtil.translate("&cYou are already connected to this server, please rejoin"));
             if (Bukkit.getPlayer(event.getUniqueId()) == null) {
-                profileHandler.removeProfile(profileHandler.getProfile(event.getUniqueId()));
+                profileHandler.removeProfile(event.getUniqueId());
             }
             return;
         }
@@ -59,16 +59,18 @@ public class PlayerJoinListener extends IListener {
 
         profile.complete();
 
-        Bukkit.getOnlinePlayers().forEach(loopPlayer -> {
-            loopPlayer.hidePlayer(player);
-            player.hidePlayer(loopPlayer);
-        });
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            Bukkit.getOnlinePlayers().forEach(loopPlayer -> {
+                loopPlayer.hidePlayer(player);
+                player.hidePlayer(loopPlayer);
+            });
 
-        serverHandler.getFallback().add(profile);
+            serverHandler.getFallback().add(profile);
 
-        if (profile.getServerable() == null) {
-            player.kickPlayer(TextUtil.translate("&cCould not locate a server for you!"));
-        }
+            if (profile.getServerable() == null) {
+                player.kickPlayer(TextUtil.translate("&cCould not locate a server for you!"));
+            }
+        }, 3L);
 
         WrapperPlayServerPlayerListHeaderAndFooter headerAndFooter = new WrapperPlayServerPlayerListHeaderAndFooter(
                 Component.text(TextUtil.translate(profile.getLanguage().getTabHeader())),

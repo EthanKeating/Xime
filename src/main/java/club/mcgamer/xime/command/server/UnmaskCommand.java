@@ -29,7 +29,7 @@ public class UnmaskCommand extends XimeCommand {
         Profile profile = plugin.getProfileHandler().getProfile(player.getUniqueId());
 
         if (profile.getDisguiseData() == null || profile.getRank() == profile.getRankBypassDisguise()) {
-            profile.sendMessage("&8[&3Xime&8] &cYou are not masked.");
+            profile.sendMessage(profile.getServerable().getPrefix() + "&cYou are not masked.");
             return true;
         }
 
@@ -39,7 +39,7 @@ public class UnmaskCommand extends XimeCommand {
         else
             profile.setDisguiseData(null);
 
-        profile.sendMessage("&8[&3Xime&8] &fYou have been unmasked");
+        profile.sendMessage(profile.getServerable().getPrefix() + "&fYou have been unmasked");
         return true;
     }
 }

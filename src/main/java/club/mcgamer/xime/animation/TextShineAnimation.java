@@ -69,7 +69,6 @@ public class TextShineAnimation extends BukkitRunnable {
         // Update the position for the next frame
         position++;
     }
-        //profile.getUser().sendMessage(Component.text(TextUtil.translate(animatedText.toString())), ChatTypes.GAME_INFO);
 
 
 }

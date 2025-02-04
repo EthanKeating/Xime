@@ -45,7 +45,11 @@ public class ProfileHandler {
     }
 
     public Profile removeProfile(Profile profile) {
-        return removeProfile(profile.getPlayer());
+        return profileMap.remove(profile.getUuid());
+    }
+
+    public Profile removeProfile(UUID uuid) {
+        return profileMap.remove(uuid);
     }
 
     public Collection<Profile> getProfiles() {

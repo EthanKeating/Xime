@@ -111,6 +111,11 @@ public abstract class Serverable {
             profile.getServerable().remove(profile);
 
 
+        Bukkit.getOnlinePlayers().forEach(loopPlayer -> {
+            loopPlayer.hidePlayer(player);
+            player.hidePlayer(loopPlayer);
+        });
+
         getPlayerList().stream().map(Profile::getPlayer).forEach(loopPlayer -> {
             loopPlayer.showPlayer(player);
             player.showPlayer(loopPlayer);
@@ -166,6 +171,7 @@ public abstract class Serverable {
 
     public void overrideWorld(World world) {
         this.world = world;
+        worlds.clear();
         worlds.add(world);
     }
 

@@ -16,7 +16,6 @@ public class StaffJoinListener extends IListener {
     private void onStaffJoin(ServerJoinEvent event) {
         if (event.getServerable() instanceof StaffServerable) {
 
-
             Profile profile = event.getProfile();
             Player player = profile.getPlayer();
 

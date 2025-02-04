@@ -7,6 +7,7 @@ import club.mcgamer.xime.util.DisguiseUtil;
 import club.mcgamer.xime.util.Skin;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import org.bukkit.Bukkit;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -55,14 +56,16 @@ public class DisguiseHandler {
                 .sendMessage(prefix + "&fYou now appear as " + profile.getDisplayName() + "&8.")
                 .sendMessage(prefix + "&fTo undisguise, use &8[&e/undisguise&8]");
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(Paths.get(plugin.getDataFolder().getAbsolutePath(), "disguises.log").toFile(), true))) {
-            writer.write(String.format("[%s] '%s' has disguised as '%s'",
-                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-                    profile.getNameBypassDisguise(),
-                    randomName));
-            writer.newLine();
-        } catch (IOException e) {
-        }
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(Paths.get(plugin.getDataFolder().getAbsolutePath(), "disguises.log").toFile(), true))) {
+                writer.write(String.format("[%s] '%s' has disguised as '%s'",
+                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                        profile.getNameBypassDisguise(),
+                        randomName));
+                writer.newLine();
+            } catch (IOException e) {
+            }
+        });
 
     }
 

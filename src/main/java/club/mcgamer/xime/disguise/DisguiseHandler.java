@@ -47,9 +47,11 @@ public class DisguiseHandler {
 //        profile.getUser().getProfile().setName(randomName);
 //        profile.getPlayer().setDisplayName(profile.getName());
 
-        DisguiseUtil.setSkin(profile, skin);
-        DisguiseUtil.setName(profile, randomName);
-        DisguiseUtil.updateToDisguise(profile);
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            DisguiseUtil.setSkin(profile, skin);
+            DisguiseUtil.setName(profile, randomName);
+            DisguiseUtil.updateToDisguise(profile);
+        });
 
         profile.sendMessage(prefix + "&c&lWarning! &cThis command is logged.")
                 .sendMessage(prefix + "&cStaff can see your true username while using this command.")

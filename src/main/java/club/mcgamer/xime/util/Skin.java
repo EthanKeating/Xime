@@ -20,9 +20,13 @@ public class Skin {
     private final String signature;
 
     public Skin(UUID uuid) {
-        TextureProperty texture = MojangAPIUtil.requestPlayerTextureProperties(uuid).get(0);
-        this.value = texture.getValue();
-        this.signature = texture.getSignature();
+        TextureProperty property = textureProperties.containsKey(uuid)
+                ? textureProperties.get(uuid)
+                : MojangAPIUtil.requestPlayerTextureProperties(uuid).get(0);
+
+        textureProperties.put(uuid, property);
+        this.value = property.getValue();
+        this.signature = property.getSignature();
     }
     /**
      * Checks if another skin matches this one

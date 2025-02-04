@@ -72,13 +72,15 @@ public class DisguiseUtil {
     }
 
     private void update(Profile profile) {
-        Location startLoc = profile.getPlayer().getLocation();
-        profile.getServerable().getPlayerList().stream().map(Profile::getPlayer).forEach(loopPlayer -> {
-            loopPlayer.hidePlayer(profile.getPlayer());
-            loopPlayer.showPlayer(profile.getPlayer());
+        Bukkit.getScheduler().runTask(profile.getPlugin(), () -> {
+            Location startLoc = profile.getPlayer().getLocation();
+            profile.getServerable().getPlayerList().stream().map(Profile::getPlayer).forEach(loopPlayer -> {
+                loopPlayer.hidePlayer(profile.getPlayer());
+                loopPlayer.showPlayer(profile.getPlayer());
+            });
+            profile.getPlayer().teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
+            profile.getPlayer().teleport(startLoc);
         });
-        profile.getPlayer().teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
-        profile.getPlayer().teleport(startLoc);
     }
 
     public void updateToDisguise(Profile profile) {

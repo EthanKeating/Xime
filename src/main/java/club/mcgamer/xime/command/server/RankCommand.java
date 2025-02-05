@@ -45,7 +45,7 @@ public class RankCommand extends XimeCommand {
 
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
 
-            OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+            Player target = Bukkit.getPlayer(args[0]);
             Rank rank = rankHandler.getRank(args[1]);
 
             if (target == null) {

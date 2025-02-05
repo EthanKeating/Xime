@@ -5,8 +5,9 @@ import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.util.TextUtil;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
+import com.j256.ormlite.field.SqlType;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
-import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.*;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 import lombok.Getter;
@@ -77,6 +78,20 @@ public class DataHandler {
             createPlayerData(uuid);
 
         return playerDataDao.queryForId(uuid.toString());
+    }
+
+    @SneakyThrows
+    public PlayerData getPlayerData(String userName) {
+
+        String userNameToSearch = userName.toLowerCase();
+
+        QueryBuilder<PlayerData, String> queryBuilder = playerDataDao.queryBuilder();
+
+        queryBuilder.where().like("userName", userNameToSearch);
+
+        List<PlayerData> results = queryBuilder.query();
+
+        return results.isEmpty() ? null : results.get(0);
     }
 
     @SneakyThrows

@@ -36,40 +36,41 @@ public class StatsCommand extends XimeCommand {
 
         if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class, SGMakerServerable.class)) return true;
 
-        OfflinePlayer argumentPlayer = args.length > 0 ? Bukkit.getOfflinePlayer(args[0]) : (OfflinePlayer) sender;
-        String argumentPlayerName = args.length > 0 ? args[0] : ((OfflinePlayer) sender).getName();
-
-        if (argumentPlayer == null) return true;
-
         DataHandler dataHandler = plugin.getDataHandler();
         String prefix = profile.getServerable().getPrefix();
 
-        if (!dataHandler.playerDataExists(argumentPlayer.getUniqueId())) {
+        PlayerData argumentPlayerData = args.length == 0
+                ? profile.getPlayerData()
+                : Bukkit.getPlayer(args[0]) != null
+                    ? profileHandler.getProfile(Bukkit.getPlayer(args[0])).getPlayerData()
+                    : dataHandler.getPlayerData(args[0]);
+
+        if (argumentPlayerData == null) {
             profile.sendMessage(prefix + " &cThat player has never joined the server!");
             return true;
         }
 
-        Profile argumentProfile = profileHandler.getProfile(argumentPlayer.getUniqueId());
+        //Profile argumentProfile = profileHandler.getProfile(argumentPlayer.getUniqueId());
 
-        PlayerData playerData = argumentProfile != null ? argumentProfile.getMockOrRealPlayerData() : dataHandler.getPlayerData(argumentPlayer.getUniqueId());
+        //PlayerData playerData = argumentProfile != null ? argumentProfile.getMockOrRealPlayerData() : dataHandler.getPlayerData(argumentPlayer.getUniqueId());
 
-        String displayName = argumentProfile != null ? argumentProfile.getDisplayName() : playerData.getDisplayName();
-        String rankName = argumentProfile != null ? argumentProfile.getRank().getName() : playerData.getUserRank();
-
-        if (args.length > 0 && argumentProfile != null && argumentProfile.getDisguiseData() != null && argumentProfile.getNameBypassDisguise().equalsIgnoreCase(args[0])) {
-            displayName = argumentProfile.getDisplayNameBypassDisguise();
-            playerData = argumentProfile.getPlayerData();
-            rankName = argumentProfile.getRankBypassDisguise().getName();
-        }
+        String displayName = argumentPlayerData.getDisplayName();
+        String rankName = argumentPlayerData.getUserRank();
+//
+//        if (args.length > 0 && argumentProfile != null && argumentProfile.getDisguiseData() != null && argumentProfile.getNameBypassDisguise().equalsIgnoreCase(args[0])) {
+//            displayName = argumentProfile.getDisplayNameBypassDisguise();
+//            playerData = argumentProfile.getPlayerData();
+//            rankName = argumentProfile.getRankBypassDisguise().getName();
+//        }
 
         profile.sendMessage(String.format("&8&m----&2 %s&f's stats &8&m----", displayName));
-        profile.sendMessage(String.format("&fChests Opened&8: &e%s.0", playerData.getSgChests()));
-        profile.sendMessage(String.format("&fGames Played&8: &e%s.0", playerData.getSgGamesPlayed()));
-        profile.sendMessage(String.format("&fPlayer Kills&8: &e%s.0", playerData.getSgKills()));
-        profile.sendMessage(String.format("&fTotal Lifespan&8: &e%s.0", playerData.getSgLifeSpan() / 1000));
-        profile.sendMessage(String.format("&fGames Won&8: &e%s.0", playerData.getSgGamesWon()));
-        profile.sendMessage(String.format("&fDeathmatches&8: &e%s.0", playerData.getSgDeathmatches()));
-        profile.sendMessage("&fKill / Death Ratio&8: &e" + String.format("%.1f", (double)playerData.getSgKills() / (double)Math.max(1, playerData.getSgDeaths())));
+        profile.sendMessage(String.format("&fChests Opened&8: &e%s.0", argumentPlayerData.getSgChests()));
+        profile.sendMessage(String.format("&fGames Played&8: &e%s.0", argumentPlayerData.getSgGamesPlayed()));
+        profile.sendMessage(String.format("&fPlayer Kills&8: &e%s.0", argumentPlayerData.getSgKills()));
+        profile.sendMessage(String.format("&fTotal Lifespan&8: &e%s.0", argumentPlayerData.getSgLifeSpan() / 1000));
+        profile.sendMessage(String.format("&fGames Won&8: &e%s.0", argumentPlayerData.getSgGamesWon()));
+        profile.sendMessage(String.format("&fDeathmatches&8: &e%s.0", argumentPlayerData.getSgDeathmatches()));
+        profile.sendMessage("&fKill / Death Ratio&8: &e" + String.format("%.1f", (double)argumentPlayerData.getSgKills() / (double)Math.max(1, argumentPlayerData.getSgDeaths())));
 
         return true;
     }

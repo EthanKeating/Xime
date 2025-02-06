@@ -6,6 +6,7 @@ import club.mcgamer.xime.map.impl.MapData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerJoinEvent;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sg.runnable.LobbyRunnable;
 import club.mcgamer.xime.sg.runnable.PreGameRunnable;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
@@ -66,8 +67,13 @@ public class SGJoinListener extends IListener {
                         PlayerUtil.setFlying(profile);
                     }
 
-                    if (!(serverable instanceof SGMakerServerable))
+                    if (!(serverable instanceof SGMakerServerable)) {
                         player.performCommand("vote");
+
+//                        if (serverable.getCurrentRunnable() instanceof LobbyRunnable lobbyRunnable) {
+//                            if (serverable.get)
+//                        }
+                    }
                     break;
                 case PREGAME:
                     if (!(serverable instanceof SGMakerServerable)) {

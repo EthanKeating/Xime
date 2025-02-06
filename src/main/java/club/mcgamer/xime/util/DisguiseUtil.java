@@ -140,7 +140,7 @@ public class DisguiseUtil {
         String randomName = "";
 
         randomName += words.get(random.nextInt(words.size())) + words.get(random.nextInt(words.size()));
-        randomName += randomNumbers.get(random.nextInt(randomNumbers.size()));
+        randomName += random.nextBoolean() ? "" : randomNumbers.get(random.nextInt(randomNumbers.size()));
         randomName = random.nextBoolean() ? randomName : TextUtil.toPascalCase(randomName);
         randomName = randomName.length() > 16 ? randomName.substring(0, 15) : randomName;
 

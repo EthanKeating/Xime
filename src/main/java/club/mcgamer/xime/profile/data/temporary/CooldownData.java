@@ -68,7 +68,7 @@ public class CooldownData {
 
             String timeText = (minutes > 0 ? minutes + "m" : "") + String.format("%.1fs", seconds);
 
-            profile.sendMessage(String.format("&8[&3Xime&8] &cYou cannot do this for another %s!", timeText));
+            profile.sendMessage(profile.getServerable().getPrefix() + String.format("&cYou cannot do this for another %s!", timeText));
             return timeText;
         }
         return null; // Cooldown expired

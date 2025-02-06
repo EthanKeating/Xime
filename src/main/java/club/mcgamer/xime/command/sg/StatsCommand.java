@@ -1,5 +1,6 @@
 package club.mcgamer.xime.command.sg;
 
+import club.mcgamer.xime.bg.BGServerable;
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.data.DataHandler;
 import club.mcgamer.xime.data.entities.PlayerData;
@@ -34,7 +35,7 @@ public class StatsCommand extends XimeCommand {
         ProfileHandler profileHandler = plugin.getProfileHandler();
         Profile profile = profileHandler.getProfile(player);
 
-        if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class, SGMakerServerable.class)) return true;
+        if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class, SGMakerServerable.class, BGServerable.class)) return true;
 
         DataHandler dataHandler = plugin.getDataHandler();
         String prefix = profile.getServerable().getPrefix();
@@ -54,14 +55,45 @@ public class StatsCommand extends XimeCommand {
 
         //PlayerData playerData = argumentProfile != null ? argumentProfile.getMockOrRealPlayerData() : dataHandler.getPlayerData(argumentPlayer.getUniqueId());
 
-        String displayName = argumentPlayerData.getDisplayName();
         String rankName = argumentPlayerData.getUserRank();
-//
-//        if (args.length > 0 && argumentProfile != null && argumentProfile.getDisguiseData() != null && argumentProfile.getNameBypassDisguise().equalsIgnoreCase(args[0])) {
-//            displayName = argumentProfile.getDisplayNameBypassDisguise();
-//            playerData = argumentProfile.getPlayerData();
-//            rankName = argumentProfile.getRankBypassDisguise().getName();
-//        }
+        String displayName = argumentPlayerData.getDisplayName();
+
+        if (args.length > 0 && Bukkit.getPlayer(args[0]) != null) {
+            Profile argumentProfile = profileHandler.getProfile(Bukkit.getPlayer(args[0]));
+
+            if (argumentProfile.getDisguiseData() != null && !argumentProfile.getName().equalsIgnoreCase(args[0])) {
+
+            } else {
+
+                if (profile.getServerable() instanceof BGServerable) {
+                    profile.sendMessage(String.format("&8&m----&2 %s&f's stats &8&m----", argumentProfile.getDisplayName()));
+                    profile.sendMessage(String.format("&fGames Won&8: &e%s.0", argumentProfile.getMockOrRealPlayerData().getBgWins()));
+                    profile.sendMessage(String.format("&fKills&8: &e%s.0", argumentProfile.getMockOrRealPlayerData().getBgKills()));
+                    profile.sendMessage(String.format("&fDeaths&8: &e%s.0", argumentProfile.getMockOrRealPlayerData().getBgDeaths()));
+                    profile.sendMessage("&fKill / Death Ratio&8: &e" + String.format("%.1f", (double) argumentProfile.getMockOrRealPlayerData().getBgKills() / (double) Math.max(1, argumentProfile.getMockOrRealPlayerData().getBgDeaths())));
+                    return true;
+                }
+
+                profile.sendMessage(String.format("&8&m----&2 %s&f's stats &8&m----", argumentProfile.getDisplayName()));
+                profile.sendMessage(String.format("&fChests Opened&8: &e%s.0", argumentProfile.getMockOrRealPlayerData().getSgChests()));
+                profile.sendMessage(String.format("&fGames Played&8: &e%s.0", argumentProfile.getMockOrRealPlayerData().getSgGamesPlayed()));
+                profile.sendMessage(String.format("&fPlayer Kills&8: &e%s.0", argumentProfile.getMockOrRealPlayerData().getSgKills()));
+                profile.sendMessage(String.format("&fTotal Lifespan&8: &e%s.0", argumentProfile.getMockOrRealPlayerData().getSgLifeSpan() / 1000));
+                profile.sendMessage(String.format("&fGames Won&8: &e%s.0", argumentProfile.getMockOrRealPlayerData().getSgGamesWon()));
+                profile.sendMessage(String.format("&fDeathmatches&8: &e%s.0", argumentProfile.getMockOrRealPlayerData().getSgDeathmatches()));
+                profile.sendMessage("&fKill / Death Ratio&8: &e" + String.format("%.1f", (double) argumentProfile.getMockOrRealPlayerData().getSgKills() / (double) Math.max(1, argumentProfile.getMockOrRealPlayerData().getSgDeaths())));
+                return true;
+            }
+        }
+
+        if (profile.getServerable() instanceof BGServerable) {
+            profile.sendMessage(String.format("&8&m----&2 %s&f's stats &8&m----", displayName));
+            profile.sendMessage(String.format("&fGames Won&8: &e%s.0", argumentPlayerData.getBgWins()));
+            profile.sendMessage(String.format("&fKills&8: &e%s.0", argumentPlayerData.getBgKills()));
+            profile.sendMessage(String.format("&fDeaths&8: &e%s.0", argumentPlayerData.getBgDeaths()));
+            profile.sendMessage("&fKill / Death Ratio&8: &e" + String.format("%.1f", (double) argumentPlayerData.getBgKills() / (double) Math.max(1, argumentPlayerData.getBgDeaths())));
+            return true;
+        }
 
         profile.sendMessage(String.format("&8&m----&2 %s&f's stats &8&m----", displayName));
         profile.sendMessage(String.format("&fChests Opened&8: &e%s.0", argumentPlayerData.getSgChests()));

@@ -25,7 +25,8 @@ public class PlayerJoinListener extends IListener {
         if (Bukkit.getPlayer(event.getUniqueId()) != null) {
             event.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, TextUtil.translate("&cYou are already connected to this server, please rejoin"));
             Bukkit.getScheduler().runTask(plugin, () -> {
-                Bukkit.getPlayer(event.getUniqueId()).kickPlayer(ChatColor.RED + "Logged in from another location.");
+                if (Bukkit.getPlayer(event.getUniqueId()) != null)
+                    Bukkit.getPlayer(event.getUniqueId()).kickPlayer(ChatColor.RED + "Logged in from another location.");
             });
 
             return;

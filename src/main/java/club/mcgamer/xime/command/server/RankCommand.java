@@ -13,6 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class RankCommand extends XimeCommand {
@@ -45,13 +46,8 @@ public class RankCommand extends XimeCommand {
 
         Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
 
-            Player target = Bukkit.getPlayer(args[0]);
             Rank rank = rankHandler.getRank(args[1]);
 
-            if (target == null) {
-                sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThat player does not exist."));
-                return;
-            }
             if (rank == null) {
                 sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThat rank is not valid."));
                 sender.sendMessage(rankListString);
@@ -65,15 +61,14 @@ public class RankCommand extends XimeCommand {
                 }
             }
 
-            Profile profile = plugin.getProfileHandler().getProfile(target.getUniqueId());
+            PlayerData playerData = plugin.getDataHandler().getPlayerData(args[0]);
+            Profile profile = plugin.getProfileHandler().getProfile(UUID.fromString(playerData.getUuid()));
 
             if (profile == null) {
                 DataHandler dataHandler = plugin.getDataHandler();
 
-                PlayerData playerData = dataHandler.getPlayerData(target.getUniqueId());
-
                 playerData.setUserRank(rank.getName());
-                playerData.setDisplayName(rank.getColor() + target.getName());
+                playerData.setDisplayName(rank.getColor() + args[0]);
 
                 dataHandler.updatePlayerData(playerData);
             } else {
@@ -81,7 +76,7 @@ public class RankCommand extends XimeCommand {
                 profile.sendMessage(TextUtil.translate(String.format("&8[&3Xime&8] &bYour rank has been set to&8: &f%s%s&8.", rank.getColor(), rank.getName())));
             }
 
-            sender.sendMessage(TextUtil.translate(String.format("&8[&3Xime&8] &bYou have set &e%s&b's rank to&8: &f%s%s&8.", target.getName(), rank.getColor(), rank.getName())));
+            sender.sendMessage(TextUtil.translate(String.format("&8[&3Xime&8] &bYou have set &e%s&b's rank to&8: &f%s%s&8.", args[0], rank.getColor(), rank.getName())));
         });
         return true;
     }

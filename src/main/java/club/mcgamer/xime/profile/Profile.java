@@ -102,8 +102,8 @@ public class Profile {
 
         updatePermissions();
         playerData.setUserName(getNameBypassDisguise());
-        playerData.setDisplayName(rank.getColor() + getNameBypassDisguise());
-        getPlayer().setDisplayName(rank.getColor() + getNameBypassDisguise());
+        playerData.setDisplayName(getDisplayNameBypassDisguise());
+        getPlayer().setDisplayName(getDisplayNameBypassDisguise());
     }
 
     private void updatePermissions() {
@@ -133,7 +133,7 @@ public class Profile {
         playerData.setUserRank(rank.getName());
 
         if (getPlayer() != null) {
-            playerData.setDisplayName(rank.getColor() + getNameBypassDisguise());
+            playerData.setDisplayName(getDisplayNameBypassDisguise());
             playerData.setUserName(getNameBypassDisguise());
             getPlayer().setDisplayName(rank.getColor() + getNameBypassDisguise());
             updatePermissions();

@@ -107,6 +107,7 @@ public class DataHandler {
             PlayerData playerData = profile.getPlayerData();
             PlayerData livePlayerData = getPlayerData(profile.getUuid());
 
+            playerData.setLastSeen(System.currentTimeMillis());
             playerData.setSgGameRank(livePlayerData.getSgGameRank());
         });
 

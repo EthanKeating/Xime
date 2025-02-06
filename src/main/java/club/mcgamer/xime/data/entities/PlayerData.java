@@ -27,6 +27,12 @@ public class PlayerData {
     @DatabaseField(canBeNull = false, defaultValue = "")
     private String displayName = "";
 
+    @DatabaseField(canBeNull = false, defaultValue = "0")
+    private long firstJoin = System.currentTimeMillis();
+
+    @DatabaseField(canBeNull = false, defaultValue = "0")
+    private long lastSeen = System.currentTimeMillis();
+
     @DatabaseField(canBeNull = false, defaultValue = "false")
     private boolean silentJoin = false;
 
@@ -116,6 +122,7 @@ public class PlayerData {
 
         profileData.sgGamesPlayed = baseGameCount;
         profileData.sgGamesWon = baseGameCount / (baseGameCount / 2) + random.nextInt(baseGameCount / (baseGameCount / 2));
+        profileData.sgDeathmatches = baseGameCount / 8 + profileData.sgGamesWon;
 
         profileData.sgGameRank = 100 + random.nextInt(200);
         profileData.sgMostKills = 6 + random.nextInt(10);

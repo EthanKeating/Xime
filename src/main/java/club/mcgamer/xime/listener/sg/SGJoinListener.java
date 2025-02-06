@@ -6,6 +6,7 @@ import club.mcgamer.xime.map.impl.MapData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerJoinEvent;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sg.runnable.PreGameRunnable;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
@@ -44,8 +45,8 @@ public class SGJoinListener extends IListener {
             switch (gameState) {
                 case LOBBY:
                     profile.sendMessage(prefix + "&6&lAbout this lobby");
-                    profile.sendMessage(prefix + "&fUsed in: &a2014-2015");
-                    profile.sendMessage(prefix + "&fCreated by: &aTeam Elite");
+                    profile.sendMessage(prefix + "&fUsed in: &a" + serverable.getMapData().getMapLink());
+                    profile.sendMessage(prefix + "&fCreated by: &a"  + serverable.getMapData().getMapAuthor());
 
                     player.setExp(0);
                     if (player.getGameMode() != GameMode.SURVIVAL)
@@ -69,6 +70,20 @@ public class SGJoinListener extends IListener {
                         player.performCommand("vote");
                     break;
                 case PREGAME:
+                    if (!(serverable instanceof SGMakerServerable)) {
+                        if (!serverable.isFull() && serverable.isJoinable()) {
+
+                            if (serverable.getCurrentRunnable() instanceof PreGameRunnable preGameRunnable) {
+
+                                if (!preGameRunnable.getUnusedSpawnIndexes().isEmpty()) {
+                                    int goodId = preGameRunnable.getUnusedSpawnIndexes().get(0);
+
+                                    preGameRunnable.prepPlayer(profile, goodId, goodId);
+                                }
+                            }
+                        }
+                    }
+                    break;
                 case LIVEGAME:
                 case PREDEATHMATCH:
                 case DEATHMATCH:

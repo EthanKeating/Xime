@@ -7,15 +7,17 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Getter @Setter
 public class WorldQueue {
 
     private final Queue<String> nameQueue = new LinkedList<>();
-    private final HashMap<String, SlimeWorld> nameToWorldMap = new HashMap<>();
+    private final ConcurrentHashMap<String, SlimeWorld> nameToWorldMap = new ConcurrentHashMap<>();
     public String currentWorld = null;
 
     private final XimePlugin plugin;
@@ -24,6 +26,7 @@ public class WorldQueue {
     public WorldQueue(XimePlugin plugin) {
         this.plugin = plugin;
         this.slime = plugin.getSlimePlugin();
+
     }
 
     public void process() {

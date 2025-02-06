@@ -18,6 +18,7 @@ import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.util.EvictingList;
+import club.mcgamer.xime.util.MathUtil;
 import club.mcgamer.xime.util.Pair;
 import club.mcgamer.xime.util.PlayerUtil;
 import lombok.Getter;
@@ -40,11 +41,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class SGServerable extends Serverable {
 
     public static final String LOBBY_NAME = "Lobby";
+    public static final int LOBBY_COUNT = 3;
 
     protected AbstractGameRunnable currentRunnable;
     @Setter protected GameTimer gameTimer;
     @Setter protected GameSettings gameSettings;
     protected GameState gameState;
+
+    protected int lobbyId;
 
     protected final ArrayList<Profile> tributeList = new ArrayList<>();
     protected final ArrayList<Profile> spectatorList = new ArrayList<>();
@@ -61,6 +65,8 @@ public class SGServerable extends Serverable {
 
     public SGServerable() {
         super();
+
+        lobbyId = (getServerId() % 3) + 1;
 
         setup();
 
@@ -118,10 +124,12 @@ public class SGServerable extends Serverable {
 
     }
     public Location getLobbyLocation() {
-        Location location = getMapData().getCenterLocation().toBukkit(Bukkit.getWorld(LOBBY_NAME + "-1"));
-        location.setYaw(-90);
-        return location;
+        Location location = getMapData().getCenterLocation().toBukkit(Bukkit.getWorld(LOBBY_NAME + "-" + lobbyId));
 
+        Location look = getMapData().getSpectateLocation().toBukkit(Bukkit.getWorld(LOBBY_NAME + "-" + lobbyId)).add(0.5, 0.5, 0.5);
+
+        location = MathUtil.lookAt(location, look);
+        return location;
     }
 
     public TemporaryData createTemporaryData() {
@@ -129,13 +137,13 @@ public class SGServerable extends Serverable {
     }
 
     public void setup() {
-        World world = Bukkit.getWorld(LOBBY_NAME + "-1");
+        World world = Bukkit.getWorld(LOBBY_NAME + "-" + lobbyId);
 
-        setWorldName(LOBBY_NAME + "-1");
+        setWorldName(LOBBY_NAME + "-" + lobbyId);
         overrideWorld(world);
 
         //setWorld(toString() + "-" + LOBBY_NAME, LOBBY_NAME);
-        setMapData(MapData.load(LOBBY_NAME));
+        setMapData(MapData.load(LOBBY_NAME + lobbyId));
         setGameState(GameState.LOBBY);
         setJoinable(true);
 
@@ -144,9 +152,9 @@ public class SGServerable extends Serverable {
 
     public void reset() {
         setGameState(GameState.LOBBY);
-        setWorldName(LOBBY_NAME + "-1");
-        overrideWorld(Bukkit.getWorld(LOBBY_NAME + "-1"));
-        setMapData(MapData.load(LOBBY_NAME));
+        setWorldName(LOBBY_NAME + "-" + lobbyId);
+        overrideWorld(Bukkit.getWorld(LOBBY_NAME + "-" + lobbyId));
+        setMapData(MapData.load(LOBBY_NAME + lobbyId));
 
         populateSponsor();
 

@@ -13,12 +13,15 @@ import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.util.MathUtil;
 import club.mcgamer.xime.util.Pair;
 import club.mcgamer.xime.util.PlayerUtil;
+import lombok.Getter;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class PreGameRunnable extends AbstractGameRunnable {
 
@@ -26,6 +29,7 @@ public class PreGameRunnable extends AbstractGameRunnable {
     private final SGServerable serverable;
     private final GameTimer gameTimer;
 
+    @Getter private List<Integer> unusedSpawnIndexes = new ArrayList<>();
     private List<Integer> spawnIndexes = new ArrayList<>();
     private List<MapLocation> spawnLocations;
     private Location centerLocation;
@@ -68,6 +72,8 @@ public class PreGameRunnable extends AbstractGameRunnable {
 
         spawnLocations = serverable.getMapData().getSpawnLocations();
         centerLocation = serverable.getMapData().getCenterLocation().toBukkit(serverable.getWorld()).add(0.5, 0.5, 0.5);
+
+        unusedSpawnIndexes = IntStream.range(0, spawnLocations.size()).boxed().collect(Collectors.toList());
         spawnIndexes = MathUtil.distributeObjects(spawnLocations.size(), allPlayers.size());
 
         serverable.getWorld().setGameRuleValue("doDaylightCycle", String.valueOf(serverable.getGameSettings().isDayLightCycle()));
@@ -75,34 +81,40 @@ public class PreGameRunnable extends AbstractGameRunnable {
 
         for (int i = 0; i < allPlayers.size(); i++) {
             int spawnIndex = spawnIndexes.get(i % spawnIndexes.size());
-
-            Location worldLocation = MathUtil.lookAt(spawnLocations.get(spawnIndex).toBukkit(serverable.getWorld()), centerLocation);
+            unusedSpawnIndexes.remove(spawnIndex);
 
             Profile profile = allPlayers.get(i);
-            Player player = profile.getPlayer();
-            SGTemporaryData temporaryData = (SGTemporaryData) profile.getTemporaryData();
-
-            if (serverable.getGameSettings().isRandomizeNames())
-                plugin.getDisguiseHandler().disguise(profile);
-
-            player.teleport(worldLocation);
-            temporaryData.setPedistalLocation(worldLocation);
-            temporaryData.setDistrictId((i % 12) + 1);
-            temporaryData.setLifeStart(System.currentTimeMillis());
-            serverable.getTributeList().add(profile);
-            PlayerUtil.refresh(profile);
-
-            if (serverable.getGameSettings().isNoHitDelay())
-                player.setMaximumNoDamageTicks(3);
-
-            player.setMaxHealth(serverable.getGameSettings().getMaxHealth());
-            player.setHealth(serverable.getGameSettings().getMaxHealth());
-            player.setGameMode(GameMode.SURVIVAL);
+            prepPlayer(profile, spawnIndex, i);
         }
 
         //TODO: Make pregame joinable
-        //serverable.setJoinable(true);
+        serverable.setJoinable(true);
         mapLoaded = true;
+    }
+
+    public void prepPlayer(Profile profile, int spawnIndex, int index) {
+
+        Location worldLocation = MathUtil.lookAt(spawnLocations.get(spawnIndex).toBukkit(serverable.getWorld()), centerLocation);
+
+        Player player = profile.getPlayer();
+        SGTemporaryData temporaryData = (SGTemporaryData) profile.getTemporaryData();
+
+        if (serverable.getGameSettings().isRandomizeNames())
+            plugin.getDisguiseHandler().disguise(profile);
+
+        player.teleport(worldLocation);
+        temporaryData.setPedistalLocation(worldLocation);
+        temporaryData.setDistrictId((index % 12) + 1);
+        temporaryData.setLifeStart(System.currentTimeMillis());
+        serverable.getTributeList().add(profile);
+        PlayerUtil.refresh(profile);
+
+        if (serverable.getGameSettings().isNoHitDelay())
+            player.setMaximumNoDamageTicks(3);
+
+        player.setMaxHealth(serverable.getGameSettings().getMaxHealth());
+        player.setHealth(serverable.getGameSettings().getMaxHealth());
+        player.setGameMode(GameMode.SURVIVAL);
     }
 
     public void run() {

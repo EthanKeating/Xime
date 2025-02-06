@@ -28,7 +28,6 @@ public class ServerHandler {
     public ServerHandler(XimePlugin plugin) {
         this.plugin = plugin;
 
-        String lobbyWorldName = SGServerable.LOBBY_NAME + "-1";
         String hubWorldName = HubServerable.MAP_NAME + "-1";
 
         new AutoBroadcastTask(plugin);
@@ -37,9 +36,19 @@ public class ServerHandler {
             plugin.getWorldHandler().loadSlime(hubWorldName, HubServerable.MAP_NAME);
         }, 10);
 
+
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            plugin.getWorldHandler().loadSlime(lobbyWorldName, SGServerable.LOBBY_NAME);
+            plugin.getWorldHandler().loadSlime(SGServerable.LOBBY_NAME + "-" + 1, SGServerable.LOBBY_NAME + 1);
+        }, 20);
+
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            plugin.getWorldHandler().loadSlime(SGServerable.LOBBY_NAME + "-" + 2, SGServerable.LOBBY_NAME + 2);
         }, 30);
+
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            plugin.getWorldHandler().loadSlime(SGServerable.LOBBY_NAME + "-" + 3, SGServerable.LOBBY_NAME + 3);
+        }, 40);
+
 
         Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             if (getByClass(StaffServerable.class).isEmpty())
@@ -52,7 +61,7 @@ public class ServerHandler {
                     new SGServerable();
             else if (getServerList().stream().filter(serverable -> serverable instanceof BGServerable).count() < 4)
                 new BGServerable();
-        }, 30, 1);
+        }, 50, 1);
 
         Bukkit.getScheduler().runTaskLater(plugin, BGServerable::new, 50L);
     }

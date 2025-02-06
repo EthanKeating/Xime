@@ -11,11 +11,11 @@ import lombok.Setter;
 @Data @Getter @Setter
 public class GameSettings {
 
-    private int minimumPlayers = 6;
+    private int minimumPlayers = 5;
     private int maximumPlayers = 24;
     private int deathmatchPlayers = 3;
 
-    private int lobbyLength = 2 * 60; // 3 minutes
+    private int lobbyLength = (int) (3 * 60); // 3 minutes
     private int preGameLength = 30;
     private int liveGameLength = 30 * 60; //30 minutes
     private int preDeathmatchTime = 10;

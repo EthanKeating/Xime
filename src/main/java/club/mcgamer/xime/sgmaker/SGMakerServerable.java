@@ -103,8 +103,9 @@ public class SGMakerServerable extends SGServerable {
     @Override
     public void reset() {
         setGameState(GameState.LOBBY);
-        overrideWorld(Bukkit.getWorld(toString() + "-" + LOBBY_NAME));
-        setMapData(MapData.load(LOBBY_NAME));
+        setWorldName(LOBBY_NAME + "-" + lobbyId);
+        overrideWorld(Bukkit.getWorld(LOBBY_NAME + "-" + lobbyId));
+        setMapData(MapData.load(LOBBY_NAME + lobbyId));
 
         populateSponsor();
 

@@ -47,7 +47,7 @@ public class PreDeathmatchRunnable extends AbstractGameRunnable {
             Player player = profile.getPlayer();
             SGTemporaryData temporaryData = (SGTemporaryData) profile.getTemporaryData();
 
-            profile.getPlayerData().setSgDeathmatches(profile.getPlayerData().getSgDeathmatches());
+            profile.getPlayerData().setSgDeathmatches(profile.getPlayerData().getSgDeathmatches() + 1);
             player.teleport(worldLocation);
             temporaryData.setPedistalLocation(worldLocation);
         }

@@ -2,6 +2,7 @@ package club.mcgamer.xime.command.server;
 
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
+import club.mcgamer.xime.profile.data.temporary.CooldownData;
 import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -31,6 +32,9 @@ public class MessageCommand  extends XimeCommand {
 
         Player argumentPlayer = Bukkit.getPlayer(args[0]);
 
+        CooldownData cooldownData = profile.getCooldownData();
+        if (cooldownData.hasMessageCooldown(0.5)) return true;
+
         if (argumentPlayer == null) {
             sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThat player is not online."));
             return true;
@@ -59,6 +63,8 @@ public class MessageCommand  extends XimeCommand {
         String message = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
         argumentProfile.sendMessage(String.format("&8[&bFrom &f%s&8] &7%s", profile.getDisplayName(), message));
         profile.sendMessage(String.format("&8[&bTo &f%s&8] &7%s", argumentProfile.getDisplayName(), message));
+
+        cooldownData.setMessageCooldown();
 
         return true;
     }

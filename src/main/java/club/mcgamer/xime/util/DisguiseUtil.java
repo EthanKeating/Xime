@@ -139,7 +139,8 @@ public class DisguiseUtil {
     public String getRandomName() {
         String randomName = "";
 
-        randomName += words.get(random.nextInt(words.size())) + words.get(random.nextInt(words.size())) + randomNumbers.get(random.nextInt(randomNumbers.size()));
+        randomName += words.get(random.nextInt(words.size())) + words.get(random.nextInt(words.size()));
+        randomName += randomNumbers.get(random.nextInt(randomNumbers.size()));
         randomName = random.nextBoolean() ? randomName : TextUtil.toPascalCase(randomName);
         randomName = randomName.length() > 16 ? randomName.substring(0, 15) : randomName;
 
@@ -244,9 +245,10 @@ public class DisguiseUtil {
             "venge", "snarl", "slash", "shard", "onyx", "nova"
             );
     private static final List<String> randomNumbers = Arrays.asList(
-            "1", "7", "9", "10", "11", "22", "33", "44", "55", "69", "77", "88", "99",
+            "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "13", "16", "18",
+            "22", "33", "44", "55", "69", "77", "88", "99",
             "101", "123", "321", "14", "15", "78", "87", "85", "1990", "1995",
-            "34", "51", "2023", "111", "222", "333", "444", "555", "123", "321",
+            "34", "51", "2023", "11", "22", "33", "44", "555", "123", "321",
             "55", "007", "1337", "808", "909", "5", "7", "1", "9999", "2024",
             "77", "515", "818", "303", "606", "99", "8", "7", "03", "313",
             "007", "22", "2003", "250", "400", "750", "88", "99", "10"

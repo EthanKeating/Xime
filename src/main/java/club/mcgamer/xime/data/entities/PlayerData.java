@@ -37,7 +37,7 @@ public class PlayerData {
     private int sidebarType = 0;
 
     @DatabaseField(canBeNull = false, defaultValue = "1000")
-    private int sgPoints = 100;
+    private int sgPoints = 1000;
 
     @DatabaseField(canBeNull = false, defaultValue = "0")
     private int sgGamesWon = 0;
@@ -90,6 +90,18 @@ public class PlayerData {
     @DatabaseField(canBeNull = false, defaultValue = "8")
     private int bgArrowSlot = 8;
 
+    @DatabaseField(canBeNull = false, defaultValue = "0")
+    private int bgKills = 0;
+
+    @DatabaseField(canBeNull = false, defaultValue = "0")
+    private int bgDeaths = 0;
+
+    @DatabaseField(canBeNull = false, defaultValue = "0")
+    private int bgWins = 0;
+
+    @DatabaseField(canBeNull = false, defaultValue = "0")
+    private int bgBowKills = 0;
+
     public static PlayerData createMock(Profile profile) {
         PlayerData profileData = new PlayerData();
 
@@ -112,6 +124,12 @@ public class PlayerData {
 
         profileData.sgChests = ((random.nextInt(3) + 4) * baseGameCount) + ((random.nextInt(2) + 1) * baseGameCount);
         profileData.sgMostChests = random.nextInt(20) + 40;
+
+        profileData.bgKills = (random.nextInt(3) + 3) * (baseGameCount / 4);
+        profileData.bgDeaths = (int) (profileData.bgKills / 1.5 + random.nextInt(profileData.bgKills / 2));
+        profileData.bgWins = random.nextInt(5);
+        profileData.bgBowKills = profileData.bgKills / 4;
+
         return profileData;
     }
 

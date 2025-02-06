@@ -1,6 +1,8 @@
 package club.mcgamer.xime.bg.runnable;
 
 import club.mcgamer.xime.bg.BGServerable;
+import club.mcgamer.xime.bg.leaderboard.LeaderboardEntry;
+import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.map.impl.MapLocation;
 import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.util.Pair;
@@ -53,11 +55,19 @@ public class GameRunnable extends BukkitRunnable {
         int gameTime = gameTimer.decrement();
         Pair<String, String> sigUnit = gameTimer.toSignificantUnit();
 
+        serverable.updateLeaderboard();
+
         if (gameTime == 0) {
+            if (!serverable.getSortedLeaderboard().isEmpty()) {
+                LeaderboardEntry winnerEntry = serverable.getSortedLeaderboard().get(0);
+                PlayerData winnerData = winnerEntry.getProfile().getPlayerData();
+
+                winnerData.setBgWins(winnerData.getBgWins() + 1);
+            }
+
             serverable.reset();
             return;
         }
-        serverable.updateLeaderboard();
 //        serverable.getPlayerList().forEach(profile -> profile.getPlayer().setLevel(gameTime));
 
         if (gameTime % 60 == 0 || gameTime == 30 || gameTime == 15 || gameTime == 10 || gameTime <= 5)

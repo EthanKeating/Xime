@@ -2,6 +2,7 @@ package club.mcgamer.xime.command.server;
 
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
+import club.mcgamer.xime.profile.data.temporary.CooldownData;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.staff.StaffServerable;
 import club.mcgamer.xime.util.TextUtil;
@@ -35,6 +36,9 @@ public class InviteCommand extends XimeCommand {
 
         if(!isCorrectServerable(sender, profile.getServerable(), SGMakerServerable.class)) return true;
 
+        CooldownData cooldownData = profile.getCooldownData();
+        if (cooldownData.hasInviteCooldown(0.5)) return true;
+
         SGMakerServerable serverable = (SGMakerServerable) profile.getServerable();
         Player argumentPlayer = isPlayer(sender, args[0]);
 
@@ -53,6 +57,7 @@ public class InviteCommand extends XimeCommand {
         }));
         message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/secret " + serverable.getSecret()));
         argumentPlayer.spigot().sendMessage(message);
+        cooldownData.setInviteCooldown();
 
         return true;
     }

@@ -2,6 +2,7 @@ package club.mcgamer.xime.command.server;
 
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
+import club.mcgamer.xime.profile.data.temporary.CooldownData;
 import club.mcgamer.xime.report.impl.Report;
 import club.mcgamer.xime.report.impl.ReportPriority;
 import club.mcgamer.xime.util.TextUtil;
@@ -55,6 +56,9 @@ public class ReportCommand extends XimeCommand {
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
 
+        CooldownData cooldownData = profile.getCooldownData();
+        if (cooldownData.hasReportCooldown(10)) return true;
+
         if (args.length < 2) {
             sendHelpMessage(profile);
             return true;
@@ -100,6 +104,7 @@ public class ReportCommand extends XimeCommand {
 
         plugin.getReportHandler().createReport(report, profile);
         profile.sendMessage("&8[&3Xime&8] &bThank you for your report&8, &bthe player has been sent to our conviction system&8.");
+        cooldownData.setReportCooldown();
 
         return true;
     }

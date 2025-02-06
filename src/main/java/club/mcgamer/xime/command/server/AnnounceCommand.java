@@ -39,7 +39,7 @@ public class AnnounceCommand extends XimeCommand {
         Profile profile = plugin.getProfileHandler().getProfile(player);
 
         CooldownData cooldownData = profile.getCooldownData();
-        //if (cooldownData.hasAnnounceCooldown(getCooldownLength(player))) return true;
+        if (cooldownData.hasAnnounceCooldown(getCooldownLength(player))) return true;
 
         if (profile.getServerable() instanceof SGMakerServerable sgMakerServerable) {
             TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&l&nClick Here!", profile.getDisplayNameBypassDisguise(), sgMakerServerable)));
@@ -48,7 +48,7 @@ public class AnnounceCommand extends XimeCommand {
             plugin.getProfileHandler().getProfiles().forEach(loopProfile -> {
                 loopProfile.getPlayer().spigot().sendMessage(message);
             });
-            //cooldownData.setAnnounceCooldown();
+            cooldownData.setAnnounceCooldown();
 
             return true;
         }
@@ -60,7 +60,7 @@ public class AnnounceCommand extends XimeCommand {
             plugin.getProfileHandler().getProfiles().forEach(loopProfile -> {
                 loopProfile.getPlayer().spigot().sendMessage(message);
             });
-            //cooldownData.setAnnounceCooldown();
+            cooldownData.setAnnounceCooldown();
 
             return true;
         }
@@ -72,27 +72,27 @@ public class AnnounceCommand extends XimeCommand {
             plugin.getProfileHandler().getProfiles().forEach(loopProfile -> {
                 loopProfile.getPlayer().spigot().sendMessage(message);
             });
-            //cooldownData.setAnnounceCooldown();
+            cooldownData.setAnnounceCooldown();
 
             return true;
         }
 
-        profile.sendMessage("&8[&3Xime&8] &cYou cannot use this command right now.");
+        profile.sendMessage(profile.getServerable().getPrefix() + "&cYou cannot use this command right now.");
 
         return true;
     }
 
     private double getCooldownLength(Player player  ) {
-        if (true) {
+        if (false) {
             System.out.println("how tf");
         } else if (player.hasPermission("xime.admin")) {
-            return 5.0;
+            return 10.0;
         } else if (player.hasPermission("xime.staff")) {
-            return 20.0;
-        } else if (player.hasPermission("xime.quantum")) {
             return 30.0;
-        } else if (player.hasPermission("xime.platinum")) {
+        } else if (player.hasPermission("xime.quantum")) {
             return 60.0;
+        } else if (player.hasPermission("xime.platinum")) {
+            return 90.0;
         }
         return 120.0;
     }

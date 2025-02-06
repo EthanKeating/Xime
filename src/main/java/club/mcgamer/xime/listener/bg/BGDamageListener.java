@@ -2,6 +2,7 @@ package club.mcgamer.xime.listener.bg;
 
 import club.mcgamer.xime.bg.BGServerable;
 import club.mcgamer.xime.bg.data.BGTemporaryData;
+import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.data.TemporaryData;
 import club.mcgamer.xime.server.event.ServerDamageEvent;
@@ -124,17 +125,25 @@ public class BGDamageListener extends IListener {
         if (event.getServerable() instanceof BGServerable) {
             BGServerable serverable = (BGServerable) event.getServerable();
             Profile victim = event.getVictim();
+            PlayerData victimData = victim.getPlayerData();
 
             event.getEvent().getDrops().clear();
             event.getEvent().setDroppedExp(0);
 
             generateFirework(victim.getPlayer().getLocation());
+            victimData.setBgDeaths(victimData.getBgDeaths() + 1);
 
             if (event.getAttacker().isPresent()) {
                 Profile attacker = event.getAttacker().get();
 
                 if(!(attacker.getServerable() instanceof BGServerable) || attacker.getServerable() != victim.getServerable())
                     return;
+
+                PlayerData attackerData = attacker.getPlayerData();
+                attackerData.setBgKills(attackerData.getBgKills() + 1);
+
+                if (event.getEvent().getEntity().getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.PROJECTILE)
+                    attackerData.setBgBowKills(attackerData.getBgBowKills() + 1);
 
                 double baseHealth = ((int) Math.round(attacker.getPlayer().getHealth())) / 2.0;
                 NumberFormat healthFormat = new DecimalFormat("##.#");

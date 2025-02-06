@@ -3,6 +3,7 @@ package club.mcgamer.xime.command.server;
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.profile.data.impl.ReplyData;
+import club.mcgamer.xime.profile.data.temporary.CooldownData;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -29,6 +30,9 @@ public class ReplyCommand extends XimeCommand {
         Profile profile = plugin.getProfileHandler().getProfile(player);
         ReplyData replyData = profile.getReplyData();
 
+        CooldownData cooldownData = profile.getCooldownData();
+        if (cooldownData.hasMessageCooldown(0.5)) return true;
+
         if (!replyData.isActive()) {
             profile.sendMessage("&8[&3Xime&8] &cYou have nobody to reply to!");
             return true;
@@ -51,6 +55,8 @@ public class ReplyCommand extends XimeCommand {
         String message = String.join(" ", args);
         replyProfile.sendMessage(String.format("&8[&bFrom &f%s&8] &7%s", profile.getDisplayName(), message));
         profile.sendMessage(String.format("&8[&bTo &f%s&8] &7%s", replyProfile.getDisplayName(), message));
+
+        cooldownData.setMessageCooldown();
 
         return true;
     }

@@ -75,6 +75,8 @@ public class BountyCommand extends XimeCommand {
         }
 
         playerData.setSgPoints(playerData.getSgPoints() - argumentPoints);
+        playerData.setSgBountiesSent(playerData.getSgBountiesSent() + 1);
+        argumentProfile.getPlayerData().setSgBountiesReceived(argumentProfile.getPlayerData().getSgBountiesReceived() + 1);
         argumentTemporaryData.setBounty(argumentTemporaryData.getBounty() + argumentPoints);
         serverable.announce(String.format("&3Bounty has been set on &f%s &3by &f%s&3 for &8[&e%s&8] &3points.",
                 argumentProfile.getDisplayName(),

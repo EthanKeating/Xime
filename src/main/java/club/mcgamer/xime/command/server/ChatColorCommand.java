@@ -27,10 +27,11 @@ public class ChatColorCommand extends XimeCommand {
 
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
+        String prefix = profile.getServerable().getPrefix();
 
         if (!hasArgs(sender, args, 1)) {
-            profile.sendMessage("&8[&3Xime&8] &fYou have the following options:");
-            profile.sendMessage("&8[&3Xime&8] &a&&aa &c&&cc &e&&ee &9&&99 &b&&bb &f&&ff");
+            profile.sendMessage(prefix + "&fYou have the following options:");
+            profile.sendMessage(prefix + "&a&&aa &c&&cc &e&&ee &9&&99 &b&&bb &f&&ff");
             return true;
         }
 
@@ -42,11 +43,11 @@ public class ChatColorCommand extends XimeCommand {
             case "&f":
             case "&b":
                 profile.setChatColor(TextUtil.translate(args[0]));
-                profile.sendMessage("&8[&3Xime&8] &fYour chat color now looks like " + TextUtil.translate(args[0]) + "this&8.");
+                profile.sendMessage(prefix + "&fYour chat color now looks like " + TextUtil.translate(args[0]) + "this&8.");
                 return true;
             default:
-                player.sendMessage(TextUtil.translate("&8[&3Xime&8] &fYou have the following options:"));
-                profile.sendMessage("&8[&3Xime&8] &a&&aa &c&&cc &e&&ee &9&&99 &b&&bb &f&&ff");
+                profile.sendMessage(prefix + "&fYou have the following options:");
+                profile.sendMessage(prefix + "&a&&aa &c&&cc &e&&ee &9&&99 &b&&bb &f&&ff");
         }
 
         return true;

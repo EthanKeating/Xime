@@ -10,9 +10,11 @@ import club.mcgamer.xime.server.event.ServerDeathEvent;
 import club.mcgamer.xime.util.IListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.FishHook;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -21,7 +23,7 @@ import java.util.Optional;
 
 public class PlayerDamageWrapper extends IListener {
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     private void onDamageByPlayer(EntityDamageByEntityEvent event) {
         if (event.getEntityType() != EntityType.PLAYER) return;
         if (event.getDamager().getType() != EntityType.PLAYER) return;
@@ -43,8 +45,13 @@ public class PlayerDamageWrapper extends IListener {
             return;
         }
 
-        combatTagData.setAttackedAt(System.currentTimeMillis());
-        combatTagData.setAttackedBy(attacker.getUuid());
+        if (event.isCancelled())
+            return;
+
+        if (event.getDamager() instanceof Projectile && (!(event.getDamager() instanceof FishHook))) {
+            combatTagData.setAttackedAt(System.currentTimeMillis());
+            combatTagData.setAttackedBy(attacker.getUuid());
+        }
 
         Bukkit.getPluginManager().callEvent(new ServerDamageEvent(
                 victim,
@@ -54,7 +61,7 @@ public class PlayerDamageWrapper extends IListener {
         ));
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     private void onDamageByProjectile(EntityDamageByEntityEvent event) {
         if (event.getEntityType() != EntityType.PLAYER) return;
         if (!(event.getDamager() instanceof Projectile projectile)) return;
@@ -72,6 +79,13 @@ public class PlayerDamageWrapper extends IListener {
             event.setCancelled(true);
             return;
         }
+
+        if (attacker == victim) {
+            return;
+        }
+
+        if (event.isCancelled())
+            return;
 
         combatTagData.setAttackedAt(System.currentTimeMillis());
         combatTagData.setAttackedBy(attacker.getUuid());

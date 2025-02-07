@@ -9,7 +9,11 @@ import club.mcgamer.xime.rank.RankHandler;
 import club.mcgamer.xime.rank.impl.Rank;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sg.data.SGTeam;
+import club.mcgamer.xime.sg.data.SGTeamProvider;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
+import club.mcgamer.xime.sgmaker.SGMakerServerable;
+import club.mcgamer.xime.sgmaker.config.impl.TeamType;
 import club.mcgamer.xime.util.TextUtil;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerDisplayScoreboard;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerScoreboardObjective;
@@ -46,7 +50,13 @@ public class TagImpl {
             teamToPlayerList.put(rank.getName(), new HashSet<>());
         }
         createTeam("Spectator", "&7&o", 99);
+        createTeam("Teammate", "&a", 1);
+        createTeam("NoTeam", "&7", 98);
+        createTeam("Enemy", "&c", 97);
         teamToPlayerList.put("Spectator", new HashSet<>());
+        teamToPlayerList.put("NoTeam", new HashSet<>());
+        teamToPlayerList.put("Teammate", new HashSet<>());
+        teamToPlayerList.put("Enemy", new HashSet<>());
     }
 
     public void tick() {
@@ -57,6 +67,38 @@ public class TagImpl {
         for(Profile loopProfile : new CopyOnWriteArrayList<>(profileHandler.getProfiles())) {
             if (loopProfile.getServerable() instanceof SGServerable) {
                 SGServerable serverable = (SGServerable) loopProfile.getServerable();
+
+                if (loopProfile.getServerable() instanceof SGMakerServerable) {
+                    SGTeamProvider teamProvider = serverable.getGameSettings().getTeamProvider();
+
+                    if (teamProvider.getTeamType() != TeamType.NO_TEAMS) {
+                        SGTeam otherTeam = teamProvider.getTeam(loopProfile);
+                        SGTeam viewerTeam = teamProvider.getTeam(profile);
+
+                        if (viewerTeam == null && otherTeam != null) {
+                            newPlayerNameToRankName.put(loopProfile.getName(), "Enemy");
+                            continue;
+                        }
+
+                        if (otherTeam != null) {
+                            if (otherTeam == viewerTeam) {
+                                newPlayerNameToRankName.put(loopProfile.getName(), "Teammate");
+                                continue;
+                            } else {
+                                newPlayerNameToRankName.put(loopProfile.getName(), "Enemy");
+                                continue;
+                            }
+                        }
+
+                        if (serverable.getSpectatorList().contains(loopProfile)) {
+                            newPlayerNameToRankName.put(loopProfile.getName(), "Spectator");
+                            continue;
+                        }
+
+                        newPlayerNameToRankName.put(loopProfile.getName(), "NoTeam");
+                        continue;
+                    }
+                }
 
                 if (serverable.getSpectatorList().contains(loopProfile)) {
                     newPlayerNameToRankName.put(loopProfile.getName(), "Spectator");
@@ -84,7 +126,7 @@ public class TagImpl {
         playerNameToRankName = newPlayerNameToRankName;
 
         //TODO: Eventually move this to a TagAdapter class
-        if (profile.getServerable() instanceof SGServerable) {
+        if (profile.getServerable() instanceof SGServerable && !(profile.getServerable() instanceof SGMakerServerable)) {
             SGServerable serverable = (SGServerable) profile.getServerable();
 
             switch (serverable.getGameState()) {
@@ -108,15 +150,19 @@ public class TagImpl {
         }
 
         //TODO: Eventually move this to a TagAdapter class
-        if (profile.getServerable() instanceof BGServerable) {
-            BGServerable serverable = (BGServerable) profile.getServerable();
+        if (profile.getServerable() instanceof BGServerable || (profile.getServerable() instanceof SGMakerServerable makerServerable && makerServerable.getGameSettings().isDisplayHealth())) {
+            Serverable serverable = profile.getServerable();
 
             serverable.getPlayerList().forEach(loopProfile -> {
                 createOrUpdateObjective(loopProfile.getName(), "HEALTH", "&c❤", (int)loopProfile.getPlayer().getHealth());
             });
         }
 
-        if (objectiveValues.containsKey("HEALTH") && !(profile.getServerable() instanceof BGServerable)) {
+        if (objectiveValues.containsKey("HEALTH") && (!(profile.getServerable() instanceof BGServerable) && !(profile.getServerable() instanceof  SGMakerServerable))) {
+            removeObjective("HEALTH");
+        }
+
+        if (objectiveValues.containsKey("HEALTH") && profile.getServerable() instanceof SGMakerServerable makerServerable && !makerServerable.getGameSettings().isDisplayHealth()) {
             removeObjective("HEALTH");
         }
 

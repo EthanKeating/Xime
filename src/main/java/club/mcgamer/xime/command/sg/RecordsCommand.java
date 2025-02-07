@@ -67,7 +67,7 @@ public class RecordsCommand extends XimeCommand {
 
                 if (profile.getServerable() instanceof BGServerable) {
                     profile.sendMessage(String.format(prefix + "%s&f's Records", argumentProfile.getDisplayName()));
-                    profile.sendMessage(String.format(prefix + "&fRank&8: &e%s", argumentProfile.getRank()));
+                    profile.sendMessage(String.format(prefix + "&fRank&8: &e%s", argumentProfile.getRank().getName()));
                     profile.sendMessage(String.format(prefix + "&fGames Won&8: &e%s", argumentProfile.getMockOrRealPlayerData().getBgWins()));
                     profile.sendMessage(String.format(prefix + "&fKills&8: &e%s", argumentProfile.getMockOrRealPlayerData().getBgKills()));
                     profile.sendMessage(String.format(prefix + "&fDeaths&8: &e%s", argumentProfile.getMockOrRealPlayerData().getBgDeaths()));
@@ -75,7 +75,7 @@ public class RecordsCommand extends XimeCommand {
                 }
 
                 profile.sendMessage(String.format(prefix + "%s&f's Records", argumentProfile.getDisplayName()));
-                profile.sendMessage(String.format(prefix + "&fRank&8: &e%s", argumentProfile.getRank()));
+                profile.sendMessage(String.format(prefix + "&fRank&8: &e%s", argumentProfile.getRank().getName()));
                 profile.sendMessage(String.format(prefix + "&fPoints&8: &e%s", argumentProfile.getMockOrRealPlayerData().getSgPoints()));
                 profile.sendMessage(String.format(prefix + "&fGame Rank&8: &8#&e%s", argumentProfile.getMockOrRealPlayerData().getSgGameRank() == -1 ? "-" : argumentPlayerData.getSgGameRank()));
                 profile.sendMessage(String.format(prefix + "&fGames (Won/Total)&8: &e%s&8/&e%s", argumentProfile.getMockOrRealPlayerData().getSgGamesWon(), argumentPlayerData.getSgGamesPlayed()));

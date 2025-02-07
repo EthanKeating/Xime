@@ -6,10 +6,13 @@ import club.mcgamer.xime.map.impl.MapLocation;
 import club.mcgamer.xime.map.impl.VoteableMap;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sg.data.SGTeam;
+import club.mcgamer.xime.sg.data.SGTeamProvider;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
+import club.mcgamer.xime.sgmaker.config.impl.TeamType;
 import club.mcgamer.xime.util.MathUtil;
 import club.mcgamer.xime.util.Pair;
 import club.mcgamer.xime.util.PlayerUtil;
@@ -17,8 +20,10 @@ import lombok.Getter;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -63,16 +68,53 @@ public class PreGameRunnable extends AbstractGameRunnable {
 
         serverable.setMapData(mapData);
 
+        SGTeamProvider teamProvider = serverable.getGameSettings().getTeamProvider();
+        if (teamProvider.getTeamType() != TeamType.NO_TEAMS) {
+            for(SGTeam team : teamProvider.getTeams()) {
+                team.setOriginalPlayers();
+            }
+            teamProvider.removeEmpty();
+        }
+
     }
 
     //Called when ServerLoadEvent is listened for in SGLoadListener
     public void mapCallback() {
 
-        List<Profile> allPlayers = new ArrayList<>(serverable.getPlayerList());
+        List<Profile> allPlayers = new ArrayList<>();
+        List<Profile> spectators = new ArrayList<>();
 
-        spawnLocations = serverable.getMapData().getSpawnLocations();
+//        SGTeamProvider teamProvider = serverable.getGameSettings().getTeamProvider();
+//        if (teamProvider.getTeamType() != TeamType.NO_TEAMS) {
+//            for(SGTeam team : teamProvider.getTeams()) {
+//                team.setOriginalPlayers();
+//                allPlayers.addAll(team.getOriginalPlayers());
+//            }
+//        } else {
+//            allPlayers.addAll(serverable.getPlayerList());
+//        }
+
         centerLocation = serverable.getMapData().getCenterLocation().toBukkit(serverable.getWorld()).add(0.5, 0.5, 0.5);
 
+
+
+        SGTeamProvider teamProvider = serverable.getGameSettings().getTeamProvider();
+        if (teamProvider.getTeamType() != TeamType.NO_TEAMS) {
+            for(Profile profile : serverable.getPlayerList()) {
+                if (teamProvider.hasTeam(profile)) {
+                    allPlayers.add(profile);
+                }
+                else {
+                    profile.sendMessage("&7You did not join a team and have become a spectator");
+                    spectators.add(profile);
+                }
+
+            }
+        } else {
+            allPlayers.addAll(serverable.getPlayerList());
+        }
+
+        spawnLocations = serverable.getMapData().getSpawnLocations();
         unusedSpawnIndexes = IntStream.range(0, spawnLocations.size()).boxed().collect(Collectors.toList());
         spawnIndexes = MathUtil.distributeObjects(spawnLocations.size(), allPlayers.size());
 
@@ -81,7 +123,6 @@ public class PreGameRunnable extends AbstractGameRunnable {
 
         for (int i = 0; i < allPlayers.size(); i++) {
             int spawnIndex = spawnIndexes.get(i % spawnIndexes.size());
-            unusedSpawnIndexes.remove(spawnIndex);
 
             Profile profile = allPlayers.get(i);
             prepPlayer(profile, spawnIndex, i);
@@ -90,6 +131,11 @@ public class PreGameRunnable extends AbstractGameRunnable {
         //TODO: Make pregame joinable
         serverable.setJoinable(true);
         mapLoaded = true;
+
+        for(Profile profile : spectators) {
+            serverable.setSpectating(profile);
+            profile.getPlayer().teleport(centerLocation);
+        }
     }
 
     public void prepPlayer(Profile profile, int spawnIndex, int index) {
@@ -98,6 +144,8 @@ public class PreGameRunnable extends AbstractGameRunnable {
 
         Player player = profile.getPlayer();
         SGTemporaryData temporaryData = (SGTemporaryData) profile.getTemporaryData();
+
+        unusedSpawnIndexes.removeAll(Arrays.asList(spawnIndex));
 
         if (serverable.getGameSettings().isRandomizeNames())
             plugin.getDisguiseHandler().disguise(profile);

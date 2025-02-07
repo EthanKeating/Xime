@@ -43,6 +43,16 @@ public class SpectateCommand extends XimeCommand {
 
             Profile spectatedProfile = plugin.getProfileHandler().getProfile(argumentPlayer);
 
+            if (serverable != spectatedProfile.getServerable()) {
+                profile.sendMessage(String.format(prefix + "&cThat player is not online!"));
+                return true;
+            }
+
+            if (!serverable.getTributeList().contains(spectatedProfile)) {
+                profile.sendMessage(String.format(prefix + "&cThat player is not alive!"));
+                return true;
+            }
+
             profile.sendMessage(String.format(prefix + "&fTeleporting to %s", spectatedProfile.getDisplayName()));
             profile.getPlayer().teleport(spectatedProfile.getPlayer().getLocation().add(0.0, 0.25, 0.0));
             PlayerUtil.setFlying(profile);

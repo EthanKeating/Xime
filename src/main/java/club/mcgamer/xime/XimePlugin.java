@@ -13,6 +13,7 @@ import club.mcgamer.xime.profile.ProfileHandler;
 import club.mcgamer.xime.rank.RankHandler;
 import club.mcgamer.xime.report.ReportHandler;
 import club.mcgamer.xime.server.ServerHandler;
+import club.mcgamer.xime.util.DisguiseUtil;
 import club.mcgamer.xime.world.WorldHandler;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.grinderwolf.swm.api.SlimePlugin;
@@ -76,6 +77,8 @@ public class XimePlugin extends JavaPlugin {
 
         CombatModule combatModule = Apollo.getModuleManager().getModule(CombatModule.class);
         combatModule.getOptions().set(CombatModule.DISABLE_MISS_PENALTY, true);
+
+        //DisguiseUtil.loadSkins();
     }
 
     public void onDisable() {

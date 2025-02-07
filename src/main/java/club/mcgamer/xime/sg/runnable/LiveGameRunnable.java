@@ -9,6 +9,7 @@ import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.util.ChestUtil;
 import club.mcgamer.xime.util.Pair;
+import lombok.Getter;
 import org.bukkit.Difficulty;
 import org.bukkit.Sound;
 import org.bukkit.World;
@@ -22,6 +23,8 @@ public class LiveGameRunnable extends AbstractGameRunnable {
     private final SGServerable serverable;
     private final GameTimer gameTimer;
 
+    @Getter private boolean gracePeriod;
+
     public LiveGameRunnable(SGServerable serverable, XimePlugin plugin) {
         this.plugin = plugin;
         this.serverable = serverable;
@@ -29,7 +32,12 @@ public class LiveGameRunnable extends AbstractGameRunnable {
 
         GameSettings gameSettings = serverable.getGameSettings();
 
-        gameTimer.setTime(gameSettings.getLiveGameLength());
+        gracePeriod = gameSettings.getGracePeriodTime() > 0;
+
+        if (gracePeriod)
+            gameTimer.setTime(gameSettings.getGracePeriodTime());
+        else
+            gameTimer.setTime(gameSettings.getLiveGameLength());
 
         fillChests(true);
         serverable.setJoinable(true);
@@ -53,11 +61,26 @@ public class LiveGameRunnable extends AbstractGameRunnable {
 
         //Switch to predeathmatch
         if (currentTime == 0) {
+            if (gracePeriod) {
+                gracePeriod = false;
+                gameTimer.setTime(gameSettings.getLiveGameLength());
+
+                serverable.announce("&bThe grace period has ended!");
+                return;
+            }
             cancel();
             return;
         }
 
         if ((seconds == 0 && minutes > 0 && (minutes % 5 == 0 || minutes < 5)) || (minutes == 0 && (seconds % 30 == 0 || seconds == 10 || seconds <= 5))) {
+            if (gracePeriod) {
+                serverable.announce(String.format("&8[&e%s&8] &b%s until the grace period ends!",
+                        sigUnit.getKey(),
+                        sigUnit.getValue()));
+
+                return;
+            }
+
             serverable.announceTitle("", String.format("&8[&e%s&8] &c%s until deathmatch!",
                     sigUnit.getKey(),
                     sigUnit.getValue()), 10, 80, 10);

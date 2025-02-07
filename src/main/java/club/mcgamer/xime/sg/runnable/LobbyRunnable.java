@@ -20,12 +20,14 @@ public class LobbyRunnable extends AbstractGameRunnable {
     protected final XimePlugin plugin;
     protected final SGServerable serverable;
     protected final GameTimer gameTimer = new GameTimer();
-    protected final GameSettings gameSettings = new GameSettings();
+    protected final GameSettings gameSettings;
 
 
     public LobbyRunnable(SGServerable serverable, XimePlugin plugin) {
         this.plugin = plugin;
         this.serverable = serverable;
+        this.gameSettings = new GameSettings(serverable);
+
         serverable.setGameSettings(this.gameSettings);
         serverable.setGameTimer(this.gameTimer);
         serverable.setMapPool(new MapPool(plugin));

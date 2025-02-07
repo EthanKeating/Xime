@@ -78,7 +78,6 @@ public class SGJoinListener extends IListener {
                 case PREGAME:
                     if (!(serverable instanceof SGMakerServerable)) {
                         if (!serverable.isFull() && serverable.isJoinable()) {
-
                             if (serverable.getCurrentRunnable() instanceof PreGameRunnable preGameRunnable) {
 
                                 if (!preGameRunnable.getUnusedSpawnIndexes().isEmpty()) {

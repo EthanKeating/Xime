@@ -47,9 +47,13 @@ public class MessageCommand  extends XimeCommand {
 
         Profile argumentProfile = plugin.getProfileHandler().getProfile(argumentPlayer);
 
-        if (argumentProfile.getDisguiseData() != null && !args[0].equalsIgnoreCase(argumentProfile.getDisguiseData().getName())) {
-            sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThat player is not online."));
-            return true;
+        if (argumentProfile.getDisguiseData() != null) {
+            if (!argumentProfile.getNameBypassDisguise().equalsIgnoreCase(argumentProfile.getName())) {
+                if (argumentProfile.getNameBypassDisguise().equalsIgnoreCase(args[0])) {
+                    isPlayer(sender, "......................");
+                    return true;
+                }
+            }
         }
 
         //TODO: Check if pms are disabled for argumentProfile

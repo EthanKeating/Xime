@@ -6,11 +6,13 @@ import club.mcgamer.xime.map.impl.MapData;
 import club.mcgamer.xime.map.impl.MapLocation;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sg.data.SGTeam;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
+import club.mcgamer.xime.sgmaker.config.impl.TeamType;
 import club.mcgamer.xime.util.FireworkUtil;
 import lombok.Getter;
 import org.bukkit.Color;
@@ -22,6 +24,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class EndGameRunnable extends AbstractGameRunnable {
 
@@ -29,7 +32,10 @@ public class EndGameRunnable extends AbstractGameRunnable {
     private final SGServerable serverable;
     private final GameTimer gameTimer;
 
-    @Getter private final Optional<Profile> gameWinner;
+    @Getter
+    private Optional<Profile> gameWinner = Optional.empty();
+    @Getter
+    private Optional<SGTeam> gameWinnerTeam = Optional.empty();
 
     public EndGameRunnable(SGServerable serverable, XimePlugin plugin) {
         this.plugin = plugin;
@@ -41,9 +47,17 @@ public class EndGameRunnable extends AbstractGameRunnable {
 
         gameTimer.setTime(gameSettings.getEndGameTime());
 
-        gameWinner = serverable.getTributeList().stream()
-                .filter(profile -> profile.getTemporaryData() instanceof SGTemporaryData)
-                .max(Comparator.comparingInt(profile -> ((SGTemporaryData) profile.getTemporaryData()).getKillCount()));
+        if (gameSettings.getTeamProvider().getTeamType() == TeamType.NO_TEAMS) {
+            gameWinner = serverable.getTributeList().stream()
+                    .filter(profile -> profile.getTemporaryData() instanceof SGTemporaryData)
+                    .max(Comparator.comparingInt(profile -> ((SGTemporaryData) profile.getTemporaryData()).getKillCount()));
+        } else {
+            gameWinnerTeam = gameSettings.getTeamProvider().getTeams().stream()
+                    .max(Comparator.comparingInt(team -> team.getPlayers().stream()
+                            .filter(profile -> profile.getTemporaryData() instanceof SGTemporaryData)
+                            .mapToInt(profile -> ((SGTemporaryData) profile.getTemporaryData()).getKillCount())
+                            .sum()));
+        }
 
         serverable.announce("&aThe games have ended!");
         if (gameWinner.isPresent()) {
@@ -74,10 +88,21 @@ public class EndGameRunnable extends AbstractGameRunnable {
         }
 
         gameWinner.ifPresent(profile -> {
-            if(gameSettings.isRandomizeNames())
+            if (gameSettings.isRandomizeNames())
                 plugin.getDisguiseHandler().undisguise(profile);
 
             serverable.announce(String.format("&a%s &ahas won the Survival Games!", profile.getDisplayName()));
+        });
+        gameWinnerTeam.ifPresent(team -> {
+            if (gameSettings.isRandomizeNames()) {
+                team.getOriginalPlayers().stream()
+                        .filter(profile -> profile.getPlayer() != null)
+                        .filter(profile -> profile.getServerable() == serverable)
+                        .forEach(profile -> plugin.getDisguiseHandler().undisguise(profile));
+            }
+
+            serverable.announce(String.format("&6%s &ahas won the Survival Games!", "Team #" + team.getTeamId()));
+            serverable.announce(String.format("&a%s &aWinners: ", team.getOriginalPlayers().stream().map(Profile::getDisplayName).collect(Collectors.joining("&8, &2"))));
         });
         serverable.getWorld().setTime(18000);
 

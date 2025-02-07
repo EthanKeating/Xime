@@ -32,7 +32,7 @@ public class FixCommand extends XimeCommand {
 
         player.teleport(toLocation);
         player.teleport(backLocation);
-        profile.sendMessage("&8[&3Xime&8] &fYou have been de-ghosted&8.");
+        profile.sendMessage(profile.getServerable().getPrefix() + "&fYou have been de-ghosted&8.");
 
         return true;
     }

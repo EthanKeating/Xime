@@ -45,6 +45,8 @@ public class SGBuildListener extends IListener {
                     switch (type) {
                         case RED_ROSE:
                         case DOUBLE_PLANT:
+                        case BROWN_MUSHROOM:
+                        case RED_MUSHROOM:
                         case YELLOW_FLOWER:
 
                             if (serverable.getGameSettings().isItemizedFlowers()) {
@@ -122,6 +124,8 @@ public class SGBuildListener extends IListener {
                     ItemStack heldItem = player.getItemInHand();
 
                     switch (type) {
+                        case BROWN_MUSHROOM:
+                        case RED_MUSHROOM:
                         case DOUBLE_PLANT:
                         case YELLOW_FLOWER:
                         case VINE:

@@ -2,6 +2,7 @@ package club.mcgamer.xime.listener.sg;
 
 import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.map.impl.MapLocation;
+import club.mcgamer.xime.menu.sg.SpectateMenu;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerAirInteractEvent;
 import club.mcgamer.xime.server.event.ServerInteractEvent;
@@ -26,6 +27,10 @@ public class SGInteractListener extends IListener {
         if (profile.getServerable() instanceof SGServerable) {
             SGServerable serverable = (SGServerable) profile.getServerable();
 
+            if (serverable.getSpectatorList().contains(profile)) {
+                event.setCancelled(true);
+            }
+
             switch (serverable.getGameState()) {
                 case LOBBY:
                 case PREGAME:
@@ -48,12 +53,18 @@ public class SGInteractListener extends IListener {
                 return;
 
             if (serverable.getSpectatorList().contains(profile))
+                event.getEvent().setCancelled(true);
                 switch (serverable.getGameState()) {
                     case PREGAME:
                     case LIVEGAME:
                     case PREDEATHMATCH:
                     case DEATHMATCH:
-                        player.performCommand("spectate");
+
+                        if (event.getItemStack() != null && event.getItemStack().getType() == SpectateMenu.SPECTATE_ITEM.getType()) {
+                            new SpectateMenu(profile, serverable, 0).open(player);
+                        }
+
+                        //player.performCommand("spectate");
                 }
         }
     }

@@ -6,10 +6,12 @@ import club.mcgamer.xime.map.impl.MapData;
 import club.mcgamer.xime.map.impl.MapLocation;
 import club.mcgamer.xime.map.impl.MapPool;
 import club.mcgamer.xime.map.impl.VoteableMap;
+import club.mcgamer.xime.menu.sg.SpectateMenu;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.server.data.TemporaryData;
 import club.mcgamer.xime.server.event.ServerJoinEvent;
+import club.mcgamer.xime.sg.data.SGTeamProvider;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.sg.design.bossbar.SGBossbarAdapter;
 import club.mcgamer.xime.sg.design.sidebar.SGSidebarAdapter;
@@ -197,9 +199,6 @@ public class SGServerable extends Serverable {
         tributeList.remove(profile);
         spectatorList.add(profile);
 
-        if (gameSettings.isRandomizeNames())
-            plugin.getDisguiseHandler().undisguise(profile);
-
         getTributeList().forEach(loopProfile -> {
             Player loopPlayer = loopProfile.getPlayer();
 
@@ -227,8 +226,9 @@ public class SGServerable extends Serverable {
             player.setVelocity(new Vector(0, 0.5, 0.0));
             player.setAllowFlight(true);
             PlayerUtil.setFlying(profile);
+            player.getInventory().setItem(0, SpectateMenu.SPECTATE_ITEM);
             player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Short.MAX_VALUE, 255, false, false));
-        }, 1L);
+            }, 1L);
     }
 
     public void setGameState(GameState newState) {

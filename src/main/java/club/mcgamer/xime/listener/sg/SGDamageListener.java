@@ -6,11 +6,15 @@ import club.mcgamer.xime.server.event.ServerDamageEvent;
 import club.mcgamer.xime.server.event.ServerDamageOtherEntityEvent;
 import club.mcgamer.xime.server.event.ServerDeathEvent;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sg.data.SGTeam;
+import club.mcgamer.xime.sg.data.SGTeamProvider;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
+import club.mcgamer.xime.sg.runnable.LiveGameRunnable;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
+import club.mcgamer.xime.sgmaker.config.impl.TeamType;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.TextUtil;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -41,10 +45,31 @@ public class SGDamageListener extends IListener {
                     event.getEvent().setCancelled(true);
                     return;
                 case LIVEGAME:
+                    if (event.getEvent().getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+                        if (serverable.getCurrentRunnable() instanceof LiveGameRunnable runnable) {
+                            if (runnable.isGracePeriod())
+                                event.getEvent().setCancelled(true);
+                        }
+                    }
                 case DEATHMATCH:
+                    if (event.getAttacker().isPresent()) {
+                        if(serverable.getGameSettings().getTeamProvider().getTeamType() != TeamType.NO_TEAMS) {
+                            SGTeam attackerTeam = serverable.getGameSettings().getTeamProvider().getTeam(event.getAttacker().get());
+                            if (attackerTeam != null) {
+                                SGTeam victimTeam = serverable.getGameSettings().getTeamProvider().getTeam(event.getVictim());
+
+                                if (victimTeam != null) {
+                                    if (victimTeam == attackerTeam) {
+                                        event.getEvent().setCancelled(true);
+                                    }
+                                }
+                            }
+                        }
+                    }
 
                     if ((event.getAttacker().isPresent() && serverable.getSpectatorList().contains(event.getAttacker().get()))) {
                         if (event.getEvent().getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+
                             event.getEvent().setCancelled(true);
                         }
                         if (serverable.getSpectatorList().contains(event.getVictim()))
@@ -144,13 +169,25 @@ public class SGDamageListener extends IListener {
                     victimData.setSgLongestLifeSpan(lifeDuration);
             }
 
+            SGTeamProvider teamProvider = serverable.getGameSettings().getTeamProvider();
+
+            if (teamProvider.getTeamType() != TeamType.NO_TEAMS) {
+                SGTeam victimTeam = teamProvider.getTeam(victim);
+
+                if (victimTeam != null) {
+                    victimTeam.removePlayer(victim);
+                }
+
+            }
+            teamProvider.removeEmpty();
+
             if (victim.getServerable() == serverable) {
                 if ((victimPlayer.getLastDamageCause() != null && victimPlayer.getLastDamageCause().getCause() == EntityDamageEvent.DamageCause.VOID) || victimPlayer.getLocation().getY() < 0) {
                     victimPlayer.teleport(serverable.getMapData().getCenterLocation().toBukkit(victimPlayer.getWorld()));
                 }
                 serverable.setSpectating(victim);
             }
-            serverable.getFallenTributes().add(victimPlayer.getDisplayName());
+            serverable.getFallenTributes().add(victim.getDisplayName());
 
             victimPlayer.getWorld().strikeLightningEffect(victimPlayer.getLocation().add(0, 8, 0));
             victim.sendMessage(prefix + "&aYou have been eliminated from the game.");

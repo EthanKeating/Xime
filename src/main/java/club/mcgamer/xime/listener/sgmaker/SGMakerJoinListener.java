@@ -1,10 +1,12 @@
 package club.mcgamer.xime.listener.sgmaker;
 
 import club.mcgamer.xime.fastinv.ItemBuilder;
+import club.mcgamer.xime.menu.sgmaker.TeamModeSelectionMenu;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerJoinEvent;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
+import club.mcgamer.xime.sgmaker.config.impl.TeamType;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.TextUtil;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -48,6 +50,12 @@ public class SGMakerJoinListener extends IListener {
                 player.spigot().sendMessage(message);
 
                 player.getInventory().setItem(4, new ItemBuilder(Material.NETHER_STAR).name("&bServer Management").build());
+            }
+
+            if (gameState == GameState.LOBBY) {
+                if (serverable.getGameSettings().getTeamProvider().getTeamType() != TeamType.NO_TEAMS) {
+                    player.getInventory().setItem(0, TeamModeSelectionMenu.TEAM_ITEM);
+                }
             }
 
         }

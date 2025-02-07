@@ -1,5 +1,6 @@
 package club.mcgamer.xime.util;
 
+import club.mcgamer.xime.XimePlugin;
 import club.mcgamer.xime.profile.Profile;
 import com.github.retrooper.packetevents.protocol.player.GameMode;
 import com.github.retrooper.packetevents.protocol.player.UserProfile;
@@ -18,13 +19,14 @@ import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
+import java.io.File;
 import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 import java.lang.reflect.Field;
 import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
 
 @UtilityClass
 public class DisguiseUtil {
@@ -84,6 +86,31 @@ public class DisguiseUtil {
         });
     }
 
+    @SneakyThrows
+    public String getRandomName() {
+        File file = Paths.get(XimePlugin.getPlugin(XimePlugin.class).getDataFolder().getAbsolutePath(), "names.txt").toFile();
+        RandomAccessFile raf = new RandomAccessFile(file, "r");
+        Random random = new Random();
+
+        long fileLength = raf.length();
+        long randomPosition = (long) (random.nextDouble() * fileLength);
+
+        // Move to the random position
+        raf.seek(randomPosition);
+
+        // Read until the next full line
+        raf.readLine(); // Skip the potentially incomplete line
+        String line = raf.readLine(); // Read the next full line
+
+        if (line == null) { // If EOF, read from beginning
+            raf.seek(0);
+            line = raf.readLine();
+        }
+
+        raf.close();
+        return line;
+    }
+
     public void updateToDisguise(Profile profile) {
         GameProfile gameProfile = (GameProfile) SpigotReflectionUtil.getGameProfile(profile.getPlayer());
 
@@ -102,6 +129,29 @@ public class DisguiseUtil {
 
         update(profile);
         profile.getUser().sendPacket(addPlayer);
+    }
+
+    @SneakyThrows
+    public void loadSkins() {
+        List<String> lines = Files.readAllLines(Paths.get(XimePlugin.getPlugin(XimePlugin.class).getDataFolder().getAbsolutePath(), "uuids.txt"));
+        List<String> skins = new ArrayList<>();
+
+        for(String uuid : lines) {
+            UUID newUUID = UUID.fromString(
+                    uuid
+                            .replaceFirst(
+                                    "(\\p{XDigit}{8})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}{4})(\\p{XDigit}+)", "$1-$2-$3-$4-$5"
+                            )
+            );
+            try {
+                Skin skin = new Skin(newUUID);
+                skins.add(skin.getValue() + "\\n" + skin.getSignature());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        Files.write(Paths.get(XimePlugin.getPlugin(XimePlugin.class).getDataFolder().getAbsolutePath(), "skins.txt"), skins);
     }
 
     @SneakyThrows
@@ -136,7 +186,7 @@ public class DisguiseUtil {
         profile.getUser().sendPacket(addPlayer);
     }
 
-    public String getRandomName() {
+    public String getRandomNameOld() {
         String randomName = "";
 
         randomName += words.get(random.nextInt(words.size())) + words.get(random.nextInt(words.size()));
@@ -170,7 +220,9 @@ public class DisguiseUtil {
             UUID.fromString("4981f9f2-84f6-44be-92d8-3cce2cac32d6"),
             UUID.fromString("49a76802-e7ec-4539-9bf3-264f457b509b"),
             UUID.fromString("b1dd7620-cceb-4378-a1ec-21b3cc1f8def"),
-            UUID.fromString("7c318e8b-54f9-461f-a1c5-be58a5ad2544")
+            UUID.fromString("7c318e8b-54f9-461f-a1c5-be58a5ad2544"),
+            UUID.fromString("244574fb-0207-4dbd-a282-d6d4dfe5c278")
+
     );
 
     private static final List<String> words = Arrays.asList(

@@ -11,7 +11,7 @@ import org.bukkit.Material;
 public class MutatorsSubMenu extends FastInv {
 
     public MutatorsSubMenu(FastInv previousMenu, Profile profile, SGMakerServerable serverable) {
-        super(18, TextUtil.translate("Mutators"));
+        super(27, TextUtil.translate("Mutators"));
 
         setItem(0, new ItemBuilder(Material.WOOL)
                         .data(1)
@@ -41,9 +41,8 @@ public class MutatorsSubMenu extends FastInv {
                         .lore("&aAdd a period at the beginning of the game", "&awhere combat is disabled.")
                         .build(),
                 e -> {
-                    //OPEN START TIME SUB MENU
-                    profile.sendMessage("&cThis feature is still being worked on");
-                    e.setCancelled(true);
+
+                    new GracePeriodSelectionSubMenu(this, profile, serverable).open(profile.getPlayer());
                 });
 
         setItem(5, new ItemBuilder(Material.MOB_SPAWNER)
@@ -131,6 +130,15 @@ public class MutatorsSubMenu extends FastInv {
                         .build(),
                 e -> {
                     profile.sendMessage("&cThis feature is still being worked on");
+                    e.setCancelled(true);
+                });
+
+        setItem(20, new ItemBuilder(Material.RED_MUSHROOM)
+                        .name("&bDisplay Health")
+                        .lore("&aEnabled / disable displaying health under names.")
+                        .build(),
+                e -> {
+                    new DisplayHealthSelectionSubMenu(this, profile, serverable).open(profile.getPlayer());
                     e.setCancelled(true);
                 });
 

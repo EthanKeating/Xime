@@ -42,7 +42,7 @@ public class AnnounceCommand extends XimeCommand {
         if (cooldownData.hasAnnounceCooldown(getCooldownLength(player))) return true;
 
         if (profile.getServerable() instanceof SGMakerServerable sgMakerServerable) {
-            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&l&nClick Here!", profile.getDisplayNameBypassDisguise(), sgMakerServerable)));
+            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&l&nClick Here!", profile.getDisplayName(), sgMakerServerable)));
             message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/secret " + sgMakerServerable.getSecret()));
             message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent(TextUtil.translate(String.format("&fClick to join &8[&6EU%s&8]", sgMakerServerable.toString()))) }));
             plugin.getProfileHandler().getProfiles().forEach(loopProfile -> {
@@ -54,7 +54,7 @@ public class AnnounceCommand extends XimeCommand {
         }
 
         if (profile.getServerable() instanceof SGServerable sgServerable) {
-            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&l&nClick Here!", profile.getDisplayNameBypassDisguise(), sgServerable)));
+            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&l&nClick Here!", profile.getDisplayName(), sgServerable)));
             message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/join sg " + sgServerable.getServerId()));
             message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent(TextUtil.translate(String.format("&fClick to join &8[&6EU%s&8]", sgServerable.toString()))) }));
             plugin.getProfileHandler().getProfiles().forEach(loopProfile -> {
@@ -66,7 +66,7 @@ public class AnnounceCommand extends XimeCommand {
         }
 
         if (profile.getServerable() instanceof BGServerable bgServerable) {
-            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&lClick Here!", profile.getDisplayNameBypassDisguise(), bgServerable)));
+            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&lClick Here!", profile.getDisplayName(), bgServerable)));
             message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/join bg " + bgServerable.getServerId()));
             message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent(TextUtil.translate("&aClick to join " + TextUtil.translate(String.format("&fClick to join &8[&6EU%s&8]", bgServerable.toString())))) }));
             plugin.getProfileHandler().getProfiles().forEach(loopProfile -> {
@@ -86,14 +86,16 @@ public class AnnounceCommand extends XimeCommand {
         if (false) {
             System.out.println("how tf");
         } else if (player.hasPermission("xime.admin")) {
-            return 10.0;
+            return 5.0;
         } else if (player.hasPermission("xime.staff")) {
-            return 30.0;
+            return 10.0;
         } else if (player.hasPermission("xime.quantum")) {
-            return 60.0;
+            return 10.0;
         } else if (player.hasPermission("xime.platinum")) {
-            return 90.0;
+            return 15.0;
+        } else if (player.hasPermission("xime.diamond")) {
+            return 20.0;
         }
-        return 120.0;
+        return 60.0;
     }
 }

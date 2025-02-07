@@ -25,10 +25,11 @@ public class PingCommand extends XimeCommand {
         if (!isPlayer(sender)) return true;
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
+        String prefix = profile.getServerable().getPrefix();
 
         if (args.length == 0) {
-            profile.sendMessage(String.format("&8[&3Xime&8] &fYour current ping is &6%s &fms.", PacketEvents.getAPI().getPlayerManager().getPing(player)));
-            profile.sendMessage("&8[&3Xime&8] &fThe server is hosted in &aParis, France");
+            profile.sendMessage(String.format(prefix + "&fYour current ping is &6%s &fms.", PacketEvents.getAPI().getPlayerManager().getPing(player)));
+            profile.sendMessage(prefix + "&fThe server is hosted in &aParis, France");
             return true;
         }
 
@@ -36,8 +37,17 @@ public class PingCommand extends XimeCommand {
         if (argumentPlayer == null) return true;
 
         Profile argumentProfile = plugin.getProfileHandler().getProfile(argumentPlayer);
-        profile.sendMessage(String.format("&8[&3Xime&8] &f%s&f's current ping is &6%s &fms.", argumentProfile.getDisplayName(), PacketEvents.getAPI().getPlayerManager().getPing(argumentPlayer)));
-        profile.sendMessage("&8[&3Xime&8] &fThe server is hosted in &aParis, France");
+
+        if (argumentProfile.getDisguiseData() != null) {
+            if (!argumentProfile.getNameBypassDisguise().equalsIgnoreCase(argumentProfile.getName())) {
+                if (argumentProfile.getNameBypassDisguise().equalsIgnoreCase(args[0])) {
+                    isPlayer(sender, "......................");
+                    return true;
+                }
+            }
+        }
+        profile.sendMessage(String.format(prefix + "&f%s&f's current ping is &6%s &fms.", argumentProfile.getDisplayName(), PacketEvents.getAPI().getPlayerManager().getPing(argumentPlayer)));
+        profile.sendMessage(prefix + "&fThe server is hosted in &aParis, France");
 
         return true;
     }

@@ -79,6 +79,12 @@ public class PlayerData {
     private long sgLongestLifeSpan = 0;
 
     @DatabaseField(canBeNull = false, defaultValue = "0")
+    private int sgBountiesSent = 0;
+
+    @DatabaseField(canBeNull = false, defaultValue = "0")
+    private int sgBountiesReceived = 0;
+
+    @DatabaseField(canBeNull = false, defaultValue = "0")
     private int bgSwordSlot = 0;
 
     @DatabaseField(canBeNull = false, defaultValue = "1")

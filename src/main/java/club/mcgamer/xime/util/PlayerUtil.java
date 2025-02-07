@@ -32,7 +32,7 @@ public class PlayerUtil {
         player.setHealth(20f);
         player.setWalkSpeed(0.2f);
         player.setFireTicks(0);
-        player.setNoDamageTicks(0);
+        player.setNoDamageTicks(20);
         player.setLevel(0);
         player.setExp(0);
         player.setTotalExperience(0);

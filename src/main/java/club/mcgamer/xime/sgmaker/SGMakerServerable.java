@@ -123,6 +123,9 @@ public class SGMakerServerable extends SGServerable {
         new ArrayList<>(getPlayerList()).forEach(profile -> {
             plugin.getServerHandler().getFallback().add(profile);
             add(profile);
+
+            if (profile.getDisguiseData() != null)
+                plugin.getDisguiseHandler().undisguise(profile);
         });
 
         gameSettings.setSilentJoinLeave(false);

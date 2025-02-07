@@ -19,6 +19,7 @@ public class CooldownData {
     private long inviteCooldown = 0;
     private long bountyCooldown = 0;
     private long messageCooldown = 0;
+    private long disguiseCooldown = 0;
 
     //private long chatCooldown = System.currentTimeMillis();
     public boolean hasAnnounceCooldown(double cooldownLength) {
@@ -35,6 +36,10 @@ public class CooldownData {
 
     public boolean hasMessageCooldown(double cooldownLength) {
         return checkIfOnCooldown(messageCooldown, cooldownLength) != null;
+    }
+
+    public boolean hasDisguiseCooldown(double cooldownLength) {
+        return checkIfOnCooldown(disguiseCooldown, cooldownLength) != null;
     }
 
     public void setAnnounceCooldown() {
@@ -54,7 +59,11 @@ public class CooldownData {
     }
 
     public void setMessageCooldown() {
-        inviteCooldown = System.currentTimeMillis();
+        messageCooldown = System.currentTimeMillis();
+    }
+
+    public void setDisguiseCooldown() {
+        disguiseCooldown = System.currentTimeMillis();
     }
 
     private String checkIfOnCooldown(long cooldownTimestamp, double cooldownLength) {

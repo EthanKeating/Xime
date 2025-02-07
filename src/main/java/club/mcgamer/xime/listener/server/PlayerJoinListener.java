@@ -60,7 +60,25 @@ public class PlayerJoinListener extends IListener {
 
         profile.complete();
 
+        Bukkit.getOnlinePlayers().forEach(loopPlayer -> {
+            loopPlayer.hidePlayer(player);
+            player.hidePlayer(loopPlayer);
+        });
+
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            if (!player.isOnline())
+                return;
+
+            Bukkit.getOnlinePlayers().forEach(loopPlayer -> {
+                loopPlayer.hidePlayer(player);
+                player.hidePlayer(loopPlayer);
+            });
+        }, 1L);
+
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            if (!player.isOnline())
+                return;
+
             Bukkit.getOnlinePlayers().forEach(loopPlayer -> {
                 loopPlayer.hidePlayer(player);
                 player.hidePlayer(loopPlayer);
@@ -68,19 +86,18 @@ public class PlayerJoinListener extends IListener {
 
             serverHandler.getFallback().add(profile);
 
-            if (profile.getServerable() == null) {
+            if (profile.getServerable() == null)
                 player.kickPlayer(TextUtil.translate("&cCould not locate a server for you!"));
-            }
-
-            profile.sendMessage("&8[&eMCGamer&8] &6Change-Log &cv5.1.0")
-                    .sendMessage("   &8- &fEnable Pre Game joining for all players.")
-                    .sendMessage("   &8- &fAdded lobby map shuffling (2 new lobbies!)")
-                    .sendMessage("   &8- &fPatched disguise revealing methods")
-                    .sendMessage("   &8- &fIncreased lobby countdown from 2m to 3m")
-                    .sendMessage("   &8- &fDecreased required lobby players from 6 to 5")
-                    .sendMessage("   &8- &fDecreased arrow stacks in tier 1s from 5 to 2")
-                    .sendMessage("   &8- &fRebalanced arrow crafting items in tier 1s")
-                    .sendMessage("   &8- &fStarted preparation for the `Knockback Trial`");
+//
+//            profile.sendMessage("&8[&eMCGamer&8] &6Change-Log &cv5.1.0")
+//                    .sendMessage("   &8- &fEnable Pre Game joining for all players.")
+//                    .sendMessage("   &8- &fAdded lobby map shuffling (2 new lobbies!)")
+//                    .sendMessage("   &8- &fPatched disguise revealing methods")
+//                    .sendMessage("   &8- &fIncreased lobby countdown from 2m to 3m")
+//                    .sendMessage("   &8- &fDecreased required lobby players from 6 to 5")
+//                    .sendMessage("   &8- &fDecreased arrow stacks in tier 1s from 5 to 2")
+//                    .sendMessage("   &8- &fRebalanced arrow crafting items in tier 1s")
+//                    .sendMessage("   &8- &fStarted preparation for the `Knockback Trial`");
         }, 2L);
 
         WrapperPlayServerPlayerListHeaderAndFooter headerAndFooter = new WrapperPlayServerPlayerListHeaderAndFooter(

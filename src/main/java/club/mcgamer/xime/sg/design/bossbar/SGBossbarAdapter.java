@@ -30,6 +30,9 @@ public class SGBossbarAdapter extends BossbarAdapter {
             if (endGameRunnable.getGameWinner().isPresent() && endGameRunnable.getGameWinner().get().getPlayer() != null) {
                 return String.format(prefix + "&a%s &ahas won the Survival Games!", endGameRunnable.getGameWinner().get().getDisplayName());
             }
+            if (endGameRunnable.getGameWinnerTeam().isPresent()) {
+                return String.format(prefix + "&6Team #%s &ahas won the Survival Games!", endGameRunnable.getGameWinnerTeam().get().getTeamId());
+            }
             return prefix + "&aThe games have ended!";
         }
 

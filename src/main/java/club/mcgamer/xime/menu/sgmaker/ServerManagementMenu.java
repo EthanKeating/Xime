@@ -23,8 +23,8 @@ public class ServerManagementMenu extends FastInv {
                 });
 
         setItem(2, new ItemBuilder(Material.EMPTY_MAP)
-                .name("&bMap Selection")
-                .build(),
+                        .name("&bMap Selection")
+                        .build(),
                 e -> {
                     new MapSelectionSubMenu(this, profile, serverable, 1).open(profile.getPlayer());
                 });
@@ -33,9 +33,8 @@ public class ServerManagementMenu extends FastInv {
                         .name("&bTeam Selection")
                         .build(),
                 e -> {
-                    profile.sendMessage("&cThis feature is still being worked on");
                     e.setCancelled(true);
-                    //new TeamSelectionSubMenu(this, profile, serverable).open(profile.getPlayer());
+                    new TeamModeSelectionMenu(this, profile, serverable).open(profile.getPlayer());
                 });
 
         setItem(4, new ItemBuilder(Material.GOLDEN_APPLE)
@@ -52,18 +51,23 @@ public class ServerManagementMenu extends FastInv {
                     e.setCancelled(true);
                 });
 
-        setItem(7, new ItemBuilder(Material.FIREWORK)
-                        .name("&bStart Game")
-                        .build(),
-                e -> {
-                    if (serverable.getCurrentRunnable() instanceof MakerLobbyRunnable) {
-                        MakerLobbyRunnable lobbyRunnable = (MakerLobbyRunnable) serverable.getCurrentRunnable();
+        if (serverable.getCurrentRunnable() instanceof MakerLobbyRunnable lobbyRunnable) {
 
+            setItem(7, new ItemBuilder(Material.FIREWORK)
+                            .name(lobbyRunnable.isStartGame() ? "&bStop Game" : "&bStart Game")
+                            .build(),
+                    e -> {
+                        profile.getPlayer().closeInventory();
+
+                        if (lobbyRunnable.isStartGame()) {
+                            lobbyRunnable.setStartGame(false);
+                            serverable.announce("&cThe host has cancelled the countdown timer&8.");
+                            return;
+                        }
                         lobbyRunnable.setStartGame(true);
                         serverable.announce("&3The host has started the countdown timer&8.");
-                        profile.getPlayer().closeInventory();
-                    }
-                });
+                    });
+        }
 
     }
 }

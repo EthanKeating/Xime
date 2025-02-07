@@ -29,6 +29,7 @@ public class ReplyCommand extends XimeCommand {
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
         ReplyData replyData = profile.getReplyData();
+        String prefix = profile.getServerable().getPrefix();
 
         CooldownData cooldownData = profile.getCooldownData();
         if (cooldownData.hasMessageCooldown(0.5)) return true;
@@ -40,7 +41,7 @@ public class ReplyCommand extends XimeCommand {
 
         Profile replyProfile = plugin.getProfileHandler().getProfile(replyData.getReplyUUID());
         if (replyProfile == null) {
-            profile.sendMessage("&8[&3Xime&8] &cYou have nobody to reply to!");
+            profile.sendMessage(prefix + "&cYou have nobody to reply to!");
             return true;
         }
 

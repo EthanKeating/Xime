@@ -26,8 +26,6 @@ public class DisguiseHandler {
 
     public DisguiseHandler(XimePlugin plugin) {
         this.plugin = plugin;
-
-        DisguiseUtil.getRandomSkins().forEach(Skin::new);
     }
 
     @SneakyThrows

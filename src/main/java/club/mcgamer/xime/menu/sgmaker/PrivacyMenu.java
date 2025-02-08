@@ -28,7 +28,7 @@ public class PrivacyMenu extends FastInv {
                         .lore(serverable.getPrivacyMode() == PrivacyMode.PRIVATE ? "&cCurrently Private" : "&aCurrently Public").build(),
                 e -> {
 
-                    serverable.setPrivacyMode(serverable.getPrivacyMode().getNext());
+                    serverable.setPrivacyMode(serverable.getPrivacyMode() != PrivacyMode.PRIVATE ? PrivacyMode.PRIVATE : PrivacyMode.PUBLIC);
                     serverable.announce("&6Privacy: &e" + (serverable.getPrivacyMode() == PrivacyMode.PRIVATE ? "&cPrivate" : "&aPublic"));
                     new PrivacyMenu(previousMenu, profile, serverable).open(profile.getPlayer());
                 });

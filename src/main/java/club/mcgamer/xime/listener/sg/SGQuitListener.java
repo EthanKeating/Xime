@@ -9,6 +9,7 @@ import club.mcgamer.xime.sg.data.SGTeamProvider;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sgmaker.config.impl.TeamType;
+import club.mcgamer.xime.util.DisguiseUtil;
 import club.mcgamer.xime.util.IListener;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,6 +29,9 @@ public class SGQuitListener extends IListener {
 
             if (!gameSettings.isSilentJoinLeave() && !playerData.isSilentJoin())
                 serverable.announceRaw(String.format("&2%s &6has left&8.", profile.getDisplayName()));
+
+            if (gameSettings.isRandomizeNames())
+                plugin.getDisguiseHandler().undisguise(profile);
 
             SGTeamProvider teamProvider = gameSettings.getTeamProvider();
 

@@ -42,14 +42,13 @@ public class SponsorMenu extends FastInv {
                     return;
                 }
 
-                sponsorItem.getValue().set(-1);
-
                 PlayerData playerData = profile.getPlayerData();
-
                 if (playerData.getSgPoints() < cost) {
                     profile.sendMessage(prefix + "&4You do not have enough points&8.");
                     return;
                 }
+
+                sponsorItem.getValue().set(-1);
 
                 playerData.setSgPoints(playerData.getSgPoints() - cost);
 

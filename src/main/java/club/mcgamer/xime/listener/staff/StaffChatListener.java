@@ -6,8 +6,11 @@ import club.mcgamer.xime.staff.StaffServerable;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+
+import java.util.logging.Level;
 
 public class StaffChatListener extends IListener {
 
@@ -23,6 +26,8 @@ public class StaffChatListener extends IListener {
             });
             return;
         }
+
+        Bukkit.getLogger().log(Level.INFO, "[" + event.getServerable() + "] " + ChatColor.stripColor(event.getProfile().getDisplayNameBypassDisguise()) + ": " + event.getMessage());
 
         Profile profile = event.getProfile();
 

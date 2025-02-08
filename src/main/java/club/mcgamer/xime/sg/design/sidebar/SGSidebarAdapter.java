@@ -95,9 +95,6 @@ public class SGSidebarAdapter extends SidebarAdapter {
                         lines.add(String.format("&fPlaying: %s", serverable.getPlayerList().size()));
                     } else {
                         lines.add(String.format("&fPlaying: %s", serverable.getTributeList().size()));
-                        if (teamProvider.getTeamType() != TeamType.NO_TEAMS)
-                            lines.add(String.format("&fTeams: %s", teamProvider.getTeams().size()));
-
                         lines.add(String.format("&fWatching: %s", serverable.getSpectatorList().size()));
                     }
                     break;
@@ -120,8 +117,6 @@ public class SGSidebarAdapter extends SidebarAdapter {
                         lines.add(String.format("&fPlaying: %s", serverable.getPlayerList().size()));
                     } else {
                         lines.add(String.format("&fPlaying: %s", serverable.getTributeList().size()));
-                        if (teamProvider.getTeamType() != TeamType.NO_TEAMS)
-                            lines.add(String.format("&fTeams: %s", teamProvider.getTeams().size()));
                         lines.add(String.format("&fWatching: %s", serverable.getSpectatorList().size()));
                     }
                     lines.add("&b&l" + profile.getLanguage().getServerIp());
@@ -143,8 +138,6 @@ public class SGSidebarAdapter extends SidebarAdapter {
                         lines.add(String.format("&fPlaying: %s", serverable.getPlayerList().size()));
                     } else {
                         lines.add(String.format("&fPlaying: %s", serverable.getTributeList().size()));
-                        if (teamProvider.getTeamType() != TeamType.NO_TEAMS)
-                            lines.add(String.format("&fTeams: %s", teamProvider.getTeams().size()));
                         lines.add(String.format("&fWatching: %s", serverable.getSpectatorList().size()));
                     }
                     lines.add("&b&l" + profile.getLanguage().getServerIp());

@@ -39,6 +39,7 @@ public class TeamSelectionSubMenu extends FastInv {
 
                             if (loopPlayer.getOpenInventory().getTopInventory().getHolder() instanceof TeamSelectionSubMenu) {
                                 new TeamSelectionSubMenu(loopProfile, serverable).open(loopPlayer);
+                                loopPlayer.updateInventory();
                             }
 
                         });

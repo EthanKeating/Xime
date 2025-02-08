@@ -50,12 +50,18 @@ public class InviteCommand extends XimeCommand {
             return true;
         }
 
+        if (serverable.isInvited(argumentProfile)) {
+            profile.sendMessage("&8[&3Xime&8] &cThat player is already invited!");
+            return true;
+        }
+
         profile.sendMessage(String.format("&8[&3Xime&8] &a%s &ahas been invited to the server!", argumentProfile.getDisplayName()));
+        serverable.setInvited(argumentProfile);
         TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&3Xime&8] &6You have been invited to join %s&6's private game! &a&lCLICK HERE", serverable.getOwner().getDisplayNameBypassDisguise())));
         message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{
                 new TextComponent(TextUtil.translate("&aClick to join the server!")),
         }));
-        message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/secret " + serverable.getSecret()));
+        message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/join sgmaker " + serverable.getServerId()));
         argumentPlayer.spigot().sendMessage(message);
         cooldownData.setInviteCooldown();
 

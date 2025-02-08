@@ -30,33 +30,7 @@ public class SpectateMenu extends FastInv {
                         e.setCancelled(true);
                     });
         }
-//        setItem(0, new ItemBuilder(Material.WOOL)
-//                .data(14)
-//                        .name("&aBack")
-//                        .build(),
-//                e -> {
-//                    previousMenu.open(profile.getPlayer());
-//                });
-//
-//        if (page > 1) {
-//            setItem(1, new ItemBuilder(Material.WOOL)
-//                            .data(1)
-//                            .name("&aPrevious")
-//                            .build(),
-//                    e -> {
-//                        new SpectateMenu(previousMenu, profile, serverable, page - 1).open(profile.getPlayer());
-//                    });
-//        }
-//        setItem(8, new ItemBuilder(Material.WOOL)
-//                        .data(5).
-//                        name("&aNext")
-//                        .build(),
-//                e -> {
-//            new SpectateMenu(previousMenu, profile, serverable, page + 1).open(profile.getPlayer());
-//        });
-
         List<Profile> players = serverable.getTributeList();
-
         for (int i = 0; i < players.size(); i++) {
             int index = 9 + i;
             Profile loopProfile = players.get(i);

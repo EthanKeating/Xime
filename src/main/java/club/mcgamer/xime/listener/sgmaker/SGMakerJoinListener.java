@@ -37,7 +37,7 @@ public class SGMakerJoinListener extends IListener {
 
                 TextComponent inviteMessage = new TextComponent(TextUtil.translate("&6You can invite people to join by using the command &a/invite <player>"));
                 inviteMessage.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{
-                        new TextComponent(TextUtil.translate("&a/secret " + serverable.getSecret() + " &7(Click to copy)")),
+                        new TextComponent(TextUtil.translate("&a/invite <player>" + " &7(Click to use)")),
                 }));
                 inviteMessage.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/invite "));
                 player.spigot().sendMessage(inviteMessage);

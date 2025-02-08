@@ -17,6 +17,7 @@ import lombok.Setter;
 import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 @Getter @Setter
@@ -27,6 +28,8 @@ public class SGMakerServerable extends SGServerable {
 
     private PrivacyMode privacyMode = PrivacyMode.PRIVATE;
     private final String secret = UUID.randomUUID().toString().substring(0, 5);
+
+    private HashMap<UUID, Long> invitedPlayers = new HashMap<>();
 
     public SGMakerServerable(Profile owner) {
         super();
@@ -45,6 +48,22 @@ public class SGMakerServerable extends SGServerable {
         }
 
         Bukkit.unloadWorld(toString(), false);
+    }
+
+    public void setInvited(Profile profile) {
+        invitedPlayers.put(profile.getUuid(), System.currentTimeMillis());
+    }
+
+    public boolean isInvited(Profile profile) {
+        if (!invitedPlayers.containsKey(profile.getUuid()))
+            return false;
+
+        long inviteTime = invitedPlayers.get(profile.getUuid());
+
+        double elapsedSeconds = (System.currentTimeMillis() - inviteTime) / 1000.0d;
+        double remainingSeconds = 60.0 - elapsedSeconds;
+
+        return (remainingSeconds > 0);
     }
 
     public void applyConfig(MakerConfig makerConfig) {
@@ -129,6 +148,7 @@ public class SGMakerServerable extends SGServerable {
         });
 
         gameSettings.setSilentJoinLeave(false);
+        gameSettings.getTeamProvider().setTeamType(gameSettings.getTeamProvider().getTeamType());
     }
 
 }

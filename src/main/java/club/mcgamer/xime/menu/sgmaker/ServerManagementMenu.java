@@ -47,7 +47,7 @@ public class ServerManagementMenu extends FastInv {
                         .name("&bPrivacy")
                         .build(),
                 e -> {
-                    profile.sendMessage("&cThis feature is still being worked on");
+                    new PrivacyMenu(this, profile, serverable).open(profile.getPlayer());
                     e.setCancelled(true);
                 });
 

@@ -102,7 +102,7 @@ public class EndGameRunnable extends AbstractGameRunnable {
             }
 
             serverable.announce(String.format("&6%s &ahas won the Survival Games!", "Team #" + team.getTeamId()));
-            serverable.announce(String.format("&a%s &aWinners: ", team.getOriginalPlayers().stream().map(Profile::getDisplayName).collect(Collectors.joining("&8, &2"))));
+            serverable.announce(String.format("&aWinner%s: %s", team.getOriginalPlayers().size() == 1 ? "" : "s", team.getOriginalPlayers().stream().map(Profile::getDisplayName).collect(Collectors.joining("&8, &2"))));
         });
         serverable.getWorld().setTime(18000);
 

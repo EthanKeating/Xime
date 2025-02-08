@@ -11,7 +11,6 @@ import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.server.data.TemporaryData;
 import club.mcgamer.xime.server.event.ServerJoinEvent;
-import club.mcgamer.xime.sg.data.SGTeamProvider;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.sg.design.bossbar.SGBossbarAdapter;
 import club.mcgamer.xime.sg.design.sidebar.SGSidebarAdapter;

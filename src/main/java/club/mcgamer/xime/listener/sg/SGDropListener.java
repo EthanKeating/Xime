@@ -4,6 +4,7 @@ import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerPickupItemEvent;
 import club.mcgamer.xime.server.event.ServerPlaceBlockEvent;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.util.IListener;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -22,6 +23,9 @@ public class SGDropListener extends IListener {
         if (event.getServerable() instanceof SGServerable) {
             SGServerable serverable = (SGServerable) event.getServerable();
 
+            if (serverable.getGameState() == GameState.LOBBY || serverable.getGameState() == GameState.LOADING || serverable.getGameState() == GameState.PREGAME) {
+                event.getEvent().setCancelled(true);
+            }
 
             if (!serverable.getSpectatorList().contains(profile)) {
                 Set<Material> allowedItems = serverable.getGameSettings().getLootTable().getAllItems()

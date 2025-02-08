@@ -7,7 +7,9 @@ import club.mcgamer.xime.profile.data.temporary.CooldownData;
 import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.server.Serverable;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
+import club.mcgamer.xime.sgmaker.privacy.PrivacyMode;
 import club.mcgamer.xime.util.TextUtil;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -42,8 +44,18 @@ public class AnnounceCommand extends XimeCommand {
         if (cooldownData.hasAnnounceCooldown(getCooldownLength(player))) return true;
 
         if (profile.getServerable() instanceof SGMakerServerable sgMakerServerable) {
+            if (sgMakerServerable.getGameState() != GameState.LOBBY && sgMakerServerable.getGameState() != GameState.PREGAME) {
+                profile.sendMessage(sgMakerServerable.getPrefix() + "&cYou cannot use this command right now.");
+                return true;
+            }
+
+            if (sgMakerServerable.getPrivacyMode() == PrivacyMode.PRIVATE) {
+                profile.sendMessage(sgMakerServerable.getPrefix() + "&cYou cannot announce a private server.");
+                return true;
+            }
+
             TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&l&nClick Here!", profile.getDisplayName(), sgMakerServerable)));
-            message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/secret " + sgMakerServerable.getSecret()));
+            message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/join sgmaker " + sgMakerServerable.getServerId()));
             message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent(TextUtil.translate(String.format("&fClick to join &8[&6EU%s&8]", sgMakerServerable.toString()))) }));
             plugin.getProfileHandler().getProfiles().forEach(loopProfile -> {
                 loopProfile.getPlayer().spigot().sendMessage(message);
@@ -54,6 +66,11 @@ public class AnnounceCommand extends XimeCommand {
         }
 
         if (profile.getServerable() instanceof SGServerable sgServerable) {
+            if (sgServerable.getGameState() != GameState.LOBBY && sgServerable.getGameState() != GameState.PREGAME) {
+                profile.sendMessage(sgServerable.getPrefix() + "&cYou cannot use this command right now.");
+                return true;
+            }
+
             TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&l&nClick Here!", profile.getDisplayName(), sgServerable)));
             message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/join sg " + sgServerable.getServerId()));
             message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent(TextUtil.translate(String.format("&fClick to join &8[&6EU%s&8]", sgServerable.toString()))) }));

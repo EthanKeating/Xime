@@ -87,8 +87,8 @@ public class SGJoinListener extends IListener {
                                 }
                             }
                         }
+                        break;
                     }
-                    break;
                 case LIVEGAME:
                 case PREDEATHMATCH:
                 case DEATHMATCH:

@@ -6,6 +6,7 @@ import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerBreakBlockEvent;
 import club.mcgamer.xime.server.event.ServerPlaceBlockEvent;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sg.runnable.LiveGameRunnable;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.util.IListener;
 import org.bukkit.Location;
@@ -79,13 +80,21 @@ public class SGBuildListener extends IListener {
 
     @EventHandler(priority = EventPriority.HIGH)
     private void onDynamitePlace(ServerPlaceBlockEvent event) {
-        if (!(event.getServerable() instanceof SGServerable)) return;
+        if (!(event.getServerable() instanceof SGServerable serverable)) return;
         if (event.getBlock().getType() != Material.TNT) return;
 
         Material replaced = event.getEvent().getBlockReplacedState().getType();
         Material current = event.getBlock().getType();
 
         if (current == Material.TNT) {
+
+            if (serverable.getCurrentRunnable() instanceof LiveGameRunnable runnable) {
+                if (runnable.isGracePeriod()) {
+                    event.getEvent().setCancelled(true);
+                    return;
+                }
+            }
+
             event.getBlock().setType(replaced);
 
             TNTPrimed primedTNT = (TNTPrimed) event.getBlock().getWorld().spawnEntity(
@@ -146,6 +155,13 @@ public class SGBuildListener extends IListener {
                             return;
                         case FIRE:
                             if (player.getItemInHand() == null || player.getItemInHand().getType() != Material.FLINT_AND_STEEL) return;
+
+                            if (serverable.getCurrentRunnable() instanceof LiveGameRunnable runnable) {
+                                if (runnable.isGracePeriod()) {
+                                    event.getEvent().setCancelled(true);
+                                    return;
+                                }
+                            }
 
                             short nextDurability = (short) Math.min((short) (heldItem.getDurability() + (short) 16), (short)64);
                             heldItem.setDurability(nextDurability);

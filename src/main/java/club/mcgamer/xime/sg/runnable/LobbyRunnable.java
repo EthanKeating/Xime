@@ -38,6 +38,19 @@ public class LobbyRunnable extends AbstractGameRunnable {
         gameTimer.setTime(gameSettings.getLobbyLength());
         //Initialize all data
     }
+    public LobbyRunnable(SGServerable serverable, XimePlugin plugin, GameSettings gameSettings) {
+        this.plugin = plugin;
+        this.serverable = serverable;
+        this.gameSettings = gameSettings == null ? new GameSettings(serverable) : gameSettings;
+
+        serverable.setGameSettings(this.gameSettings);
+        serverable.setGameTimer(this.gameTimer);
+        serverable.setMapPool(new MapPool(plugin));
+        serverable.setMaxPlayers(this.gameSettings.getMaximumPlayers());
+
+        gameTimer.setTime(this.gameSettings.getLobbyLength());
+        //Initialize all data
+    }
 
     public void run() {
         int playerCount = serverable.getPlayerList().size();

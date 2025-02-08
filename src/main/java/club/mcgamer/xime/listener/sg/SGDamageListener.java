@@ -21,9 +21,11 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.FishHook;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityCombustEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 
@@ -45,7 +47,7 @@ public class SGDamageListener extends IListener {
                     event.getEvent().setCancelled(true);
                     return;
                 case LIVEGAME:
-                    if (event.getEvent().getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+                    if (event.getEvent().getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK || event.getEvent().getCause() == EntityDamageEvent.DamageCause.PROJECTILE) {
                         if (serverable.getCurrentRunnable() instanceof LiveGameRunnable runnable) {
                             if (runnable.isGracePeriod())
                                 event.getEvent().setCancelled(true);
@@ -53,14 +55,18 @@ public class SGDamageListener extends IListener {
                     }
                 case DEATHMATCH:
                     if (event.getAttacker().isPresent()) {
-                        if(serverable.getGameSettings().getTeamProvider().getTeamType() != TeamType.NO_TEAMS) {
-                            SGTeam attackerTeam = serverable.getGameSettings().getTeamProvider().getTeam(event.getAttacker().get());
-                            if (attackerTeam != null) {
-                                SGTeam victimTeam = serverable.getGameSettings().getTeamProvider().getTeam(event.getVictim());
+                        if (serverable.getGameSettings().getTeamProvider().getTeamType() != TeamType.NO_TEAMS) {
+                            if (event.getEvent() instanceof EntityDamageByEntityEvent wrapEvent) {
+                                if (!(wrapEvent.getDamager() instanceof FishHook)) {
+                                    SGTeam attackerTeam = serverable.getGameSettings().getTeamProvider().getTeam(event.getAttacker().get());
+                                    if (attackerTeam != null) {
+                                        SGTeam victimTeam = serverable.getGameSettings().getTeamProvider().getTeam(event.getVictim());
 
-                                if (victimTeam != null) {
-                                    if (victimTeam == attackerTeam) {
-                                        event.getEvent().setCancelled(true);
+                                        if (victimTeam != null) {
+                                            if (victimTeam == attackerTeam) {
+                                                event.getEvent().setCancelled(true);
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -141,7 +147,7 @@ public class SGDamageListener extends IListener {
             SGServerable serverable = (SGServerable) event.getServerable();
             String prefix = serverable.getPrefix();
 
-            if (serverable.getGameState() == GameState.LOBBY ||serverable.getGameState() == GameState.ENDGAME || serverable.getGameState() == GameState.CLEANUP) {
+            if (serverable.getGameState() == GameState.LOBBY || serverable.getGameState() == GameState.ENDGAME || serverable.getGameState() == GameState.CLEANUP) {
                 event.getVictim().getPlayer().setMaxHealth(20);
                 event.getVictim().getPlayer().setHealth(20);
                 return;
@@ -257,7 +263,7 @@ public class SGDamageListener extends IListener {
                 }
             }, 1);
 
-            if (serverable.getTributeList().size() <= 1) {
+            if (serverable.getTributeList().size() <= 1 || (serverable.getGameSettings().getTeamProvider().getTeamType() != TeamType.NO_TEAMS && serverable.getGameSettings().getTeamProvider().getTeams().size() == 1)) {
                 serverable.forceGameState(GameState.ENDGAME);
                 return;
             }

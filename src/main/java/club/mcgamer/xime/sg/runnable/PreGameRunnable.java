@@ -148,7 +148,7 @@ public class PreGameRunnable extends AbstractGameRunnable {
         unusedSpawnIndexes.removeAll(Arrays.asList(spawnIndex));
 
         if (serverable.getGameSettings().isRandomizeNames())
-            plugin.getDisguiseHandler().disguise(profile);
+            plugin.getDisguiseHandler().disguiseNoRefresh(profile);
 
         player.teleport(worldLocation);
         temporaryData.setPedistalLocation(worldLocation);

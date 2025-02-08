@@ -89,7 +89,7 @@ public class EndGameRunnable extends AbstractGameRunnable {
 
         gameWinner.ifPresent(profile -> {
             if (gameSettings.isRandomizeNames())
-                plugin.getDisguiseHandler().undisguise(profile);
+                plugin.getDisguiseHandler().undisguiseNoRefresh(profile);
 
             serverable.announce(String.format("&a%s &ahas won the Survival Games!", profile.getDisplayName()));
         });
@@ -98,7 +98,7 @@ public class EndGameRunnable extends AbstractGameRunnable {
                 team.getOriginalPlayers().stream()
                         .filter(profile -> profile.getPlayer() != null)
                         .filter(profile -> profile.getServerable() == serverable)
-                        .forEach(profile -> plugin.getDisguiseHandler().undisguise(profile));
+                        .forEach(profile -> plugin.getDisguiseHandler().undisguiseNoRefresh(profile));
             }
 
             serverable.announce(String.format("&6%s &ahas won the Survival Games!", "Team #" + team.getTeamId()));

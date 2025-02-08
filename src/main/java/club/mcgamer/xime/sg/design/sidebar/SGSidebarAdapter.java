@@ -5,8 +5,12 @@ import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.profile.data.impl.SidebarType;
 import club.mcgamer.xime.server.ServerHandler;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sg.data.SGTeamProvider;
+import club.mcgamer.xime.sg.runnable.LiveGameRunnable;
+import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
+import club.mcgamer.xime.sgmaker.config.impl.TeamType;
 import lombok.Getter;
 import org.bukkit.ChatColor;
 
@@ -28,8 +32,12 @@ public class SGSidebarAdapter extends SidebarAdapter {
             SGServerable serverable = (SGServerable) profile.getServerable();
             GameTimer gameTimer = serverable.getGameTimer();
             GameState gameState = serverable.getGameState();
+            String gameStateName = gameState.getName();
 
-            return String.format("&a%s &c%s", gameState.getName(), gameTimer.toString());
+            if (serverable.getCurrentRunnable() instanceof LiveGameRunnable runnable && runnable.isGracePeriod())
+                gameStateName = "GracePeriod";
+
+            return String.format("&a%s &c%s", gameStateName, gameTimer.toString());
         }
 
         return "";
@@ -51,6 +59,9 @@ public class SGSidebarAdapter extends SidebarAdapter {
 
             SGServerable serverable = (SGServerable) profile.getServerable();
             GameState gameState = serverable.getGameState();
+            GameSettings gameSettings = serverable.getGameSettings();
+            SGTeamProvider teamProvider = gameSettings.getTeamProvider();
+
             SidebarType sidebarType = SidebarType.values()[profile.getPlayerData().getSidebarType()];
             List<String> lines = new ArrayList<>();
 
@@ -84,6 +95,9 @@ public class SGSidebarAdapter extends SidebarAdapter {
                         lines.add(String.format("&fPlaying: %s", serverable.getPlayerList().size()));
                     } else {
                         lines.add(String.format("&fPlaying: %s", serverable.getTributeList().size()));
+                        if (teamProvider.getTeamType() != TeamType.NO_TEAMS)
+                            lines.add(String.format("&fTeams: %s", teamProvider.getTeams().size()));
+
                         lines.add(String.format("&fWatching: %s", serverable.getSpectatorList().size()));
                     }
                     break;
@@ -106,6 +120,8 @@ public class SGSidebarAdapter extends SidebarAdapter {
                         lines.add(String.format("&fPlaying: %s", serverable.getPlayerList().size()));
                     } else {
                         lines.add(String.format("&fPlaying: %s", serverable.getTributeList().size()));
+                        if (teamProvider.getTeamType() != TeamType.NO_TEAMS)
+                            lines.add(String.format("&fTeams: %s", teamProvider.getTeams().size()));
                         lines.add(String.format("&fWatching: %s", serverable.getSpectatorList().size()));
                     }
                     lines.add("&b&l" + profile.getLanguage().getServerIp());
@@ -127,6 +143,8 @@ public class SGSidebarAdapter extends SidebarAdapter {
                         lines.add(String.format("&fPlaying: %s", serverable.getPlayerList().size()));
                     } else {
                         lines.add(String.format("&fPlaying: %s", serverable.getTributeList().size()));
+                        if (teamProvider.getTeamType() != TeamType.NO_TEAMS)
+                            lines.add(String.format("&fTeams: %s", teamProvider.getTeams().size()));
                         lines.add(String.format("&fWatching: %s", serverable.getSpectatorList().size()));
                     }
                     lines.add("&b&l" + profile.getLanguage().getServerIp());

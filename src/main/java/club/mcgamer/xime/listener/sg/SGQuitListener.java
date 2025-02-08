@@ -31,7 +31,7 @@ public class SGQuitListener extends IListener {
                 serverable.announceRaw(String.format("&2%s &6has left&8.", profile.getDisplayName()));
 
             if (gameSettings.isRandomizeNames())
-                plugin.getDisguiseHandler().undisguise(profile);
+                plugin.getDisguiseHandler().undisguiseNoRefresh(profile);
 
             SGTeamProvider teamProvider = gameSettings.getTeamProvider();
 

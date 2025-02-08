@@ -70,6 +70,46 @@ public class DisguiseHandler {
     }
 
     @SneakyThrows
+    public void disguiseNoRefresh(Profile profile) {
+        String prefix = profile.getServerable().getPrefix();
+
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+            String randomName = DisguiseUtil.getRandomName();
+            Skin skin = DisguiseUtil.getRandomSkin();
+
+            profile.setDisguiseData(new DisguiseData(
+                    profile,
+                    profile.getUuid(),
+                    randomName,
+                    skin)
+            );
+            profile.getDisguiseData().setMockData(PlayerData.createMock(profile));
+            disguises.put(profile.getUuid(), profile.getDisguiseData());
+
+//        profile.getUser().getProfile().setName(randomName);
+//        profile.getPlayer().setDisplayName(profile.getName());
+            DisguiseUtil.setSkin(profile, skin);
+            DisguiseUtil.setName(profile, randomName);
+
+            profile.sendMessage(prefix + "&c&lWarning! &cThis command is logged.")
+                    .sendMessage(prefix + "&cStaff can see your true username while using this command.")
+                    .sendMessage(prefix + "&fYou now appear as " + profile.getDisplayName() + "&8.")
+                    .sendMessage(prefix + "&fTo undisguise, use &8[&e/undisguise&8]");
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(Paths.get(plugin.getDataFolder().getAbsolutePath(), "disguises.log").toFile(), true))) {
+                writer.write(String.format("[%s] '%s' has disguised as '%s'",
+                        LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                        profile.getNameBypassDisguise(),
+                        randomName));
+                writer.newLine();
+            } catch (IOException e) {
+            }
+        });
+
+
+    }
+
+    @SneakyThrows
     public void undisguise(Profile profile) {
         //update real player stats
         profile.setDisguiseData(null);
@@ -80,6 +120,21 @@ public class DisguiseHandler {
         DisguiseUtil.setSkin(profile, profile.getSkin());
         DisguiseUtil.setName(profile, profile.getName());
         DisguiseUtil.updateBackToNormal(profile);
+        disguises.remove(profile.getUuid());
+
+        profile.sendMessage(profile.getServerable().getPrefix() + "&fYou have been undisguised");
+    }
+
+    @SneakyThrows
+    public void undisguiseNoRefresh(Profile profile) {
+        //update real player stats
+        profile.setDisguiseData(null);
+
+//        profile.getUser().getProfile().setName(profile.getName());
+//        profile.getPlayer().setDisplayName(profile.getName());
+
+        DisguiseUtil.setSkin(profile, profile.getSkin());
+        DisguiseUtil.setName(profile, profile.getName());
         disguises.remove(profile.getUuid());
 
         profile.sendMessage(profile.getServerable().getPrefix() + "&fYou have been undisguised");

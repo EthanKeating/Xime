@@ -87,18 +87,23 @@ public class SGServerable extends Serverable {
             return;
         }
 
-        if (getPlayerList().size() >= getMaxPlayers()) {
-            profile.sendMessage("&cThat server is full.");
-
-            if (!(profile.getServerable() instanceof HubServerable))
-                plugin.getServerHandler().getFallback().add(profile);
-
-            return;
-        }
-
         if (!isJoinable()) {
             profile.sendMessage("&cThis server is not currently joinable");
             return;
+        }
+
+        if (getPlayerList().size() >= getMaxPlayers()) {
+            if (getGameState() == GameState.LOBBY && profile.getPlayer().hasPermission("xime.diamond")) {
+                for (Profile otherProfile : getPlayerList())
+                    if (!otherProfile.getPlayer().hasPermission("xime.diamond"))
+                        plugin.getServerHandler().getFallback().add(otherProfile);
+            } else {
+
+                profile.sendMessage("&cThat server is full.");
+                if (!(profile.getServerable() instanceof HubServerable))
+                    plugin.getServerHandler().getFallback().add(profile);
+                return;
+            }
         }
 
         if (profile.getServerable() != null)

@@ -43,7 +43,7 @@ public class LeaderboardCommand extends XimeCommand {
                 page = Integer.parseInt(args[0]);
             } else {
                 page = 1;
-                profile.sendMessage("&");
+                hasArgs(sender, args, 1000);
                 return true;
             }
         } else {

@@ -47,7 +47,7 @@ public class SGMakerServerable extends SGServerable {
             Bukkit.getWorld(toString()).getPlayers().stream().map(loopPlayer -> getPlugin().getProfileHandler().getProfile(loopPlayer)).forEach(serverable::add);
         }
 
-        Bukkit.unloadWorld(toString(), false);
+        Bukkit.unloadWorld(toString(), true);
     }
 
     public void setInvited(Profile profile) {
@@ -112,7 +112,7 @@ public class SGMakerServerable extends SGServerable {
 
         if(Bukkit.getWorld(toString()) != null) {
             Bukkit.getWorld(toString()).getPlayers().forEach(loopPlayer -> loopPlayer.teleport(Bukkit.getWorlds().get(0).getSpawnLocation()));
-            Bukkit.unloadWorld(toString(), false);
+            Bukkit.unloadWorld(toString(), true);
         }
 
         if (currentRunnable != null)
@@ -136,7 +136,7 @@ public class SGMakerServerable extends SGServerable {
 
         if(Bukkit.getWorld(toString()) != null) {
             Bukkit.getWorld(toString()).getPlayers().forEach(loopPlayer -> loopPlayer.teleport(Bukkit.getWorlds().get(0).getSpawnLocation()));
-            Bukkit.unloadWorld(toString(), false);
+            Bukkit.unloadWorld(toString(), true);
         }
 
         new ArrayList<>(getPlayerList()).forEach(profile -> {

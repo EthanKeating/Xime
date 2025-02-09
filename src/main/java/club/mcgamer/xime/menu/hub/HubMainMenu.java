@@ -24,7 +24,11 @@ public class HubMainMenu extends FastInv {
     public HubMainMenu(Profile profile) {
         super(45, "MCGamer Network Navigation");
 
-        int sgPlayers = plugin.getServerHandler().getByClass(SGServerable.class).stream()
+        int sgPlayers = plugin.getServerHandler().getByClass(SGServerable.class).stream().filter(serverable -> !(serverable instanceof SGMakerServerable))
+                .mapToInt(serverable -> serverable.getPlayerList().size())
+                .sum();
+
+        int makerPlayers = plugin.getServerHandler().getByClass(SGMakerServerable.class).stream()
                 .mapToInt(serverable -> serverable.getPlayerList().size())
                 .sum();
 
@@ -128,6 +132,7 @@ public class HubMainMenu extends FastInv {
         setItem(28, new ItemBuilder(Material.CHEST).name("&2  MCGamer Maker / MCSG Maker")
                 .lore(Arrays.asList(
                         "&8████████████████",
+                        String.format("&b       [ Join &e%s &bPlayer%s ]", makerPlayers, makerPlayers == 1 ? "" : "s"),
                         "",
                         "&aCreate your own, private games",
                         "&a  with friends, with a range of ",

@@ -161,7 +161,7 @@ public class SGDamageListener extends IListener {
             SGTemporaryData victimTempData = (SGTemporaryData) victim.getTemporaryData();
 
             //int tempPoints = (int) (Math.random() * 2000);
-            int lostPoints = (int) (victimData.getSgPoints() * 0.05); //5% of a player's points
+            int lostPoints = (int) (victimData.getSgPoints() * 0.03); //5% of a player's points
 
             if (!(serverable instanceof SGMakerServerable)) {
                 victimData.setSgPoints(Math.max(0, victimData.getSgPoints() - lostPoints));

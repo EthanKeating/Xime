@@ -9,6 +9,7 @@ public class LeaderboardEntry {
 
     private final Profile profile;
     private final String displayName;
+    private final String name;
     private final int kills;
 
 }

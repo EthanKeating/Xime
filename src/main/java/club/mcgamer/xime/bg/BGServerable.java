@@ -84,7 +84,7 @@ public class BGServerable extends Serverable {
     public void updateLeaderboard() {
         List<LeaderboardEntry> newSortedLeaderboard = new ArrayList<>();
 
-        getPlayerList().forEach(loopProfile -> newSortedLeaderboard.add(new LeaderboardEntry(loopProfile, loopProfile.getRank().getColor() + loopProfile.getName(), ((BGTemporaryData) loopProfile.getTemporaryData()).getKills())));
+        getPlayerList().forEach(loopProfile -> newSortedLeaderboard.add(new LeaderboardEntry(loopProfile, loopProfile.getRank().getColor() + loopProfile.getName(), loopProfile.getName(), ((BGTemporaryData) loopProfile.getTemporaryData()).getKills())));
 
 
         sortedLeaderboard = newSortedLeaderboard.stream()

@@ -111,7 +111,7 @@ public class DataHandler {
 
             playerData.setLastSeen(System.currentTimeMillis());
             playerData.setSgGameRank(livePlayerData.getSgGameRank());
-            playerData.setSgGameRank(livePlayerData.getBgGameRank());
+            playerData.setBgGameRank(livePlayerData.getBgGameRank());
         });
 
         QueryBuilder<PlayerData, String> queryBuilder = playerDataDao.queryBuilder();

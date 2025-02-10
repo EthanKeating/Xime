@@ -123,7 +123,7 @@ public class BGSidebarAdapter extends SidebarAdapter {
                             ChatColor.WHITE + timeFormats[0],
                             ChatColor.WHITE + timeFormats[1],
                             "",
-                            "&6&l» Server    &7",
+                            "&6&l» Server     &7",
                             String.format("&3EU&8: &f%s", serverable.getServerId()),
                             "",
                             "&6&l» Game"

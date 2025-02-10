@@ -102,6 +102,8 @@ public class DataHandler {
         //Update all in database
         playerDataDao.updateRaw("SET @rank = 0");
         playerDataDao.updateRaw("UPDATE playerdata SET sgGameRank = (@rank := @rank + 1) ORDER BY sgGamesWon DESC");
+
+        playerDataDao.updateRaw("SET @rank = 0");
         playerDataDao.updateRaw("UPDATE playerdata SET bgGameRank = (@rank := @rank + 1) ORDER BY bgKills DESC");
 
         //Update currently online players, so relogging doesnt override

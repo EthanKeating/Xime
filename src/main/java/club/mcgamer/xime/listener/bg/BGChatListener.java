@@ -24,31 +24,32 @@ public class BGChatListener extends IListener {
 
             String chatColor = profile.getChatColor();
 
-            DecimalFormat formatter = new DecimalFormat("#,###");
+            //DecimalFormat formatter = new DecimalFormat("#,###");
 
-            serverable.getPlayerList().stream().forEach(loopProfile -> {
+            int bgPlacement = profile.getPlayerData().getBgGameRank();
+            String placementString = "#" + bgPlacement + " ";
+            if (bgPlacement == -1)
+                placementString = "";
+            else if(bgPlacement <= 10)
+                placementString = "&6" + placementString;
+            else if(bgPlacement <= 25)
+                placementString = "&e" + placementString;
+            else if(bgPlacement <= 100)
+                placementString = "&f" + placementString;
+            else
+                placementString = "&7" + placementString;
 
-                int bgPlacement = loopProfile.getPlayerData().getBgGameRank();
-                String placementString = "#" + formatter.format(bgPlacement) + " ";
-                if (bgPlacement == -1)
-                    placementString = "";
-                else if(bgPlacement <= 10)
-                    placementString = "&6" + placementString;
-                else if(bgPlacement <= 25)
-                    placementString = "&e" + placementString;
-                else if(bgPlacement <= 100)
-                    placementString = "&f" + placementString;
-                else
-                    placementString = "&7" + placementString;
+            String finalPlacementString = placementString;
+            serverable.getPlayerList().forEach(loopProfile -> {
 
                 if (loopProfile.getPlayer().hasPermission("xime.staff")) {
                     TextUtil.sendStaffMessage(loopProfile, profile, TextUtil.translate(
                             String.format("%s%s&8: &f%s",
-                                    placementString,
+                                    finalPlacementString,
                                     profile.getName().equalsIgnoreCase(profile.getNameBypassDisguise()) ? profile.getDisplayName() : profile.getDisplayName() + "&8(" + profile.getDisplayNameBypassDisguise() + "&8)",
                                     chatColor)) + event.getMessage());
                 } else {
-                    loopProfile.sendMessage(TextUtil.translate(String.format("%s&8: &f%s", profile.getDisplayNameBypassDisguise(), chatColor)) + event.getMessage());
+                    loopProfile.sendMessage(TextUtil.translate(String.format("%s%s&8: &f%s", finalPlacementString, profile.getDisplayNameBypassDisguise(), chatColor)) + event.getMessage());
                 }
                 });
 

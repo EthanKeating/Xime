@@ -28,7 +28,7 @@ public class PlayerData {
     private String displayName = "";
 
     @DatabaseField(canBeNull = false, defaultValue = "0")
-    private long firstJoin = System.currentTimeMillis();
+    private long firstJoin = -1;
 
     @DatabaseField(canBeNull = false, defaultValue = "0")
     private long lastSeen = System.currentTimeMillis();

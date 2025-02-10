@@ -9,6 +9,7 @@ import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.event.EventHandler;
 
+import java.text.DecimalFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,10 +24,27 @@ public class BGChatListener extends IListener {
 
             String chatColor = profile.getChatColor();
 
+            DecimalFormat formatter = new DecimalFormat("#,###");
+
             serverable.getPlayerList().stream().forEach(loopProfile -> {
+
+                int bgPlacement = loopProfile.getPlayerData().getBgGameRank();
+                String placementString = "#" + formatter.format(bgPlacement) + " ";
+                if (bgPlacement == -1)
+                    placementString = "";
+                else if(bgPlacement <= 10)
+                    placementString = "&6" + placementString;
+                else if(bgPlacement <= 25)
+                    placementString = "&e" + placementString;
+                else if(bgPlacement <= 100)
+                    placementString = "&f" + placementString;
+                else
+                    placementString = "&7" + placementString;
+
                 if (loopProfile.getPlayer().hasPermission("xime.staff")) {
                     TextUtil.sendStaffMessage(loopProfile, profile, TextUtil.translate(
-                            String.format("%s&8: &f%s",
+                            String.format("%s%s&8: &f%s",
+                                    placementString,
                                     profile.getName().equalsIgnoreCase(profile.getNameBypassDisguise()) ? profile.getDisplayName() : profile.getDisplayName() + "&8(" + profile.getDisplayNameBypassDisguise() + "&8)",
                                     chatColor)) + event.getMessage());
                 } else {

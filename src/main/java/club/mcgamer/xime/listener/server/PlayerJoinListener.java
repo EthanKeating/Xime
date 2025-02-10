@@ -41,6 +41,12 @@ public class PlayerJoinListener extends IListener {
 
         Profile profile = profileHandler.createProfile(event.getUniqueId());
 
+        if (profile != null && profile.getPlayerData() != null) {
+            if (profile.getPlayerData().getFirstJoin() == -1) {
+                profile.getPlayerData().setFirstJoin(System.currentTimeMillis());
+            }
+        }
+
     }
 
     @EventHandler

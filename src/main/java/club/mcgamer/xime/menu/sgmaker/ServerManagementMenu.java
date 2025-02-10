@@ -30,12 +30,12 @@ public class ServerManagementMenu extends FastInv {
                 });
 
         setItem(3, new ItemBuilder(Material.LEATHER_CHESTPLATE)
-                        .name("&bTeam Selection")
+                        .name("&bTeam Settings")
                         .build(),
                 e -> {
                     e.setCancelled(true);
                     profile.getPlayer().updateInventory();
-                    new TeamModeSelectionMenu(this, profile, serverable).open(profile.getPlayer());
+                    new TeamSettingsMenu(this, profile, serverable).open(profile.getPlayer());
                 });
 
         setItem(4, new ItemBuilder(Material.GOLDEN_APPLE)

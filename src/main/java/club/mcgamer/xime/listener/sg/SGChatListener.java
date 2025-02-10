@@ -33,8 +33,17 @@ public class SGChatListener extends IListener {
                         profile.getChatColor()));
 
                 if (serverable instanceof SGMakerServerable makerServerable) {
+                    chatFormat = TextUtil.translate(String.format("&f%s&8: &f%s",
+                            "%player%",
+                            profile.getChatColor()));
+
                     if (makerServerable.getOwner() == profile)
-                        chatFormat = ChatColor.GOLD + "[Host]" + chatFormat;
+                        chatFormat = ChatColor.GOLD + "[Host] " + chatFormat;
+                } else {
+                    chatFormat = TextUtil.translate(String.format("&8[&e%s&8]&f%s&8: &f%s",
+                            playerData.getSgPoints(),
+                            "%player%",
+                            profile.getChatColor()));
                 }
 
                 String finalChatFormat = chatFormat;

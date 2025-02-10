@@ -10,6 +10,7 @@ import club.mcgamer.xime.util.IListener;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.inventory.ItemStack;
 
 public class SGMakerItemInteractListener extends IListener {
     @EventHandler
@@ -32,6 +33,10 @@ public class SGMakerItemInteractListener extends IListener {
                         new TeamSelectionSubMenu(profile, serverable).open(player);
                         break;
                     }
+                    profile.getPlayer().updateInventory();
+                    profile.getPlayer().getInventory().setChestplate(new ItemStack(Material.AIR));
+                    profile.getPlayer().updateInventory();
+                    break;
             }
 
         }

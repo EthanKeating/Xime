@@ -48,10 +48,8 @@ public class PlayerDamageWrapper extends IListener {
         if (event.isCancelled())
             return;
 
-        if (event.getDamager() instanceof Projectile && (!(event.getDamager() instanceof FishHook))) {
-            combatTagData.setAttackedAt(System.currentTimeMillis());
-            combatTagData.setAttackedBy(attacker.getUuid());
-        }
+        combatTagData.setAttackedAt(System.currentTimeMillis());
+        combatTagData.setAttackedBy(attacker.getUuid());
 
         Bukkit.getPluginManager().callEvent(new ServerDamageEvent(
                 victim,

@@ -3,10 +3,7 @@ package club.mcgamer.xime.menu.sgmaker.mutators;
 import club.mcgamer.xime.fastinv.FastInv;
 import club.mcgamer.xime.fastinv.ItemBuilder;
 import club.mcgamer.xime.loot.LootTable;
-import club.mcgamer.xime.loot.tables.BadlionLootTable;
-import club.mcgamer.xime.loot.tables.HiveLootTable;
-import club.mcgamer.xime.loot.tables.MCSGLootTable;
-import club.mcgamer.xime.loot.tables.SGHQLootTable;
+import club.mcgamer.xime.loot.tables.*;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.util.Pair;
@@ -33,6 +30,7 @@ public class LootTableSelectionSubMenu extends FastInv {
                 new Pair<>("MCSG", new MCSGLootTable()),
                 new Pair<>("Badlion", new BadlionLootTable()),
                 new Pair<>("Hive", new HiveLootTable()),
+                new Pair<>("Clan Wars", new CWLootTable()),
                 new Pair<>("SGHQ", new SGHQLootTable())
         );
 

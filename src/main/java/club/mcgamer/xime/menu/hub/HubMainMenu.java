@@ -132,6 +132,7 @@ public class HubMainMenu extends FastInv {
         setItem(28, new ItemBuilder(Material.CHEST).name("&2  MCGamer Maker / MCSG Maker")
                 .lore(Arrays.asList(
                         "&8████████████████",
+                        "",
                         String.format("&b       [ Join &e%s &bPlayer%s ]", makerPlayers, makerPlayers == 1 ? "" : "s"),
                         "",
                         "&aCreate your own, private games",

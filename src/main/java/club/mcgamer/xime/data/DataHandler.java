@@ -27,6 +27,7 @@ public class DataHandler {
 
     private final Dao<PlayerData, String> playerDataDao;
     private List<PlayerData> topPlayerData = new ArrayList<>();
+    private List<PlayerData> topBGPlayerData = new ArrayList<>();
 
     @SneakyThrows
     public DataHandler(XimePlugin plugin) {
@@ -101,7 +102,7 @@ public class DataHandler {
         //Update all in database
         playerDataDao.updateRaw("SET @rank = 0");
         playerDataDao.updateRaw("UPDATE playerdata SET sgGameRank = (@rank := @rank + 1) ORDER BY sgGamesWon DESC");
-        playerDataDao.updateRaw("UPDATE playerdata SET bgGameRank = (@rank := @rank + 1) ORDER BY bgWins DESC");
+        playerDataDao.updateRaw("UPDATE playerdata SET bgGameRank = (@rank := @rank + 1) ORDER BY bgKills DESC");
 
         //Update currently online players, so relogging doesnt override
         plugin.getProfileHandler().getProfiles().forEach(profile -> {
@@ -118,6 +119,12 @@ public class DataHandler {
         queryBuilder.orderBy("sgGameRank", true);
         queryBuilder.limit(100L);
         topPlayerData = queryBuilder.query();
+
+        queryBuilder = playerDataDao.queryBuilder();
+
+        queryBuilder.orderBy("bgGameRank", true);
+        queryBuilder.limit(100L);
+        topBGPlayerData = queryBuilder.query();
 
         //Bukkit.getLogger().log(Level.INFO, "[Leaderboard] Ranked players in {0} ms", System.currentTimeMillis() - startTime);
     }

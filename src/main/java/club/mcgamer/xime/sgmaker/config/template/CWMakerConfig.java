@@ -2,6 +2,7 @@ package club.mcgamer.xime.sgmaker.config.template;
 
 import club.mcgamer.xime.loot.LootStyle;
 import club.mcgamer.xime.loot.LootTable;
+import club.mcgamer.xime.loot.tables.CWLootTable;
 import club.mcgamer.xime.loot.tables.MCSGLootTable;
 import club.mcgamer.xime.sgmaker.config.MakerConfig;
 import club.mcgamer.xime.sgmaker.config.impl.TeamType;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Getter @Setter
 public class CWMakerConfig extends MakerConfig {
 
-    private LootTable lootTable = new MCSGLootTable();
+    private LootTable lootTable = new CWLootTable();
     private LootStyle lootStyle = LootStyle.MIXED_ITEMS;
 
     private TeamType teamType = TeamType.TEAM_VS_TEAM;

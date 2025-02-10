@@ -1,5 +1,6 @@
 package club.mcgamer.xime.command.sg;
 
+import club.mcgamer.xime.bg.BGServerable;
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.profile.Profile;
@@ -31,9 +32,9 @@ public class LeaderboardCommand extends XimeCommand {
         ProfileHandler profileHandler = plugin.getProfileHandler();
         Profile profile = profileHandler.getProfile(player);
 
-        if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class)) return true;
+        if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class, BGServerable.class)) return true;
 
-        SGServerable serverable = (SGServerable) profile.getServerable();
+        Serverable serverable = profile.getServerable();
         String prefix = serverable.getPrefix();
 
         int page;
@@ -52,16 +53,31 @@ public class LeaderboardCommand extends XimeCommand {
         int topPlayers = 10 * page;
 
         profile.sendMessage(String.format(prefix + "&fTop %s Leaderboard", topPlayers));
-        for (int i = 1 + (10 * (page - 1)); i <= 10 + (10 * (page - 1)); i++) {
+        if (serverable instanceof BGServerable) {
+            for (int i = 1 + (10 * (page - 1)); i <= 10 + (10 * (page - 1)); i++) {
 
-            if (plugin.getDataHandler().getTopPlayerData().isEmpty()) break;
-            if (i >= plugin.getDataHandler().getTopPlayerData().size()) break;
+                if (plugin.getDataHandler().getTopBGPlayerData().isEmpty()) break;
+                if (i >= plugin.getDataHandler().getTopBGPlayerData().size()) break;
 
-            PlayerData playerData = plugin.getDataHandler().getTopPlayerData().get(i - 1);
+                PlayerData playerData = plugin.getDataHandler().getTopBGPlayerData().get(i - 1);
 
-            if (playerData == null) break;
+                if (playerData == null) break;
 
-            profile.sendMessage(prefix + "&e#" + i + "&8) &f" + playerData.getDisplayName() + " &8- &f" + playerData.getSgGamesWon() + " wins");
+                profile.sendMessage(prefix + "&e#" + i + "&8) &f" + playerData.getDisplayName() + " &8- &f" + playerData.getBgKills() + " kills");
+            }
+        }
+        if (serverable instanceof SGServerable) {
+            for (int i = 1 + (10 * (page - 1)); i <= 10 + (10 * (page - 1)); i++) {
+
+                if (plugin.getDataHandler().getTopPlayerData().isEmpty()) break;
+                if (i >= plugin.getDataHandler().getTopPlayerData().size()) break;
+
+                PlayerData playerData = plugin.getDataHandler().getTopPlayerData().get(i - 1);
+
+                if (playerData == null) break;
+
+                profile.sendMessage(prefix + "&e#" + i + "&8) &f" + playerData.getDisplayName() + " &8- &f" + playerData.getSgGamesWon() + " wins");
+            }
         }
 
         return true;

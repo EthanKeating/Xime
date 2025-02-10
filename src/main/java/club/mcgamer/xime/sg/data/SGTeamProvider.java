@@ -2,9 +2,11 @@ package club.mcgamer.xime.sg.data;
 
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sgmaker.config.TeamDamageType;
 import club.mcgamer.xime.sgmaker.config.impl.TeamType;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.*;
 
@@ -13,6 +15,7 @@ public class SGTeamProvider {
 
     private final SGServerable serverable;
     @Getter private TeamType teamType = TeamType.NO_TEAMS;
+    @Getter @Setter private TeamDamageType teamDamageType = TeamDamageType.PROJECTILE_ONLY;
 
     private HashMap<Integer, SGTeam> teams = new HashMap<>();
 
@@ -41,9 +44,10 @@ public class SGTeamProvider {
             }
 
             newTeam.addPlayer(profile);
-
             profile.sendMessage(serverable.getPrefix() + "&aYou have joined &6Team #" + newTeam.getTeamId());
         }
+
+
     }
 
     public Collection<SGTeam> getTeams() {
@@ -95,7 +99,27 @@ public class SGTeamProvider {
         return false;
     }
 
+    public boolean hasTeamOriginal(Profile profile) {
+        for (SGTeam team : teams.values())
+            if (team.getOriginalPlayers().contains(profile))
+                return true;
+
+        return false;
+    }
+
     public SGTeam getTeam(Profile profile) {
+        for (SGTeam team : teams.values())
+            if (team.getPlayers().contains(profile))
+                return team;
+
+        return null;
+    }
+
+    public SGTeam getTeamOriginal(Profile profile) {
+        SGTeam thisTeam = getTeam(profile);
+        if (thisTeam != null)
+            return thisTeam;
+
         for (SGTeam team : teams.values())
             if (team.getOriginalPlayers().contains(profile))
                 return team;

@@ -50,7 +50,7 @@ public class TagImpl {
             teamToPlayerList.put(rank.getName(), new HashSet<>());
         }
         createTeam("Spectator", "&7&o", 99);
-        createTeam("Teammate", "&a", 1);
+        createTeam("Teammate", "&a", 79);
         createTeam("NoTeam", "&7", 98);
         createTeam("Enemy", "&c", 97);
         teamToPlayerList.put("Spectator", new HashSet<>());
@@ -59,7 +59,7 @@ public class TagImpl {
         teamToPlayerList.put("Enemy", new HashSet<>());
 
         for(int i = 1; i <= 12; i++) {
-            createTeam("Team-" + i, "&c[#" + i + "]", 99);
+            createTeam("Team-" + i, "&c[#" + i + "] ", 80 + i);
             teamToPlayerList.put("Team-" + i, new HashSet<>());
         }
     }
@@ -77,17 +77,21 @@ public class TagImpl {
                     SGTeamProvider teamProvider = serverable.getGameSettings().getTeamProvider();
 
                     if (teamProvider.getTeamType() != TeamType.NO_TEAMS) {
-                        SGTeam otherTeam = teamProvider.getTeam(loopProfile);
-                        SGTeam viewerTeam = teamProvider.getTeam(profile);
+                        SGTeam otherTeam = teamProvider.getTeamOriginal(loopProfile);
+                        SGTeam viewerTeam = teamProvider.getTeamOriginal(profile);
 
-                        if (otherTeam != null) {
-                            updateTeam("Team-" + viewerTeam.getTeamId(), "&c[#" + viewerTeam.getTeamId() + "]");
+                        if (viewerTeam == null && otherTeam != null) {
                             newPlayerNameToRankName.put(loopProfile.getName(), "Team-" + otherTeam.getTeamId());
                             continue;
                         }
 
-                        if (viewerTeam != null) {
-                            updateTeam("Team-" + viewerTeam.getTeamId(), "&a[#" + viewerTeam.getTeamId() + "]");
+                        if (otherTeam != null) {
+                            if (otherTeam == viewerTeam) {
+                                updateTeam("Teammate", "&a[#" + viewerTeam.getTeamId() + "] ");
+                                newPlayerNameToRankName.put(loopProfile.getName(), "Teammate");
+                            } else {
+                                newPlayerNameToRankName.put(loopProfile.getName(), "Team-" + otherTeam.getTeamId());
+                            }
                             continue;
                         }
 

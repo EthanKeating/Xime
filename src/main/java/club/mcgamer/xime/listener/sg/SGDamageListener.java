@@ -14,6 +14,7 @@ import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
+import club.mcgamer.xime.sgmaker.config.TeamDamageType;
 import club.mcgamer.xime.sgmaker.config.impl.TeamType;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.TextUtil;
@@ -23,6 +24,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.FishHook;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -57,14 +59,28 @@ public class SGDamageListener extends IListener {
                     if (event.getAttacker().isPresent()) {
                         if (serverable.getGameSettings().getTeamProvider().getTeamType() != TeamType.NO_TEAMS) {
                             if (event.getEvent() instanceof EntityDamageByEntityEvent wrapEvent) {
-                                if (!(wrapEvent.getDamager() instanceof FishHook)) {
-                                    SGTeam attackerTeam = serverable.getGameSettings().getTeamProvider().getTeam(event.getAttacker().get());
-                                    if (attackerTeam != null) {
-                                        SGTeam victimTeam = serverable.getGameSettings().getTeamProvider().getTeam(event.getVictim());
+                                SGTeam attackerTeam = serverable.getGameSettings().getTeamProvider().getTeam(event.getAttacker().get());
+                                if (attackerTeam != null) {
+                                    SGTeam victimTeam = serverable.getGameSettings().getTeamProvider().getTeam(event.getVictim());
 
-                                        if (victimTeam != null) {
-                                            if (victimTeam == attackerTeam) {
+                                    if (victimTeam != null) {
+                                        if (victimTeam == attackerTeam) {
+                                            TeamDamageType damageType = serverable.getGameSettings().getTeamProvider().getTeamDamageType();
+
+                                            if (damageType == TeamDamageType.NO_TEAM_DAMAGE) {
                                                 event.getEvent().setCancelled(true);
+                                                return;
+                                            }
+                                            if (damageType == TeamDamageType.PROJECTILE_ONLY && wrapEvent
+                                                    .getDamager() instanceof Projectile) {
+                                                event.getEvent().setDamage(0.0);
+                                                return;
+                                            }
+                                            if (damageType == TeamDamageType.ATTACK_BUT_NO_DAMAGE) {
+                                                if ((event.getEvent().getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK || event.getEvent().getCause() == EntityDamageEvent.DamageCause.PROJECTILE)) {
+                                                    event.getEvent().setDamage(0.0);
+                                                    return;
+                                                }
                                             }
                                         }
                                     }

@@ -9,12 +9,12 @@ import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-public class TeamModeSelectionMenu extends FastInv {
+public class TeamSettingsMenu extends FastInv {
 
     public static ItemStack TEAM_ITEM = new ItemBuilder(Material.LEATHER_CHESTPLATE).name("&bTeam Selector").build();
 
-    public TeamModeSelectionMenu(FastInv previousMenu, Profile profile, SGMakerServerable serverable) {
-        super(9, TextUtil.translate("Team Mode Selection"));
+    public TeamSettingsMenu(FastInv previousMenu, Profile profile, SGMakerServerable serverable) {
+        super(18, TextUtil.translate("Team Settings"));
 
         setItem(0, new ItemBuilder(Material.WOOL)
                         .data(1)
@@ -45,6 +45,13 @@ public class TeamModeSelectionMenu extends FastInv {
                         } else {
                             serverable.getPlayerList().forEach(profile1 -> profile1.getPlayer().getInventory().setItem(0, TEAM_ITEM));
                         }
+                    });
+
+            setItem(13, new ItemBuilder(Material.IRON_SWORD)
+                            .name("&bFriendly Fire")
+                            .build(),
+                    e -> {
+                        new TeamDamageSubMenu(this, profile, serverable).open(profile.getPlayer());
                     });
         }
     }

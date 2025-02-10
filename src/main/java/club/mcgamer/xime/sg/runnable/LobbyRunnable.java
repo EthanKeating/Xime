@@ -6,6 +6,8 @@ import club.mcgamer.xime.map.impl.MapPool;
 import club.mcgamer.xime.map.impl.VoteableMap;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sg.data.SGTeam;
+import club.mcgamer.xime.sg.data.SGTeamProvider;
 import club.mcgamer.xime.sg.settings.GameSettings;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sg.timer.GameTimer;
@@ -42,6 +44,18 @@ public class LobbyRunnable extends AbstractGameRunnable {
         this.plugin = plugin;
         this.serverable = serverable;
         this.gameSettings = gameSettings == null ? new GameSettings(serverable) : gameSettings;
+
+        SGTeamProvider teamProvider = this.gameSettings.getTeamProvider();
+
+        serverable.getPlayerList().forEach(profile -> {
+            SGTeam team = teamProvider.getTeamOriginal(profile);
+            if (team != null) {
+                team.removePlayer(profile);
+                team.addPlayer(profile);
+            }
+        });
+
+        teamProvider.getTeams().forEach(SGTeam::setOriginalPlayers);
 
         serverable.setGameSettings(this.gameSettings);
         serverable.setGameTimer(this.gameTimer);

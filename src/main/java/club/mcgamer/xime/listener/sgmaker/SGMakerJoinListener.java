@@ -1,7 +1,7 @@
 package club.mcgamer.xime.listener.sgmaker;
 
 import club.mcgamer.xime.fastinv.ItemBuilder;
-import club.mcgamer.xime.menu.sgmaker.TeamModeSelectionMenu;
+import club.mcgamer.xime.menu.sgmaker.TeamSettingsMenu;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerJoinEvent;
 import club.mcgamer.xime.sg.state.GameState;
@@ -54,7 +54,7 @@ public class SGMakerJoinListener extends IListener {
 
             if (gameState == GameState.LOBBY) {
                 if (serverable.getGameSettings().getTeamProvider().getTeamType() != TeamType.NO_TEAMS) {
-                    player.getInventory().setItem(0, TeamModeSelectionMenu.TEAM_ITEM);
+                    player.getInventory().setItem(0, TeamSettingsMenu.TEAM_ITEM);
                 }
             }
 

@@ -9,9 +9,11 @@ import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.Material;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 public class MapSelectionSubMenu extends FastInv {
 
@@ -43,7 +45,7 @@ public class MapSelectionSubMenu extends FastInv {
             new MapSelectionSubMenu(previousMenu, profile, serverable, page + 1).open(profile.getPlayer());
         });
 
-        List<Map.Entry<String, MapData>> entrySets = new CopyOnWriteArrayList<>(profile.getPlugin().getMapHandler().getMapPool().entrySet());
+        List<Map.Entry<String, MapData>> entrySets = profile.getPlugin().getMapHandler().getMapPool().entrySet().stream().sorted(Comparator.comparing(map -> map.getValue().getMapName())).collect(Collectors.toCollection(CopyOnWriteArrayList::new));
         for(int i = 9; i < 54; i++) {
 
             int mapIndex = (i + ((54 - 9) * (page - 1))) - 9;
@@ -59,7 +61,7 @@ public class MapSelectionSubMenu extends FastInv {
 
             setItem(i, new ItemBuilder(Material.EMPTY_MAP)
                             .name("&a" + mapData.getMapName())
-                            .lore("&6" + mapData.getMapAuthor(), "&7(" + identifier + ")")
+                            .lore("&6" + mapData.getMapAuthor())
                             .build(),
                     e -> {
                         serverable.getMapPool().setMap(identifier);

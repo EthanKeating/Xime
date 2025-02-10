@@ -105,7 +105,7 @@ public class MakerMenu extends FastInv {
                 default -> serverItem;
             };
 
-            setItem(index - 1, serverItem, e -> {
+            setItem(index, serverItem, e -> {
                 profile.getPlayer().performCommand("join sgmaker " + serverable.getServerId());
                 e.setCancelled(true);
             });

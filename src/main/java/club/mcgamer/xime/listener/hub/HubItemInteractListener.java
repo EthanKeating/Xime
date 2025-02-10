@@ -34,21 +34,6 @@ public class HubItemInteractListener extends IListener {
     }
 
     @EventHandler
-    public void onPressurePlateStep(ServerInteractEvent event) {
-
-        Profile profile = event.getProfile();
-
-        if (profile.getServerable() instanceof HubServerable) {
-            if (event.getEvent().getAction() == Action.PHYSICAL) {
-                // Get the block the player stepped on
-                if (event.getEvent().getClickedBlock() != null && event.getEvent().getClickedBlock().getType() == Material.STONE_PLATE)
-                    launchPlayerForward(profile.getPlayer());
-
-            }
-        }
-    }
-
-    @EventHandler
     private void onHubItemInteract(ServerItemInteractEvent event) {
         if (event.getServerable() instanceof HubServerable) {
 
@@ -116,23 +101,6 @@ public class HubItemInteractListener extends IListener {
             }
 
         }
-    }
-
-    private void launchPlayerForward(Player player) {
-        // Get the player's current velocity
-        Vector velocity = player.getVelocity();
-
-        velocity.setY(2.0);
-
-        float yaw = player.getLocation().getYaw();
-        double radYaw = Math.toRadians(yaw);
-        double forwardSpeed = 3.1;
-
-        velocity.setX(-Math.sin(radYaw) * forwardSpeed);
-        velocity.setZ(Math.cos(radYaw) * forwardSpeed);
-
-        // Set the new velocity for the player
-        player.setVelocity(velocity);
     }
 
 }

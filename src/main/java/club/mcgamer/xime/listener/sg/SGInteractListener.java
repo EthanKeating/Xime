@@ -52,7 +52,7 @@ public class SGInteractListener extends IListener {
             if (event.getEvent().getAction() == Action.PHYSICAL)
                 return;
 
-            if (serverable.getSpectatorList().contains(profile))
+            if (serverable.getSpectatorList().contains(profile)) {
                 event.getEvent().setCancelled(true);
                 switch (serverable.getGameState()) {
                     case PREGAME:
@@ -62,10 +62,12 @@ public class SGInteractListener extends IListener {
 
                         if (event.getItemStack() != null && event.getItemStack().getType() == SpectateMenu.SPECTATE_ITEM.getType()) {
                             new SpectateMenu(profile, serverable, 0).open(player);
+                            return;
                         }
 
-                        //player.performCommand("spectate");
+                        player.performCommand("spectate");
                 }
+            }
         }
     }
 

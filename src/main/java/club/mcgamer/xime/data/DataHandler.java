@@ -101,6 +101,7 @@ public class DataHandler {
         //Update all in database
         playerDataDao.updateRaw("SET @rank = 0");
         playerDataDao.updateRaw("UPDATE playerdata SET sgGameRank = (@rank := @rank + 1) ORDER BY sgGamesWon DESC");
+        playerDataDao.updateRaw("UPDATE playerdata SET bgGameRank = (@rank := @rank + 1) ORDER BY bgWins DESC");
 
         //Update currently online players, so relogging doesnt override
         plugin.getProfileHandler().getProfiles().forEach(profile -> {
@@ -109,6 +110,7 @@ public class DataHandler {
 
             playerData.setLastSeen(System.currentTimeMillis());
             playerData.setSgGameRank(livePlayerData.getSgGameRank());
+            playerData.setSgGameRank(livePlayerData.getBgGameRank());
         });
 
         QueryBuilder<PlayerData, String> queryBuilder = playerDataDao.queryBuilder();

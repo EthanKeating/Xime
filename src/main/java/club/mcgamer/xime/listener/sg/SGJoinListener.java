@@ -55,9 +55,9 @@ public class SGJoinListener extends IListener {
 
                     PlayerUtil.refresh(profile);
                     if (serverable instanceof SGMakerServerable)
-                        player.setLevel(serverable.getServerId());
-                    else
                         player.setLevel(0);
+                    else
+                        player.setLevel(serverable.getServerId());
 
                     player.teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
                     player.teleport(serverable.getLobbyLocation());

@@ -97,7 +97,7 @@ public class SGTeamProvider {
 
     public SGTeam getTeam(Profile profile) {
         for (SGTeam team : teams.values())
-            if (team.getPlayers().contains(profile))
+            if (team.getOriginalPlayers().contains(profile))
                 return team;
 
         return null;

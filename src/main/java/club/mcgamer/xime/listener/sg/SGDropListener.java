@@ -1,6 +1,7 @@
 package club.mcgamer.xime.listener.sg;
 
 import club.mcgamer.xime.profile.Profile;
+import club.mcgamer.xime.server.event.ServerDropItemEvent;
 import club.mcgamer.xime.server.event.ServerPickupItemEvent;
 import club.mcgamer.xime.server.event.ServerPlaceBlockEvent;
 import club.mcgamer.xime.sg.SGServerable;
@@ -17,15 +18,16 @@ import java.util.stream.Collectors;
 public class SGDropListener extends IListener {
 
     @EventHandler
-    private void onSGDrop(ServerPickupItemEvent event) {
+    private void onSGPickup(ServerPickupItemEvent event) {
         Profile profile = event.getProfile();
         Player player = profile.getPlayer();
         if (event.getServerable() instanceof SGServerable) {
             SGServerable serverable = (SGServerable) event.getServerable();
 
-            if (serverable.getGameState() == GameState.LOBBY || serverable.getGameState() == GameState.LOADING || serverable.getGameState() == GameState.PREGAME) {
+            if (serverable.getGameState() == GameState.LOBBY
+                    || serverable.getGameState() == GameState.LOADING
+                    || serverable.getGameState() == GameState.PREGAME)
                 event.getEvent().setCancelled(true);
-            }
 
             if (!serverable.getSpectatorList().contains(profile)) {
                 Set<Material> allowedItems = serverable.getGameSettings().getLootTable().getAllItems()
@@ -52,7 +54,6 @@ public class SGDropListener extends IListener {
                 allowedItems.add(Material.DIAMOND_PICKAXE);
 
                 if(!allowedItems.contains(event.getEvent().getItem().getItemStack().getType())) {
-
                     event.getEvent().setCancelled(true);
                     event.getEvent().getItem().remove();
                     return;
@@ -66,6 +67,19 @@ public class SGDropListener extends IListener {
                 }
             }
             event.getEvent().setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    private void onSGDrop(ServerDropItemEvent event) {
+        Profile profile = event.getProfile();
+        Player player = profile.getPlayer();
+        if (event.getServerable() instanceof SGServerable) {
+            SGServerable serverable = (SGServerable) event.getServerable();
+
+            if (serverable.getGameState() == GameState.LOBBY || serverable.getGameState() == GameState.LOADING || serverable.getGameState() == GameState.PREGAME) {
+                event.getEvent().setCancelled(true);
+            }
         }
     }
 

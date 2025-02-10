@@ -111,6 +111,9 @@ public class PlayerData {
     @DatabaseField(canBeNull = false, defaultValue = "0")
     private int bgWins = 0;
 
+    @DatabaseField(canBeNull = false, defaultValue = "-1")
+    private int bgGameRank = -1;
+
     @DatabaseField(canBeNull = false, defaultValue = "0")
     private int bgBowKills = 0;
 

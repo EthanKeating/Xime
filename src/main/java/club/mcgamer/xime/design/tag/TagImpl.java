@@ -57,6 +57,11 @@ public class TagImpl {
         teamToPlayerList.put("NoTeam", new HashSet<>());
         teamToPlayerList.put("Teammate", new HashSet<>());
         teamToPlayerList.put("Enemy", new HashSet<>());
+
+        for(int i = 1; i <= 12; i++) {
+            createTeam("Team-" + i, "&c[#" + i + "]", 99);
+            teamToPlayerList.put("Team-" + i, new HashSet<>());
+        }
     }
 
     public void tick() {
@@ -75,19 +80,15 @@ public class TagImpl {
                         SGTeam otherTeam = teamProvider.getTeam(loopProfile);
                         SGTeam viewerTeam = teamProvider.getTeam(profile);
 
-                        if (viewerTeam == null && otherTeam != null) {
-                            newPlayerNameToRankName.put(loopProfile.getName(), "Enemy");
+                        if (otherTeam != null) {
+                            updateTeam("Team-" + viewerTeam.getTeamId(), "&c[#" + viewerTeam.getTeamId() + "]");
+                            newPlayerNameToRankName.put(loopProfile.getName(), "Team-" + otherTeam.getTeamId());
                             continue;
                         }
 
-                        if (otherTeam != null) {
-                            if (otherTeam == viewerTeam) {
-                                newPlayerNameToRankName.put(loopProfile.getName(), "Teammate");
-                                continue;
-                            } else {
-                                newPlayerNameToRankName.put(loopProfile.getName(), "Enemy");
-                                continue;
-                            }
+                        if (viewerTeam != null) {
+                            updateTeam("Team-" + viewerTeam.getTeamId(), "&a[#" + viewerTeam.getTeamId() + "]");
+                            continue;
                         }
 
                         if (serverable.getSpectatorList().contains(loopProfile)) {
@@ -176,6 +177,27 @@ public class TagImpl {
         profile.getUser().sendPacket(new WrapperPlayServerTeams(
                 nameToImplName.get(teamName),
                 WrapperPlayServerTeams.TeamMode.CREATE,
+                new WrapperPlayServerTeams.ScoreBoardTeamInfo(
+                        Component.text(""), //displayname - not required?
+                        Component.text(TextUtil.translate(prefix)), //prefix
+                        Component.text(""), //suffix
+                        teamName.equals("Spectator") ?
+                                WrapperPlayServerTeams.NameTagVisibility.HIDE_FOR_OWN_TEAM :
+                                WrapperPlayServerTeams.NameTagVisibility.ALWAYS,
+                        WrapperPlayServerTeams.CollisionRule.NEVER,
+                        NamedTextColor.WHITE,
+                        teamName.equals("Spectator") ?
+                                WrapperPlayServerTeams.OptionData.FRIENDLY_CAN_SEE_INVISIBLE :
+                                WrapperPlayServerTeams.OptionData.NONE
+                ),
+                Collections.emptyList()));
+    }
+
+    public void updateTeam(String teamName, String prefix) {
+
+        profile.getUser().sendPacket(new WrapperPlayServerTeams(
+                nameToImplName.get(teamName),
+                WrapperPlayServerTeams.TeamMode.UPDATE,
                 new WrapperPlayServerTeams.ScoreBoardTeamInfo(
                         Component.text(""), //displayname - not required?
                         Component.text(TextUtil.translate(prefix)), //prefix

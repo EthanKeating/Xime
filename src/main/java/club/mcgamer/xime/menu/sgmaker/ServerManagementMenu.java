@@ -34,6 +34,7 @@ public class ServerManagementMenu extends FastInv {
                         .build(),
                 e -> {
                     e.setCancelled(true);
+                    profile.getPlayer().updateInventory();
                     new TeamModeSelectionMenu(this, profile, serverable).open(profile.getPlayer());
                 });
 

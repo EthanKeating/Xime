@@ -24,7 +24,7 @@ public class SpectateMenu extends FastInv {
         for (int i = 0; i < 9; i++) {
             setItem(i, new ItemBuilder(Material.STAINED_GLASS_PANE)
                             .data(15)
-                            .name("")
+                            .name("&7")
                             .build(),
                     e -> {
                         e.setCancelled(true);

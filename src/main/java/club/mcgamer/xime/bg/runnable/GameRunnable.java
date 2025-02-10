@@ -62,7 +62,7 @@ public class GameRunnable extends BukkitRunnable {
                 LeaderboardEntry winnerEntry = serverable.getSortedLeaderboard().get(0);
                 PlayerData winnerData = winnerEntry.getProfile().getPlayerData();
 
-                serverable.announce(winnerData.getDisplayName() + " &ehas won the Battleground!");
+                serverable.announce(winnerData.getDisplayName() + " &ehas won the Battleground&8!");
 
                 winnerData.setBgWins(winnerData.getBgWins() + 1);
             }

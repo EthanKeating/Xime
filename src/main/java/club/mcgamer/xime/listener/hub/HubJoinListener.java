@@ -71,7 +71,7 @@ public class HubJoinListener extends IListener {
 
             player.updateInventory();
 
-            Bukkit.getScheduler().runTaskLater(plugin, () -> profile.sendTitle("&6Hello " + profile.getName(), "&2Welcome to the &6MCGamer Club&2!", 10, 80, 10), 5);
+            Bukkit.getScheduler().runTaskLater(plugin, () -> profile.sendTitle("&6Hello " + profile.getNameBypassDisguise(), "&2Welcome to the &6MCGamer Club&2!", 10, 80, 10), 5);
         }
     }
 

@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Getter
-public class UHCGamesLootTable extends LootTable {
+public class CWLootTable extends LootTable {
 
     @Override
     public int getMaxItemCount() {

@@ -144,7 +144,7 @@ public class SGMakerServerable extends SGServerable {
             add(profile);
 
             if (profile.getDisguiseData() != null)
-                plugin.getDisguiseHandler().undisguiseNoRefresh(profile);
+                plugin.getDisguiseHandler().undisguise(profile);
         });
 
         gameSettings.setSilentJoinLeave(false);

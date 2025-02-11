@@ -48,6 +48,15 @@ public class SpectateCommand extends XimeCommand {
                 return true;
             }
 
+            if (spectatedProfile.getDisguiseData() != null) {
+                if (!spectatedProfile.getNameBypassDisguise().equalsIgnoreCase(spectatedProfile.getName())) {
+                    if (spectatedProfile.getNameBypassDisguise().equalsIgnoreCase(args[0])) {
+                        isPlayer(sender, "......................");
+                        return true;
+                    }
+                }
+            }
+
             if (!serverable.getTributeList().contains(spectatedProfile)) {
                 profile.sendMessage(String.format(prefix + "&cThat player is not alive!"));
                 return true;

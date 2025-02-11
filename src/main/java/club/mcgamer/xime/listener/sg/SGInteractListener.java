@@ -10,6 +10,7 @@ import club.mcgamer.xime.server.event.ServerHungerLossEvent;
 import club.mcgamer.xime.server.event.ServerInteractEvent;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
+import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.util.IListener;
 import org.bukkit.Material;
@@ -87,9 +88,17 @@ public class SGInteractListener extends IListener {
 
     @EventHandler
     private void onHungerLoss(ServerHungerLossEvent event) {
-
         if (event.getServerable() instanceof SGServerable serverable) {
             if(serverable.getSpectatorList().contains(event.getProfile())) {
+                event.getEvent().setCancelled(true);
+                event.getEvent().setFoodLevel(20);
+                return;
+            }
+            if (serverable.getGameState() == GameState.LOBBY
+                    || serverable.getGameState() == GameState.PREGAME
+                    || serverable.getGameState() == GameState.PREDEATHMATCH
+                    || serverable.getGameState() == GameState.ENDGAME
+                    || serverable.getGameState() == GameState.CLEANUP) {
                 event.getEvent().setCancelled(true);
                 event.getEvent().setFoodLevel(20);
             }

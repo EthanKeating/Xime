@@ -214,7 +214,7 @@ public class BGServerable extends Serverable {
         player.getInventory().setItem(bowSlot, new ItemBuilder(Material.BOW).unbreakable().build());
         player.getInventory().setItem(fnsSlot, new ItemBuilder(Material.FLINT_AND_STEEL).build());
         player.getInventory().setItem(gapSlot, new ItemBuilder(Material.GOLDEN_APPLE).amount(2).build());
-        player.getInventory().setItem(arrowSlot, new ItemBuilder(Material.ARROW).amount(16).build());
+        player.getInventory().setItem(arrowSlot, new ItemBuilder(Material.ARROW).amount(8).build());
 
         player.getInventory().setHelmet(new ItemBuilder(Material.IRON_HELMET).unbreakable().build());
         player.getInventory().setChestplate(new ItemBuilder(Material.IRON_CHESTPLATE).unbreakable().build());

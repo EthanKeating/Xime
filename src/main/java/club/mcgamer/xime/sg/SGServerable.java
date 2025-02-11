@@ -177,7 +177,7 @@ public class SGServerable extends Serverable {
 
         if(Bukkit.getWorld(toString()) != null) {
             Bukkit.getWorld(toString()).getPlayers().forEach(loopPlayer -> loopPlayer.teleport(Bukkit.getWorlds().get(0).getSpawnLocation()));
-            Bukkit.unloadWorld(toString(), true);
+            Bukkit.unloadWorld(toString(), false);
         }
         gameSettings.setSilentJoinLeave(false);
     }

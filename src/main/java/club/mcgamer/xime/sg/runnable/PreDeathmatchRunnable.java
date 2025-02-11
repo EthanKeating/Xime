@@ -50,6 +50,7 @@ public class PreDeathmatchRunnable extends AbstractGameRunnable {
             profile.getPlayerData().setSgDeathmatches(profile.getPlayerData().getSgDeathmatches() + 1);
             player.teleport(worldLocation);
             temporaryData.setPedistalLocation(worldLocation);
+            //profile.sendMessage(serverable.getPrefix() + "&c&lTeaming in Deathmatch is a punishable offense!");
         }
     }
 

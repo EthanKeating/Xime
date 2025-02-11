@@ -26,16 +26,17 @@ public class SGMakerItemInteractListener extends IListener {
                 case NETHER_STAR:
                     new ServerManagementMenu(profile, serverable).open(player);
                     break;
-
                 case LEATHER_CHESTPLATE:
                     event.getEvent().setCancelled(true);
                     if (serverable.getGameState() == GameState.LOBBY) {
                         new TeamSelectionSubMenu(profile, serverable).open(player);
+                        profile.getPlayer().updateInventory();
+                        profile.getPlayer().getInventory().setChestplate(new ItemStack(Material.STONE));
+                        profile.getPlayer().updateInventory();
+                        profile.getPlayer().getInventory().setChestplate(new ItemStack(Material.AIR));
+                        profile.getPlayer().updateInventory();
                         break;
                     }
-                    profile.getPlayer().updateInventory();
-                    profile.getPlayer().getInventory().setChestplate(new ItemStack(Material.AIR));
-                    profile.getPlayer().updateInventory();
                     break;
             }
 

@@ -1,10 +1,12 @@
 package club.mcgamer.xime.listener.sg;
 
+import club.mcgamer.xime.bg.BGServerable;
 import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.map.impl.MapLocation;
 import club.mcgamer.xime.menu.sg.SpectateMenu;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerAirInteractEvent;
+import club.mcgamer.xime.server.event.ServerHungerLossEvent;
 import club.mcgamer.xime.server.event.ServerInteractEvent;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
@@ -80,6 +82,17 @@ public class SGInteractListener extends IListener {
 
             if (serverable.getSpectatorList().contains(profile))
                 event.getEvent().setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    private void onHungerLoss(ServerHungerLossEvent event) {
+
+        if (event.getServerable() instanceof SGServerable serverable) {
+            if(serverable.getSpectatorList().contains(event.getProfile())) {
+                event.getEvent().setCancelled(true);
+                event.getEvent().setFoodLevel(20);
+            }
         }
     }
 

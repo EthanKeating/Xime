@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,30 +31,9 @@ public class SGDropListener extends IListener {
                 event.getEvent().setCancelled(true);
 
             if (!serverable.getSpectatorList().contains(profile)) {
-                Set<Material> allowedItems = serverable.getGameSettings().getLootTable().getAllItems()
-                        .stream()
-                        .map(ItemStack::getType)
-                        .collect(Collectors.toSet());
+                Set<Material> blackList = new HashSet<>();
 
-                allowedItems.add(Material.RED_ROSE);
-                allowedItems.add(Material.YELLOW_FLOWER);
-
-                allowedItems.add(Material.IRON_SWORD);
-                allowedItems.add(Material.IRON_AXE);
-                allowedItems.add(Material.IRON_SPADE);
-                allowedItems.add(Material.IRON_PICKAXE);
-
-                allowedItems.add(Material.GOLD_SWORD);
-                allowedItems.add(Material.GOLD_AXE);
-                allowedItems.add(Material.GOLD_SPADE);
-                allowedItems.add(Material.GOLD_PICKAXE);
-
-                allowedItems.add(Material.DIAMOND_SWORD);
-                allowedItems.add(Material.DIAMOND_AXE);
-                allowedItems.add(Material.DIAMOND_SPADE);
-                allowedItems.add(Material.DIAMOND_PICKAXE);
-
-                if(!allowedItems.contains(event.getEvent().getItem().getItemStack().getType())) {
+                if(blackList.contains(event.getEvent().getItem().getItemStack().getType())) {
                     event.getEvent().setCancelled(true);
                     event.getEvent().getItem().remove();
                     return;

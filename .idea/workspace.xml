@@ -5,9 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="Changed prefixes a bit">
+      <change afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/TeamChatCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/data/DataHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/data/DataHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/CommandHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/CommandHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/MessageCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/MessageCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/ReplyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/server/ReplyCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/bg/BGChatListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/bg/BGChatListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/bg/BGDamageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/bg/BGDamageListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGChatListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/listener/sg/SGChatListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/menu/sgmaker/TeamSettingsMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/menu/sgmaker/TeamSettingsMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/profile/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/profile/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/data/SGTeam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/sg/data/SGTeam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/staff/design/sidebar/StaffSidebarAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/staff/design/sidebar/StaffSidebarAdapter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,11 +131,11 @@
       <recent name="C:\Users\Ethan\IdeaProjects\Xime\src\main\java\club\mcgamer\xime\hub" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="club.mcgamer.xime.command.sg" />
       <recent name="club.mcgamer.xime.menu.sgmaker" />
       <recent name="club.mcgamer.xime.loot.tables" />
       <recent name="club.mcgamer.xime.menu.sgmaker.mutators" />
       <recent name="club.mcgamer.xime.menu.sg" />
-      <recent name="club.mcgamer.xime.listener.staff" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -213,7 +222,7 @@
       <workItem from="1738711903409" duration="14165000" />
       <workItem from="1738798008583" duration="25648000" />
       <workItem from="1738887071789" duration="8309000" />
-      <workItem from="1738945539441" duration="79269000" />
+      <workItem from="1738945539441" duration="87741000" />
     </task>
     <task id="LOCAL-00004" summary="Updates">
       <option name="closed" value="true" />

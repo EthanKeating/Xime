@@ -4,6 +4,7 @@ import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.profile.data.impl.ReplyData;
 import club.mcgamer.xime.profile.data.temporary.CooldownData;
+import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -54,8 +55,8 @@ public class ReplyCommand extends XimeCommand {
         replyProfile.getReplyData().setReplyTimestamp(System.currentTimeMillis());
 
         String message = String.join(" ", args);
-        replyProfile.sendMessage(String.format("&8[&bFrom &f%s&8] &7%s", profile.getDisplayName(), message));
-        profile.sendMessage(String.format("&8[&bTo &f%s&8] &7%s", replyProfile.getDisplayName(), message));
+        replyProfile.sendMessageRaw(TextUtil.translate(String.format("&8[&bFrom &f%s&8] &7", profile.getDisplayName())) + message);
+        profile.sendMessageRaw(TextUtil.translate(String.format("&8[&bTo &f%s&8] &7", replyProfile.getDisplayName())) + message);
 
         cooldownData.setMessageCooldown();
 

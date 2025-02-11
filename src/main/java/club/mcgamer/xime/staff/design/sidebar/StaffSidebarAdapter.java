@@ -55,7 +55,7 @@ StaffSidebarAdapter extends SidebarAdapter {
                "",
                "&6&l» Network",
                String.format("&fTPS: &a%s", decimalFormat.format(serverable.getPlugin().getSpark().tps().poll(StatisticWindow.TicksPerSecond.SECONDS_5))),
-               String.format("&fTick: &a%sms", decimalFormat.format(serverable.getPlugin().getSpark().mspt().poll(StatisticWindow.MillisPerTick.SECONDS_10).mean())),
+               //String.format("&fTick: &a%sms", decimalFormat.format(serverable.getPlugin().getSpark().mspt().poll(StatisticWindow.MillisPerTick.SECONDS_10).mean())),
                String.format("&fRam: &a%s MB", memory),
                String.format("&fOnline: &a%s", Bukkit.getOnlinePlayers().size() + "/" + Bukkit.getMaxPlayers()),
                "&b&lMCGamer.club"

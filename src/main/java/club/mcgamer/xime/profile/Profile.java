@@ -221,6 +221,11 @@ public class Profile {
         return this;
     }
 
+    public Profile sendMessageRaw(String message) {
+        getPlayer().sendMessage(message);
+        return this;
+    }
+
     public void clearTitle() {
         if (isLegacy()) {
             TitleModule titleModule = Apollo.getModuleManager().getModule(TitleModule.class);

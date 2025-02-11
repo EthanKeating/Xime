@@ -4,9 +4,11 @@ import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.server.event.ServerChatEvent;
 import club.mcgamer.xime.sg.SGServerable;
+import club.mcgamer.xime.sg.data.SGTeamProvider;
 import club.mcgamer.xime.sg.data.SGTemporaryData;
 import club.mcgamer.xime.sg.state.GameState;
 import club.mcgamer.xime.sgmaker.SGMakerServerable;
+import club.mcgamer.xime.sgmaker.config.impl.TeamType;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.TextUtil;
 import org.bukkit.ChatColor;
@@ -25,6 +27,14 @@ public class SGChatListener extends IListener {
             String chatFormat;
 
             PlayerData playerData = profile.getMockOrRealPlayerData();
+            SGTeamProvider teamProvider = serverable.getGameSettings().getTeamProvider();
+
+            if (teamProvider.getTeamType() != TeamType.NO_TEAMS) {
+                if (event.getMessage().startsWith("@")) {
+                    profile.getPlayer().performCommand("teamchat " + event.getMessage().replaceFirst("@", ""));
+                    return;
+                }
+            }
 
             if (gameState == GameState.LOBBY || gameState == GameState.LOADING) {
                 chatFormat = TextUtil.translate(String.format("&8[&e%s&8]&f%s&8: &f%s",

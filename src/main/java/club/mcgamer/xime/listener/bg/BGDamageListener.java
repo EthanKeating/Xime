@@ -58,12 +58,17 @@ public class BGDamageListener extends IListener {
             if (event.getAttacker().isPresent()) {
                 Profile attacker = event.getAttacker().get();
 
-                if (!(attacker.getTemporaryData() instanceof BGTemporaryData attackerTemporaryData)) {
-                    event.getEvent().setCancelled(true);
-                    return;
-                }
 
-                if (attackerTemporaryData.isWaiting()) {
+
+                if (!(attacker.getTemporaryData() instanceof BGTemporaryData)) {
+                    if (event.getEvent().getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+                        event.getEvent().setCancelled(true);
+                        return;
+                    }
+                }
+                BGTemporaryData attackerTemporaryData = (BGTemporaryData) attacker.getTemporaryData();
+
+                if (attackerTemporaryData.isWaiting() && event.getEvent().getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
                     event.getEvent().setCancelled(true);
                     return;
                 }

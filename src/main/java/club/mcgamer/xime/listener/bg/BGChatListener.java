@@ -24,18 +24,18 @@ public class BGChatListener extends IListener {
 
             String chatColor = profile.getChatColor();
 
-            //DecimalFormat formatter = new DecimalFormat("#,###");
+            DecimalFormat formatter = new DecimalFormat("#,###");
 
             int bgPlacement = profile.getPlayerData().getBgGameRank();
-            String placementString = "#" + bgPlacement + " ";
+            String placementString = "#" + formatter.format(bgPlacement) + " ";
             if (bgPlacement == -1)
                 placementString = "";
             else if(bgPlacement <= 10)
                 placementString = "&6" + placementString;
             else if(bgPlacement <= 25)
-                placementString = "&e" + placementString;
+                placementString = "&b" + placementString;
             else if(bgPlacement <= 100)
-                placementString = "&f" + placementString;
+                placementString = "&e" + placementString;
             else
                 placementString = "&7" + placementString;
 

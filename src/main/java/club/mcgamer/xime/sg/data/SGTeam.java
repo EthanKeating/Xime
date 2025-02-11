@@ -41,4 +41,13 @@ public class SGTeam {
         originalPlayers.addAll(players);
     }
 
+    public HashSet<Profile> getEveryPlayer() {
+        HashSet<Profile> everyPlayer = new HashSet<>();
+
+        everyPlayer.addAll(originalPlayers);
+        everyPlayer.addAll(players);
+
+        return everyPlayer;
+    }
+
 }

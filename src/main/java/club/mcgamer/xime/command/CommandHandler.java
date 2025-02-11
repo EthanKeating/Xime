@@ -100,6 +100,7 @@ public class CommandHandler {
         new InviteCommand();
         new FindCommand();
 
+        new TeamChatCommand();
         new ForcestartCommand();
         new LeaderboardCommand();
         new StatsCommand();

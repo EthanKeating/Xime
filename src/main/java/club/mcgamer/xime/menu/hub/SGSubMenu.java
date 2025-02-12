@@ -109,7 +109,7 @@ public class SGSubMenu extends FastInv {
                             .name("&a" + serverName)
                             .lore(String.format("&cPlayers: &f%s/%s", server.getPlayerList().size(), server.getMaxPlayers()), "", "&8RESTARTING")
                             .build();
-                    default -> serverItem;
+                    default -> null;
                 };
 
             }

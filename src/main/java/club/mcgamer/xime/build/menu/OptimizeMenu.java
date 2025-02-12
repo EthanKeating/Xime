@@ -19,7 +19,6 @@ public class OptimizeMenu extends FastInv {
                         .build(),
                 e -> {
                     profile.getPlayer().closeInventory();
-
                     serverable.optimize(10);
                 });
         setItem(4, new ItemBuilder(Material.STAINED_CLAY)
@@ -30,7 +29,6 @@ public class OptimizeMenu extends FastInv {
                         .build(),
                 e -> {
                     profile.getPlayer().closeInventory();
-
                     serverable.optimize(20);
                 });
         setItem(6, new ItemBuilder(Material.STAINED_CLAY)
@@ -41,7 +39,6 @@ public class OptimizeMenu extends FastInv {
                         .build(),
                 e -> {
                     profile.getPlayer().closeInventory();
-
                     serverable.optimize(32);
                 });
     }

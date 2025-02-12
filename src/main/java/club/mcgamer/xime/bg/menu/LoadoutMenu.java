@@ -55,10 +55,8 @@ public class LoadoutMenu extends IListener {
             return;
         }
 
-        if (event.getSlotType() != InventoryType.SlotType.CONTAINER || event.getSlot() < 0 && event.getSlot() > 8) {
+        if (event.getSlotType() != InventoryType.SlotType.CONTAINER || event.getSlot() < 0 && event.getSlot() > 8)
             event.setCancelled(true);
-            return;
-        }
     }
 
     @EventHandler
@@ -85,7 +83,7 @@ public class LoadoutMenu extends IListener {
         }
         for (int slot : slots) {
             if (slot > 8 || slot < 0) {
-                profile.sendMessage("&cUnable to save loadout, missing an item.");
+                profile.sendMessage(serverable.getPrefix() + "&cUnable to save loadout, missing an item.");
                 return;
             }
         }
@@ -95,7 +93,7 @@ public class LoadoutMenu extends IListener {
         playerData.setBgFNSSlot(slots[3]);
         playerData.setBgGapSlot(slots[4]);
         playerData.setBgArrowSlot(slots[5]);
-        profile.sendMessage("&6Your loadout has been saved!");
+        profile.sendMessage(serverable.getPrefix() + "&6Your loadout has been saved!");
     }
 
 }

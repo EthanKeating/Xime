@@ -49,7 +49,6 @@ public class ChatColorCommand extends XimeCommand {
                 profile.sendMessage(prefix + "&fYou have the following options:");
                 profile.sendMessage(prefix + "&a&&aa &c&&cc &e&&ee &9&&99 &b&&bb &f&&ff");
         }
-
         return true;
     }
 

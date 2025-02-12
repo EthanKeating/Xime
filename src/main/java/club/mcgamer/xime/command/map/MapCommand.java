@@ -35,7 +35,6 @@ public class MapCommand extends XimeCommand {
             new MapEditorSelectionMenu(profile, 1).open(profile.getPlayer());
             return true;
         }
-
         String map = args[0];
         World world = Bukkit.getWorld(map);
 
@@ -44,17 +43,14 @@ public class MapCommand extends XimeCommand {
             buildServerable.load(map, profile);
             return true;
         }
-
-        BuildServerable buildServerable = plugin.getServerHandler()
+        plugin.getServerHandler()
                 .getServerList()
                 .stream()
                 .filter(serverable -> serverable instanceof BuildServerable)
                 .map(serverable -> (BuildServerable) serverable)
-                .filter(serverable -> serverable.getWorld() == world).findFirst().orElse(null);
-
-        if (buildServerable != null)
-            buildServerable.add(profile);
-
+                .filter(serverable -> serverable.getWorld() == world)
+                .findFirst()
+                .ifPresent(buildServerable -> buildServerable.add(profile));
 
         return true;
     }

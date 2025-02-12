@@ -38,29 +38,19 @@ public class BringCommand extends XimeCommand {
                 SGServerable.class,
                 SGMakerServerable.class)) return true;
 
-        for(Profile loopProfile : plugin.getProfileHandler().getProfiles().stream().filter(loopProfile -> loopProfile.getServerable() != null).filter(loopProfile -> loopProfile.getServerable() instanceof HubServerable).collect(Collectors.toCollection(ArrayList::new))) {
+        List<Profile> profileList = plugin.getProfileHandler().getProfiles()
+                .stream()
+                .filter(loopProfile -> loopProfile.getServerable() != null)
+                .filter(loopProfile -> loopProfile.getServerable() instanceof HubServerable)
+                .toList();
+
+        for(Profile loopProfile : profileList) {
             if (profile.getServerable().isFull())
                 break;
 
             profile.getServerable().add(loopProfile);
         }
         profile.sendMessage("&8[&3Xime&8] &fBringing all hub players to your game");
-
         return true;
-    }
-
-    private double getCooldownLength(Player player  ) {
-        if (true) {
-            System.out.println("how tf");
-        } else if (player.hasPermission("xime.admin")) {
-            return 5.0;
-        } else if (player.hasPermission("xime.staff")) {
-            return 20.0;
-        } else if (player.hasPermission("xime.quantum")) {
-            return 30.0;
-        } else if (player.hasPermission("xime.platinum")) {
-            return 60.0;
-        }
-        return 120.0;
     }
 }

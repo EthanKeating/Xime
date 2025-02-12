@@ -40,9 +40,7 @@ public class BuildSidebarAdapter extends SidebarAdapter {
     }
 
     @Override
-    public void tick() {
-
-    }
+    public void tick() {}
 
     @Override
     public int getUpdateRate() {

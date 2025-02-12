@@ -11,14 +11,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class TextShineAnimation extends BukkitRunnable {
 
-    private XimePlugin plugin;
-    private Profile profile;
+    private final XimePlugin plugin;
+    private final Profile profile;
 
-    private Serverable serverable;
+    private final Serverable serverable;
 
     private int frame = 0;
     private int position = 0;
-    private String text;
+    private final String text;
 
     public TextShineAnimation(XimePlugin plugin, Profile profile, String text) {
         this.plugin = plugin;
@@ -35,39 +35,25 @@ public class TextShineAnimation extends BukkitRunnable {
             return;
         }
         if (frame++ < 10) {
-            profile.getUser().sendMessage(Component.text(ChatColor.DARK_GRAY + "" + ChatColor.BOLD + TextUtil.translate(text)), ChatTypes.GAME_INFO);
+            profile.getUser().sendMessage(Component.text(TextUtil.translate("&8&l" + text)), ChatTypes.GAME_INFO);
             return;
         }
 
-        // Build the animated text with shine and trail effects
         StringBuilder animatedText = new StringBuilder();
-        for (int i = 0; i < text.length(); i++) {
-            if (i == position) {
-                // Current shining character
+        for (int i = 0; i < text.length(); i++)
+            if (i == position)
                 animatedText.append(ChatColor.YELLOW).append(ChatColor.BOLD).append(text.charAt(i));
-            } else if (i == position - 1) {
-                // Secondary shining character (behind the primary shine)
+            else if (i == position - 1)
                 animatedText.append(ChatColor.WHITE).append(ChatColor.BOLD).append(text.charAt(i));
-            } else if (i < position) {
-                // Trail behind the shine
+            else if (i < position)
                 animatedText.append(ChatColor.GOLD).append(ChatColor.BOLD).append(text.charAt(i));
-            } else {
-                // Default color for characters ahead
+            else
                 animatedText.append(ChatColor.DARK_GRAY).append(ChatColor.BOLD).append(text.charAt(i));
-            }
-        }
 
-        // Send the animated text to the player
         profile.getUser().sendMessage(Component.text(TextUtil.translate(animatedText.toString())), ChatTypes.GAME_INFO);
 
-        // Check if the shine has reached the end
-        if (position >= text.length() - 1) {
-            cancel(); // Stop the animation when it reaches the end
-            return;
-        }
-
-        // Update the position for the next frame
-        position++;
+        if (position >= text.length() - 1) cancel();
+        else position++;
     }
 
 

@@ -136,8 +136,6 @@ public class BGSidebarAdapter extends SidebarAdapter {
                     }
                     break;
             }
-
-
             return lines;
         }
         return Collections.emptyList();

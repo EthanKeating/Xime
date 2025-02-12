@@ -42,14 +42,13 @@ public class GameRunnable extends BukkitRunnable {
             MapLocation mapLocation = entry.getKey();
             long timeStamp = entry.getValue();
 
-            if (System.currentTimeMillis() - timeStamp > 5 * 1000) {
+            if (System.currentTimeMillis() - timeStamp > 5 * 1000)
                 removeableBlocks.add(mapLocation);
-            }
         }
 
-        for(MapLocation removeableBlock : removeableBlocks) {
-            removeableBlock.toBukkit(serverable.getWorld()).getBlock().setType(Material.AIR);
-            placedBlocks.remove(removeableBlock);
+        for(MapLocation removableBlock : removeableBlocks) {
+            removableBlock.toBukkit(serverable.getWorld()).getBlock().setType(Material.AIR);
+            placedBlocks.remove(removableBlock);
         }
 
         int gameTime = gameTimer.decrement();
@@ -70,7 +69,7 @@ public class GameRunnable extends BukkitRunnable {
             serverable.reset();
             return;
         }
-//        serverable.getPlayerList().forEach(profile -> profile.getPlayer().setLevel(gameTime));
+        serverable.getPlayerList().forEach(profile -> profile.getPlayer().setLevel(gameTime));
 
         if (gameTime % 60 == 0 || gameTime == 30 || gameTime == 15 || gameTime == 10 || gameTime <= 5)
             serverable.announce(String.format("&8[&6%s&8] &e%s until the next game&8!", sigUnit.getKey(), sigUnit.getValue()));

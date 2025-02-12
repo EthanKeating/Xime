@@ -16,10 +16,7 @@ import lombok.Setter;
 import lombok.SneakyThrows;
 import net.minecraft.server.v1_8_R3.EnumParticle;
 import net.minecraft.server.v1_8_R3.PacketPlayOutWorldParticles;
-import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Chest;
@@ -84,12 +81,11 @@ public class BuildServerable extends Serverable {
         Location specLocation = mapData.getSpectateLocation() == null ? null : mapData.getSpectateLocation().toBukkit(getWorld());
         Location dmCenterLocation = mapData.getDmCenterLocation() == null ? null : mapData.getDmCenterLocation().toBukkit(getWorld());
 
-        getPlayerList().forEach(profile -> {
+        for(Profile profile : getPlayerList()) {
             Player player = profile.getPlayer();
 
-            for(Location spawnLocation : spawnLocations) {
-
-                PacketPlayOutWorldParticles spawnLocationPacket = new PacketPlayOutWorldParticles(
+            for(Location spawnLocation : spawnLocations)
+                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutWorldParticles(
                         EnumParticle.REDSTONE,
                         true,
                         (float) spawnLocation.getX(),
@@ -99,13 +95,10 @@ public class BuildServerable extends Serverable {
                         255f / 255f,
                         255f / 255f,
                         (float) 1,
-                        0);
-                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(spawnLocationPacket);
-            }
+                        0));
 
-            for(Location dmLocation : dmLocations) {
-
-                PacketPlayOutWorldParticles dmLocationPacket = new PacketPlayOutWorldParticles(
+            for(Location dmLocation : dmLocations)
+                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutWorldParticles(
                         EnumParticle.REDSTONE,
                         true,
                         (float) dmLocation.getX(),
@@ -115,12 +108,10 @@ public class BuildServerable extends Serverable {
                         128f / 255f,
                         114f / 255f,
                         (float) 1,
-                        0);
-                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(dmLocationPacket);
-            }
+                        0));
 
-            if (mapCenter != null) {
-                PacketPlayOutWorldParticles centerLocationPacket = new PacketPlayOutWorldParticles(
+            if (mapCenter != null)
+                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutWorldParticles(
                         EnumParticle.REDSTONE,
                         true,
                         (float) mapCenter.getX(),
@@ -130,12 +121,10 @@ public class BuildServerable extends Serverable {
                         205f / 255f,
                         50f / 255f,
                         (float) 1,
-                        0);
-                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(centerLocationPacket);
-            }
+                        0));
 
-            if (specLocation != null) {
-                PacketPlayOutWorldParticles specLocationPacket = new PacketPlayOutWorldParticles(
+            if (specLocation != null)
+                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutWorldParticles(
                         EnumParticle.REDSTONE,
                         true,
                         (float) specLocation.getX(),
@@ -145,12 +134,10 @@ public class BuildServerable extends Serverable {
                         211f / 255f,
                         211f / 255f,
                         (float) 1,
-                        0);
-                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(specLocationPacket);
-            }
+                        0));
 
-            if (dmCenterLocation != null) {
-                PacketPlayOutWorldParticles dmLocationPacket = new PacketPlayOutWorldParticles(
+            if (dmCenterLocation != null)
+                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(new PacketPlayOutWorldParticles(
                         EnumParticle.REDSTONE,
                         true,
                         (float) dmCenterLocation.getX(),
@@ -160,11 +147,8 @@ public class BuildServerable extends Serverable {
                         95f / 255f,
                         95f / 255f,
                         (float) 1,
-                        0);
-                ((CraftPlayer) player).getHandle().playerConnection.sendPacket(dmLocationPacket);
-            }
-
-        });
+                        0));
+        }
     }
 
     public void save() {
@@ -258,7 +242,12 @@ public class BuildServerable extends Serverable {
                         editor.sendMessage("&8[&3Xime&8] &cChunk cleaner removing &e" + uselessBlocks.size());
 
                         for (Block block : uselessBlocks)
-                            BlockUtil.setBlockInNativeWorld(getWorld(), block.getX(), block.getY(), block.getZ(), 0, (byte)0, false);
+                            BlockUtil.setBlockInNativeWorld(getWorld(),
+                                    block.getX(),
+                                    block.getY(),
+                                    block.getZ(),
+                                    0, (byte)0,
+                                    false);
 
                         cancel();
                         editor.sendMessage(String.format("&8[&3Xime&8] &aChunk cleaner removed &6%s &auseless blocks", uselessBlocks.size()));

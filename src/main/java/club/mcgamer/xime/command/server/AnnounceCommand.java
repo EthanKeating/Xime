@@ -19,8 +19,18 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AnnounceCommand extends XimeCommand {
+
+    private static final Map<String, Double> permissionCooldowns = Map.of(
+            "xime.admin", 5.0,
+            "xime.staff", 10.0,
+            "xime.quantum", 10.0,
+            "xime.platinum", 15.0,
+            "xime.diamond", 20.0
+    );
 
     public AnnounceCommand() {
         super("announce");
@@ -61,7 +71,6 @@ public class AnnounceCommand extends XimeCommand {
                 loopProfile.getPlayer().spigot().sendMessage(message);
             });
             cooldownData.setAnnounceCooldown();
-
             return true;
         }
 
@@ -78,7 +87,6 @@ public class AnnounceCommand extends XimeCommand {
                 loopProfile.getPlayer().spigot().sendMessage(message);
             });
             cooldownData.setAnnounceCooldown();
-
             return true;
         }
 
@@ -90,29 +98,18 @@ public class AnnounceCommand extends XimeCommand {
                 loopProfile.getPlayer().spigot().sendMessage(message);
             });
             cooldownData.setAnnounceCooldown();
-
             return true;
         }
 
         profile.sendMessage(profile.getServerable().getPrefix() + "&cYou cannot use this command right now.");
-
         return true;
     }
 
-    private double getCooldownLength(Player player  ) {
-        if (false) {
-            System.out.println("how tf");
-        } else if (player.hasPermission("xime.admin")) {
-            return 5.0;
-        } else if (player.hasPermission("xime.staff")) {
-            return 10.0;
-        } else if (player.hasPermission("xime.quantum")) {
-            return 10.0;
-        } else if (player.hasPermission("xime.platinum")) {
-            return 15.0;
-        } else if (player.hasPermission("xime.diamond")) {
-            return 20.0;
-        }
+    private double getCooldownLength(Player player) {
+        for (Map.Entry<String, Double> entry : permissionCooldowns.entrySet())
+            if (player.hasPermission(entry.getKey()))
+                return entry.getValue();
+
         return 60.0;
     }
 }

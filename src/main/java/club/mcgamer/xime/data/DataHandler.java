@@ -48,9 +48,7 @@ public class DataHandler {
         playerDataDao = DaoManager.createDao(connectionSource, PlayerData.class);
 
         Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, () -> {
-            plugin.getProfileHandler().getProfiles().forEach(profile -> {
-               updatePlayerData(profile.getPlayerData());
-            });
+            plugin.getProfileHandler().getProfiles().forEach(profile -> updatePlayerData(profile.getPlayerData()));
             rankPlayerData();
         }, 20 * 30, 20 * 30);
 

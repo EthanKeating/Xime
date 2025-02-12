@@ -84,8 +84,7 @@ public class SidebarImpl {
 
         Pair<String, String> splitLine = TextUtil.splitLine(lineText);
 
-        profile.getUser().sendPacket(
-                new WrapperPlayServerTeams(
+        profile.getUser().sendPacket(new WrapperPlayServerTeams(
                         SB_LINE_NAME + lineId,
                         WrapperPlayServerTeams.TeamMode.UPDATE,
                         new WrapperPlayServerTeams.ScoreBoardTeamInfo(
@@ -109,8 +108,7 @@ public class SidebarImpl {
         user.sendPacket(new WrapperPlayServerDisplayScoreboard(1, SB_NAME));
 
         for (int lineId = 0; lineId < 15; lineId++) {
-            user.sendPacket( //No reason to create or delete a team whenever a line is hidden or shown, just add all teams first
-                    new WrapperPlayServerTeams(
+            user.sendPacket(new WrapperPlayServerTeams(
                             SB_LINE_NAME + lineId, //Team name
                             WrapperPlayServerTeams.TeamMode.CREATE,
                             new WrapperPlayServerTeams.ScoreBoardTeamInfo(
@@ -126,8 +124,7 @@ public class SidebarImpl {
     }
 
     private void showLine(int lineId) {
-        profile.getUser().sendPacket(
-                new WrapperPlayServerUpdateScore(
+        profile.getUser().sendPacket(new WrapperPlayServerUpdateScore(
                         ChatColor.translateAlternateColorCodes('&', "&" + CODES[lineId]),
                         WrapperPlayServerUpdateScore.Action.CREATE_OR_UPDATE_ITEM,
                         SB_NAME,
@@ -135,8 +132,7 @@ public class SidebarImpl {
     }
 
     private void hideLine(int lineId) {
-        profile.getUser().sendPacket(
-                new WrapperPlayServerUpdateScore(
+        profile.getUser().sendPacket(new WrapperPlayServerUpdateScore(
                         ChatColor.translateAlternateColorCodes('&', "&" + CODES[lineId]),
                         WrapperPlayServerUpdateScore.Action.REMOVE_ITEM,
                         SB_NAME,

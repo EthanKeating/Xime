@@ -7,16 +7,8 @@ import club.mcgamer.xime.server.ServerHandler;
 
 public class HubBossbarAdapter extends BossbarAdapter {
 
-    private float health = 300.0f;
-
     @Override
-    public void tick() {
-        //health -= 1.0f;
-
-        if (health < 0.0)
-            health = 300.0f;
-
-    }
+    public void tick() {}
 
     @Override
     public String getTitle(Profile profile) {
@@ -27,7 +19,7 @@ public class HubBossbarAdapter extends BossbarAdapter {
 
     @Override
     public float getHealth(Profile profile) {
-        return health;
+        return 300.0f;
     }
 
     @Override

@@ -45,7 +45,7 @@ public class HubCommand extends XimeCommand {
                     .filter(serverable -> serverable.getServerId() == id)
                     .findFirst();
 
-            if (!serverableOptional.isPresent()) {
+            if (serverableOptional.isEmpty()) {
                 sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThis server is offline or does not exist."));
                 return true;
             }
@@ -58,7 +58,6 @@ public class HubCommand extends XimeCommand {
         }
 
         Serverable serverable = serverHandler.getFallback();
-
         profile.sendMessage(String.format("&8[&3Xime&8] &fConnecting you to &2%s &6(EU)&f..", serverable.toString()));
         Bukkit.getScheduler().runTaskLater(plugin, () -> serverable.add(profile), 1);
         return true;

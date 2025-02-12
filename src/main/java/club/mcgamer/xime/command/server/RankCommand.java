@@ -75,7 +75,6 @@ public class RankCommand extends XimeCommand {
                 profile.setRank(rank);
                 profile.sendMessage(TextUtil.translate(String.format("&8[&3Xime&8] &bYour rank has been set to&8: &f%s%s&8.", rank.getColor(), rank.getName())));
             }
-
             sender.sendMessage(TextUtil.translate(String.format("&8[&3Xime&8] &bYou have set &e%s&b's rank to&8: &f%s%s&8.", args[0], rank.getColor(), rank.getName())));
         });
         return true;

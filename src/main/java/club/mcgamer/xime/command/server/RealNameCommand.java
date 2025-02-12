@@ -20,7 +20,7 @@ public class RealNameCommand extends XimeCommand {
         super("realname");
         this.description = "View a disguised player's real name";
         this.usageMessage = "/realname [player]";
-        this.setAliases(Arrays.asList("rl", "identity", "realidentity", "ri"));
+        this.setAliases(Arrays.asList("rn", "checkdisguise", "cd", "identity", "realidentity", "ri"));
         setPermission("xime.staff");
 
         register();

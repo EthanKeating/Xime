@@ -37,8 +37,7 @@ public class MaskCommand extends XimeCommand {
 
         String prefix = profile.getServerable().getPrefix();
 
-        String rankListString = TextUtil.translate("&8[&3Xime&8] &fYour Masks: "
-                + rankHandler.getRankList()
+        String rankListString = TextUtil.translate("&8[&3Xime&8] &fYour Masks: " + rankHandler.getRankList()
                 .stream()
                 .filter(otherRank -> plugin.getRankHandler().getRankList().indexOf(otherRank) > plugin.getRankHandler().getRankList().indexOf(originalRank))
                 .map(rank -> TextUtil.translate(rank.getColor() + rank.getName()))
@@ -50,20 +49,25 @@ public class MaskCommand extends XimeCommand {
         }
 
         Rank rank = rankHandler.getRank(args[0]);
-        if (rank == null && !hasArgs(sender, args, 100)) return true;
+        if (rank == null)  {
+            hasArgs(sender, args, 100);
+            return true;
+        }
 
         if (rankHandler.getRankList().indexOf(rank) <= plugin.getRankHandler().getRankList().indexOf(originalRank)) {
             profile.sendMessage(TextUtil.translate(prefix + "&cYou cannot mask as that rank!"));
             return true;
         }
 
-        if (profile.getDisguiseData() != null)
-            profile.getDisguiseData().setRank(rank);
-        else
-            profile.setDisguiseData(new DisguiseData(profile, profile.getUuid(), profile.getName(), profile.getSkin(), rank));
+        if (profile.getDisguiseData() != null) profile.getDisguiseData().setRank(rank);
+        else profile.setDisguiseData(new DisguiseData(
+                profile,
+                profile.getUuid(),
+                profile.getName(),
+                profile.getSkin(),
+                rank));
 
         profile.sendMessage(String.format(prefix + "&fYou have been masked as %s&8.", rank.getColor() + rank.getName()));
-
         return true;
     }
 }

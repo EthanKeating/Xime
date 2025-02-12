@@ -63,7 +63,6 @@ public class CommandHandler {
         new StaffCommand();
         new GoToCommand();
 
-        new ScatterCommand();
         new BringCommand();
         new ReportCommand();
         new ReportsCommand();
@@ -99,6 +98,7 @@ public class CommandHandler {
         new StaffListCommand();
         new InviteCommand();
         new FindCommand();
+        new RealNameCommand();
 
         new TeamChatCommand();
         new ForcestartCommand();

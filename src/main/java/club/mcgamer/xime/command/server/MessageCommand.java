@@ -23,17 +23,12 @@ public class MessageCommand  extends XimeCommand {
 
     @Override
     public boolean execute(CommandSender sender, String alias, String[] args) {
-
-        if(!isPlayer(sender)) return true;
+        if (!isPlayer(sender)) return true;
         if (!hasArgs(sender, args, 2)) return true;
 
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);
-
         Player argumentPlayer = Bukkit.getPlayer(args[0]);
-
-        CooldownData cooldownData = profile.getCooldownData();
-        if (cooldownData.hasMessageCooldown(0.5)) return true;
 
         if (argumentPlayer == null) {
             sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThat player is not online."));
@@ -46,29 +41,24 @@ public class MessageCommand  extends XimeCommand {
         }
 
         Profile argumentProfile = plugin.getProfileHandler().getProfile(argumentPlayer);
-
-        if (argumentProfile.getDisguiseData() != null) {
-            if (!argumentProfile.getNameBypassDisguise().equalsIgnoreCase(argumentProfile.getName())) {
-                if (argumentProfile.getNameBypassDisguise().equalsIgnoreCase(args[0])) {
-                    isPlayer(sender, "......................");
-                    return true;
-                }
+        if (argumentProfile.getDisguiseData() != null && !argumentProfile.getNameBypassDisguise().equalsIgnoreCase(argumentProfile.getName())) {
+            if (argumentProfile.getNameBypassDisguise().equalsIgnoreCase(args[0])) {
+                isPlayer(sender, "......................");
+                return true;
             }
         }
 
-        //TODO: Check if pms are disabled for argumentProfile
+        // TODO: Check if PMS are disabled for argumentProfile
 
         profile.getReplyData().setReplyUUID(argumentProfile.getUuid());
         profile.getReplyData().setReplyTimestamp(System.currentTimeMillis());
-
         argumentProfile.getReplyData().setReplyUUID(profile.getUuid());
         argumentProfile.getReplyData().setReplyTimestamp(System.currentTimeMillis());
 
         String message = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
         argumentProfile.sendMessageRaw(TextUtil.translate(String.format("&8[&bFrom &f%s&8] &7", profile.getDisplayName())) + message);
         profile.sendMessageRaw(TextUtil.translate(String.format("&8[&bTo &f%s&8] &7", argumentProfile.getDisplayName())) + message);
-
-        cooldownData.setMessageCooldown();
+        profile.getCooldownData().setMessageCooldown();
 
         return true;
     }

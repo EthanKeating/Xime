@@ -19,8 +19,26 @@ import java.util.Map;
 
 public class ReportCommand extends XimeCommand {
 
-    private final HashMap<Integer, String> reportIdMap = new HashMap<>();
-    private final HashMap<Integer, ReportPriority> reportPriortyMap = new HashMap<>();
+    private final Map<Integer, String> reportIdMap = Map.of(
+            1, "Harassment",
+            2, "Inappropriate Language",
+            3, "Spam",
+            4, "Advertising",
+            5, "Revealing Personal Information",
+            6, "Hacking",
+            7, "Inappropriate Skin",
+            8, "Other"
+    );
+    private final Map<Integer, ReportPriority> reportPriorityMap = Map.of(
+            1, ReportPriority.MEDIUM,
+            2, ReportPriority.LOW,
+            3, ReportPriority.LOW,
+            4, ReportPriority.MEDIUM,
+            5, ReportPriority.HIGH,
+            6, ReportPriority.CRITICAL,
+            7, ReportPriority.MEDIUM,
+            8, ReportPriority.MEDIUM
+    );
 
     public ReportCommand() {
         super("report");
@@ -29,24 +47,6 @@ public class ReportCommand extends XimeCommand {
         this.setAliases(Arrays.asList());
 
         register();
-
-        reportIdMap.put(1, "Harassment");
-        reportIdMap.put(2, "Inappropriate Language");
-        reportIdMap.put(3, "Spam");
-        reportIdMap.put(4, "Advertising");
-        reportIdMap.put(5, "Revealing Personal Information");
-        reportIdMap.put(6, "Hacking");
-        reportIdMap.put(7, "Inappropriate Skin");
-        reportIdMap.put(8, "Other");
-
-        reportPriortyMap.put(1, ReportPriority.MEDIUM);
-        reportPriortyMap.put(2, ReportPriority.LOW);
-        reportPriortyMap.put(3, ReportPriority.LOW);
-        reportPriortyMap.put(4, ReportPriority.MEDIUM);
-        reportPriortyMap.put(5, ReportPriority.HIGH);
-        reportPriortyMap.put(6, ReportPriority.CRITICAL);
-        reportPriortyMap.put(7, ReportPriority.MEDIUM);
-        reportPriortyMap.put(8, ReportPriority.MEDIUM);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class ReportCommand extends XimeCommand {
 
         int reportId = Integer.parseInt(args[1]);
         String reportReason = reportIdMap.get(reportId);
-        String reportPriority = reportPriortyMap.get(reportId).getName();
+        String reportPriority = reportPriorityMap.get(reportId).getName();
         String reportDescription = args.length > 2 ?
                 String.join(" ", Arrays.copyOfRange(args, 2, args.length))
                 : "No description";

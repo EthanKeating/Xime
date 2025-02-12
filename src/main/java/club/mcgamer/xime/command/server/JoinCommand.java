@@ -43,7 +43,6 @@ public class JoinCommand extends XimeCommand {
         ServerHandler serverHandler = plugin.getServerHandler();
 
         if (args.length > 1) {
-
             if (!StringUtils.isNumeric(args[1])) {
                 sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThis server is offline or does not exist."));
                 return true;
@@ -52,23 +51,22 @@ public class JoinCommand extends XimeCommand {
             int id = Integer.parseInt(args[1]);
             Optional<Serverable> serverableOptional = Optional.empty();
 
-            if (args[0].equalsIgnoreCase("SG")) {
+            if (args[0].equalsIgnoreCase("SG"))
                 serverableOptional = serverHandler.getServerList().stream()
                         .filter(serverable -> serverable instanceof SGServerable)
                         .filter(serverable -> !(serverable instanceof SGMakerServerable))
                         .filter(serverable -> serverable.getServerId() == id)
                         .findFirst();
-            } else if (args[0].equalsIgnoreCase("BG")) {
+            else if (args[0].equalsIgnoreCase("BG"))
                 serverableOptional = serverHandler.getServerList().stream()
                         .filter(serverable -> serverable instanceof BGServerable)
                         .filter(serverable -> serverable.getServerId() == id)
                         .findFirst();
-            } else if (args[0].equalsIgnoreCase("SGMAKER")) {
+            else if (args[0].equalsIgnoreCase("SGMAKER"))
                 serverableOptional = serverHandler.getServerList().stream()
                         .filter(serverable -> serverable instanceof SGMakerServerable)
                         .filter(serverable -> serverable.getServerId() == id)
                         .findFirst();
-            }
 
             if (serverableOptional.isEmpty()) {
                 sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThis server is offline or does not exist."));
@@ -93,7 +91,7 @@ public class JoinCommand extends XimeCommand {
 
         Optional<Serverable> serverableOptional = Optional.empty();
 
-        if (args[0].equalsIgnoreCase("SG")) {
+        if (args[0].equalsIgnoreCase("SG"))
             serverableOptional = plugin.getServerHandler().getServerList().stream()
                     .filter(serverable -> serverable instanceof SGServerable)
                     .filter(serverable -> !(serverable instanceof SGMakerServerable))
@@ -103,15 +101,13 @@ public class JoinCommand extends XimeCommand {
                             .reversed()// Sort by player count in ascending order
                             .thenComparing((SGServerable serverable) -> serverable.getGameState().ordinal()))
                     .map(serverable -> (Serverable) serverable);
-        } else if (args[0].equalsIgnoreCase("BG")){
+        else if (args[0].equalsIgnoreCase("BG"))
             serverableOptional = plugin.getServerHandler().getServerList().stream()
                     .filter(serverable -> serverable instanceof BGServerable)
                     .filter(serverable -> serverable.getPlayerList().size() < serverable.getMaxPlayers())
                     .map(serverable -> (BGServerable) serverable).max(Comparator
                             .comparingInt((BGServerable serverable) -> serverable.getPlayerList().size()))
                     .stream().map(serverable -> (Serverable) serverable).findFirst();
-
-        }
 
         if (serverableOptional.isEmpty()) {
             sender.sendMessage(TextUtil.translate("&8[&3Xime&8] &cThis server is offline or does not exist."));

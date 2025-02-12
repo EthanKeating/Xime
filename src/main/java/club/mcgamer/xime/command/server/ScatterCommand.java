@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 public class ScatterCommand extends XimeCommand {
 
+    //Unused command for stress testing
     public ScatterCommand() {
         super("scatter");
         this.description = "Scatter command";

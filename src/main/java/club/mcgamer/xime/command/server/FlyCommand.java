@@ -41,7 +41,6 @@ public class FlyCommand extends XimeCommand {
 
         player.setAllowFlight(generalData.isCanFly());
         profile.sendMessage(String.format(prefix + "&fYou can %s fly&8.", generalData.isCanFly() ? "now" : "no longer"));
-
         return true;
     }
 }

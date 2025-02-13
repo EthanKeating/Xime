@@ -45,7 +45,7 @@ public class RealNameCommand extends XimeCommand {
             return true;
         }
 
-        profile.sendMessage(String.format("&8[&3Xime&8] &f%s's real identity is %s&8.", argumentProfile.getDisplayName(), argumentProfile.getDisplayName()));
+        profile.sendMessage(String.format("&8[&3Xime&8] &f%s&f's real identity is %s&8.", argumentProfile.getDisplayName(), argumentProfile.getDisplayNameBypassDisguise()));
 
         return true;
     }

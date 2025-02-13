@@ -5,6 +5,7 @@ import club.mcgamer.xime.loot.LootTable;
 import club.mcgamer.xime.loot.tables.MCSGLootTable;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.data.SGTeamProvider;
+import club.mcgamer.xime.sgmaker.config.MakerConfig;
 import club.mcgamer.xime.sgmaker.config.impl.TeamType;
 import lombok.Data;
 import lombok.Getter;
@@ -49,6 +50,13 @@ public class GameSettings {
     public GameSettings(SGServerable serverable) {
         this.serverable = serverable;
         this.teamProvider = new SGTeamProvider(serverable);
+    }
+
+    public void load(MakerConfig config) {
+        if (this.deathmatchPlayers != config.getDeathmatchPlayers()) {
+            serverable.announce("");
+            this.deathmatchPlayers = config.getDeathmatchPlayers();
+        }
     }
 
 

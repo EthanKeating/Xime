@@ -35,7 +35,6 @@ public class HubServerable extends Serverable {
         setMaxPlayers(200);
         setMapData(MapData.load(MAP_NAME));
         setJoinable(true);
-        snow();
     }
 
     public Location getSpawnLocation() {
@@ -96,18 +95,6 @@ public class HubServerable extends Serverable {
         profile.setTemporaryData(createTemporaryData());
         Bukkit.getPluginManager().callEvent(new ServerJoinEvent(profile, profile.getServerable()));
 
-    }
-
-    private void snow() {
-//
-//        new BukkitRunnable() {
-//            @Override
-//            public void run() {
-//                for (Profile p : getPlayerList()) {
-//                    sendParticle(EnumParticle.FIREWORKS_SPARK, p.getPlayer(), 0.0f, 150);
-//                }
-//            }
-//        }.runTaskTimer(plugin, 10, 10);
     }
 
     public void sendParticle(EnumParticle particle, Player p, float speed, Integer amount) {

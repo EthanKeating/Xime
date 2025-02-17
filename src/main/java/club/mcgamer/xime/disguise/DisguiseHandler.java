@@ -51,8 +51,8 @@ public class DisguiseHandler {
 
             profile.sendMessage(prefix + "&c&lWarning! &cThis command is logged.")
                     .sendMessage(prefix + "&cStaff can see your true username while using this command.")
-                    .sendMessage(prefix + "&fYou now appear as " + profile.getDisplayName() + "&8.")
-                    .sendMessage(prefix + "&fTo undisguise, use &8[&e/undisguise&8]");
+                    .sendMessage(prefix + "&eYou now appear as " + profile.getDisplayName() + "&8.")
+                    .sendMessage(prefix + "&eTo undisguise, use &8[&e/undisguise&8]");
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(Paths.get(plugin.getDataFolder().getAbsolutePath(), "disguises.log").toFile(), true))) {
                 writer.write(String.format("[%s] '%s' has disguised as '%s'",

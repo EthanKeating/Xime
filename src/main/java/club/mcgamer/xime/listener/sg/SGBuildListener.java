@@ -8,6 +8,7 @@ import club.mcgamer.xime.server.event.ServerPlaceBlockEvent;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.runnable.LiveGameRunnable;
 import club.mcgamer.xime.sg.settings.GameSettings;
+import club.mcgamer.xime.util.BlockUtil;
 import club.mcgamer.xime.util.IListener;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -129,7 +130,8 @@ public class SGBuildListener extends IListener {
             switch (serverable.getGameState()) {
                 case LIVEGAME:
                 case DEATHMATCH:
-                    Material type = event.getBlock().getType();
+                    Block block = event.getBlock();
+                    Material type = block.getType();
                     ItemStack heldItem = player.getItemInHand();
 
                     switch (type) {
@@ -163,6 +165,7 @@ public class SGBuildListener extends IListener {
                                 }
                             }
 
+                            BlockUtil.setBlockInNativeWorld(block.getWorld(), block.getX(), block.getY(), block.getZ(), 51, (byte)0, false);
                             short nextDurability = (short) Math.min((short) (heldItem.getDurability() + (short) 16), (short)64);
                             heldItem.setDurability(nextDurability);
                             if (nextDurability > 63) {

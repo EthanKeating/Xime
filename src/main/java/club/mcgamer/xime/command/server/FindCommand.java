@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class FindCommand extends XimeCommand {
 
@@ -13,7 +14,7 @@ public class FindCommand extends XimeCommand {
         super("find");
         this.description = "Find a player";
         this.usageMessage = "/find [player]";
-        this.setAliases(new ArrayList<>());
+        this.setAliases(Arrays.asList("locate"));
         setPermission("xime.staff");
 
         register();
@@ -32,7 +33,6 @@ public class FindCommand extends XimeCommand {
         if (argumentPlayer == null) return true;
         Profile argumentProfile = plugin.getProfileHandler().getProfile(argumentPlayer);
 
-        player.teleport(argumentPlayer.getLocation().add(0, 0.01, 0));
         profile.sendMessage(String.format("&8[&3Xime&8] &b%s&b is on &8[&a%s&8]", argumentProfile.getDisplayName(), argumentProfile.getServerable()));
 
         return true;

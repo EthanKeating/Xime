@@ -26,6 +26,9 @@ public class MapHandler {
 
     //Also called on Xime reload
     public void load() {
+        mapPool.clear();
+        bgMapPool.clear();
+
         for(String mapIdentifier : plugin.getConfig().getStringList("maps"))
             mapPool.put(mapIdentifier, MapData.load(mapIdentifier));
 

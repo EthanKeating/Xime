@@ -1,9 +1,12 @@
 package club.mcgamer.xime.command.server;
 
+import club.mcgamer.xime.bg.BGServerable;
+import club.mcgamer.xime.bg.data.BGTemporaryData;
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.state.GameState;
+import club.mcgamer.xime.staff.StaffServerable;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -32,6 +35,16 @@ public class UndisguiseCommand extends XimeCommand {
         String prefix = profile.getServerable().getPrefix();
 
         if (profile.getServerable() instanceof SGServerable serverable && serverable.getGameState() != GameState.LOBBY) {
+            profile.sendMessage(prefix + "&4You cannot use this command right now&8.");
+            return true;
+        }
+
+        if (profile.getServerable() instanceof StaffServerable ) {
+            profile.sendMessage(prefix + "&4You cannot use this command right now&8.");
+            return true;
+        }
+
+        if (profile.getServerable() instanceof BGServerable serverable && profile.getTemporaryData() instanceof BGTemporaryData temporaryData && !temporaryData.isWaiting()) {
             profile.sendMessage(prefix + "&4You cannot use this command right now&8.");
             return true;
         }

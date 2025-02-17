@@ -280,6 +280,12 @@ public class SGServerable extends Serverable {
                 .forEach(player -> player.playSound(player.getLocation(), sound, volume, pitch));
     }
 
+    public void announceSound(Sound sound, float volume, float pitch, Vector offset) {
+        getPlayerList().stream()
+                .map(Profile::getPlayer)
+                .forEach(player -> player.playSound(player.getLocation().add(offset), sound, volume, pitch));
+    }
+
     public void announceTitle(String title, String subTitle, int fadeIn, int duration, int fadeOut) {
         getPlayerList().forEach(profile -> profile.sendTitle(title, subTitle, fadeIn, duration, fadeOut));
     }

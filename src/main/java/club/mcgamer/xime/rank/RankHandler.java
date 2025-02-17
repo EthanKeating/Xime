@@ -24,7 +24,7 @@ public class RankHandler {
                 new Rank("Developer", "&e&l", Arrays.asList()),
                 new Rank("Administrator", "&4&l", Arrays.asList("xime.admin")),
                 new Rank("SeniorModerator", "&4", Arrays.asList("xime.srmoderator")),
-                new Rank("Moderator", "&c", Arrays.asList("litebans.notify", "litebans.history", "litebans.dupeip", "litebans.ban", "litebans.kick", "litebans.mute", "litebans.warn", "litebans.unban", "litebans.unmute", "litebans.unwarn", "litebans.override", "grim.alerts", "grim.brand", "xime.staff")),
+                new Rank("Moderator", "&c", Arrays.asList("litebans.notify", "litebans.history", "litebans.dupeip", "litebans.banlist", "litebans.mutelist", "litebans.checkban", "litebans.warnings.self", "litebans.warnlist", "litebans.ban", "litebans.kick", "litebans.mute", "litebans.warn", "litebans.unban", "litebans.staffhistory", "litebans.unwarn.own", "litebans.unmute.own", "litebans.unban.own", "litebans.unmute", "litebans.unwarn", "litebans.override", "grim.alerts", "grim.brand", "xime.staff")),
                 new Rank("VIP", "&5", Arrays.asList()),
                 new Rank("MapMaker", "&d", Arrays.asList("xime.vip")),
                 new Rank("Quantum", "&a", Arrays.asList("xime.quantum")),

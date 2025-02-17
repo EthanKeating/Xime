@@ -19,8 +19,10 @@ import club.mcgamer.xime.util.PlayerUtil;
 import lombok.Getter;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Team;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -175,6 +177,7 @@ public class PreGameRunnable extends AbstractGameRunnable {
 
         //Switch to livegame
         if (currentTime == 0) {
+            serverable.announceSound(Sound.ENDERDRAGON_GROWL, 0.1f, 0.0f, new Vector(0.0, 6.0, 0.0));
             cancel();
             return;
         }
@@ -199,6 +202,7 @@ public class PreGameRunnable extends AbstractGameRunnable {
             serverable.announceTitle("&6" + currentTime, "", 0, 30, 0);
 
         if (currentTime <= 5 || currentTime == 10 || currentTime == 30) {
+            serverable.announceSound(Sound.NOTE_STICKS, 0.5f, 2f);
             Pair<String, String> significantUnit = gameTimer.toSignificantUnit();
             serverable.announce(String.format("&8[&e%s&8] &c%s until the games begin!",
                     significantUnit.getKey(),

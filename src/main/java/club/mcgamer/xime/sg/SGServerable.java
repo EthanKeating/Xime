@@ -42,7 +42,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class SGServerable extends Serverable {
 
     public static final String LOBBY_NAME = "Lobby";
-    public static final int LOBBY_COUNT = 4;
+    public static final int LOBBY_COUNT = 3;
 
     protected AbstractGameRunnable currentRunnable;
     @Setter protected GameTimer gameTimer;
@@ -76,7 +76,7 @@ public class SGServerable extends Serverable {
     }
 
     public String getPrefix() {
-        return "&8[&6MCSG&8] &f";
+        return "&8[&SGHQ&8] &f";
     }
 
     public void add(Profile profile) {

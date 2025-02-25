@@ -41,8 +41,6 @@ public abstract class Serverable {
 
     @Setter private String worldName;
     private World world;
-
-
     private long worldStartTime = System.currentTimeMillis();
 
     @Setter private SidebarAdapter sidebarAdapter = SidebarAdapter.DEFAULT;

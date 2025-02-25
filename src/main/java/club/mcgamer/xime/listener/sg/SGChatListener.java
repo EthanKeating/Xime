@@ -11,6 +11,7 @@ import club.mcgamer.xime.sgmaker.SGMakerServerable;
 import club.mcgamer.xime.sgmaker.config.impl.TeamType;
 import club.mcgamer.xime.util.IListener;
 import club.mcgamer.xime.util.TextUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.w3c.dom.Text;
@@ -31,7 +32,9 @@ public class SGChatListener extends IListener {
 
             if (teamProvider.getTeamType() != TeamType.NO_TEAMS) {
                 if (event.getMessage().startsWith("@")) {
-                    profile.getPlayer().performCommand("teamchat " + event.getMessage().replaceFirst("@", ""));
+                    Bukkit.getScheduler().runTask(plugin, () -> {
+                        profile.getPlayer().performCommand("teamchat " + event.getMessage().replaceFirst("@", ""));
+                    });
                     return;
                 }
             }

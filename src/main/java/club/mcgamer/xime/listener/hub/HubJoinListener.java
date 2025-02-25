@@ -29,7 +29,7 @@ public class HubJoinListener extends IListener {
             player.setLevel(serverable.getServerId());
             player.teleport(serverable.getSpawnLocation());
 
-            new TextShineAnimation(plugin, profile, "You joined MCGamer Hub " + serverable.getServerId());
+            new TextShineAnimation(plugin, profile, "You joined SGHQ Hub " + serverable.getServerId());
             //profile.sendAction("&6&lYou joined MCGamer Hub " + serverable.getServerId());
 
             player.getInventory().setItem(0, new ItemBuilder(Material.COMPASS)
@@ -49,7 +49,7 @@ public class HubJoinListener extends IListener {
                     .build());
 
             player.getInventory().setItem(7, new ItemBuilder(Material.GOLD_INGOT)
-                    .name("&e&lMCGamer Credit Shop &7- Right click to access the shop!")
+                    .name("&e&lSGHQ Credit Shop &7- Right click to access the shop!")
                     .build());
 
             player.getInventory().setItem(8, new ItemBuilder(Material.NETHER_STAR)
@@ -62,7 +62,7 @@ public class HubJoinListener extends IListener {
                     .sendMessage("&8[&eMCGamer&8] &7Hub chat is currently in &8Global &7mode.");
 
             profile.sendMessage("&8[&3Xime&8] &bAccess the shop with the &6Gold Bar&8!")
-                    .sendMessage("&8[&3Xime&8] &bYou have &61000 &bMCGamer Hub Credits&8.");
+                    .sendMessage("&8[&3Xime&8] &bYou have &61000 &bSGHQ Hub Credits&8.");
 
             if(profile.getPlayerData().isCanFly()) {
                 player.setAllowFlight(true);
@@ -71,7 +71,7 @@ public class HubJoinListener extends IListener {
 
             player.updateInventory();
 
-            Bukkit.getScheduler().runTaskLater(plugin, () -> profile.sendTitle("&6Hello " + profile.getNameBypassDisguise(), "&2Welcome to the &6MCGamer Club&2!", 10, 80, 10), 5);
+            Bukkit.getScheduler().runTaskLater(plugin, () -> profile.sendTitle("&6Hello " + profile.getNameBypassDisguise(), "&2Welcome to the &6SGHQ Network&2!", 10, 80, 10), 5);
         }
     }
 

@@ -49,10 +49,6 @@ public class ServerHandler {
             plugin.getWorldHandler().loadSlime(SGServerable.LOBBY_NAME + "-" + 3, SGServerable.LOBBY_NAME + 3);
         }, 40);
 
-        Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            plugin.getWorldHandler().loadSlime(SGServerable.LOBBY_NAME + "-" + 4, SGServerable.LOBBY_NAME + 4);
-        }, 50);
-
 
         Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             if (getByClass(StaffServerable.class).isEmpty())

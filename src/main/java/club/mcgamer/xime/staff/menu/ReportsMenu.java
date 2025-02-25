@@ -12,7 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class ReportsMenu extends FastInv {
 
     public ReportsMenu(Profile profile) {
-        super(54, "MCGamer Reports");
+        super(54, "SGHQ Reports");
 
         int index = 0;
         for(Report report : plugin.getReportHandler().getActiveReports()) {

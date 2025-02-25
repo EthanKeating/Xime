@@ -265,7 +265,7 @@ public class SGDamageListener extends IListener {
             serverable.announceRaw(String.format("&6A cannon can be heard in the distance in memorial for %s", victim.getDisplayName()));
 
             Bukkit.getScheduler().runTaskLater(plugin, () -> {
-                TextComponent message = new TextComponent(TextUtil.translate("&fWant to join &lAnother &6MCSG &fgame? Click &f&nHere&f!"));
+                TextComponent message = new TextComponent(TextUtil.translate("&fWant to join &lAnother &6SGHQ &fgame? Click &f&nHere&f!"));
 //                    serverSection.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{
 //                            new TextComponent(ColorUtil.translate(String.format("&e%s &f(%s)", serverable, serverable.getPlayers().size() + " player" + (serverable.getPlayers().size() == 1 ? "" : "s")))),
 //                            new TextComponent(ColorUtil.translate("\n\n&6Click to connect to this server"))

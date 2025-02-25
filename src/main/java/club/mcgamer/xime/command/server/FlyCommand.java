@@ -1,5 +1,6 @@
 package club.mcgamer.xime.command.server;
 
+import club.mcgamer.xime.bg.BGServerable;
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.data.entities.PlayerData;
 import club.mcgamer.xime.profile.Profile;
@@ -35,6 +36,10 @@ public class FlyCommand extends XimeCommand {
         generalData.setCanFly(!generalData.isCanFly());
 
         if ((profile.getServerable() instanceof SGServerable serverable) && serverable.getGameState() != GameState.LOBBY) {
+            profile.sendMessage(prefix + "&cYou cannot use this command right now.");
+            return true;
+        }
+        if ((profile.getServerable() instanceof BGServerable)) {
             profile.sendMessage(prefix + "&cYou cannot use this command right now.");
             return true;
         }

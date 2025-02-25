@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class HubMainMenu extends FastInv {
 
     public HubMainMenu(Profile profile) {
-        super(45, "MCGamer Network Navigation");
+        super(45, "SGHQ Network Navigation");
 
         int sgPlayers = plugin.getServerHandler().getByClass(SGServerable.class).stream().filter(serverable -> !(serverable instanceof SGMakerServerable))
                 .mapToInt(serverable -> serverable.getPlayerList().size())
@@ -104,13 +104,13 @@ public class HubMainMenu extends FastInv {
             }
         });
 
-        setItem(22, new ItemBuilder(Material.WATCH).name("             &2MCGamer Hub")
+        setItem(22, new ItemBuilder(Material.WATCH).name("             &2SGHQ Hub")
                 .lore(Arrays.asList(
                         "&8████████████████",
                         "",
                         String.format("&b       [ Join &e%s &bPlayer%s ]", hubPlayers, hubPlayers == 1 ? "" : "s"),
                         "",
-                        "&aUse the MCGamer hub to travel",
+                        "&aUse the SGHQ hub to travel",
                         "&a  between the different games.",
                         "&a    Take a moment to hang out",
                         "&a     and chat with friends, or",
@@ -129,7 +129,7 @@ public class HubMainMenu extends FastInv {
             }
         });
 
-        setItem(28, new ItemBuilder(Material.CHEST).name("&2  MCGamer Maker / MCSG Maker")
+        setItem(28, new ItemBuilder(Material.CHEST).name("&2  SGHQ Maker / MCSG Maker")
                 .lore(Arrays.asList(
                         "&8████████████████",
                         "",

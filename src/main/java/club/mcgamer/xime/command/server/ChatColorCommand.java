@@ -43,6 +43,7 @@ public class ChatColorCommand extends XimeCommand {
             case "&f":
             case "&b":
                 profile.setChatColor(TextUtil.translate(args[0]));
+//                profile.getPlayerData().setch
                 profile.sendMessage(prefix + "&fYour chat color now looks like " + TextUtil.translate(args[0]) + "this&8.");
                 return true;
             default:

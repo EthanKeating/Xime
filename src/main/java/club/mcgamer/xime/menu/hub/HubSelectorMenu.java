@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class HubSelectorMenu extends FastInv {
 
     public HubSelectorMenu(Profile profile) {
-        super(18, "MCGamer Hubs");
+        super(18, "SGHQ Hubs");
 
         List<HubServerable> hubServers = plugin.getServerHandler().getServerList().stream()
                 .filter(serverable -> serverable instanceof HubServerable)

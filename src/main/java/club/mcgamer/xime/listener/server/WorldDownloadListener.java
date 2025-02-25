@@ -25,6 +25,6 @@ public class WorldDownloadListener implements PluginMessageListener {
         Bukkit.getOnlinePlayers().stream()
                 .filter(loopPlayer -> loopPlayer.hasPermission("xime.admin"))
                 .forEach(loopPlayer -> loopPlayer.sendMessage(TextUtil.translate("&c" + player.getName() + " has been kicked for attempting to use World Downloader!")));
-        player.kickPlayer("&cYou are not allowed to use World Downloader on the MCGamer Network!");
+        player.kickPlayer("&cYou are not allowed to use World Downloader on the SGHQ Network!");
     }
 }

@@ -188,6 +188,8 @@ public class BGServerable extends Serverable {
     }
 
     public void setFighting(Profile profile, String direction) {
+        if (getSpawnLocations().get(direction) == null)
+            return;
         if (direction == null)
             direction = "center";
 

@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 
-public class MessageCommand  extends XimeCommand {
+public class MessageCommand extends XimeCommand {
 
     public MessageCommand() {
         super("msg");

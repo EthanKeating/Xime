@@ -76,7 +76,7 @@ public class SGServerable extends Serverable {
     }
 
     public String getPrefix() {
-        return "&8[&SGHQ&8] &f";
+        return "&8[&6SGHQ&8] &f";
     }
 
     public void add(Profile profile) {

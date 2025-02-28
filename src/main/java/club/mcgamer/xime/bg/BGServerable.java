@@ -66,7 +66,7 @@ public class BGServerable extends Serverable {
         List<String> mapPool = new ArrayList<>(plugin.getMapHandler().getBgMapPool().keySet());
         Collections.shuffle(mapPool);
 
-        currentMapId = mapPool.get(0); //randomly select this, or intead of random have it ascending
+        currentMapId = mapPool.get(0); //randomly select this, or instead of random have it ascending
 
         spawnLocations = new HashMap<>();
         sortedLeaderboard = new ArrayList<>();

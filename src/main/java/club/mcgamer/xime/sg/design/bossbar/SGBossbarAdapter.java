@@ -20,7 +20,8 @@ public class SGBossbarAdapter extends BossbarAdapter {
     public String getTitle(Profile profile) {
         Language language = profile.getLanguage();
 
-        SGServerable serverable = (SGServerable) profile.getServerable();
+        if (!(profile.getServerable() instanceof SGServerable serverable)) return "";
+
         String prefix = serverable.getPrefix();
         if (serverable.getGameState() == GameState.ENDGAME) {
             if (serverable.getCurrentRunnable() == null || (!(serverable.getCurrentRunnable() instanceof EndGameRunnable)))
@@ -41,7 +42,9 @@ public class SGBossbarAdapter extends BossbarAdapter {
 
     @Override
     public float getHealth(Profile profile) {
-        SGServerable serverable = (SGServerable) profile.getServerable();
+
+        if (!(profile.getServerable() instanceof SGServerable serverable)) return 300.0f;
+
         GameTimer gameTimer = serverable.getGameTimer();
 
         if (serverable.getCurrentRunnable() == null)

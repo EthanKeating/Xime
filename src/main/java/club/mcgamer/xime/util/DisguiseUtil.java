@@ -81,7 +81,7 @@ public class DisguiseUtil {
                 profile.getServerable().getPlayerList().stream().map(Profile::getPlayer).forEach(loopPlayer -> {
                     loopPlayer.showPlayer(profile.getPlayer());
                 });
-                }, 3);
+                }, 10);
         });
     }
 

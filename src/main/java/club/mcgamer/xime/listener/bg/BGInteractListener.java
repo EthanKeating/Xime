@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class BGInteractListener extends IListener {
@@ -24,7 +25,6 @@ public class BGInteractListener extends IListener {
         Profile profile = plugin.getProfileHandler().getProfile(player);
 
         if (!(profile.getServerable() instanceof BGServerable serverable)) return;
-
         if (event.getClickedBlock() == null) return;
 
         Block block = event.getClickedBlock();

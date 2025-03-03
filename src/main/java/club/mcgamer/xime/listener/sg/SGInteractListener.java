@@ -19,6 +19,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerBucketEmptyEvent;
+import org.bukkit.event.player.PlayerBucketFillEvent;
 
 public class SGInteractListener extends IListener {
 
@@ -41,6 +43,24 @@ public class SGInteractListener extends IListener {
                 case RESTARTING:
                     event.setCancelled(true);
             }
+        }
+    }
+
+    @EventHandler
+    private void onSGBucketFill(PlayerBucketFillEvent event) {
+        Player player = event.getPlayer();
+        Profile profile = plugin.getProfileHandler().getProfile(player);
+        if (profile.getServerable() instanceof SGServerable serverable) {
+            event.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    private void onSGBucketEmpty(PlayerBucketEmptyEvent event) {
+        Player player = event.getPlayer();
+        Profile profile = plugin.getProfileHandler().getProfile(player);
+        if (profile.getServerable() instanceof SGServerable serverable) {
+            event.setCancelled(true);
         }
     }
 
@@ -104,6 +124,8 @@ public class SGInteractListener extends IListener {
             }
         }
     }
+
+
 
     @EventHandler
     private void onSGInteract(ServerInteractEvent event) {

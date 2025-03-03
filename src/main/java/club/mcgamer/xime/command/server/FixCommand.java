@@ -31,8 +31,10 @@ public class FixCommand extends XimeCommand {
         Location backLocation = player.getLocation().add(0.0, 0.3, 0.0);
 
         player.teleport(toLocation);
-        player.teleport(backLocation);
-        profile.sendMessage(profile.getServerable().getPrefix() + "&fYou have been de-ghosted&8.");
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            player.teleport(backLocation);
+            profile.sendMessage(profile.getServerable().getPrefix() + "&fYou have been de-ghosted&8.");
+        }, 3L);
 
         return true;
     }

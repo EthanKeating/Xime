@@ -2,6 +2,7 @@ package club.mcgamer.xime.command.server;
 
 import club.mcgamer.xime.command.XimeCommand;
 import club.mcgamer.xime.profile.Profile;
+import club.mcgamer.xime.profile.data.temporary.CooldownData;
 import club.mcgamer.xime.sg.SGServerable;
 import club.mcgamer.xime.sg.state.GameState;
 import org.bukkit.command.CommandSender;
@@ -31,10 +32,15 @@ public class DisguiseCommand extends XimeCommand {
         Profile profile = plugin.getProfileHandler().getProfile(player);
         String prefix = profile.getServerable().getPrefix();
 
+        CooldownData cooldownData = profile.getCooldownData();
+        if (cooldownData.hasAnnounceCooldown(5)) return true;
+
+
         if (profile.getServerable() instanceof SGServerable serverable && serverable.getGameState() != GameState.LOBBY) {
             profile.sendMessage(prefix + "&4You cannot use this command right now&8.");
             return true;
         }
+        cooldownData.setAnnounceCooldown();
         plugin.getDisguiseHandler().disguise(profile);
 
         return true;

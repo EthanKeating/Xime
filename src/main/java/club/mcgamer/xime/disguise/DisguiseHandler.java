@@ -21,7 +21,7 @@ import java.util.UUID;
 public class DisguiseHandler {
 
     @Getter
-    private HashMap<UUID, DisguiseData> disguises = new HashMap<>();
+    private HashMap<UUID, Long> disguises = new HashMap<>();
     private final XimePlugin plugin;
 
     public DisguiseHandler(XimePlugin plugin) {
@@ -43,7 +43,6 @@ public class DisguiseHandler {
                     skin));
 
             profile.getDisguiseData().setMockData(PlayerData.createMock(profile));
-            disguises.put(profile.getUuid(), profile.getDisguiseData());
 
             DisguiseUtil.setSkin(profile, skin);
             DisguiseUtil.setName(profile, randomName);

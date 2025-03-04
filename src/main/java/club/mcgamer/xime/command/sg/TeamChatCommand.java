@@ -22,7 +22,6 @@ public class TeamChatCommand extends XimeCommand {
         this.description = "send a team message";
         this.usageMessage = "/teamchat <message>";
         this.setAliases(Arrays.asList("tc"));
-        setPermission("xime.staff");
 
         register();
     }
@@ -40,7 +39,6 @@ public class TeamChatCommand extends XimeCommand {
         if (!isCorrectServerable(sender, profile.getServerable(), SGServerable.class, SGMakerServerable.class)) return true;
 
         SGServerable serverable = (SGServerable) profile.getServerable();
-
         SGTeamProvider teamProvider = serverable.getGameSettings().getTeamProvider();
 
         if (teamProvider.getTeamType() == TeamType.NO_TEAMS) {

@@ -60,6 +60,9 @@ public class SGDropListener extends IListener {
             if (serverable.getGameState() == GameState.LOBBY || serverable.getGameState() == GameState.LOADING || serverable.getGameState() == GameState.PREGAME) {
                 event.getEvent().setCancelled(true);
             }
+            if (serverable.getSpectatorList().contains(profile)) {
+                event.getEvent().setCancelled(true);
+            }
         }
     }
 

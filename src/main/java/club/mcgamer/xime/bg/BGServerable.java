@@ -211,6 +211,13 @@ public class BGServerable extends Serverable {
         int gapSlot = playerData.getBgGapSlot();
         int arrowSlot = playerData.getBgArrowSlot();
 
+        final Set<Integer> slotSet = new HashSet<>();
+        int[] slots = {swordSlot, rodSlot, bowSlot, fnsSlot, gapSlot, arrowSlot};
+
+        for (int slot : slots)
+            if (slot < 0 || slot > 8 || !slotSet.add(slot))
+                resetSlots(profile);
+
         player.getInventory().setItem(swordSlot, new ItemBuilder(Material.IRON_SWORD).unbreakable().build());
         player.getInventory().setItem(rodSlot, new ItemBuilder(Material.FISHING_ROD).unbreakable().build());
         player.getInventory().setItem(bowSlot, new ItemBuilder(Material.BOW).unbreakable().build());
@@ -224,6 +231,15 @@ public class BGServerable extends Serverable {
         player.getInventory().setBoots(new ItemBuilder(Material.IRON_BOOTS).unbreakable().build());
 
 
+    }
+
+    private void resetSlots(Profile profile) {
+        profile.getPlayerData().setBgSwordSlot(0);
+        profile.getPlayerData().setBgRodSlot(1);
+        profile.getPlayerData().setBgBowSlot(2);
+        profile.getPlayerData().setBgFNSSlot(3);
+        profile.getPlayerData().setBgGapSlot(4);
+        profile.getPlayerData().setBgGapSlot(8);
     }
 
 }

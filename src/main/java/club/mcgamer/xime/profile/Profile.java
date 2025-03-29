@@ -120,8 +120,6 @@ public class Profile {
                         .forEach(otherRank -> {
                             otherRank.getPermissions().forEach(permission -> player.addAttachment(plugin, permission, true));
                         });
-
-
     }
 
     public void setRank(String rankName) {

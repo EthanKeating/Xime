@@ -36,17 +36,17 @@ public class GameRunnable extends BukkitRunnable {
             return;
 
         HashMap<MapLocation, Long> placedBlocks = serverable.getPlacedBlocks();
-        HashSet<MapLocation> removeableBlocks = new HashSet<>();
+        HashSet<MapLocation> removableBlocks = new HashSet<>();
 
         for(Map.Entry<MapLocation, Long> entry : placedBlocks.entrySet()) {
             MapLocation mapLocation = entry.getKey();
             long timeStamp = entry.getValue();
 
             if (System.currentTimeMillis() - timeStamp > 5 * 1000)
-                removeableBlocks.add(mapLocation);
+                removableBlocks.add(mapLocation);
         }
 
-        for(MapLocation removableBlock : removeableBlocks) {
+        for(MapLocation removableBlock : removableBlocks) {
             removableBlock.toBukkit(serverable.getWorld()).getBlock().setType(Material.AIR);
             placedBlocks.remove(removableBlock);
         }

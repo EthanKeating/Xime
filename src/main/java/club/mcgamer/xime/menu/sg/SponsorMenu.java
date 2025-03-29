@@ -47,6 +47,10 @@ public class SponsorMenu extends FastInv {
                     profile.sendMessage(prefix + "&4You do not have enough points&8.");
                     return;
                 }
+                if (!serverable.getTributeList().contains(sponsored)) {
+                    profile.sendMessage(prefix + "&cYou cannot sponsor that player!");
+                    return;
+                }
 
                 sponsorItem.getValue().set(-1);
 

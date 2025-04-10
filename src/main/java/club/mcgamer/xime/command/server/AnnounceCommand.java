@@ -64,7 +64,7 @@ public class AnnounceCommand extends XimeCommand {
                 return true;
             }
 
-            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&l&nClick Here!", profile.getDisplayName(), sgMakerServerable)));
+            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eSGHQ&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&l&nClick Here!", profile.getDisplayName(), sgMakerServerable)));
             message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/join sgmaker " + sgMakerServerable.getServerId()));
             message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent(TextUtil.translate(String.format("&fClick to join &8[&6EU%s&8]", sgMakerServerable.toString()))) }));
             plugin.getProfileHandler().getProfiles().forEach(loopProfile -> {
@@ -80,7 +80,7 @@ public class AnnounceCommand extends XimeCommand {
                 return true;
             }
 
-            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&l&nClick Here!", profile.getDisplayName(), sgServerable)));
+            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eSGHQ&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&l&nClick Here!", profile.getDisplayName(), sgServerable)));
             message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/join sg " + sgServerable.getServerId()));
             message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent(TextUtil.translate(String.format("&fClick to join &8[&6EU%s&8]", sgServerable.toString()))) }));
             plugin.getProfileHandler().getProfiles().forEach(loopProfile -> {
@@ -91,7 +91,7 @@ public class AnnounceCommand extends XimeCommand {
         }
 
         if (profile.getServerable() instanceof BGServerable bgServerable) {
-            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eMCGamer&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&lClick Here!", profile.getDisplayName(), bgServerable)));
+            TextComponent message = new TextComponent(TextUtil.translate(String.format("&8[&eSGHQ&8] &f%s &fwould like you to join &8[&6EU%s&8] &f&lClick Here!", profile.getDisplayName(), bgServerable)));
             message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/join bg " + bgServerable.getServerId()));
             message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{new TextComponent(TextUtil.translate("&aClick to join " + TextUtil.translate(String.format("&fClick to join &8[&6EU%s&8]", bgServerable.toString())))) }));
             plugin.getProfileHandler().getProfiles().forEach(loopProfile -> {

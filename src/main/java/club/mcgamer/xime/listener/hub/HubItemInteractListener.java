@@ -54,10 +54,10 @@ public class HubItemInteractListener extends IListener {
                     hubTemporaryData.setHidePlayers(!hubTemporaryData.isHidePlayers());
 
                     if (hubTemporaryData.isHidePlayers()) {
-                        profile.sendMessage("&8[&eMCGamer&8] &aAll players are now hidden.");
+                        profile.sendMessage("&8[&eSGHQ&8] &aAll players are now hidden.");
                         hubServerable.getPlayerList().forEach(loopPlayer -> player.hidePlayer(loopPlayer.getPlayer()));
                     } else {
-                        profile.sendMessage("&8[&eMCGamer&8] &aAll players are now shown.");
+                        profile.sendMessage("&8[&eSGHQ&8] &aAll players are now shown.");
                         hubServerable.getPlayerList().forEach(loopPlayer -> player.showPlayer(loopPlayer.getPlayer()));
                     }
                     break;
@@ -79,11 +79,11 @@ public class HubItemInteractListener extends IListener {
                             break;
                     }
                     hubTemporaryData.setHubSpeed(newHubSpeed);
-                    profile.sendMessage(String.format("&8[&eMCGamer&8] &fMovement speed set to %s.", newHubSpeed.getName()));
+                    profile.sendMessage(String.format("&8[&eSGHQ&8] &fMovement speed set to %s.", newHubSpeed.getName()));
 
                     break;
                 case EMERALD: //https://mcgamer.club/store/
-                    TextComponent message = new TextComponent(TextUtil.translate("&8[&eMCGamer&8] &fClick "));
+                    TextComponent message = new TextComponent(TextUtil.translate("&8[&eSGHQ&8] &fClick "));
                     TextComponent linkSection = new TextComponent(TextUtil.translate("&6&nhere&f"));
 //                    serverSection.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{
 //                            new TextComponent(ColorUtil.translate(String.format("&e%s &f(%s)", serverable, serverable.getPlayers().size() + " player" + (serverable.getPlayers().size() == 1 ? "" : "s")))),

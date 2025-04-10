@@ -95,6 +95,7 @@ public class CommandHandler {
         new MakerCommand();
         new SecretCommand();
         new StaffChatCommand();
+        new ResetStatsCommand();
         new StaffListCommand();
         new InviteCommand();
         new FindCommand();

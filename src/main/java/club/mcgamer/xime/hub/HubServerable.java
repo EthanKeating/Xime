@@ -44,7 +44,7 @@ public class HubServerable extends Serverable {
     }
 
     public String getPrefix() {
-        return "&8[&eMCGamer&8] &f";
+        return "&8[&eSGHQ&8] &f";
     }
 
     public TemporaryData createTemporaryData() {

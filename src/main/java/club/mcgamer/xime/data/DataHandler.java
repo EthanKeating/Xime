@@ -94,6 +94,11 @@ public class DataHandler {
     }
 
     @SneakyThrows
+    public List<PlayerData> getPlayerData() {
+        return playerDataDao.queryForAll();
+    }
+
+    @SneakyThrows
     public void rankPlayerData() {
         long startTime = System.currentTimeMillis();
 

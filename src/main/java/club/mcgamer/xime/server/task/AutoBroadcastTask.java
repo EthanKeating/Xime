@@ -31,6 +31,6 @@ public class AutoBroadcastTask extends BukkitRunnable {
         if (++broadcastIndex >= broadcastMessages.size())
             broadcastIndex = 0;
 
-        Bukkit.getOnlinePlayers().forEach(player -> player.sendMessage(TextUtil.translate("&8[&eMCGamer&8] &f" + broadcastMessages.get(broadcastIndex))));
+        Bukkit.getOnlinePlayers().forEach(player -> player.sendMessage(TextUtil.translate("&8[&eSGHQ&8] &f" + broadcastMessages.get(broadcastIndex))));
     }
 }

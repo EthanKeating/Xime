@@ -67,7 +67,7 @@ public class SGServerable extends Serverable {
     public SGServerable() {
         super();
 
-        lobbyId = (getServerId() % LOBBY_COUNT) + 1;
+        lobbyId = ((getServerId() - 1) % LOBBY_COUNT) + 1;
 
         setup();
 

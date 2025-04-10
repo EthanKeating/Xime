@@ -14,8 +14,8 @@ public class PlayerLoginListener extends IListener {
 
         Player player = event.getPlayer();
 
-        String disallowMessage = TextUtil.translate("&8[&eMCGamer&8]" +
-                "\n&7The MCGamer Development Server is currently &cWhitelisted" +
+        String disallowMessage = TextUtil.translate("&8[&SGHQ&8]" +
+                "\n&7The SGHQ Development Server is currently &cWhitelisted" +
                 "\n&7For more information, join our Discord&8:" +
                 "\n&6https://discord.gg/Twyqpa8tqZ");
 

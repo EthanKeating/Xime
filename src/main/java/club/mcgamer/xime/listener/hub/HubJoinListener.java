@@ -58,8 +58,8 @@ public class HubJoinListener extends IListener {
 
             profile.sendMessage("&6You have &a0 &6online friend(s) and &a0 &6request(s) pending!")
                     .sendMessage("")
-                    .sendMessage("&8[&eMCGamer&8] &7Want to change your movement speed&8? &aUse the &2Minecart in your hotbar!")
-                    .sendMessage("&8[&eMCGamer&8] &7Hub chat is currently in &8Global &7mode.");
+                    .sendMessage("&8[&eSGHQ&8] &7Want to change your movement speed&8? &aUse the &2Minecart in your hotbar!")
+                    .sendMessage("&8[&eSGHQ&8] &7Hub chat is currently in &8Global &7mode.");
 
             profile.sendMessage("&8[&3Xime&8] &bAccess the shop with the &6Gold Bar&8!")
                     .sendMessage("&8[&3Xime&8] &bYou have &61000 &bSGHQ Hub Credits&8.");

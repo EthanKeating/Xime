@@ -42,7 +42,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class SGServerable extends Serverable {
 
     public static final String LOBBY_NAME = "Lobby";
-    public static final int LOBBY_COUNT = 3;
+    public static final int LOBBY_COUNT = 4;
 
     protected AbstractGameRunnable currentRunnable;
     @Setter protected GameTimer gameTimer;

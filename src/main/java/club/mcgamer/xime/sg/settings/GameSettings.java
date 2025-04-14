@@ -19,7 +19,7 @@ public class GameSettings {
     private final SGServerable serverable;
     protected SGTeamProvider teamProvider;
 
-    private int minimumPlayers = 5;
+    private int minimumPlayers = 4;
     private int maximumPlayers = 24;
     private int deathmatchPlayers = 3;
 

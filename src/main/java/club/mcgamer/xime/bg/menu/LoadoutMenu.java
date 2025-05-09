@@ -17,6 +17,8 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 
+import java.util.HashSet;
+
 @RequiredArgsConstructor
 public class LoadoutMenu extends IListener {
 
@@ -81,11 +83,13 @@ public class LoadoutMenu extends IListener {
                 case ARROW -> slots[5] = i;
             }
         }
+        HashSet<Integer> slotSet = new HashSet<>();
         for (int slot : slots) {
-            if (slot > 8 || slot < 0) {
+            if (slotSet.contains(slot) || slot > 8 || slot < 0) {
                 profile.sendMessage(serverable.getPrefix() + "&cUnable to save loadout, missing an item.");
                 return;
             }
+            slotSet.add(slot);
         }
         playerData.setBgSwordSlot(slots[0]);
         playerData.setBgRodSlot(slots[1]);

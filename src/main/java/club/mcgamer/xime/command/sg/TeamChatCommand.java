@@ -31,7 +31,6 @@ public class TeamChatCommand extends XimeCommand {
 
         if(!isPlayer(sender)) return true;
         if (!hasArgs(sender, args, 1)) return true;
-        if(!hasPermission(sender)) return true;
 
         Player player = (Player) sender;
         Profile profile = plugin.getProfileHandler().getProfile(player);

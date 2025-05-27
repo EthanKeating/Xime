@@ -196,6 +196,8 @@ public class Profile {
         if (getPlayer() == null)
             return "";
 
+
+
         if (disguiseData != null && rank == RankHandler.DEFAULT_RANK)
             return TextUtil.translate("&f");
 

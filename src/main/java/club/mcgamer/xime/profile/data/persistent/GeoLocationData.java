@@ -16,7 +16,8 @@ import java.time.ZoneId;
 @Getter @Setter
 public class GeoLocationData {
 
-    private static final String API_KEY = "f42622ca3d29fc3bff5034ef3a58cc1c2fbb585bd4e85b78ea3c9065";
+    //Removed & Revoked API Key
+    private static final String API_KEY = "";
 
     private final String ipAddress;
 

@@ -4,7 +4,7 @@ mysql:
   database: "your_database_name"
   username: "your_username"
   password: "your_password"
-webhook: "https://discord.com/api/webhooks/1326655138076561468/LTFoWPmuu2G1R1zbOktzobO5Gmqu3u4lhGeu_tarYzCG2Ju9vQ-H7FGzi7s5wfyiRyGw"
+webhook: ""
 server:
   motd: "&8[&eMCGamer&8] &6&l1.7 &7& &6&l1.8 &2Alpha Wave &c#5.0.0\n&4Full recode in progress"
   version: "5.0.0"

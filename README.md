@@ -53,3 +53,37 @@ This approach allowed new game modes to be developed rapidly, often within a sin
 - 12 GB memory  
 - 20.0 TPS, <5ms tick times
 
+Each instance behaves like its own "virtual server" while sharing the same JVM, drastically reducing CPU and memory overhead compared to traditional server-per-game setups.
+
+---
+
+## Requirements
+
+- Spigot or Paper 1.8.8 with ViaVersion
+- Java 17+
+- Slime World Manager-compatible `.slime` worlds
+- At least 8 GB RAM (12 GB recommended for 40+ virtual servers)
+
+---
+
+## Getting Started
+
+1. Place `Xime.jar` into your server’s `plugins` folder.
+2. Convert your game maps into `.slime` format.
+3. Create new game modes by extending the `Serverable` class.
+45. Start developing fast and efficiently.
+
+---
+
+## License
+
+This project is licensed under the MIT License. See `LICENSE` for more information.
+
+---
+
+## Final Notes
+
+This plugin served as a cost-effective, high-performance alternative to spinning up multiple Spigot servers or running Docker containers. It acted as a virtualized Minecraft server environment within a single JVM and helped reduce infrastructure costs while keeping development fast and efficient.
+
+If you find it useful, feel free to fork, star, or learn from it.
+

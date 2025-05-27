@@ -47,7 +47,7 @@ This approach allowed new game modes to be developed rapidly, often within a sin
 ## Real-World Usage Stats (Production)
 
 - 40+ virtual servers running concurrently  
-- **60+ concurrent players on average**  
+- 60+ concurrent players (Tested with 200+ bots aswell)
 - 2 CPU cores  
 - 12 GB memory  
 - 20.0 TPS, <5ms tick times

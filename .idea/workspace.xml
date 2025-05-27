@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4ffb7ecb-45cb-4f25-86b5-5f642de26fe2" name="Changes" comment="Changed prefixes a bit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/bg/menu/LoadoutMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/bg/menu/LoadoutMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/TeamChatCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/club/mcgamer/xime/command/sg/TeamChatCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -287,7 +285,10 @@
       <workItem from="1746048011122" duration="711000" />
       <workItem from="1746231778030" duration="1031000" />
       <workItem from="1746497905544" duration="1729000" />
-      <workItem from="1746810240222" duration="11000" />
+      <workItem from="1746810240222" duration="3916000" />
+      <workItem from="1747431033411" duration="682000" />
+      <workItem from="1747515417108" duration="593000" />
+      <workItem from="1747862265039" duration="1792000" />
     </task>
     <task id="LOCAL-00004" summary="Updates">
       <option name="closed" value="true" />

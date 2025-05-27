@@ -1,6 +1,7 @@
 # Xime (MCGamer Club Core)
 
 **Status: Archived / No longer maintained**  
+This plugin was created for MCGamer Club, which is now retired & renamed to SGHQ
 This plugin is no longer in use and is being open-sourced for learning purposes and preservation. It was developed for MCGamerClub, a revival of the original MCGamer Network.
 
 ---
